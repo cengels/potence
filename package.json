@@ -2,11 +2,16 @@
   "name": "nitrous",
   "version": "0.0.1",
   "description": "A tiny modularized JavaScript library containing a variety of convenience functions.",
+  "keywords": ["utility", "convenience", "array", "object", "number", "nullable", "range", "string", "assert"],
+  "homepage": "https://github.com/cengels/nitrous",
+  "bugs": "https://github.com/cengels/nitrous/issues",
   "main": "index.ts",
+  "readme": "README.md",
+  "repository": "https://github.com/cengels/nitrous",
   "scripts": {
     "test": "jest"
   },
-  "author": "cengels",
+  "author": "Christopher Engels <cengels@tuta.io> (https://www.cengels.com)",
   "license": "MIT",
   "dependencies": {
     "typescript": "^3.9.3"
