@@ -1,0 +1,32 @@
+{
+    "compilerOptions": {
+      "baseUrl": ".",
+      "paths": {
+        "*": [
+          "types/*"
+        ]
+      },
+      "outDir": "./dist/",
+      "noImplicitReturns": true,
+      "strict": true,
+      "noUnusedLocals": false,
+      "strictNullChecks": true,
+      "module": "es6",
+      "moduleResolution": "node",
+      "target": "es6",
+      "allowJs": false,
+      "sourceMap": true,
+      "allowSyntheticDefaultImports": true,
+      "removeComments": true,
+      "forceConsistentCasingInFileNames": true,
+      "emitDecoratorMetadata": true,
+      "experimentalDecorators": true,
+      "lib": [
+        "DOM",
+        "ES2020"
+      ],
+      "plugins": [ ]
+    },
+    "exclude": [
+    ]
+  }

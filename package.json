@@ -1,0 +1,19 @@
+{
+  "name": "nitrous",
+  "version": "0.0.1",
+  "description": "A tiny modularized JavaScript library containing a variety of convenience functions.",
+  "main": "index.ts",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "cengels",
+  "license": "MIT",
+  "dependencies": {
+    "typescript": "^3.9.3"
+  },
+  "devDependencies": {
+    "@types/jest": "^26.0.3",
+    "jest": "^26.1.0",
+    "ts-jest": "^26.1.1"
+  }
+}
