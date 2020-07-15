@@ -8,7 +8,6 @@
  * the difference in performance makes up barely 30 ms.
  */
 namespace Arrays {
-    // test forEach performance
     /** Returns a copy of the specified array. */
     export function clone<T>(array: T[]): T[] {
         return array.slice();
