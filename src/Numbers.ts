@@ -32,7 +32,6 @@ namespace Numbers {
 
     /**
      * Gets the center of the specified numbers.
-     * @expect [5, 7] toBe 6
      */
     export function center(...values: number[]): number {
         if (values.length === 0) {
