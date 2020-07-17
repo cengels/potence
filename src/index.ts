@@ -1,4 +1,5 @@
 export * from './Arrays';
+export * from './Range';
 export * from './Numbers';
 export * from './Objects';
 export * from './Strings';
