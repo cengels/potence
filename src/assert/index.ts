@@ -26,7 +26,7 @@
  * }
  */
 
-class AssertionError extends Error {
+export class AssertionError extends Error {
     public constructor(message?: string) {
         super(message);
 
@@ -74,21 +74,31 @@ export function that(condition: boolean, failureMessage?: string): void {
 }
 
 /**
- * Throws an assertion error if the condition is not truthy and
+ * Throws an assertion error if the value is not truthy and
  * optionally supplies the error with the given failure message.
  */
-export function truthy(condition: any, failureMessage: string = 'expression was not truthy.'): void {
-    if (!condition) {
+export function truthy(value: any, failureMessage: string = 'expression was not truthy.'): void {
+    if (!value) {
         throw assertionError(failureMessage);
     }
 }
 
 /**
- * Throws an assertion error if the condition is not falsy and
+ * Throws an assertion error if the value is not falsy and
  * optionally supplies the error with the given failure message.
  */
-export function falsy(condition: any, failureMessage: string = 'expression was not falsy.'): void {
-    if (condition) {
+export function falsy(value: any, failureMessage: string = 'expression was not falsy.'): void {
+    if (value) {
+        throw assertionError(failureMessage);
+    }
+}
+
+/**
+ * Throws an assertion error if the value is null or undefined.
+ * Useful for checking the existence of mandatory arguments.
+ */
+export function notNull(value: any, failureMessage: string = 'expression was null.'): void {
+    if (value == null) {
         throw assertionError(failureMessage);
     }
 }
@@ -98,10 +108,21 @@ export function falsy(condition: any, failureMessage: string = 'expression was n
  * did not meet the specified condition and optionally supplies
  * the error with the given failure message.
  */
-export function every<T>(array: T[], predicate: (value: T) => boolean, failureMessage?: string): void {
+export function every<T>(array: T[], predicate: (value: T) => boolean, failureMessage: string = 'not all elements matched the specified predicate.'): void {
     array.forEach((value, index) => {
         if (!predicate(value)) {
             throw assertionError(failureMessage, `Assertion failed at index ${index}`);
         }
     });
+}
+
+/**
+ * Throws an assertion error if none of the array elements
+ * meet the specified condition and optionally supplies
+ * the error with the given failure message.
+ */
+export function some<T>(array: T[], predicate: (value: T) => boolean, failureMessage: string = 'no elements matched the specified predicate.'): void {
+    if (!array.some(predicate)) {
+        throw assertionError(failureMessage, `Assertion failed`);
+    }
 }
