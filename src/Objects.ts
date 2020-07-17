@@ -1,4 +1,18 @@
+import { BaseType, BaseToType, Constructor, ObjectLiteral } from './types';
+
 namespace Objects {
+    export interface Structure {
+        [property: string]: Structure | Constructor | Exclude<BaseType, 'object' | 'undefined'> | 'array';
+    }
+    export type MappedStructure<T extends Structure> = {
+        [P in keyof T]: T[P] extends Structure ? MappedStructure<T[P]>
+            : T[P] extends Constructor<infer C> ? C
+            // This error is unavoidable since type guards
+            // do not work on array values.
+            // @ts-expect-error
+            : BaseToType<T[P]>;
+    }
+
     export enum Comparison {
         /** Only compares the first level of keys and values. Compares nested objects by reference only. */
         Shallow,
@@ -43,6 +57,42 @@ namespace Objects {
         for (let key in object2) {
             if (!keys.includes(key)) {
                 return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * Checks if the passed object literal conforms to the given structure.
+     */
+    export function structure<T extends Structure>(object: ObjectLiteral, struct: T): object is MappedStructure<T> {
+        if (typeof object !== 'object' || typeof struct !== 'object') {
+            throw new Error('Objects.structure(): must pass an object!');
+        }
+
+        for (const property in object) {
+            const objectValue = object[property];
+            const expectedType = struct[property];
+
+            if (expectedType == null) {
+                return false;
+            } else if (typeof expectedType === 'string') {
+                if (expectedType === 'array') {
+                    if (!Array.isArray(objectValue)) {
+                        return false;
+                    }
+                } else if (typeof objectValue !== expectedType) {
+                    return false;
+                }
+            } else if (expectedType.prototype != null) {
+                if (!(objectValue instanceof (expectedType as Constructor))) {
+                    return false;
+                }
+            } else {
+                if (!structure(objectValue, expectedType as Structure)) {
+                    return false;
+                }
             }
         }
 
