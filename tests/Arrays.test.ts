@@ -37,3 +37,42 @@ describe('Arrays.remove() should', () => {
         expect(() => Arrays.remove(source, 4)).toThrowError();
     });
 });
+
+describe('Arrays.replace() should', () => {
+    it('replace an array element', () => expect(Arrays.replace([1, 3, 5], 3, 6)).toEqual([1, 6, 5]));
+});
+
+describe('Arrays.type() should return', () => {
+    it('true if all elements are strings', () => expect(Arrays.type(['foo', 'bar'], 'string')).toBe(true));
+    it('true if all elements are numbers', () => expect(Arrays.type([1, 4, 15, 120], 'number')).toBe(true));
+    it('true if array is empty', () => expect(Arrays.type([], 'number')).toBe(true));
+    it('false if not all elements are numbers', () => expect(Arrays.type([1, 4, 'string', 120], 'number')).toBe(false));
+    it('false if some elements are null', () => expect(Arrays.type([1, 4, null, 120], 'number')).toBe(false));
+    it('false if some elements are undefined', () => expect(Arrays.type([1, 4, undefined, 120], 'number')).toBe(false));
+    it('true if elements match constructor', () => expect(Arrays.type([new Date(), new Date()], Date)).toBe(true));
+});
+
+describe('Arrays.sort() should', () => {
+    describe('for numbers', () => {
+        it('properly sort an array (ascending)', () => expect(Arrays.sort([5, 3, 8])).toEqual([3, 5, 8]));
+        it('properly sort an array (descending)', () => expect(Arrays.sort([5, 3, 8], 'descending')).toEqual([8, 5, 3]));
+    });
+    describe('for strings', () => {
+        it('properly sort an array (ascending)', () => expect(Arrays.sort(['bananas', 'apples', 'pomegranate'])).toEqual(['apples', 'bananas', 'pomegranate']));
+        it('properly sort an array (descending)', () => expect(Arrays.sort(['bananas', 'apples', 'pomegranate'], 'descending')).toEqual(['pomegranate', 'bananas', 'apples']));
+    });
+    describe('for dates', () => {
+        it('properly sort an array (ascending)', () => {
+            const date1 = new Date(2020, 5, 18);
+            const date2 = new Date(2021, 2, 12);
+            const date3 = new Date(2021, 8, 5);
+            expect(Arrays.sort([date2, date3, date1])).toEqual([date1, date2, date3]);
+        });
+        it('properly sort an array (descending)', () => {
+            const date1 = new Date(2020, 5, 18);
+            const date2 = new Date(2021, 2, 12);
+            const date3 = new Date(2021, 8, 5);
+            expect(Arrays.sort([date2, date3, date1], 'descending')).toEqual([date3, date2, date1]);
+        });
+    });
+});

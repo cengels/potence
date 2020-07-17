@@ -53,7 +53,11 @@ export function remove<T>(array: T[], ...elements: T[]): T[] {
     return array;
 }
 
-/** Replaces the specified element with another and returns the original array. */
+/**
+ * Replaces the specified element with another and returns the original array.
+ *
+ * If the array contains multiples of the target element, it will only replace the first occurrence.
+ */
 export function replace<T>(array: T[], element: T, replacement: T): T[] {
     const index = array.indexOf(element);
 
@@ -98,6 +102,8 @@ export function type(array: readonly any[], type: BaseType | Constructor): boo
     return array.every(item => item instanceof type);
 }
 
+type SortOrder = 'ascending' | 'descending';
+
 /**
  * Sorts the array in the standard way according to the data type contained within.
  * Unsupported data types (like object literals or arrays) will throw an error.
@@ -111,26 +117,26 @@ export function type(array: readonly any[], type: BaseType | Constructor): boo
  * | `number`     | Hexadecimal       |
  * | `Date`       | Chronological     |
  *
- * @param descending If true, the sort will be in descending order (largest first).
- * If false, the sort will be in ascending order (smallest first). Default is false.
+ * @param order The order to sort in. Possible values are 'descending' (largest first)
+ * and 'ascending' (smallest first). Default is 'ascending'.
  */
-export function sort(array: number[], descending: boolean): number[];
-export function sort(array: string[], descending: boolean): string[];
-export function sort(array: Date[], descending: boolean): Date[];
-export function sort(array: any[], descending: boolean = false): any[] {
+export function sort(array: number[], order?: SortOrder): number[];
+export function sort(array: string[], order?: SortOrder): string[];
+export function sort(array: Date[], order?: SortOrder): Date[];
+export function sort(array: any[], order: SortOrder = 'ascending'): any[] {
     if (array.length <= 1) {
         // No sort necessary/possible.
         return array;
     }
 
     if (type(array, 'number')) {
-        return array.sort((a, b) => descending ? b - a : a - b);
+        return array.sort((a, b) => order === 'descending' ? b - a : a - b);
     }
 
     if (type(array, 'string')) {
         array.sort();
 
-        if (descending) {
+        if (order === 'descending') {
             array.reverse();
         }
 
@@ -138,7 +144,7 @@ export function sort(array: any[], descending: boolean = false): any[] {
     }
 
     if (type(array, Date)) {
-        return array.sort((a, b) => descending ? b.getTime() - a.getTime() : a.getTime() - b.getTime());
+        return array.sort((a, b) => order === 'descending' ? b.getTime() - a.getTime() : a.getTime() - b.getTime());
     }
 
     throw new Error('Arrays.sort(): Can\'t use sort() on an array that is not composed of numbers, strings, or Dates. Please use Array.prototype.sort() for other data types.');

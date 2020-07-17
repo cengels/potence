@@ -12,20 +12,19 @@ export type MappedStructure<T extends Structure> = {
         : BaseToType<T[P]>;
 }
 
-export enum Comparison {
-    /** Only compares the first level of keys and values. Compares nested objects by reference only. */
-    Shallow,
-    /** Recursively compares all levels of keys and values, meaning it properly compares nested objects as well. */
-    Deep
-}
+type ComparisonMode = 'shallow' | 'deep';
 
 /**
  * Does a shallow or deep compare of the two objects and returns a value indicating whether the two objects are equal.
  *
  * This is really only meant for literals, but you can technically pass any value here. It'll automatically fall back
  * to a standard `===` comparison if either of the values are not true objects.
+ *
+ * @param comparisonMode What kind of a comparison to apply. Possible values are 'shallow' (only compares the first level
+ * of keys and values; compares nested objects by reference only) and 'deep' (recursively compares all levels of keys and
+ * values, meaning it properly compares nested objects as well). Default is 'shallow'.
  */
-export function compare(object1: any, object2: any, comparisonMode: Comparison = Comparison.Shallow): boolean {
+export function compare(object1: any, object2: any, comparisonMode: ComparisonMode = 'shallow'): boolean {
     if (object1 == null || object2 == null) {
         return object1 == null && object2 == null;
     }
@@ -42,7 +41,7 @@ export function compare(object1: any, object2: any, comparisonMode: Comparison =
 
     const keys: string[] = [];
     for (let key in object1) {
-        if (typeof object1[key] === 'object' && typeof object2[key] === 'object' && comparisonMode === Comparison.Deep) {
+        if (typeof object1[key] === 'object' && typeof object2[key] === 'object' && comparisonMode === 'deep') {
             if (!compare(object1[key], object2[key], comparisonMode)) {
                 return false;
             }
