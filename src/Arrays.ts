@@ -15,16 +15,39 @@ namespace Arrays {
         return array.slice();
     }
 
-    /** Removes the specified element(s) from the array and returns the original array. */
+    /** Compares the contents of two arrays for referential equality. */
+    export function compare(array1: readonly any[], array2: readonly any[]): boolean {
+        if (array1.length !== array2.length) {
+            return false;
+        }
+
+        for (let i: number = 0; i < array1.length; i++) {
+            if (array1[i] !== array2[i]) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * Removes the specified element(s) from the array and returns the original array.
+     *
+     * If the array contains multiples of the specified element(s), all of them
+     * are removed.
+     */
     export function remove<T>(array: T[], ...elements: T[]): T[] {
         for (const element of elements) {
-            const index = array.indexOf(element);
+            let index = array.indexOf(element);
 
             if (index === -1) {
                 throw new Error('Arrays.remove(): element not found in array!');
             }
 
-            array.splice(index, 1);
+            while (index !== -1) {
+                array.splice(index, 1);
+                index = array.indexOf(element);
+            }
         }
 
         return array;
