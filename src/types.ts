@@ -1,4 +1,4 @@
-/** Represents a type that can be nullable (i.e. null or undefined). */
+/** Represents a type that is nullable (i.e. may be null or undefined). */
 export type Nullable<T = any> = T | undefined | null;
 /** All possible results from the `typeof` operator. */
 export type BaseType = 'bigint' | 'boolean' | 'function' | 'number' | 'object' | 'string' | 'symbol' | 'undefined';
