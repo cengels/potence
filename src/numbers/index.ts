@@ -1,23 +1,22 @@
-/** @file Provides helper methods related to operations on numbers. */
+/**
+ * @file Provides helper methods related to operations on numbers.
+ *
+ * Note that all range-related functions (like `clamp()`) internally use a `Range`.
+ * There is no noticeable difference in performance between a function that does not
+ * use a custom class, a function that instantiates a new Range every time it is called,
+ * and a function that uses a cached Range every time it is called.
+ */
 
 import Range from './Range';
 
 /** Clamps the value to the specified min and max values. If the value undershoots min or exceeds max, it is set to that value. */
 export function clamp(value: number, min: number, max: number): number {
-    if (value < min) {
-        return min;
-    }
-
-    if (value > max) {
-        return max;
-    }
-
-    return value;
+    return new Range(min, max).clamp(value);
 }
 
 /** Gets the value located at `at`. For the returned value to be between start and end, `at` should be between 0.0 and 1.0. */
 export function at(start: number, end: number, at: number): number {
-    return (end - start) * at + start;
+    return new Range(start, end).clamp(at);
 }
 
 /** Creates a new `Range` with the given arguments. */
@@ -27,11 +26,15 @@ export function range(from: number, to: number): Range {
 
 /**
  * Checks if the source number is between the given range.
- * Specify a `minimumDifference` to either account for floating point
- * inaccuracies or to make this check exclusive rather than inclusive.
+ *
+ * @param {number} tolerance With floating point inaccuracies,
+ * sometimes a decimal number is just barely (say, 0.0000001) below
+ * a range. You can specify a tolerance to mitigate this problem.
+ * Additionally, negative tolerance can narrow the range of valid values
+ * rather than expand it. The default tolerance is 0.
  */
-export function between(value: number, min: number, max: number, minimumDifference: number = 0.0001): boolean {
-    return (value - min) > minimumDifference && (max - value) > minimumDifference;
+export function between(value: number, min: number, max: number, tolerance: number = 0): boolean {
+    return range(min, max).contains(value, tolerance);
 }
 
 /**
@@ -46,6 +49,8 @@ export function between(value: number, min: number, max: number, minimumDifferen
 export function center(...values: number[]): number {
     if (values.length === 0) {
         return 0;
+    } else if (values.length === 1) {
+        return values[0];
     }
 
     const smallest = Math.min(...values);

@@ -1,5 +1,3 @@
-import * as Numbers from '.';
-
 /**
  * Represents a range between two numbers with a variety of functions
  * that simplify working with number ranges.
@@ -49,7 +47,9 @@ export default class Range {
     /** Gets the smallest value included in this range. */
     public min(): number {
         if (this._min == null) {
-            this._min = Math.min(this.from, this.to);
+            // Using the ternary operator like this rather than Math.min()
+            // is actually dramatically (about 5x) faster in big loops.
+            this._min = this._from < this._to ? this._from : this._to;
         }
 
         return this._min;
@@ -58,7 +58,9 @@ export default class Range {
     /** Gets the largest value included in this range. */
     public max(): number {
         if (this._max == null) {
-            this._max = Math.max(this.from, this.to);
+            // Using the ternary operator like this rather than Math.max()
+            // is actually dramatically (about 5x) faster in big loops.
+            this._max = this._from > this._to ? this._from : this._to;
         }
 
         return this._max;
@@ -82,14 +84,51 @@ export default class Range {
         return this._span;
     }
 
-    /** If this range does not include value, returns the respective range end, otherwise returns value. */
+    /**
+     * If this range does not include value, returns either the min or max depending
+     * on whether the range was undershot or overshot, otherwise returns value.
+     */
     public clamp(value: number): number {
-        return Numbers.clamp(value, this.min(), this.max());
+        if (value < this.min()) {
+            return this.min();
+        }
+
+        if (value > this.max()) {
+            return this.max();
+        }
+
+        return value;
     }
 
-    /** Checks if the number is contained in this range. */
-    public contains(value: number, minimumDifference?: number): boolean {
-        return Numbers.between(value, this.min(), this.max(), minimumDifference);
+    /**
+     * Checks if the number is contained in this range.
+     *
+     * A number is considered *contained* by the range if it
+     * lies in-between or at the specified from and to points.
+     *
+     * @param {number} tolerance With floating point inaccuracies,
+     * sometimes a decimal number is just barely (say, 0.0000001) below
+     * a range. You can specify a tolerance to mitigate this problem.
+     * Additionally, negative tolerance can narrow the range of valid values
+     * rather than expand it. The default tolerance is 0.
+     */
+    public contains(value: number, tolerance: number = 0): boolean {
+        return (this.min() - tolerance) <= value && value <= (this.max() + tolerance);
+    }
+
+    /**
+     * Checks if the number is in-between the end points of this range.
+     *
+     * This function differs from `contains()` in that `contains()` also
+     * considers values on the two end points to be "inside" the range.
+     * This function does not.
+     *
+     * It is recommended not to use this function with floating point numbers.
+     * Use `contains()` with an appropriate tolerance instead. You can specify
+     * a negative tolerance to shrink the valid range.
+     */
+    public between(value: number): boolean {
+        return this.min() < value && value < this.max();
     }
 
     /** Finds the intersection point closest to this range's center with the given range. If there is no intersection, throws an error. To avoid this, check if there is an intersection using `overlap()` first. */
@@ -114,7 +153,7 @@ export default class Range {
 
     /** Gets the value located at `at`. For the returned value to be inside this range, `at` should be between 0.0 and 1.0. */
     public at(value: number): number {
-        return Numbers.at(this.from, this.to, value);
+        return (this.to - this.from) * value + this.from;
     }
 
     /** Gets a relative value between 0.0 and 1.0 to indicate the position of the passed value inside the range. This function is the counter-component to `at()`. */
