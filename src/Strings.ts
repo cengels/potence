@@ -1,5 +1,13 @@
-/** Offers convenience methods on strings. */
-namespace Strings {
-}
+/**
+ * Removes all of the given characters from the string.
+ * By default, removes all spaces from the string.
+ */
+export function strip(from: string, ...what: string[]): string {
+    let string = from;
 
-export default Strings;
+    for (const substring of what) {
+        string = string.replace(substring, '');
+    }
+
+    return string;
+}

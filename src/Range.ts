@@ -1,4 +1,4 @@
-import Numbers from './Numbers';
+import * as Numbers from './Numbers';
 
 /**
  * Represents a range between two numbers with a variety of functions

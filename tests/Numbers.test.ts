@@ -1,4 +1,4 @@
-import Numbers from '../src/Numbers';
+import * as Numbers from '../src/Numbers';
 
 describe('Numbers.center() should', () => {
     it('work with integral numbers', () => expect(Numbers.center(5, 7)).toBe(6));

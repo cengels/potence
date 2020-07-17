@@ -1,7 +1,9 @@
-export * from './Arrays';
-export * from './Range';
-export * from './Numbers';
-export * from './Objects';
-export * from './Strings';
-export * from './Nullable';
-export * from './Assert';
+export * as Arrays from './Arrays';
+export * as Range from './Range';
+export * as Numbers from './Numbers';
+export * as Objects from './Objects';
+export * as Strings from './Strings';
+export * as Nullable from './Nullable';
+export * as Assert from './Assert';
+// Not namespaced, because namespaced types look kind of silly.
+export * from './types';
