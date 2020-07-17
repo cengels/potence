@@ -34,10 +34,21 @@ class AssertionError extends Error {
     }
 }
 
-/**
- * If true, prefixes all assertion error messages with
- * "Assertion failed." to distinguish them from other errors.
- */
+interface AssertConfiguration {
+    /**
+     * If true, prefixes all assertion error messages with
+     * "Assertion failed." to distinguish them from other errors.
+     */
+    prefixed?: boolean;
+}
+
+/** Configures the assert module with the given options. */
+export function configure(configuration: AssertConfiguration): void {
+    if (configuration.prefixed != null) {
+        prefixed = configuration.prefixed;
+    }
+}
+
 export let prefixed: boolean = true;
 
 function assertionError(failureMessage?: string, prefix: string = 'Assertion failed'): AssertionError {
