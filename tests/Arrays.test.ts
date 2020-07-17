@@ -1,4 +1,4 @@
-import * as Arrays from '../src/Arrays';
+import * as Arrays from '../src/arrays';
 
 describe('Arrays.clone() should', () => {
     it('create an equivalent array', () => {

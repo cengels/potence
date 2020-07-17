@@ -8,7 +8,7 @@
  * the difference in performance makes up barely 30 ms.
  */
 
-import { BaseType, Constructor } from './types';
+import { BaseType, Constructor } from '../types';
 
 /** Returns a copy of the specified array. */
 export function clone<T>(array: readonly T[]): T[] {

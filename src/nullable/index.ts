@@ -1,4 +1,4 @@
-import { Nullable } from './types';
+import { Nullable } from '../types';
 
 /** Returns true if the passed value is not null or undefined. */
 export function exists<T>(value: Nullable<T>): value is NonNullable<T> {

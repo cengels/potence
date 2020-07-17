@@ -1,4 +1,4 @@
-import * as Objects from '../src/Objects';
+import * as Objects from '../src/objects';
 
 describe('Objects.compare() should', () => {
     describe('for a shallow comparison', () => {
