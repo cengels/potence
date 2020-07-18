@@ -20,6 +20,21 @@ describe('Numbers.odd() should return', () => {
     it('false for decimals', () => expect(Numbers.odd(634611.55)).toBe(false));
 });
 
+describe('Numbers.integral() should return', () => {
+    it('true for positive integral numbers', () => expect(Numbers.integral(5)).toBe(true));
+    it('true for negative integral numbers', () => expect(Numbers.integral(-5235)).toBe(true));
+    it('false for floating point numbers', () => expect(Numbers.integral(0.1)).toBe(false));
+    it('false for small floating point numbers', () => expect(Numbers.integral(0.0000000001)).toBe(false));
+});
+
+describe('Numbers.fraction() should return', () => {
+    it('true for positive floating point numbers', () => expect(Numbers.fraction(354.2)).toBe(true));
+    it('true for negative floating point numbers', () => expect(Numbers.fraction(-1255.99999999999)).toBe(true));
+    it('false for positive integers', () => expect(Numbers.fraction(55)).toBe(false));
+    it('false for negative integers', () => expect(Numbers.fraction(-253)).toBe(false));
+    it('false for 0', () => expect(Numbers.fraction(0)).toBe(false));
+});
+
 describe('Numbers.median() should return', () => {
     it('0 with no numbers passed', () => expect(Numbers.median()).toBe(0));
     it('the number with 1 number passed', () => expect(Numbers.median(5)).toBe(5));

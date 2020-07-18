@@ -58,6 +58,22 @@ export function odd(value: number): boolean {
 }
 
 /**
+ * Returns true if the number is an integral number, i.e.
+ * a whole number without fractions or decimals.
+ */
+export function integral(value: number): boolean {
+    return value % 1 === 0;
+}
+
+/**
+ * Returns true if the number is a floating point number,
+ * i.e. it is not an integral number.
+ */
+export function fraction(value: number): boolean {
+    return value % 1 !== 0;
+}
+
+/**
  * Gets the median of the specified numbers. The median is defined as:
  *
  * * If the sequence contains an odd number of values, the sequence
