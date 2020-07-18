@@ -47,6 +47,16 @@ export function center(...values: number[]): number {
     return (largest - smallest) / 2 + smallest;
 }
 
+/** Returns true if the number is an even number. */
+export function even(value: number): boolean {
+    return value % 2 === 0;
+}
+
+/** Returns true if the number is an odd number. */
+export function odd(value: number): boolean {
+    return value % 2 !== 0;
+}
+
 /**
  * Gets the median of the specified numbers. The median is defined as:
  *
@@ -64,13 +74,13 @@ export function median(...values: number[]): number {
 
     values.sort((a, b) => a - b);
 
-    if (values.length % 2 !== 0) {
-        const lowerMiddle = values[Math.floor(values.length / 2)];
-        const upperMiddle = values[Math.ceil(values.length / 2)];
+    if (even(values.length)) {
+        const lowerMiddle = values[values.length / 2];
+        const upperMiddle = values[values.length / 2 - 1];
         return (upperMiddle - lowerMiddle) / 2 + lowerMiddle;
     }
 
-    return values[values.length / 2];
+    return values[Math.floor(values.length / 2)];
 }
 
 /** Gets the sum of the elements in the array. */
