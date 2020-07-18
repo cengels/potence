@@ -74,6 +74,52 @@ export function fraction(value: number): boolean {
 }
 
 /**
+ * Returns true if the number is a safe number,
+ * i.e. a number with a low chance of floating
+ * point inaccuracies.
+ *
+ * In general, a floating point number is only safe
+ * if its denominator is the product of an exponentiation of 2,
+ * like 1/2 (0.5), 1/4 (0.25), 1/8 (0.125) etc.
+ *
+ * However, this function instead tests for floating point
+ * inaccuracy by conducting an arbitrary mathematical
+ * operation on the value, inverting it, and comparing
+ * it with the original value.
+ *
+ * *Note: This function may not always be 100% accurate.
+ * Do not base any important algorithms on the result
+ * of this function. If you're trying to compare two
+ * floating point numbers, use `Numbers.compare()` instead.*
+ */
+export function safeFloat(value: number): boolean {
+    return (value * 1.5 / 1.5) === value;
+}
+
+/**
+ * Returns true if the number is an unsafe number,
+ * i.e. a number with a high chance of floating
+ * point inaccuracies.
+ *
+ * In general, a floating point number is only safe
+ * if its denominator is the product of the exponent of 2,
+ * like 1/2 (0.5), 1/4 (0.25), 1/8 (0.125) etc.
+ *
+ * However, this function instead tests for floating point
+ * inaccuracy by conducting an arbitrary mathematical
+ * operation on the value, inverting it, and comparing
+ * it with the original value.
+ *
+ * *Note: This function may not always be 100% accurate.
+ * Do not base any important algorithms on the result
+ * of this function. If you're trying to compare two
+ * floating point numbers, use `Numbers.compare()` instead.*
+ */
+export function unsafeFloat(value: number): boolean {
+    return (value * 1.5 / 1.5) !== value;
+}
+
+/**
  * Gets the median of the specified numbers. The median is defined as:
  *
  * * If the sequence contains an odd number of values, the sequence

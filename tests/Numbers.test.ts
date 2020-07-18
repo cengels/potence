@@ -35,6 +35,24 @@ describe('Numbers.fraction() should return', () => {
     it('false for 0', () => expect(Numbers.fraction(0)).toBe(false));
 });
 
+describe('Numbers.safeFloat() should return', () => {
+    it('true for 0.5', () => expect(Numbers.safeFloat(0.5)).toBe(true));
+    it('true for 212.5', () => expect(Numbers.safeFloat(212.5)).toBe(true));
+    it('true for 0.25', () => expect(Numbers.safeFloat(0.25)).toBe(true));
+    it('true for 0.125', () => expect(Numbers.safeFloat(0.125)).toBe(true));
+    it('true for 0.0625', () => expect(Numbers.safeFloat(0.0625)).toBe(true));
+    it('true for any number divided by a power of 2', () => {
+        let current: number = 1;
+        for (let i: number = 0; i < 50; i++) {
+            current /= 2;
+            expect(Numbers.safeFloat(current)).toBe(true);
+        }
+    });
+    it('false for 0.1', () => expect(Numbers.safeFloat(0.1)).toBe(false));
+    it('false for 0.2', () => expect(Numbers.safeFloat(0.2)).toBe(false));
+    it('true for 0.6', () => expect(Numbers.safeFloat(0.6)).toBe(true));
+});
+
 describe('Numbers.median() should return', () => {
     it('0 with no numbers passed', () => expect(Numbers.median()).toBe(0));
     it('the number with 1 number passed', () => expect(Numbers.median(5)).toBe(5));
