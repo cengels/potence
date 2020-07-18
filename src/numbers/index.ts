@@ -9,6 +9,33 @@
 
 import Range from './Range';
 
+interface Configuration {
+    /**
+     * The default tolerance to use in functions that compare floating point numbers.
+     * The default tolerance is `0.0000001`.
+     */
+    defaultTolerance?: number;
+}
+
+export function configure(configuration: Configuration): void {
+    if (configuration.defaultTolerance != null) {
+        defaultTolerance = configuration.defaultTolerance;
+    }
+}
+
+let defaultTolerance: number = 0.0000001;
+
+/**
+ * Accurately compares two integral or floating point numbers with the given tolerance.
+ *
+ * The tolerance determines how big the difference between the two numbers may be before
+ * they are no longer considered equal. If the default tolerance has not been changed
+ * via `configure()`, it is `0.0000001`.
+ */
+export function compare(value1: number, value2: number, tolerance: number = defaultTolerance): boolean {
+    return Math.abs(value1 - value2) <= tolerance;
+}
+
 /**
  * Creates a new `Range` with the given arguments.
  * Ranges are powerful mathematical objects with the ability to, for instance,
@@ -69,7 +96,7 @@ export function integral(value: number): boolean {
  * Returns true if the number is a floating point number,
  * i.e. it is not an integral number.
  */
-export function fraction(value: number): boolean {
+export function float(value: number): boolean {
     return value % 1 !== 0;
 }
 
@@ -127,7 +154,7 @@ export function unsafeFloat(value: number): boolean {
  * * If the sequence contains an even number of values, the sequence
  * is first sorted and then the average of the two middle values is extracted.
  */
-export function median(...values: number[]): number {
+export function median(...values: [number, ...number[]]): number {
     if (values.length === 0) {
         return 0;
     } else if (values.length === 1) {
@@ -146,16 +173,16 @@ export function median(...values: number[]): number {
 }
 
 /** Gets the sum of the elements in the array. */
-export function sum(...values: number[]): number {
+export function sum(...values: [number, ...number[]]): number {
     return values.reduce((accumulator, current) => accumulator += current, 0);
 }
 
 /** Gets the mean of the elements in the array. */
-export function mean(...values: number[]): number {
+export function mean(...values: [number, ...number[]]): number {
     return sum(...values) / values.length;
 }
 
 /** Alias for `mean()`. */
-export function average(...values: number[]): number {
+export function average(...values: [number, ...number[]]): number {
     return mean(...values);
 }

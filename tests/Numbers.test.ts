@@ -1,5 +1,13 @@
 import * as Numbers from '../src/numbers';
 
+describe('Numbers.compare() should return', () => {
+    it('true for equal integral numbers', () => expect(Numbers.compare(5, 5)).toBe(true));
+    it('false for non-equal integral numbers', () => expect(Numbers.compare(5, 4)).toBe(false));
+    it('true for equal floating point numbers', () => expect(Numbers.compare(5.333, 5.333)).toBe(true));
+    it('true for equal calculated floating point numbers', () => expect(Numbers.compare(5.1, 5 * 1.02)).toBe(true));
+    it('true for any number with bigger tolerance', () => expect(Numbers.compare(5, 3, 2)).toBe(true));
+});
+
 describe('Numbers.center() should', () => {
     it('work with integral numbers', () => expect(Numbers.center(5, 7)).toBe(6));
     it('work with floating point numbers', () => expect(Numbers.center(2.3, 118.11)).toBeCloseTo(60.205, 3));
@@ -28,11 +36,11 @@ describe('Numbers.integral() should return', () => {
 });
 
 describe('Numbers.fraction() should return', () => {
-    it('true for positive floating point numbers', () => expect(Numbers.fraction(354.2)).toBe(true));
-    it('true for negative floating point numbers', () => expect(Numbers.fraction(-1255.99999999999)).toBe(true));
-    it('false for positive integers', () => expect(Numbers.fraction(55)).toBe(false));
-    it('false for negative integers', () => expect(Numbers.fraction(-253)).toBe(false));
-    it('false for 0', () => expect(Numbers.fraction(0)).toBe(false));
+    it('true for positive floating point numbers', () => expect(Numbers.float(354.2)).toBe(true));
+    it('true for negative floating point numbers', () => expect(Numbers.float(-1255.99999999999)).toBe(true));
+    it('false for positive integers', () => expect(Numbers.float(55)).toBe(false));
+    it('false for negative integers', () => expect(Numbers.float(-253)).toBe(false));
+    it('false for 0', () => expect(Numbers.float(0)).toBe(false));
 });
 
 describe('Numbers.safeFloat() should return', () => {
@@ -54,6 +62,7 @@ describe('Numbers.safeFloat() should return', () => {
 });
 
 describe('Numbers.median() should return', () => {
+    // @ts-expect-error
     it('0 with no numbers passed', () => expect(Numbers.median()).toBe(0));
     it('the number with 1 number passed', () => expect(Numbers.median(5)).toBe(5));
     it('the middle number with odd numbers passed', () => expect(Numbers.median(9, 2, 3)).toBe(3));
