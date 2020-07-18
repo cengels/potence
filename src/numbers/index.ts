@@ -9,32 +9,20 @@
 
 import Range from './Range';
 
-/** Clamps the value to the specified min and max values. If the value undershoots min or exceeds max, it is set to that value. */
-export function clamp(value: number, min: number, max: number): number {
-    return new Range(min, max).clamp(value);
-}
-
-/** Gets the value located at `at`. For the returned value to be between start and end, `at` should be between 0.0 and 1.0. */
-export function at(start: number, end: number, at: number): number {
-    return new Range(start, end).clamp(at);
-}
-
-/** Creates a new `Range` with the given arguments. */
+/**
+ * Creates a new `Range` with the given arguments.
+ * Ranges are powerful mathematical objects with the ability to, for instance,
+ * clamp a number, check if a number is contained in a range,
+ * or determine the relative percentual location of a value inside the
+ * range.
+ *
+ * The cost of instantiating a new Range is roughly equivalent to the cost
+ * of calling `Range.set()` on an existing Range, so don't be afraid of
+ * calling this method. Even in tight loops, the performance impact
+ * will be minimal.
+ */
 export function range(from: number, to: number): Range {
     return new Range(from, to);
-}
-
-/**
- * Checks if the source number is between the given range.
- *
- * @param {number} tolerance With floating point inaccuracies,
- * sometimes a decimal number is just barely (say, 0.0000001) below
- * a range. You can specify a tolerance to mitigate this problem.
- * Additionally, negative tolerance can narrow the range of valid values
- * rather than expand it. The default tolerance is 0.
- */
-export function between(value: number, min: number, max: number, tolerance: number = 0): boolean {
-    return range(min, max).contains(value, tolerance);
 }
 
 /**
