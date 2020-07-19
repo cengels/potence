@@ -70,11 +70,32 @@ describe('Numbers.gcd() should return', () => {
     each([
         [3, 6, 3],
         [7, 14, 7],
-        [7, 14, 7],
         [522, 322, 2],
         [1230, 1111, 1],
         [605, 363, 121]
-    ]).it('with integers %d, %d: %d', (a, b, expected) => expect(Numbers.gcd(a, b)).toBe(expected));
+    ]).it('with positive integers %d, %d: %d', (a, b, expected) => expect(Numbers.gcd(a, b)).toBe(expected));
+    each([
+        [505, 202, 303, 101]
+    ]).it('with positive integers %d, %d, %d: %d', (a, b, c, expected) => expect(Numbers.gcd(a, b, c)).toBe(expected));
+});
+
+describe('Numbers.lcm() should return', () => {
+    // @ts-expect-error
+    it('0 with no numbers passed', () => expect(Numbers.lcm()).toBe(0));
+    // @ts-expect-error
+    it('0 with 1 number passed', () => expect(Numbers.lcm(5)).toBe(0));
+    each([
+        [3, 6, 6],
+        [7, 14, 14],
+        [7, 14, 14],
+        [16, 18, 144],
+        [255, 599, 152745]
+    ]).it('with integers %d, %d: %d', (a, b, expected) => expect(Numbers.lcm(a, b)).toBe(expected));
+    each([
+        [3, 4, 5, 60],
+        [12, 52, 1212, 15756],
+        [9, 99, 999, 10989]
+    ]).it('with integers %d, %d, %d: %d', (a, b, c, expected) => expect(Numbers.lcm(a, b, c)).toBe(expected));
 });
 
 describe('Numbers.median() should return', () => {

@@ -183,6 +183,34 @@ export function gcd(...values: [number, number, ...number[]]): number {
 }
 
 /**
+ * Gets the least common multiple for the given integers.
+ * The least common multiple is the smallest multiple of
+ * themselves that all the integers share. For instance,
+ * the least common multiple of `{3, 4, 5}` is `60` because
+ * it is the first multiple that all the numbers can reach
+ * (`3 * 20`, `4 * 15`, `5 * 12`).
+ *
+ * Returns 0 if any of the values are 0 or floating point numbers.
+ */
+export function lcm(...values: [number, number, ...number[]]) {
+    if (values.length < 2) {
+        return 0;
+    }
+
+    let result: number = values[0];
+
+    for (let i: number = 1; i < values.length; i++) {
+        if (result === 0 || values[i] === 0 || float(values[i])) {
+            return 0;
+        }
+
+        result = (result * values[i]) / gcd(result, values[i]);
+    }
+
+    return result;
+}
+
+/**
  * Gets the median of the specified numbers. The median is defined as:
  *
  * * If the sequence contains an odd number of values, the sequence
