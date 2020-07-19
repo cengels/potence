@@ -147,6 +147,42 @@ export function unsafeFloat(value: number): boolean {
 }
 
 /**
+ * Determines the greatest common divisor of the integers. The
+ * greatest common divisor is the largest positive integer
+ * that divides each of the integers without a remainder. Uses the Euclidean
+ * algorithm for computation.
+ *
+ * Returns 0 if any of the divisors are 0 or fractions.
+ */
+export function gcd(...values: [number, number, ...number[]]): number {
+    if (values.length < 2) {
+        return 0;
+    }
+
+    let result: number = values[0];
+
+    if (float(result)) {
+        return 0;
+    }
+
+    for (let i: number = 1; i < values.length; i++) {
+        if (result === 0 || values[i] === 0 || float(values[i])) {
+            return 0;
+        }
+
+        const mod = result % values[i];
+
+        if (compare(mod, 0)) {
+            return values[i];
+        }
+
+        result = gcd(values[i], mod);
+    }
+
+    return result;
+}
+
+/**
  * Gets the median of the specified numbers. The median is defined as:
  *
  * * If the sequence contains an odd number of values, the sequence

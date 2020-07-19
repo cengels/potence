@@ -2,7 +2,17 @@
   "name": "nitrous",
   "version": "0.0.1",
   "description": "A tiny modularized JavaScript library containing a variety of convenience functions.",
-  "keywords": ["utility", "convenience", "array", "object", "number", "nullable", "range", "string", "assert"],
+  "keywords": [
+    "utility",
+    "convenience",
+    "array",
+    "object",
+    "number",
+    "nullable",
+    "range",
+    "string",
+    "assert"
+  ],
   "homepage": "https://github.com/cengels/nitrous",
   "bugs": "https://github.com/cengels/nitrous/issues",
   "main": "index.ts",
@@ -19,6 +29,7 @@
   "devDependencies": {
     "@types/jest": "^26.0.3",
     "jest": "^26.1.0",
+    "jest-each": "^26.1.0",
     "ts-jest": "^26.1.1"
   }
 }

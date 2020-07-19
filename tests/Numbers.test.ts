@@ -1,3 +1,4 @@
+import each from 'jest-each';
 import * as Numbers from '../src/numbers';
 
 describe('Numbers.compare() should return', () => {
@@ -59,6 +60,21 @@ describe('Numbers.safeFloat() should return', () => {
     it('false for 0.1', () => expect(Numbers.safeFloat(0.1)).toBe(false));
     it('false for 0.2', () => expect(Numbers.safeFloat(0.2)).toBe(false));
     it('true for 0.6', () => expect(Numbers.safeFloat(0.6)).toBe(true));
+});
+
+describe('Numbers.gcd() should return', () => {
+    // @ts-expect-error
+    it('0 with no numbers passed', () => expect(Numbers.gcd()).toBe(0));
+    // @ts-expect-error
+    it('0 with 1 number passed', () => expect(Numbers.gcd(5)).toBe(0));
+    each([
+        [3, 6, 3],
+        [7, 14, 7],
+        [7, 14, 7],
+        [522, 322, 2],
+        [1230, 1111, 1],
+        [605, 363, 121]
+    ]).it('with integers %d, %d: %d', (a, b, expected) => expect(Numbers.gcd(a, b)).toBe(expected));
 });
 
 describe('Numbers.median() should return', () => {
