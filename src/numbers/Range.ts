@@ -99,7 +99,7 @@ export default class Range implements ReadonlyRange {
         return value;
     }
 
-    public contains(value: number, tolerance: number = 0): boolean {
+    public contains(value: number, tolerance: number = 0.00000001): boolean {
         return (this.min() - tolerance) <= value && value <= (this.max() + tolerance);
     }
 
@@ -107,8 +107,12 @@ export default class Range implements ReadonlyRange {
         return this.min() < value && value < this.max();
     }
 
-    public intersect(range: ReadonlyRange): number {
-        if (!this.overlap(range)) {
+    public overlaps(range: ReadonlyRange): boolean {
+        return range.contains(this.from, 0) || range.contains(this.to, 0);
+    }
+
+    public intersects(range: ReadonlyRange): number {
+        if (!this.overlaps(range)) {
             throw new Error('Range.intersect() found no intersection. Call Range.overlap() first to prevent this error.');
         }
 
@@ -119,10 +123,6 @@ export default class Range implements ReadonlyRange {
         }
 
         return range.clamp(center);
-    }
-
-    public overlap(range: ReadonlyRange): boolean {
-        return range.contains(this.from, 0) || range.contains(this.to, 0);
     }
 
     public at(value: number): number {

@@ -35,7 +35,7 @@ export default interface ReadonlyRange {
      * sometimes a decimal number is just barely (say, 0.0000001) below
      * a range. You can specify a tolerance to mitigate this problem.
      * Additionally, negative tolerance can narrow the range of valid values
-     * rather than expand it. The default tolerance is 0.
+     * rather than expand it. The default tolerance is 0.00000001.
      */
     contains(value: number, tolerance?: number): boolean;
     /**
@@ -50,10 +50,10 @@ export default interface ReadonlyRange {
      * a negative tolerance to shrink the valid range.
      */
     between(value: number): boolean;
-    /** Finds the intersection point closest to this range's center with the given range. If there is no intersection, throws an error. To avoid this, check if there is an intersection using `overlap()` first. */
-    intersect(range: ReadonlyRange): number;
     /** Returns a value indicating whether the two ranges overlap. */
-    overlap(range: ReadonlyRange): boolean;
+    overlaps(range: ReadonlyRange): boolean;
+    /** Finds the intersection point closest to this range's center with the given range. If there is no intersection, throws an error. To avoid this, check if there is an intersection using `overlap()` first. */
+    intersects(range: ReadonlyRange): number;
     /** Gets the value located at `at`. For the returned value to be inside this range, `at` should be between 0.0 and 1.0. */
     at(value: number): number;
     /** Gets a relative value between 0.0 and 1.0 to indicate the position of the passed value inside the range. This function is the counter-component to `at()`. */
