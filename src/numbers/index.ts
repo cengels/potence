@@ -262,10 +262,19 @@ export function sum(...values: [number, ...number[]]): number {
 
 /** Gets the mean of the elements in the array. */
 export function mean(...values: [number, ...number[]]): number {
+    if (values.length === 0) {
+        return 0;
+    }
+
     return sum(...values) / values.length;
 }
 
 /** Alias for `mean()`. */
 export function average(...values: [number, ...number[]]): number {
+    return mean(...values);
+}
+
+/** Alias for `mean()`. */
+export function avg(...values: [number, ...number[]]): number {
     return mean(...values);
 }

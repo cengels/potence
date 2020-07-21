@@ -87,7 +87,6 @@ describe('Numbers.lcm() should return', () => {
     each([
         [3, 6, 6],
         [7, 14, 14],
-        [7, 14, 14],
         [16, 18, 144],
         [255, 599, 152745]
     ]).it('with integers %d, %d: %d', (a, b, expected) => expect(Numbers.lcm(a, b)).toBe(expected));
@@ -104,4 +103,22 @@ describe('Numbers.median() should return', () => {
     it('the number with 1 number passed', () => expect(Numbers.median(5)).toBe(5));
     it('the middle number with odd numbers passed', () => expect(Numbers.median(9, 2, 3)).toBe(3));
     it('the average of the middle numbers with even numbers passed', () => expect(Numbers.median(9, 4, 1, 10)).toBe(6.5));
+});
+
+describe('Numbers.sum() should return', () => {
+    each([
+        [[], 0],
+        [[1], 1],
+        [[55, 22], 77],
+        [[623, 365452, 412, -5321], 361166],
+    ]).it('with integers %p: %d', (values, expected) => expect(Numbers.sum(...values as [any])).toBe(expected));
+});
+
+describe('Numbers.mean() should return', () => {
+    each([
+        [[], 0],
+        [[1], 1],
+        [[55, 22], 38.5],
+        [[623, 365452, 412, -5321], 90291.5],
+    ]).it('with integers %p: %d', (values, expected) => expect(Numbers.mean(...values as [any])).toBeCloseTo(expected));
 });
