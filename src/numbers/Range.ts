@@ -111,7 +111,7 @@ export default class Range implements ReadonlyRange {
         return range.contains(this.from, 0) || range.contains(this.to, 0);
     }
 
-    public intersects(range: ReadonlyRange): number {
+    public intersect(range: ReadonlyRange): number {
         if (!this.overlaps(range)) {
             throw new Error('Range.intersect() found no intersection. Call Range.overlap() first to prevent this error.');
         }

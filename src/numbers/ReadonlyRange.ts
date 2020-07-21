@@ -53,7 +53,7 @@ export default interface ReadonlyRange {
     /** Returns a value indicating whether the two ranges overlap. */
     overlaps(range: ReadonlyRange): boolean;
     /** Finds the intersection point closest to this range's center with the given range. If there is no intersection, throws an error. To avoid this, check if there is an intersection using `overlap()` first. */
-    intersects(range: ReadonlyRange): number;
+    intersect(range: ReadonlyRange): number;
     /** Gets the value located at `at`. For the returned value to be inside this range, `at` should be between 0.0 and 1.0. */
     at(value: number): number;
     /** Gets a relative value between 0.0 and 1.0 to indicate the position of the passed value inside the range. This function is the counter-component to `at()`. */
