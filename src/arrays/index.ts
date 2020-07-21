@@ -15,6 +15,16 @@ export function clone<T>(array: readonly T[]): T[] {
     return array.slice();
 }
 
+/** Gets the first element in the array, or undefined if the array is empty. */
+export function first<T>(array: readonly T[]): T | undefined {
+    return array[0];
+}
+
+/** Gets the last element in the array, or undefined if the array is empty. */
+export function last<T>(array: readonly T[]): T | undefined {
+    return array[array.length - 1];
+}
+
 /** Compares the contents of two arrays for referential equality. */
 export function compare(array1: readonly any[], array2: readonly any[]): boolean {
     if (array1.length !== array2.length) {
