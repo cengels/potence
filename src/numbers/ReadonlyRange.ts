@@ -8,27 +8,23 @@
  * values are modified.
  */
 export default interface ReadonlyRange {
+    /** The start of the range (inclusive). This is not necessarily the smallest value in the range. Use `Range.min()` for that. */
     from: number;
+    /** The end of the range (inclusive). This is not necessarily the largest value in the range. Use `Range.max()` for that. */
     to: number;
-
     /** Gets the smallest value included in this range. */
     min(): number;
-
     /** Gets the largest value included in this range. */
     max(): number;
-
     /** Gets the center of from and to. */
     center(): number;
-
     /** Gets the difference between from and to. */
     span(): number;
-
     /**
      * If this range does not include value, returns either the min or max depending
      * on whether the range was undershot or overshot, otherwise returns value.
      */
     clamp(value: number): number;
-
     /**
      * Checks if the number is contained in this range.
      *
@@ -42,7 +38,6 @@ export default interface ReadonlyRange {
      * rather than expand it. The default tolerance is 0.
      */
     contains(value: number, tolerance?: number): boolean;
-
     /**
      * Checks if the number is in-between the end points of this range.
      *
@@ -55,19 +50,18 @@ export default interface ReadonlyRange {
      * a negative tolerance to shrink the valid range.
      */
     between(value: number): boolean;
-
     /** Finds the intersection point closest to this range's center with the given range. If there is no intersection, throws an error. To avoid this, check if there is an intersection using `overlap()` first. */
     intersect(range: ReadonlyRange): number;
-
     /** Returns a value indicating whether the two ranges overlap. */
     overlap(range: ReadonlyRange): boolean;
-
     /** Gets the value located at `at`. For the returned value to be inside this range, `at` should be between 0.0 and 1.0. */
     at(value: number): number;
-
     /** Gets a relative value between 0.0 and 1.0 to indicate the position of the passed value inside the range. This function is the counter-component to `at()`. */
     relative(value: number): number;
-
+    /** Checks if the given range is identical to this one. */
+    equals(range: ReadonlyRange): boolean;
+    /** Checks if this range has the given `from` and `to` values. */
+    equals(from: number, to: number): boolean;
     /** Clones the range. */
     clone(): ReadonlyRange;
 }

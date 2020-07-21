@@ -9,6 +9,12 @@ describe('Numbers.compare() should return', () => {
     it('true for any number with bigger tolerance', () => expect(Numbers.compare(5, 3, 2)).toBe(true));
 });
 
+describe('Numbers.range() should return', () => {
+    it('a range with two values', () => expect(Numbers.range(2, 21).equals(2, 21)).toBe(true));
+    it('an inverted range with two values', () => expect(Numbers.range(21, 2).equals(21, 2)).toBe(true));
+    it('a range from over 2 values', () => expect(Numbers.range(18, 5, 9, 1, 10, 20, 7).equals(1, 20)).toBe(true));
+});
+
 describe('Numbers.center() should', () => {
     it('work with integral numbers', () => expect(Numbers.center(5, 7)).toBe(6));
     it('work with floating point numbers', () => expect(Numbers.center(2.3, 118.11)).toBeCloseTo(60.205, 3));

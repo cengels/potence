@@ -56,7 +56,8 @@ export function closeTo(value1: number, value2: number, tolerance?: number): boo
 }
 
 /**
- * Creates a new `Range` with the given arguments.
+ * Creates a new `Range` with the given `from` and `to` values.
+ *
  * Ranges are powerful mathematical objects with the ability to, for instance,
  * clamp a number, check if a number is contained in a range,
  * or determine the relative percentual location of a value inside the
@@ -70,8 +71,35 @@ export function closeTo(value1: number, value2: number, tolerance?: number): boo
  * Note that `from` does not need to be smaller than `to`. Using an inverted
  * range can be helpful for, for instance, `Range.at()`.
  */
-export function range(from: number, to: number): Range {
-    return new Range(from, to);
+export function range(from: number, to: number): Range;
+/**
+ * Creates a new `Range` that includes all the given numbers and is sorted
+ * so that `from` is the lowest and `to` the highest number. You can call
+ * `Range.invert()` if you'd prefer the Range the other way around.
+ *
+ * Ranges are powerful mathematical objects with the ability to, for instance,
+ * clamp a number, check if a number is contained in a range,
+ * or determine the relative percentual location of a value inside the
+ * range.
+ *
+ * The cost of instantiating a new Range is roughly equivalent to the cost
+ * of calling `Range.set()` on an existing Range, so don't be afraid of
+ * calling this method. Even in tight loops, the performance impact
+ * will be minimal.
+ */
+export function range(...values: [number, number, number, ...number[]]): Range;
+export function range(...values: number[]): Range {
+    if (values.length < 2) {
+        throw new Error('Cannot create a Range without at least two numbers.');
+    }
+
+    if (values.length === 2) {
+        return new Range(values[0], values[1]);
+    }
+
+    values.sort((a, b) => a - b);
+
+    return new Range(values[0], values[values.length - 1]);
 }
 
 /**

@@ -107,7 +107,7 @@ export default class Range implements ReadonlyRange {
         return this.min() < value && value < this.max();
     }
 
-    public intersect(range: Range): number {
+    public intersect(range: ReadonlyRange): number {
         if (!this.overlap(range)) {
             throw new Error('Range.intersect() found no intersection. Call Range.overlap() first to prevent this error.');
         }
@@ -121,7 +121,7 @@ export default class Range implements ReadonlyRange {
         return range.clamp(center);
     }
 
-    public overlap(range: Range): boolean {
+    public overlap(range: ReadonlyRange): boolean {
         return range.contains(this.from, 0) || range.contains(this.to, 0);
     }
 
@@ -134,6 +134,16 @@ export default class Range implements ReadonlyRange {
         const relativeValue = normalizedValue / this.span();
 
         return this.from > this.to ? 1 - relativeValue : relativeValue;
+    }
+
+    public equals(range: ReadonlyRange): boolean;
+    public equals(from: number, to: number): boolean;
+    public equals(rangeOrFrom: ReadonlyRange | number, to?: number): boolean {
+        if (typeof rangeOrFrom === 'number') {
+            return this._from === rangeOrFrom && this._to === to;
+        }
+
+        return this._from === rangeOrFrom.from && this._to === rangeOrFrom.to;
     }
 
     public clone(): Range {
