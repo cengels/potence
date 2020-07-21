@@ -66,6 +66,9 @@ export function closeTo(value1: number, value2: number, tolerance?: number): boo
  * of calling `Range.set()` on an existing Range, so don't be afraid of
  * calling this method. Even in tight loops, the performance impact
  * will be minimal.
+ *
+ * Note that `from` does not need to be smaller than `to`. Using an inverted
+ * range can be helpful for, for instance, `Range.at()`.
  */
 export function range(from: number, to: number): Range {
     return new Range(from, to);
