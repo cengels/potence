@@ -38,6 +38,8 @@ export default interface ReadonlyRange {
      * rather than expand it. The default tolerance is 0.00000001.
      */
     contains(value: number, tolerance?: number): boolean;
+    /** Returns true if the target range is completely contained in this range. */
+    contains(range: ReadonlyRange): boolean;
     /**
      * Checks if the number is in-between the end points of this range.
      *
@@ -52,7 +54,11 @@ export default interface ReadonlyRange {
     between(value: number): boolean;
     /** Returns a value indicating whether the two ranges overlap. */
     overlaps(range: ReadonlyRange): boolean;
-    /** Finds the intersection point closest to this range's center with the given range. If there is no intersection, throws an error. To avoid this, check if there is an intersection using `overlap()` first. */
+    /**
+     * Finds the intersection point closest to this range's center with the given range.
+     * If this range completely envelops the target range, returns this range's center.
+     * If there is no intersection, throws an error. To avoid this, check if there is an intersection using `overlap()` first.
+     */
     intersect(range: ReadonlyRange): number;
     /** Gets the value located at `at`. For the returned value to be inside this range, `at` should be between 0.0 and 1.0. */
     at(value: number): number;

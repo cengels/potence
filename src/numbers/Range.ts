@@ -99,8 +99,14 @@ export default class Range implements ReadonlyRange {
         return value;
     }
 
-    public contains(value: number, tolerance: number = 0.00000001): boolean {
-        return (this.min() - tolerance) <= value && value <= (this.max() + tolerance);
+    public contains(range: ReadonlyRange): boolean;
+    public contains(value: number, tolerance?: number): boolean;
+    public contains(value: number | ReadonlyRange, tolerance: number = 0.00000001): boolean {
+        if (typeof value === 'number') {
+            return (this.min() - tolerance) <= value && value <= (this.max() + tolerance);
+        }
+
+        return this.contains(value.from, 0) && this.contains(value.to, 0);
     }
 
     public between(value: number): boolean {
@@ -108,7 +114,7 @@ export default class Range implements ReadonlyRange {
     }
 
     public overlaps(range: ReadonlyRange): boolean {
-        return range.contains(this.from, 0) || range.contains(this.to, 0);
+        return this.between(range.from) || this.between(range.to);
     }
 
     public intersect(range: ReadonlyRange): number {
