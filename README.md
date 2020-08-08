@@ -33,19 +33,18 @@ is to namespace your imports like this:
 ```js
     import * as Arrays from 'nitrous/arrays';
 
-    Arrays.compare([1, 2, 3], [1, 2, 3]); // true
+    Arrays.equal([1, 2, 3], [1, 2, 3]); // true
 ```
 
 Since nitrous offers utility functions for each major data type, this allows you to immediately
 identify which data type a set of functions belongs to and get code suggestions only for that
-type. It also prevents name clashes (for instance, both the `Objects` module and the `Arrays` module
-have a function called `compare()`).
+type. It also prevents name clashes between modules.
 
 Alternatively, you can simply import from the main module entry. This will also allow you to capitalize
-on your IDE's or code editor's code completion. However, you won't be able to use non-namespaced modules this way:
+on your IDE's or code editor's import completion. However, you won't be able to use non-namespaced modules this way:
 
 ```js
     import { Arrays } from 'nitrous';
 
-    Arrays.compare([1, 2, 3], [1, 2, 3]); // true
+    Arrays.equal([1, 2, 3], [1, 2, 3]); // true
 ```

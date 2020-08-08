@@ -26,7 +26,7 @@ export function last<T>(array: readonly T[]): T | undefined {
 }
 
 /** Compares the contents of two arrays for referential equality. */
-export function compare(array1: readonly any[], array2: readonly any[]): boolean {
+export function equal(array1: readonly any[], array2: readonly any[]): boolean {
     if (array1.length !== array2.length) {
         return false;
     }

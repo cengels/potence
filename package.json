@@ -1,14 +1,14 @@
 {
   "name": "nitrous",
-  "version": "0.0.1",
-  "description": "A tiny modularized JavaScript library containing a variety of convenience functions.",
+  "version": "1.0.0",
+  "description": "A tiny modularized JavaScript library providing a variety of convenience functions.",
   "keywords": [
     "utility",
     "convenience",
+    "helper",
     "array",
     "object",
     "number",
-    "nullable",
     "range",
     "string",
     "assert"
