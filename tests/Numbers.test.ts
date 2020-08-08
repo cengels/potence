@@ -69,9 +69,7 @@ describe('Numbers.safeFloat() should return', () => {
 });
 
 describe('Numbers.gcd() should return', () => {
-    // @ts-expect-error
     it('0 with no numbers passed', () => expect(Numbers.gcd()).toBe(0));
-    // @ts-expect-error
     it('0 with 1 number passed', () => expect(Numbers.gcd(5)).toBe(0));
     each([
         [3, 6, 3],
@@ -86,9 +84,7 @@ describe('Numbers.gcd() should return', () => {
 });
 
 describe('Numbers.lcm() should return', () => {
-    // @ts-expect-error
     it('0 with no numbers passed', () => expect(Numbers.lcm()).toBe(0));
-    // @ts-expect-error
     it('0 with 1 number passed', () => expect(Numbers.lcm(5)).toBe(0));
     each([
         [3, 6, 6],
@@ -104,7 +100,6 @@ describe('Numbers.lcm() should return', () => {
 });
 
 describe('Numbers.median() should return', () => {
-    // @ts-expect-error
     it('0 with no numbers passed', () => expect(Numbers.median()).toBe(0));
     it('the number with 1 number passed', () => expect(Numbers.median(5)).toBe(5));
     it('the middle number with odd numbers passed', () => expect(Numbers.median(9, 2, 3)).toBe(3));

@@ -72,6 +72,7 @@ export function closeTo(value1: number, value2: number, tolerance?: number): boo
  * range can be helpful for, for instance, `Range.at()`.
  */
 export function range(from: number, to: number): Range;
+export function range(...values: number[]): Range;
 /**
  * Creates a new `Range` that includes all the given numbers and is sorted
  * so that `from` is the lowest and `to` the highest number. You can call
@@ -87,7 +88,6 @@ export function range(from: number, to: number): Range;
  * calling this method. Even in tight loops, the performance impact
  * will be minimal.
  */
-export function range(...values: [number, number, number, ...number[]]): Range;
 export function range(...values: number[]): Range {
     if (values.length < 2) {
         throw new Error('Cannot create a Range without at least two numbers.');
@@ -204,7 +204,7 @@ export function unsafeFloat(value: number): boolean {
  *
  * Returns 0 if any of the divisors are 0 or fractions.
  */
-export function gcd(...values: [number, number, ...number[]]): number {
+export function gcd(...values: readonly number[]): number {
     if (values.length < 2) {
         return 0;
     }
@@ -242,7 +242,7 @@ export function gcd(...values: [number, number, ...number[]]): number {
  *
  * Returns 0 if any of the values are 0 or floating point numbers.
  */
-export function lcm(...values: [number, number, ...number[]]) {
+export function lcm(...values: readonly number[]) {
     if (values.length < 2) {
         return 0;
     }
@@ -268,7 +268,7 @@ export function lcm(...values: [number, number, ...number[]]) {
  * * If the sequence contains an even number of values, the sequence
  * is first sorted and then the average of the two middle values is extracted.
  */
-export function median(...values: [number, ...number[]]): number {
+export function median(...values: number[]): number {
     if (values.length === 0) {
         return 0;
     } else if (values.length === 1) {
@@ -287,12 +287,12 @@ export function median(...values: [number, ...number[]]): number {
 }
 
 /** Gets the sum of the elements in the array. */
-export function sum(...values: [number, ...number[]]): number {
+export function sum(...values: number[]): number {
     return values.reduce((accumulator, current) => accumulator += current, 0);
 }
 
 /** Gets the mean of the elements in the array. */
-export function mean(...values: [number, ...number[]]): number {
+export function mean(...values: number[]): number {
     if (values.length === 0) {
         return 0;
     }
@@ -301,11 +301,11 @@ export function mean(...values: [number, ...number[]]): number {
 }
 
 /** Alias for `mean()`. */
-export function average(...values: [number, ...number[]]): number {
+export function average(...values: number[]): number {
     return mean(...values);
 }
 
 /** Alias for `mean()`. */
-export function avg(...values: [number, ...number[]]): number {
+export function avg(...values: number[]): number {
     return mean(...values);
 }
