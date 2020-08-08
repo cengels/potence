@@ -1,4 +1,5 @@
 import * as Arrays from '../src/arrays';
+import { Numbers } from '../src';
 
 describe('Arrays.clone() should', () => {
     it('create an equivalent array', () => {
@@ -134,4 +135,11 @@ describe('Arrays.clearNull() should', () => {
         Arrays.clearNull(array);
         return expect(Arrays.equal(array, [1, 2, 5, 9, 3])).toEqual(true);
     });
+});
+
+describe('Arrays.closest() should return', () => {
+    it('the target number if empty', () => expect(Arrays.closest([], 5)).toEqual(5));
+    it('the closest number if all numbers', () => expect(Arrays.closest([5, 3, 0], 2)).toEqual(3));
+    it('the first number if two numbers are the same distance away', () => expect(Arrays.closest([5, 3, 0], 4)).toEqual(5));
+    it('the closest object if using callback', () => expect(Arrays.closest([[1, 2, 3], [5, 6, 7], [2, 3, 4]], element => Numbers.sum(...element), 13)).toEqual([2, 3, 4]));
 });

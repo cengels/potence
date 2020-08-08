@@ -233,3 +233,26 @@ export function clearNull<T>(array: T[]): T[] {
 
     return array;
 }
+
+/**
+ * Out of all the numbers in the array, returns the number closest to the given target number.
+ *
+ * If the array is empty, returns the target number.
+ */
+export function closest(array: readonly number[], target: number): number;
+export function closest<T>(array: readonly T[], callback: (item: T) => number, target: number): T;
+export function closest<T>(array: readonly T[], callbackOrTarget: ((item: T) => number) | number, target?: number): number | T {
+    const usesCallback = typeof callbackOrTarget === 'function';
+    const referenceNumber = usesCallback ? target! : callbackOrTarget as number;
+
+    if (array.length === 0) {
+        return referenceNumber;
+    }
+
+    if (usesCallback) {
+        const callback = callbackOrTarget as (item: T) => number;
+        return clone(array).sort((a, b) => Math.abs(referenceNumber - callback(a)) - Math.abs(referenceNumber - callback(b)))[0];
+    }
+
+    return clone(array).sort((a, b) => Math.abs(referenceNumber - (a as any)) - Math.abs(referenceNumber - (b as any)))[0];
+}
