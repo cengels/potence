@@ -211,3 +211,25 @@ export function sort(array: any[], order: SortOrder = 'ascending'): any[] {
 
     throw new Error('Arrays.sort(): Can\'t use sort() on an array that is not composed of numbers, strings, or Dates. Please use Array.prototype.sort() for other data types.');
 }
+
+/** Clears all elements from the given array and returns the original array. */
+export function clear<T>(array: T[]): T[] {
+    array.length = 0;
+
+    return array;
+}
+
+/** Removes all null or undefined elements from the array *in-place* and returns the original array. */
+export function clearNull<T>(array: T[]): T[] {
+    let i: number = 0;
+
+    clone(array).forEach(item => {
+        if (item == null) {
+            array.splice(i, 1);
+        } else {
+            i++;
+        }
+    });
+
+    return array;
+}

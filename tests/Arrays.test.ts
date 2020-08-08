@@ -82,6 +82,7 @@ describe('Arrays.remove() should', () => {
 
 describe('Arrays.replace() should', () => {
     it('replace an array element', () => expect(Arrays.replace([1, 3, 5], 3, 6)).toEqual([1, 6, 5]));
+    it('throw an error if element is not found', () => expect(() => Arrays.replace([1, 3, 5], 4, 6)).toThrowError());
 });
 
 describe('Arrays.type() should return', () => {
@@ -116,5 +117,21 @@ describe('Arrays.sort() should', () => {
             const date3 = new Date(2021, 8, 5);
             expect(Arrays.sort([date2, date3, date1], 'descending')).toEqual([date3, date2, date1]);
         });
+    });
+});
+
+describe('Arrays.clear() should', () => {
+    it('clear the original array', () => {
+        const array = [5, 3, 2];
+        Arrays.clear(array);
+        return expect(array.length).toEqual(0);
+    });
+});
+
+describe('Arrays.clearNull() should', () => {
+    it('clear all null or undefined elements from the original array', () => {
+        const array = [1, 2, undefined, 5, 9, null, 3];
+        Arrays.clearNull(array);
+        return expect(Arrays.equal(array, [1, 2, 5, 9, 3])).toEqual(true);
     });
 });
