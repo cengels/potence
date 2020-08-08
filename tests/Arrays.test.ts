@@ -10,6 +10,48 @@ describe('Arrays.clone() should', () => {
     });
 });
 
+describe('Arrays.first() should return', () => {
+    it('the first element in an array', () => expect(Arrays.first([1, 3, 5])).toBe(1));
+    it('undefined in an empty array', () => expect(Arrays.first([])).toBe(undefined));
+});
+
+describe('Arrays.last() should return', () => {
+    it('the last element in an array', () => expect(Arrays.last([1, 3, 5])).toBe(5));
+    it('undefined in an empty array', () => expect(Arrays.last([])).toBe(undefined));
+});
+
+describe('Arrays.inBounds() should return', () => {
+    it('true if the index is the array\'s lower bound', () => expect(Arrays.inBounds([1, 3, 5], 0)).toBe(true));
+    it('true if the index is the array\'s upper bound', () => expect(Arrays.inBounds([1, 3, 5], 2)).toBe(true));
+    it('false if the index is lower than 0', () => expect(Arrays.inBounds([1, 3, 5], -1)).toBe(false));
+    it('false if the index is greater than array.length - 1', () => expect(Arrays.inBounds([1, 3, 5], 3)).toBe(false));
+    it('false if the array is empty', () => expect(Arrays.inBounds([], 0)).toBe(false));
+});
+
+describe('Arrays.next() should return', () => {
+    it('index + 1 if index + 1 is in-bounds', () => expect(Arrays.next([1, 3, 5], 1)).toBe(5));
+    it('0 if index + 1 is out of bounds', () => expect(Arrays.next([1, 3, 5], 2)).toBe(1));
+    it('undefined if index is greater than upper bound', () => expect(Arrays.next([1, 3, 5], 3)).toBe(undefined));
+    it('undefined if index is lower than lower bound', () => expect(Arrays.next([1, 3, 5], -1)).toBe(undefined));
+});
+
+describe('Arrays.previous() should return', () => {
+    it('index - 1 if index - 1 is in-bounds', () => expect(Arrays.previous([1, 3, 5], 1)).toBe(1));
+    it('array.length - 1 if index - 1 is out of bounds', () => expect(Arrays.previous([1, 3, 5], 0)).toBe(5));
+    it('undefined if index is greater than upper bound', () => expect(Arrays.previous([1, 3, 5], 3)).toBe(undefined));
+    it('undefined if index is lower than lower bound', () => expect(Arrays.previous([1, 3, 5], -1)).toBe(undefined));
+});
+
+describe('Arrays.empty() should return', () => {
+    it('true if the array is empty', () => expect(Arrays.empty([])).toBe(true));
+    it('false if the array is not empty', () => expect(Arrays.empty([1])).toBe(false));
+});
+
+describe('Arrays.notEmpty() should return', () => {
+    it('true if the array is not empty', () => expect(Arrays.notEmpty([1])).toBe(true));
+    it('false if the array is empty', () => expect(Arrays.notEmpty([])).toBe(false));
+});
+
 describe('Arrays.equal() should', () => {
     it('succeed in comparing an equivalent array', () => expect(Arrays.equal([1, 3, 5], [1, 3, 5])).toBe(true));
     it('fail to compare a non-equivalent array', () => expect(Arrays.equal([1, 4, 5], [1, 3, 5])).toBe(false));

@@ -25,6 +25,58 @@ export function last<T>(array: readonly T[]): T | undefined {
     return array[array.length - 1];
 }
 
+/**
+ * Returns true if the given index is in-bounds of the array, i.e. if it corresponds to an
+ * actual array element, or false otherwise.
+ */
+export function inBounds<T>(array: readonly T[], index: number): boolean {
+    return index >= 0 && index < array.length;
+}
+
+/**
+ * Gets the next element in the array, starting at the given index. If the index belongs to the
+ * last element in the array, returns the first element. Returns undefined if the given index
+ * is out of bounds or if there is only one element in the array.
+ */
+export function next<T>(array: readonly T[], fromIndex: number): T | undefined {
+    if (!inBounds(array, fromIndex)) {
+        return undefined;
+    }
+
+    if (!inBounds(array, fromIndex + 1) && fromIndex !== 0) {
+        return array[0];
+    }
+
+    return array[fromIndex + 1];
+}
+
+/**
+ * Gets the previous element in the array, starting at the given index. If the index belongs to the
+ * first element in the array, returns the last element. Returns undefined if the given index
+ * is out of bounds or if there is only one element in the array.
+ */
+export function previous<T>(array: readonly T[], fromIndex: number): T | undefined {
+    if (!inBounds(array, fromIndex)) {
+        return undefined;
+    }
+
+    if (!inBounds(array, fromIndex - 1) && fromIndex !== array.length - 1) {
+        return array[array.length - 1];
+    }
+
+    return array[fromIndex - 1];
+}
+
+/** Returns true if the given array is empty, else false. */
+export function empty(array: readonly any[]): boolean {
+    return array.length === 0;
+}
+
+/** Returns true if the given array is not empty, else false. */
+export function notEmpty(array: readonly any[]): boolean {
+    return array.length > 0;
+}
+
 /** Compares the contents of two arrays for referential equality. */
 export function equal(array1: readonly any[], array2: readonly any[]): boolean {
     if (array1.length !== array2.length) {
