@@ -1,6 +1,6 @@
 # *potence*
 
-[![codecov](https://img.shields.io/codecov/c/github/cengels/potence)](https://codecov.io/gh/cengels/potence)
+[![codecov](https://img.shields.io/codecov/c/github/cengels/potence)](https://codecov.io/gh/cengels/potence) [![Snyk Vulnerabilities for GitHub Repo](https://img.shields.io/snyk/vulnerabilities/github/cengels/potence)](https://snyk.io/test/github/cengels/potence) [![David](https://img.shields.io/david/cengels/potence)](https://david-dm.org/cengels/potence) [![npm](https://img.shields.io/npm/v/potence)](https://www.npmjs.com/package/potence) [![GitHub](https://img.shields.io/github/license/cengels/potence)](https://choosealicense.com/licenses/mit/)
 
 A tiny modularized JavaScript library containing a variety of convenience functions related to common data types.
 
