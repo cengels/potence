@@ -1,6 +1,6 @@
 {
   "name": "potence",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "A tiny modularized JavaScript library providing a variety of convenience functions.",
   "keywords": [
     "utility",
@@ -15,14 +15,16 @@
   ],
   "homepage": "https://github.com/cengels/potence",
   "bugs": "https://github.com/cengels/potence/issues",
-  "main": "build/index.js",
-  "types": "build/index.d.ts",
+  "main": "index.js",
+  "types": "index.d.ts",
   "readme": "README.md",
   "repository": "https://github.com/cengels/potence",
   "scripts": {
+    "build": "tsc && cp README.md LICENSE package.json build",
     "lint": "npx eslint . --ext .js,.jsx,.ts,.tsx",
     "test": "jest",
-    "prepublishOnly": "npm run lint && npm run test && tsc"
+    "pub": "npm run lint && npm run test && npm run build && cd build && npm publish",
+    "prepublishOnly": "if [ $(basename \"$PWD\") != \"build\" ]; then echo \"Build must be run from build directory.\"; exit 1; fi"
   },
   "author": "Christopher Engels <cengels@tuta.io> (https://www.cengels.com)",
   "license": "MIT",
