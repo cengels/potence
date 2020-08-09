@@ -1,0 +1,6 @@
+.vscode/
+node_modules/
+.eslintignore
+.eslintrc
+.gitignore
+jest.config.js

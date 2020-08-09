@@ -1,6 +1,6 @@
 {
   "name": "potence",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A tiny modularized JavaScript library providing a variety of convenience functions.",
   "keywords": [
     "utility",
@@ -22,7 +22,7 @@
   "scripts": {
     "lint": "npx eslint . --ext .js,.jsx,.ts,.tsx",
     "test": "jest",
-    "prepublishOnly": "npm run lint && npm run test"
+    "prepublishOnly": "npm run lint && npm run test && tsc"
   },
   "author": "Christopher Engels <cengels@tuta.io> (https://www.cengels.com)",
   "license": "MIT",
