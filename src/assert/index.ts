@@ -77,7 +77,7 @@ export function that(condition: boolean, failureMessage?: string): void {
  * Throws an assertion error if the value is not truthy and
  * optionally supplies the error with the given failure message.
  */
-export function truthy(value: any, failureMessage: string = 'expression was not truthy.'): void {
+export function truthy(value: unknown, failureMessage: string = 'expression was not truthy.'): void {
     if (!value) {
         throw assertionError(failureMessage);
     }
@@ -87,7 +87,7 @@ export function truthy(value: any, failureMessage: string = 'expression was not 
  * Throws an assertion error if the value is not falsy and
  * optionally supplies the error with the given failure message.
  */
-export function falsy(value: any, failureMessage: string = 'expression was not falsy.'): void {
+export function falsy(value: unknown, failureMessage: string = 'expression was not falsy.'): void {
     if (value) {
         throw assertionError(failureMessage);
     }
@@ -97,7 +97,7 @@ export function falsy(value: any, failureMessage: string = 'expression was not f
  * Throws an assertion error if the value is null or undefined.
  * Useful for checking the existence of mandatory arguments.
  */
-export function notNull(value: any, failureMessage: string = 'expression was null.'): void {
+export function notNull(value: unknown, failureMessage: string = 'expression was null.'): void {
     if (value == null) {
         throw assertionError(failureMessage);
     }

@@ -1,7 +1,7 @@
 /**
  * @file Offers convenience methods on arrays.
  *
- * Note that any iterations use `Array.prototype.forEach()` and Co.
+ * Note that unknown iterations use `Array.prototype.forEach()` and Co.
  * In older browsers, a simple `for` loop was significantly faster.
  * In modern browsers, that is still the case, but the difference
  * is now negligible. Even on arrays with a length of over 10,000,000,
@@ -68,17 +68,17 @@ export function previous<T>(array: readonly T[], fromIndex: number): T | undefin
 }
 
 /** Returns true if the given array is empty, else false. */
-export function empty(array: readonly any[]): boolean {
+export function empty(array: readonly unknown[]): boolean {
     return array.length === 0;
 }
 
 /** Returns true if the given array is not empty, else false. */
-export function notEmpty(array: readonly any[]): boolean {
+export function notEmpty(array: readonly unknown[]): boolean {
     return array.length > 0;
 }
 
 /** Compares the contents of two arrays for referential equality. */
-export function equal(array1: readonly any[], array2: readonly any[]): boolean {
+export function equal(array1: readonly unknown[], array2: readonly unknown[]): boolean {
     if (array1.length !== array2.length) {
         return false;
     }
@@ -138,25 +138,27 @@ export function replace<T>(array: T[], element: T, replacement: T): T[] {
  * Since this is a type guard, TypeScript users can afterwards use the array
  * as if it were of the specified type without the necessity of an additional cast.
  */
-export function type<T>(array: any[], type: Constructor<T>): array is T[];
-export function type<T>(array: readonly any[], type: Constructor<T>): array is readonly T[];
-export function type(array: any[], type: 'bigint'): array is bigint[];
-export function type(array: readonly any[], type: 'bigint'): array is readonly bigint[];
-export function type(array: any[], type: 'function'): array is Function[];
-export function type(array: readonly any[], type: 'function'): array is readonly Function[];
-export function type(array: any[], type: 'object'): array is object[];
-export function type(array: readonly any[], type: 'object'): array is readonly object[];
-export function type(array: any[], type: 'symbol'): array is symbol[];
-export function type(array: readonly any[], type: 'symbol'): array is readonly symbol[];
-export function type(array: any[], type: 'undefined'): array is undefined[];
-export function type(array: readonly any[], type: 'undefined'): array is readonly undefined[];
-export function type(array: any[], type: 'boolean'): array is boolean[];
-export function type(array: readonly any[], type: 'boolean'): array is readonly boolean[];
-export function type(array: any[], type: 'number'): array is number[];
-export function type(array: readonly any[], type: 'number'): array is readonly number[];
-export function type(array: any[], type: 'string'): array is string[];
-export function type(array: readonly any[], type: 'string'): array is readonly string[];
-export function type(array: readonly any[], type: BaseType | Constructor): boolean {
+export function type<T>(array: unknown[], type: Constructor<T>): array is T[];
+export function type<T>(array: readonly unknown[], type: Constructor<T>): array is readonly T[];
+export function type(array: unknown[], type: 'bigint'): array is bigint[];
+export function type(array: readonly unknown[], type: 'bigint'): array is readonly bigint[];
+// eslint-disable-next-line @typescript-eslint/ban-types
+export function type(array: unknown[], type: 'function'): array is Function[];
+// eslint-disable-next-line @typescript-eslint/ban-types
+export function type(array: readonly unknown[], type: 'function'): array is readonly Function[];
+export function type(array: unknown[], type: 'object'): array is Array<Record<string, unknown> | null>;
+export function type(array: readonly unknown[], type: 'object'): array is ReadonlyArray<Record<string, unknown> | null>;
+export function type(array: unknown[], type: 'symbol'): array is symbol[];
+export function type(array: readonly unknown[], type: 'symbol'): array is readonly symbol[];
+export function type(array: unknown[], type: 'undefined'): array is undefined[];
+export function type(array: readonly unknown[], type: 'undefined'): array is readonly undefined[];
+export function type(array: unknown[], type: 'boolean'): array is boolean[];
+export function type(array: readonly unknown[], type: 'boolean'): array is readonly boolean[];
+export function type(array: unknown[], type: 'number'): array is number[];
+export function type(array: readonly unknown[], type: 'number'): array is readonly number[];
+export function type(array: unknown[], type: 'string'): array is string[];
+export function type(array: readonly unknown[], type: 'string'): array is readonly string[];
+export function type(array: readonly unknown[], type: BaseType | Constructor): boolean {
     if (typeof type === 'string') {
         return array.every(item => typeof item === type);
     }
@@ -185,7 +187,7 @@ type SortOrder = 'ascending' | 'descending';
 export function sort(array: number[], order?: SortOrder): number[];
 export function sort(array: string[], order?: SortOrder): string[];
 export function sort(array: Date[], order?: SortOrder): Date[];
-export function sort(array: any[], order: SortOrder = 'ascending'): any[] {
+export function sort(array: unknown[], order: SortOrder = 'ascending'): unknown[] {
     if (array.length <= 1) {
         // No sort necessary/possible.
         return array;
@@ -240,9 +242,16 @@ export function clearNull<T>(array: T[]): T[] {
  * If the array is empty, returns the target number.
  */
 export function closest(array: readonly number[], target: number): number;
+/**
+ * Out of all the items in the array, returns the item whose callback function returns the number
+ * closest to the given target number.
+ *
+ * If the array is empty, returns the target number.
+ */
 export function closest<T>(array: readonly T[], callback: (item: T) => number, target: number): T;
 export function closest<T>(array: readonly T[], callbackOrTarget: ((item: T) => number) | number, target?: number): number | T {
     const usesCallback = typeof callbackOrTarget === 'function';
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const referenceNumber = usesCallback ? target! : callbackOrTarget as number;
 
     if (array.length === 0) {
@@ -254,5 +263,9 @@ export function closest<T>(array: readonly T[], callbackOrTarget: ((item: T) => 
         return clone(array).sort((a, b) => Math.abs(referenceNumber - callback(a)) - Math.abs(referenceNumber - callback(b)))[0];
     }
 
-    return clone(array).sort((a, b) => Math.abs(referenceNumber - (a as any)) - Math.abs(referenceNumber - (b as any)))[0];
+    if (!type(array, 'number')) {
+        throw new Error('If the array is not an array of numbers, a callback must be specified that returns a number for each item in the array.');
+    }
+
+    return clone(array).sort((a, b) => Math.abs(referenceNumber - a) - Math.abs(referenceNumber - b))[0];
 }

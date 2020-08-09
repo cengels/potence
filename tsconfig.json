@@ -9,7 +9,7 @@
       "outDir": "./build/",
       "noImplicitReturns": true,
       "strict": true,
-      "noUnusedLocals": false,
+      "noUnusedLocals": true,
       "strictNullChecks": true,
       "module": "es6",
       "moduleResolution": "node",

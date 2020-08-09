@@ -101,9 +101,9 @@ export function structure<T extends Structure>(object: ObjectLiteral, struct: T)
             if (!structure(objectValue, expectedType as Structure)) {
                 return false;
             }
+        } else {
+            return false;
         }
-
-        return false;
     }
 
     return true;

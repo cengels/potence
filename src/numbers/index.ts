@@ -204,7 +204,7 @@ export function unsafeFloat(value: number): boolean {
  *
  * Returns 0 if any of the divisors are 0 or fractions.
  */
-export function gcd(...values: readonly number[]): number {
+export function gcd(...values: number[]): number {
     if (values.length < 2) {
         return 0;
     }
@@ -242,7 +242,7 @@ export function gcd(...values: readonly number[]): number {
  *
  * Returns 0 if any of the values are 0 or floating point numbers.
  */
-export function lcm(...values: readonly number[]) {
+export function lcm(...values: number[]): number {
     if (values.length < 2) {
         return 0;
     }

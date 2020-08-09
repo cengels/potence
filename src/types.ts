@@ -1,5 +1,5 @@
 /** Represents a type that is nullable (i.e. may be null or undefined). */
-export type Nullable<T = any> = T | undefined | null;
+export type Nullable<T = unknown> = T | undefined | null;
 /** All possible results from the `typeof` operator. */
 export type BaseType = 'bigint' | 'boolean' | 'function' | 'number' | 'object' | 'string' | 'symbol' | 'undefined';
 /**
@@ -13,9 +13,10 @@ export type primitive = string | number | bigint | boolean | undefined | symbol;
 export type BaseToType<T extends BaseType> =
     T extends 'bigint' ? bigint
     : T extends 'boolean' ? boolean
+    // eslint-disable-next-line @typescript-eslint/ban-types
     : T extends 'function' ? Function
     : T extends 'number' ? number
-    : T extends 'object' ? object
+    : T extends 'object' ? Record<string | number | symbol, unknown>
     : T extends 'string' ? string
     : T extends 'symbol' ? symbol
     : undefined;
@@ -43,7 +44,8 @@ export type BaseToType<T extends BaseType> =
  *     return null;
  * }
  */
-export type Constructor<T = any> = Function & { prototype: T };
+// eslint-disable-next-line @typescript-eslint/ban-types
+export type Constructor<T = unknown> = Function & { prototype: T };
 /**
  * Represents a type that can be instantiated using the `new` keyword.
  * Particularly useful for factory functions.
@@ -51,9 +53,6 @@ export type Constructor<T = any> = Function & { prototype: T };
  * @template T The type to  be instantiated.
  * @template Args A [tuple](https://www.typescriptlang.org/docs/handbook/basic-types.html#tuple) of constructor arguments.
  */
-export type Instantiable<T = any, Args extends ReadonlyArray<any> = []> = { new(...args: Args): T; };
+export type Instantiable<T = unknown, Args extends ReadonlyArray<unknown> = []> = { new(...args: Args): T; };
 /** Represents an object literal with the given key and value type. */
-export type ObjectLiteral<P extends string | number = string, T = any> = P extends string
-    // Union types cannot be used to type an object key, so this is necessary.
-    ? { [key: string]: T; }
-    : { [key: number]: T; }
+export type ObjectLiteral<T = unknown> = Record<string, T>;

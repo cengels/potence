@@ -112,7 +112,7 @@ describe('Numbers.sum() should return', () => {
         [[1], 1],
         [[55, 22], 77],
         [[623, 365452, 412, -5321], 361166]
-    ]).it('with integers %p: %d', (values, expected) => expect(Numbers.sum(...values as [any])).toBe(expected));
+    ]).it('with integers %p: %d', (values, expected) => expect(Numbers.sum(...values)).toBe(expected));
 });
 
 describe('Numbers.mean() should return', () => {
@@ -121,5 +121,5 @@ describe('Numbers.mean() should return', () => {
         [[1], 1],
         [[55, 22], 38.5],
         [[623, 365452, 412, -5321], 90291.5]
-    ]).it('with integers %p: %d', (values, expected) => expect(Numbers.mean(...values as [any])).toBeCloseTo(expected));
+    ]).it('with integers %p: %d', (values, expected) => expect(Numbers.mean(...values)).toBeCloseTo(expected));
 });
