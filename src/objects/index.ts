@@ -12,6 +12,16 @@ export type MappedStructure<T extends Structure> = {
         : BaseToType<T[P]>;
 }
 
+/** Checks if a value is an object, excluding `null` but including arrays and functions. */
+export function isObject(object: unknown): object is Record<string | number | symbol, unknown> {
+    return object != null && (typeof object === 'object' || typeof object === 'function');
+}
+
+/** Checks if a value is an object literal, i.e. an object whose direct prototype is `Object.prototype`. */
+export function isObjectLiteral(object: unknown): object is Record<string | number | symbol, unknown> {
+    return object != null && typeof object === 'object' && Object.getPrototypeOf(object) === Object.prototype;
+}
+
 type ComparisonMode = 'shallow' | 'deep';
 
 /**
@@ -24,12 +34,12 @@ type ComparisonMode = 'shallow' | 'deep';
  * of keys and values; compares nested objects by reference only) and 'deep' (recursively compares all levels of keys and
  * values, meaning it properly compares nested objects as well). Default is 'shallow'.
  */
-export function compare(object1: any, object2: any, comparisonMode: ComparisonMode = 'shallow'): boolean {
+export function compare(object1: unknown, object2: unknown, comparisonMode: ComparisonMode = 'shallow'): boolean {
     if (object1 == null || object2 == null) {
         return object1 == null && object2 == null;
     }
 
-    if (typeof object1 !== 'object' || typeof object2 !== 'object') {
+    if (!isObject(object1) || !isObject(object2)) {
         return object1 === object2;
     }
 
@@ -40,7 +50,7 @@ export function compare(object1: any, object2: any, comparisonMode: ComparisonMo
     // than the alternative Object.keys(object1).length === keys.length check.
 
     const keys: string[] = [];
-    for (let key in object1) {
+    for (const key in object1) {
         if (typeof object1[key] === 'object' && typeof object2[key] === 'object' && comparisonMode === 'deep') {
             if (!compare(object1[key], object2[key], comparisonMode)) {
                 return false;
@@ -52,7 +62,7 @@ export function compare(object1: any, object2: any, comparisonMode: ComparisonMo
         keys.push(key);
     }
 
-    for (let key in object2) {
+    for (const key in object2) {
         if (!keys.includes(key)) {
             return false;
         }
@@ -65,7 +75,7 @@ export function compare(object1: any, object2: any, comparisonMode: ComparisonMo
  * Checks if the passed object literal conforms to the given structure.
  */
 export function structure<T extends Structure>(object: ObjectLiteral, struct: T): object is MappedStructure<T> {
-    if (typeof object !== 'object' || typeof struct !== 'object') {
+    if (!isObjectLiteral(object) || !isObjectLiteral(struct)) {
         throw new Error('Objects.structure(): must pass an object!');
     }
 
@@ -87,11 +97,13 @@ export function structure<T extends Structure>(object: ObjectLiteral, struct: T)
             if (!(objectValue instanceof (expectedType as Constructor))) {
                 return false;
             }
-        } else {
+        } else if (isObjectLiteral(objectValue)) {
             if (!structure(objectValue, expectedType as Structure)) {
                 return false;
             }
         }
+
+        return false;
     }
 
     return true;

@@ -1,5 +1,43 @@
 import * as Objects from '../src/objects';
 
+describe('Objects.isObject() should return', () => {
+    describe('true for', () => {
+        it('object literals', () => expect(Objects.isObject({ a: 1, b: 3 })).toBe(true));
+        it('new Object()', () => expect(Objects.isObject(new Object())).toBe(true));
+        it('new Number()', () => expect(Objects.isObject(new Number())).toBe(true));
+        it('new String()', () => expect(Objects.isObject(new String())).toBe(true));
+        it('new Function()', () => expect(Objects.isObject(new Function())).toBe(true));
+        it('functions', () => expect(Objects.isObject(() => 0)).toBe(true));
+        it('arrays', () => expect(Objects.isObject([])).toBe(true));
+    });
+    describe('false for', () => {
+        it('Symbol()', () => expect(Objects.isObject(Symbol())).toBe(false));
+        it('numbers', () => expect(Objects.isObject(1)).toBe(false));
+        it('strings', () => expect(Objects.isObject('')).toBe(false));
+        it('null', () => expect(Objects.isObject(null)).toBe(false));
+        it('undefined', () => expect(Objects.isObject(undefined)).toBe(false));
+    });
+});
+
+describe('Objects.isObjectLiteral() should return', () => {
+    describe('true for', () => {
+        it('object literals', () => expect(Objects.isObjectLiteral({ a: 1, b: 3 })).toBe(true));
+        it('new Object()', () => expect(Objects.isObjectLiteral(new Object())).toBe(true));
+    });
+    describe('false for', () => {
+        it('new Number()', () => expect(Objects.isObjectLiteral(new Number())).toBe(false));
+        it('new String()', () => expect(Objects.isObjectLiteral(new String())).toBe(false));
+        it('new Function()', () => expect(Objects.isObjectLiteral(new Function())).toBe(false));
+        it('Symbol()', () => expect(Objects.isObjectLiteral(Symbol())).toBe(false));
+        it('functions', () => expect(Objects.isObjectLiteral(() => 0)).toBe(false));
+        it('arrays', () => expect(Objects.isObjectLiteral([])).toBe(false));
+        it('numbers', () => expect(Objects.isObjectLiteral(1)).toBe(false));
+        it('strings', () => expect(Objects.isObjectLiteral('')).toBe(false));
+        it('null', () => expect(Objects.isObjectLiteral(null)).toBe(false));
+        it('undefined', () => expect(Objects.isObjectLiteral(undefined)).toBe(false));
+    });
+});
+
 describe('Objects.compare() should', () => {
     describe('for a shallow comparison', () => {
         it('succeed in comparing an equivalent object', () => expect(Objects.compare({ a: 1, b: 3 }, { a: 1, b: 3 })).toBe(true));
