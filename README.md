@@ -94,6 +94,12 @@ use main module imports. This is because webpack 4 does not support tree-shaking
 that, in this example, all `Arrays` functions would be added to your bundle despite the fact you only use `Arrays.equal()`.
 webpack 5 only ever bundles the functions you actually use.
 
+## Docs
+
+Work-in-progress. Currently the only way to look at the documentation is to go through the JsDoc comments in the source code
+or to rely on your IDE to show it to you. We're aiming to create a more accessible website with all the documentation
+on it ASAP.
+
 ## Contribution Guidelines
 
 To maintain *potence*'s original paradigms, there are a series of guidelines you should read and keep if you'd
