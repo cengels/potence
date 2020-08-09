@@ -15,8 +15,8 @@
   ],
   "homepage": "https://github.com/cengels/potence",
   "bugs": "https://github.com/cengels/potence/issues",
-  "main": "./build/index.js",
-  "types": "./build/index.d.ts",
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
   "readme": "README.md",
   "repository": "https://github.com/cengels/potence",
   "scripts": {
