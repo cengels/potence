@@ -35,11 +35,7 @@ type ComparisonMode = 'shallow' | 'deep';
  * values, meaning it properly compares nested objects as well). Default is 'shallow'.
  */
 export function compare(object1: unknown, object2: unknown, comparisonMode: ComparisonMode = 'shallow'): boolean {
-    if (object1 == null || object2 == null) {
-        return object1 == null && object2 == null;
-    }
-
-    if (!isObject(object1) || !isObject(object2)) {
+    if (object1 == null || object2 == null || !isObject(object1) || !isObject(object2)) {
         return object1 === object2;
     }
 
@@ -93,15 +89,15 @@ export function structure<T extends Structure>(object: ObjectLiteral, struct: T)
             } else if (typeof objectValue !== expectedType) {
                 return false;
             }
-        } else if (expectedType.prototype != null) {
-            if (!(objectValue instanceof (expectedType as Constructor))) {
-                return false;
-            }
         } else if (isObjectLiteral(objectValue)) {
             if (!structure(objectValue, expectedType as Structure)) {
                 return false;
             }
-        } else {
+        } else if (expectedType.prototype != null) {
+            if (!(objectValue instanceof (expectedType as Constructor))) {
+                return false;
+            }
+        }  else {
             return false;
         }
     }

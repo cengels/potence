@@ -1,5 +1,7 @@
 # *potence*
 
+[![codecov](https://codecov.io/gh/cengels/potence/branch/master/graph/badge.svg)](https://codecov.io/gh/cengels/potence)
+
 A tiny modularized JavaScript library containing a variety of convenience functions related to common data types.
 
 ## Why would you use *potence*?

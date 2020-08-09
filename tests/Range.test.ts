@@ -120,6 +120,16 @@ describe('Range.relative() should return', () => {
         [25, 1],
         [29, 1.2],
     ]).it('relative(%d): %d', (value, expected) => expect(new Range(5, 25).relative(value)).toBe(expected));
+    each([
+        [-5, 1.5],
+        [5, 1.0],
+        [7, 0.9],
+        [11, 0.7],
+        [15, 0.5],
+        [20, 0.25],
+        [25, 0.0],
+        [29, -0.2],
+    ]).it('inverted relative(%d): %d', (value, expected) => expect(new Range(25, 5).relative(value)).toBeCloseTo(expected));
 });
 
 describe('Range.equals() should return', () => {
@@ -127,4 +137,12 @@ describe('Range.equals() should return', () => {
     it('false if used with unequal arguments', () => expect(new Range(-55, 22).equals(22, -55)).toBe(false));
     it('true if used with equal ranges', () => expect(new Range(-55, 22).equals(new Range(-55, 22))).toBe(true));
     it('false if used with unequal ranges', () => expect(new Range(-55, 22).equals(new Range(22, -55))).toBe(false));
+});
+
+describe('Range.clone() should return', () => {
+    it('a clone of the same range', () => {
+        const range = new Range(-55, 22);
+        const clone = range.clone();
+        return expect(range !== clone && range.equals(clone)).toBe(true);
+    });
 });

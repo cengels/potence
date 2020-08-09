@@ -1,18 +1,27 @@
 import each from 'jest-each';
 import * as Numbers from '../src/numbers';
 
+describe('Numbers.configure() should', () => {
+    it('change the default tolerance', () => {
+        expect(Numbers.compare(1, 1.0000000001)).toBe(true);
+        Numbers.configure({ defaultTolerance: 0 });
+        expect(Numbers.compare(1, 1.0000000001)).toBe(false);
+    });
+});
+
 describe('Numbers.compare() should return', () => {
     it('true for equal integral numbers', () => expect(Numbers.compare(5, 5)).toBe(true));
-    it('false for non-equal integral numbers', () => expect(Numbers.compare(5, 4)).toBe(false));
-    it('true for equal floating point numbers', () => expect(Numbers.compare(5.333, 5.333)).toBe(true));
+    it('false for non-equal integral numbers', () => expect(Numbers.approaches(5, 4)).toBe(false));
+    it('true for equal floating point numbers', () => expect(Numbers.closeTo(5.333, 5.333)).toBe(true));
     it('true for equal calculated floating point numbers', () => expect(Numbers.compare(5.1, 5 * 1.02)).toBe(true));
     it('true for any number with bigger tolerance', () => expect(Numbers.compare(5, 3, 2)).toBe(true));
 });
 
-describe('Numbers.range() should return', () => {
-    it('a range with two values', () => expect(Numbers.range(2, 21).equals(2, 21)).toBe(true));
-    it('an inverted range with two values', () => expect(Numbers.range(21, 2).equals(21, 2)).toBe(true));
-    it('a range from over 2 values', () => expect(Numbers.range(18, 5, 9, 1, 10, 20, 7).equals(1, 20)).toBe(true));
+describe('Numbers.range() should', () => {
+    it('return a range with two values', () => expect(Numbers.range(2, 21).equals(2, 21)).toBe(true));
+    it('return an inverted range with two values', () => expect(Numbers.range(21, 2).equals(21, 2)).toBe(true));
+    it('return a range from over 2 values', () => expect(Numbers.range(18, 5, 9, 1, 10, 20, 7).equals(1, 20)).toBe(true));
+    it('throw with less than 3 values', () => expect(() => Numbers.range(5)).toThrowError());
 });
 
 describe('Numbers.center() should', () => {
@@ -68,9 +77,28 @@ describe('Numbers.safeFloat() should return', () => {
     it('true for 0.6', () => expect(Numbers.safeFloat(0.6)).toBe(true));
 });
 
+describe('Numbers.unsafeFloat() should return', () => {
+    it('false for 0.5', () => expect(Numbers.unsafeFloat(0.5)).toBe(false));
+    it('false for 212.5', () => expect(Numbers.unsafeFloat(212.5)).toBe(false));
+    it('false for 0.25', () => expect(Numbers.unsafeFloat(0.25)).toBe(false));
+    it('false for 0.125', () => expect(Numbers.unsafeFloat(0.125)).toBe(false));
+    it('false for 0.0625', () => expect(Numbers.unsafeFloat(0.0625)).toBe(false));
+    it('false for any number divided by a power of 2', () => {
+        let current: number = 1;
+        for (let i: number = 0; i < 50; i++) {
+            current /= 2;
+            expect(Numbers.unsafeFloat(current)).toBe(false);
+        }
+    });
+    it('true for 0.1', () => expect(Numbers.unsafeFloat(0.1)).toBe(true));
+    it('true for 0.2', () => expect(Numbers.unsafeFloat(0.2)).toBe(true));
+    it('false for 0.6', () => expect(Numbers.unsafeFloat(0.6)).toBe(false));
+});
+
 describe('Numbers.gcd() should return', () => {
     it('0 with no numbers passed', () => expect(Numbers.gcd()).toBe(0));
     it('0 with 1 number passed', () => expect(Numbers.gcd(5)).toBe(0));
+    it('0 with a floating point number passed', () => expect(Numbers.gcd(3.2, 6.4)).toBe(0));
     each([
         [3, 6, 3],
         [7, 14, 7],
@@ -86,6 +114,7 @@ describe('Numbers.gcd() should return', () => {
 describe('Numbers.lcm() should return', () => {
     it('0 with no numbers passed', () => expect(Numbers.lcm()).toBe(0));
     it('0 with 1 number passed', () => expect(Numbers.lcm(5)).toBe(0));
+    it('0 with a floating point number passed', () => expect(Numbers.lcm(3.2, 6.4)).toBe(0));
     each([
         [3, 6, 6],
         [7, 14, 14],
@@ -122,4 +151,6 @@ describe('Numbers.mean() should return', () => {
         [[55, 22], 38.5],
         [[623, 365452, 412, -5321], 90291.5]
     ]).it('with integers %p: %d', (values, expected) => expect(Numbers.mean(...values)).toBeCloseTo(expected));
+    it('the same as average()', () => expect(Numbers.average(5, 3)).toBeCloseTo(Numbers.mean(5, 3)));
+    it('the same as avg()', () => expect(Numbers.avg(5, 3)).toBeCloseTo(Numbers.mean(5, 3)));
 });

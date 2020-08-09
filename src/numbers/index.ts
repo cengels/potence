@@ -211,10 +211,6 @@ export function gcd(...values: number[]): number {
 
     let result: number = values[0];
 
-    if (float(result)) {
-        return 0;
-    }
-
     for (let i: number = 1; i < values.length; i++) {
         if (result === 0 || values[i] === 0 || float(values[i])) {
             return 0;

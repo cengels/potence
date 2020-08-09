@@ -23,6 +23,8 @@
     "build": "tsc && cp README.md LICENSE package.json build",
     "lint": "npx eslint . --ext .js,.jsx,.ts,.tsx",
     "test": "jest",
+    "coverage": "jest --collect-coverage",
+    "upload-coverage": "curl -s https://codecov.io/bash | bash -s - -s coverage",
     "pub": "npm run lint && npm run test && npm run build && cd build && npm publish",
     "prepublishOnly": "if [ $(basename \"$PWD\") != \"build\" ]; then echo \"Build must be run from build directory.\"; exit 1; fi"
   },

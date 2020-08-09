@@ -97,6 +97,11 @@ describe('Arrays.type() should return', () => {
 });
 
 describe('Arrays.sort() should', () => {
+    it('return the original array if no sort is possible', () => expect(Arrays.sort([])).toStrictEqual([]));
+    // @ts-expect-error
+    it('throw an error if type is neither number[], string[] or Date[]', () => expect(() => Arrays.sort([{}, [5, 3]])).toThrowError());
+    // @ts-expect-error
+    it('throw an error if type is mixed', () => expect(() => Arrays.sort([5, 'yes'])).toThrowError());
     describe('for numbers', () => {
         it('properly sort an array (ascending)', () => expect(Arrays.sort([5, 3, 8])).toEqual([3, 5, 8]));
         it('properly sort an array (descending)', () => expect(Arrays.sort([5, 3, 8], 'descending')).toEqual([8, 5, 3]));
@@ -137,9 +142,11 @@ describe('Arrays.clearNull() should', () => {
     });
 });
 
-describe('Arrays.closest() should return', () => {
-    it('the target number if empty', () => expect(Arrays.closest([], 5)).toEqual(5));
-    it('the closest number if all numbers', () => expect(Arrays.closest([5, 3, 0], 2)).toEqual(3));
-    it('the first number if two numbers are the same distance away', () => expect(Arrays.closest([5, 3, 0], 4)).toEqual(5));
-    it('the closest object if using callback', () => expect(Arrays.closest([[1, 2, 3], [5, 6, 7], [2, 3, 4]], element => Numbers.sum(...element), 13)).toEqual([2, 3, 4]));
+describe('Arrays.closest() should', () => {
+    it('return the target number if empty', () => expect(Arrays.closest([], 5)).toEqual(5));
+    it('return the closest number if all numbers', () => expect(Arrays.closest([5, 3, 0], 2)).toEqual(3));
+    it('return the first number if two numbers are the same distance away', () => expect(Arrays.closest([5, 3, 0], 4)).toEqual(5));
+    it('return the closest object if using callback', () => expect(Arrays.closest([[1, 2, 3], [5, 6, 7], [2, 3, 4]], element => Numbers.sum(...element), 13)).toEqual([2, 3, 4]));
+    // @ts-expect-error
+    it('throw an error if no callback is specified and array is not number[]', () => expect(() => Arrays.closest([[1, 2, 3], [5, 6, 7], [2, 3, 4]], 13)).toThrowError());
 });

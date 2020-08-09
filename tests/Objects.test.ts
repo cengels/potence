@@ -39,6 +39,11 @@ describe('Objects.isObjectLiteral() should return', () => {
 });
 
 describe('Objects.compare() should', () => {
+    it('return true if both objects are null', () => expect(Objects.compare(null, null)).toBe(true));
+    it('return false if one object is null and the other undefined', () => expect(Objects.compare(null, undefined)).toBe(false));
+    it('return true if they are the same non-object', () => expect(Objects.compare(5, 5)).toBe(true));
+    it('return false if they are not objects and not identical', () => expect(Objects.compare(5, '5')).toBe(false));
+    it('return false if object2 has more keys than object1', () => expect(Objects.compare({ a: 2 }, { a: 2, b: 1 })).toBe(false));
     describe('for a shallow comparison', () => {
         it('succeed in comparing an equivalent object', () => expect(Objects.compare({ a: 1, b: 3 }, { a: 1, b: 3 })).toBe(true));
         it('fail to compare a non-equivalent object', () => expect(Objects.compare({ a: 1, b: 3 }, { a: 1, b: 4 })).toBe(false));
@@ -51,6 +56,8 @@ describe('Objects.compare() should', () => {
 });
 
 describe('Objects.structure() should', () => {
+    // @ts-expect-error
+    it('throw an error if the passed objects aren\'t literals', () => expect(() => Objects.structure(new Number(), {})).toThrowError());
     it('succeed in comparing an object against a simple structure', () => expect(Objects.structure({ a: 52, b: 'foo' },
                                                                                                    { a: 'number', b: 'string' })).toBe(true));
     it('fail to compare an object against a non-matching simple structure', () => expect(Objects.structure({ a: 52, b: 'foo' },
@@ -73,16 +80,51 @@ describe('Objects.structure() should', () => {
                 }
             }
         })).toBe(true));
+    it('fail in comparing an object against an incorrect nested structure', () => expect(Objects.structure({
+            a: 52,
+            b: {
+                c: {
+                    d: 'foo'
+                }
+            }
+        },
+        {
+            a: 'number',
+            b: {
+                c: {
+                    c: 'string'
+                }
+            }
+        })).toBe(false));
     it('succeed in comparing an object against contained arrays', () => expect(Objects.structure({
             a: ['foo']
         },
         {
             a: 'array'
         })).toBe(true));
+    it('fail in comparing an object against non-contained arrays', () => expect(Objects.structure({
+            a: { foo: 1 }
+        },
+        {
+            a: 'array'
+        })).toBe(false));
     it('succeed in comparing an object against constructors', () => expect(Objects.structure({
             a: new Date()
         },
         {
             a: Date
         })).toBe(true));
+    it('fail in comparing an object against incorrect constructors', () => expect(Objects.structure({
+            a: new Number()
+        },
+        {
+            a: Date
+        })).toBe(false));
+    it('fail if the expected structure uses an incorrect type', () => expect(Objects.structure({
+            a: [ 'foo' ]
+        },
+        {
+            // @ts-expect-error
+            a: [ 'foo' ]
+        })).toBe(false));
 });
