@@ -1,15 +1,15 @@
-# nitrous
+# potence
 
 A tiny modularized JavaScript library containing a variety of convenience functions related to common data types.
 
-## Why would you use nitrous?
+## Why would you use potence?
 
-### nitrous is tiny and has no transitive dependencies.
+### potence is tiny and has no transitive dependencies.
 
 These days JavaScript packages are huge, and it all tends to be because of external dependencies.
 You think you're doing fine because you depend on only one package, but you don't realize that
 that package depends on ten others, which also depend on ten others, and before you know it
-you just increased your build size by 300 KB. nitrous has no dependencies at all; all functionality
+you just increased your build size by 300 KB. potence has no dependencies at all; all functionality
 comes from this package's source code itself.
 
 ### Open to contributions and improvements
@@ -19,7 +19,7 @@ issue! On the same note: you have an idea for how to improve the implementation 
 function, to make it more failsafe or faster? Again, don't hesitate to open an issue or directly
 create a pull request!
 
-*Note: nitrous is dedicated to a small package size, to allow you to embed it in almost any
+*Note: potence is dedicated to a small package size, to allow you to embed it in almost any
 project with minimal overhead. To maintain this paradigm, a function proposal must fulfill two
 requirements: the function must be small in size (otherwise a separate package may be more
 reasonable) and its use case must be common enough to be potentially frequently used by consumers.
@@ -29,15 +29,15 @@ Since the package is modularized, however, feel free to suggest new modules at w
 
 ### Submodule imports
 
-The way you import and use nitrous is up to you. You can use submodule imports:
+The way you import and use potence is up to you. You can use submodule imports:
 
 ```js
-    import * as Arrays from 'nitrous/arrays';
+    import * as Arrays from 'potence/arrays';
 
     Arrays.equal([1, 2, 3], [1, 2, 3]); // true
 ```
 
-Since nitrous offers utility functions for each major data type, this allows you to immediately
+Since potence offers utility functions for each major data type, this allows you to immediately
 identify which data type a set of functions belongs to and get code suggestions only for that
 type. It also prevents name clashes between modules.
 
@@ -47,7 +47,7 @@ Alternatively, you can simply import from the main module entry. This will also 
 on your IDE's or code editor's import completion. However, you won't be able to use non-namespaced modules this way:
 
 ```js
-    import { Arrays } from 'nitrous';
+    import { Arrays } from 'potence';
 
     Arrays.equal([1, 2, 3], [1, 2, 3]); // true
 ```

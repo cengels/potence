@@ -1,5 +1,5 @@
 {
-  "name": "nitrous",
+  "name": "potence",
   "version": "0.0.1",
   "description": "A tiny modularized JavaScript library providing a variety of convenience functions.",
   "keywords": [
@@ -13,12 +13,12 @@
     "string",
     "assert"
   ],
-  "homepage": "https://github.com/cengels/nitrous",
-  "bugs": "https://github.com/cengels/nitrous/issues",
+  "homepage": "https://github.com/cengels/potence",
+  "bugs": "https://github.com/cengels/potence/issues",
   "main": "./build/index.js",
   "types": "./build/index.d.ts",
   "readme": "README.md",
-  "repository": "https://github.com/cengels/nitrous",
+  "repository": "https://github.com/cengels/potence",
   "scripts": {
     "lint": "npx eslint . --ext .js,.jsx,.ts,.tsx",
     "test": "jest",
