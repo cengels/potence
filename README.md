@@ -27,8 +27,9 @@ Since the package is modularized, however, feel free to suggest new modules at w
 
 ## Usage
 
-The way you import and use nitrous is up to you. The recommended way to use nitrous, however,
-is to namespace your imports like this:
+### Submodule imports
+
+The way you import and use nitrous is up to you. You can use submodule imports:
 
 ```js
     import * as Arrays from 'nitrous/arrays';
@@ -40,6 +41,8 @@ Since nitrous offers utility functions for each major data type, this allows you
 identify which data type a set of functions belongs to and get code suggestions only for that
 type. It also prevents name clashes between modules.
 
+### Main entry imports
+
 Alternatively, you can simply import from the main module entry. This will also allow you to capitalize
 on your IDE's or code editor's import completion. However, you won't be able to use non-namespaced modules this way:
 
@@ -48,3 +51,8 @@ on your IDE's or code editor's import completion. However, you won't be able to 
 
     Arrays.equal([1, 2, 3], [1, 2, 3]); // true
 ```
+
+**Note for webpack users**: It is strongly recommended that you [migrate to webpack 5](https://webpack.js.org/migrate/5/) if you'd like to
+use main module imports. This is because webpack 4 does not support tree-shaking for re-exported modules, which means
+that, in this example, all `Arrays` functions would be added to your bundle despite the fact you only use `Arrays.equal()`.
+webpack 5 only ever bundles the functions you actually use.

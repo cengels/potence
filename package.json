@@ -21,10 +21,12 @@
   "repository": "https://github.com/cengels/nitrous",
   "scripts": {
     "lint": "npx eslint . --ext .js,.jsx,.ts,.tsx",
-    "test": "jest"
+    "test": "jest",
+    "prepublishOnly": "npm run lint && npm run test"
   },
   "author": "Christopher Engels <cengels@tuta.io> (https://www.cengels.com)",
   "license": "MIT",
+  "sideEffects": false,
   "dependencies": {},
   "devDependencies": {
     "@types/jest": "^26.0.3",
