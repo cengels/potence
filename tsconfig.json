@@ -6,7 +6,7 @@
           "types/*"
         ]
       },
-      "outDir": "./dist/",
+      "outDir": "./build/",
       "noImplicitReturns": true,
       "strict": true,
       "noUnusedLocals": false,
@@ -15,18 +15,20 @@
       "moduleResolution": "node",
       "target": "es6",
       "allowJs": false,
-      "sourceMap": true,
+      "sourceMap": false,
       "allowSyntheticDefaultImports": true,
-      "removeComments": true,
+      "removeComments": false,
       "forceConsistentCasingInFileNames": true,
       "emitDecoratorMetadata": true,
       "experimentalDecorators": true,
+      "declaration": true,
       "lib": [
         "DOM",
         "ES2020"
       ],
       "plugins": [ ]
     },
-    "exclude": [
+    "include": [
+        "src"
     ]
   }
