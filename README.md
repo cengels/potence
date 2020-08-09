@@ -1,6 +1,6 @@
 # *potence*
 
-[![codecov](https://codecov.io/gh/cengels/potence/branch/master/graph/badge.svg)](https://codecov.io/gh/cengels/potence)
+[![codecov](https://img.shields.io/codecov/c/github/cengels/potence)](https://codecov.io/gh/cengels/potence)
 
 A tiny modularized JavaScript library containing a variety of convenience functions related to common data types.
 
