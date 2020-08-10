@@ -25,7 +25,8 @@
     "test": "jest",
     "coverage": "jest --collect-coverage",
     "upload-coverage": "curl -s https://codecov.io/bash | bash -s - -s coverage",
-    "pub": "npm run lint && npm run test && npm run build && cd build && npm publish",
+    "docs": "typedoc --excludeNotExported --excludePrivate --stripInternal --theme minimal",
+    "pub": "./scripts/checklist.sh -vlcrt && npm run lint && npm run test && npm run build && cd build && npm publish",
     "prepublishOnly": "if [ $(basename \"$PWD\") != \"build\" ]; then echo \"Build must be run from build directory.\"; exit 1; fi"
   },
   "author": "Christopher Engels <cengels@tuta.io> (https://www.cengels.com)",
