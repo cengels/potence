@@ -59,7 +59,7 @@ Currently there are six modules contained in this library:
 | Numbers | Offers accurate floating point comparisons, ranges, integer/float checks, and various mathematical complements to `Math`. Examples: <ul><li>`Numbers.compare(0, 0.00000001) => true`</li><li>`Numbers.range(0, 20).relative(5) => 0.25`</li><li>`Numbers.sum(2, 4, 8) => 14`</li></ul> |
 | Objects | Object comparisons (deep and shallow) and testing an object based on a schema. <ul><li>`Objects.compare({ a: 1 }, { a: 1 }) => true`</li><li>`Objects.isObjectLiteral(new Date()) => false`</li><li>`Objects.structure({ a: 1 }, { a: 'number' }) => true`</li></ul> |
 | Strings | Work-in-progress. For now it only has: <ul><li>`Strings.strip('banana bear', 'na', ' ') => 'babear'`</li></ul> |
-| Types | Convenience types for TypeScript users. <ul><li>`Nullable<string> // string | null | undefined`</li><li>`Constructor<BaseClass> // denotes abstract constructor`</li><li>`Instantiable<BaseClass> // denotes "newable" constructor`</li></ul> |
+| Types | Convenience types for TypeScript users. <ul><li>`Nullable<string> // string \| null \| undefined`</li><li>`Constructor<BaseClass> // denotes abstract constructor`</li><li>`Instantiable<BaseClass> // denotes "newable" constructor`</li></ul> |
 
 The full documentation is work-in-progress. Currently the only way to read the documentation is to go through the
 JsDoc comments in the source code or to rely on your IDE to show it to you. We're aiming to create a more accessible
