@@ -48,6 +48,25 @@ have a feature request.
 but if you do you'll be able to benefit from full type coverage. *potence* even offers some utility
 types to represent things like abstract constructors, instantiable constructors, or object literals.
 
+## Docs
+
+Currently there are six modules contained in this library:
+
+| Module | Description |
+| --- | --- |
+| Arrays | Array comparisons and common functions like <ul><li>`Arrays.next([8, 1, -5], 2) => 8`</li><li>`Arrays.last([3, 6]) => 6`</li><li>`Arrays.replace([3, 6], 6, 9) => [3, 9]`</li></ul> |
+| Assert | Simple assertions with an optional configurable failure message. Examples: <ul><li>`Assert.notNull(variable)`</li><li>`Assert.that(number > 0, 'number was negative')`</li><li>`Assert.every(array, item => typeof item === 'string')`</li></ul> |
+| Numbers | Offers accurate floating point comparisons, ranges, integer/float checks, and various mathematical complements to `Math`. Examples: <ul><li>`Numbers.compare(0, 0.00000001) => true`</li><li>`Numbers.range(0, 20).relative(5) => 0.25`</li><li>`Numbers.sum(2, 4, 8) => 14`</li></ul> |
+| Objects | Object comparisons (deep and shallow) and testing an object based on a schema. <ul><li>`Objects.compare({ a: 1 }, { a: 1 }) => true`</li><li>`Objects.isObjectLiteral(new Date()) => false`</li><li>`Objects.structure({ a: 1 }, { a: 'number' }) => true`</li></ul> |
+| Strings | Work-in-progress. For now it only has: <ul><li>`Strings.strip('banana bear', 'na', ' ') => 'babear'`</li></ul> |
+| Types | Convenience types for TypeScript users. <ul><li>`Nullable<string> // string | null | undefined`</li><li>`Constructor<BaseClass> // denotes abstract constructor`</li><li>`Instantiable<BaseClass> // denotes "newable" constructor`</li></ul> |
+
+The full documentation is work-in-progress. Currently the only way to read the documentation is to go through the
+JsDoc comments in the source code or to rely on your IDE to show it to you. We're aiming to create a more accessible
+website with all the documentation on it ASAP.
+
+In the meantime, if you'd like more complete examples, I encourage you to take a look at the [unit tests](https://github.com/cengels/potence/tree/master/tests).
+
 ## Usage
 
 ### Installation
@@ -93,12 +112,6 @@ Arrays.equal([1, 2, 3], [1, 2, 3]); // true
 use main module imports. This is because webpack 4 does not support tree-shaking for re-exported modules, which means
 that, in this example, all `Arrays` functions would be added to your bundle despite the fact you only use `Arrays.equal()`.
 webpack 5 only ever bundles the functions you actually use.
-
-## Docs
-
-Work-in-progress. Currently the only way to look at the documentation is to go through the JsDoc comments in the source code
-or to rely on your IDE to show it to you. We're aiming to create a more accessible website with all the documentation
-on it ASAP.
 
 ## Contribution Guidelines
 
