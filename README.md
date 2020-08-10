@@ -8,6 +8,20 @@
 <a href="https://choosealicense.com/licenses/mit/"><img src="https://img.shields.io/github/license/cengels/potence" alt="GitHub" /></a>
 </p>
 
+## Table of contents
+
+* [What is *potence*?](#what-is-potence)
+* [Why would you use *potence*?](#why-would-you-use-potence)
+  * [*potence* is tiny and has no dependencies](#potence-is-tiny-and-has-no-dependencies)
+  * [Open to contributions and improvements](#open-to-contributions-and-improvements)
+  * [Full TypeScript integration](#full-typescript-integration)
+* [Docs](#docs)
+* [Usage](#usage)
+  * [Installation](#installation)
+  * [Submodule imports](#submodule-imports)
+  * [Main entry imports](#main-entry-imports)
+* [Contribution Guidelines](#contribution-guidelines)
+
 ## What is *potence*?
 
 *potence* is a tiny modularized JavaScript library containing a variety of convenience functions related
