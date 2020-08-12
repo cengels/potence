@@ -104,3 +104,15 @@ export function structure<T extends Structure>(object: ObjectLiteral, struct: T)
 
     return true;
 }
+
+/**
+ * Swaps the values `source[from]` and `source[to]` and returns the original object.
+ * Note that this will invoke setters.
+ */
+export function swap<T extends ObjectLiteral>(source: T, from: keyof T, to: keyof T): T {
+    const temp = source[from];
+    source[from] = source[to];
+    source[to] = temp;
+
+    return source;
+}

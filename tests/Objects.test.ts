@@ -128,3 +128,7 @@ describe('Objects.structure() should', () => {
             a: [ 'foo' ]
         })).toBe(false));
 });
+
+describe('Objects.swap() should', () => {
+    it('properly swap the object', () => expect(Objects.swap({ x: 5, y: 2 }, 'x', 'y')).toStrictEqual({ x: 2, y: 5 }));
+});
