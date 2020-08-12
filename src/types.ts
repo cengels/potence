@@ -1,3 +1,5 @@
+import { Objects } from '.';
+
 /** Represents a type that is nullable (i.e. may be null or undefined). */
 export type Nullable<T = unknown> = T | undefined | null;
 /** All possible results from the `typeof` operator. */
@@ -9,6 +11,12 @@ export type BaseType = 'bigint' | 'boolean' | 'function' | 'number' | 'object' |
  * @see https://developer.mozilla.org/en-US/docs/Glossary/Primitive
  */
 export type primitive = string | number | bigint | boolean | undefined | symbol;
+
+/** Checks if a given object is a primitive, i.e. if it is not a function, object, array, or instance. */
+export function isPrimitive(object: unknown): object is primitive {
+    return object !== null && typeof object !== 'object' && typeof object !== 'function';
+}
+
 /** Converts the string typeof result into an actual type. */
 export type BaseToType<T extends BaseType> =
     T extends 'bigint' ? bigint
@@ -56,3 +64,29 @@ export type Constructor<T = unknown> = Function & { prototype: T };
 export type Instantiable<T = unknown, Args extends ReadonlyArray<unknown> = []> = { new(...args: Args): T; };
 /** Represents an object literal with the given key and value type. */
 export type ObjectLiteral<T = unknown> = Record<string, T>;
+
+/**
+ * An interface representing an object that can be equated to another.
+ *
+ * The reason that Equatable does not have a generic is because it is impossible
+ * to check for generics in type constraints (i.e. `isEquatable()`), which would
+ * cause potential uncaught runtime exceptions when calling `equals()` with an
+ * unexpected object type.
+ *
+ * The `equals()` method is used by various comparisons in *potence*. If a function
+ * uses Equatable, it is always explicitly mentioned in the function's documentation.
+ */
+export interface Equatable {
+    /**
+     * Compares this object with another by value.
+     *
+     * Any object can be passed to `equals()`, so you should always
+     * check if the object has the correct type before comparing it.
+     */
+    equals(object: unknown): boolean;
+}
+
+/** Checks if an object implements `Equatable`. */
+export function isEquatable(object: unknown): object is Equatable {
+    return object != null && Objects.hasFunction(object, 'equals', 1);
+}
