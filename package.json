@@ -43,6 +43,6 @@
     "jest-each": "^26.1.0",
     "jest-ts-webcompat-resolver": "^1.0.0",
     "ts-jest": "^26.1.1",
-    "typescript": "^3.9.7"
+    "typescript": "^4.0.2"
   }
 }
