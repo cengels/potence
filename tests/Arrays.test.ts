@@ -98,9 +98,7 @@ describe('Arrays.type() should return', () => {
 
 describe('Arrays.sort() should', () => {
     it('return the original array if no sort is possible', () => expect(Arrays.sort([])).toStrictEqual([]));
-    // @ts-expect-error
     it('throw an error if type is neither number[], string[] or Date[]', () => expect(() => Arrays.sort([{}, [5, 3]])).toThrowError());
-    // @ts-expect-error
     it('throw an error if type is mixed', () => expect(() => Arrays.sort([5, 'yes'])).toThrowError());
     describe('for numbers', () => {
         it('properly sort an array (ascending)', () => expect(Arrays.sort([5, 3, 8])).toEqual([3, 5, 8]));
@@ -123,6 +121,12 @@ describe('Arrays.sort() should', () => {
             const date3 = new Date(2021, 8, 5);
             expect(Arrays.sort([date2, date3, date1], 'descending')).toEqual([date3, date2, date1]);
         });
+    });
+    describe('properly handle sort functions', () => {
+        it('properly sort an array (ascending) with 1 sort function', () => expect(Arrays.sort(['bananas', 'apples', 'pomegranate'], (a, b) => a.length - b.length)).toEqual(['apples', 'bananas', 'pomegranate']));
+        it('properly sort an array (descending) with 1 sort function', () => expect(Arrays.sort(['bananas', 'apples', 'pomegranate'], (a, b) => b.length - a.length)).toEqual(['pomegranate', 'bananas', 'apples']));
+        it('leave order unchanged if results are identical', () => expect(Arrays.sort(['pear', 'lime', 'pomegranate'], (a, b) => a.length - b.length)).toEqual(['pear', 'lime', 'pomegranate']));
+        it('fall back to second sort function', () => expect(Arrays.sort(['pear', 'lime', 'pomegranate'], (a, b) => a.length - b.length, (a, b) => a.charCodeAt(0) - b.charCodeAt(0))).toEqual(['lime', 'pear', 'pomegranate']));
     });
 });
 

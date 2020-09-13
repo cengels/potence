@@ -116,6 +116,14 @@ export function remove<T>(array: T[], ...elements: T[]): T[] {
 }
 
 /**
+ * Removes the element at the specified index from the array.
+ * @param index The zero-based index of the element to be removed. If negative, iterates backward from the end of the array.
+ */
+export function removeAt<T>(source: T[], index: number): void {
+    source.splice(index, 1);
+}
+
+/**
  * Replaces the specified element with another and returns the original array.
  *
  * If the array contains multiples of the target element, it will only replace the first occurrence.
@@ -167,7 +175,24 @@ export function type(array: readonly unknown[], type: BaseType | Constructor): b
 }
 
 type SortOrder = 'ascending' | 'descending';
+type SortFunction<T = unknown> = (a: T, b: T) => number;
 
+/**
+ * Sort an array by one or more sort functions. Later sort functions will only be used
+ * if their predecessor does not return a conclusive result (i.e. returns zero).
+ *
+ * Sort functions follow the `Array.prototype.sort()` schema:
+ *
+ * * If it returns a number < 0, `a` comes before `b`.
+ * * If it returns a number > 0, `b` comes before `a`.
+ * * If it returns 0, the next sort function is used instead. If no sort functions remain,
+ * the order is unchanged.
+ *
+ * In practice, this usually means that your sort function should be `(a, b) => a - b`
+ * if you want an ascending sort (i.e. smallest element first) and `(a, b) => b - a`
+ * if you want a descending sort (i.e. largest element first).
+ */
+export function sort<T>(source: T[], ...sortFns: SortFunction<T>[]): T[];
 /**
  * Sorts the array in the standard way according to the data type contained within.
  * Unsupported data types (like object literals or arrays) will throw an error.
@@ -187,31 +212,49 @@ type SortOrder = 'ascending' | 'descending';
 export function sort(array: number[], order?: SortOrder): number[];
 export function sort(array: string[], order?: SortOrder): string[];
 export function sort(array: Date[], order?: SortOrder): Date[];
-export function sort(array: unknown[], order: SortOrder = 'ascending'): unknown[] {
+export function sort(array: unknown[], orderOrSortFn: SortOrder | SortFunction = 'ascending', ...sortFns: Array<SortFunction>): unknown[] {
     if (array.length <= 1) {
         // No sort necessary/possible.
         return array;
     }
 
-    if (type(array, 'number')) {
-        return array.sort((a, b) => order === 'descending' ? b - a : a - b);
-    }
+    if (typeof orderOrSortFn === 'string') {
+        const order: SortOrder = orderOrSortFn;
 
-    if (type(array, 'string')) {
-        array.sort();
-
-        if (order === 'descending') {
-            array.reverse();
+        if (type(array, 'number')) {
+            return array.sort((a, b) => order === 'descending' ? b - a : a - b);
         }
 
-        return array;
+        if (type(array, 'string')) {
+            array.sort();
+
+            if (order === 'descending') {
+                array.reverse();
+            }
+
+            return array;
+        }
+
+        if (type(array, Date)) {
+            return array.sort((a, b) => order === 'descending' ? b.getTime() - a.getTime() : a.getTime() - b.getTime());
+        }
+
+        throw new Error('Arrays.sort(): Can\'t use a default sort() on an array that is not composed of numbers, strings, or Dates. Please use Array.prototype.sort() for other data types or use Arrays.sort() with one or more sort functions.');
     }
 
-    if (type(array, Date)) {
-        return array.sort((a, b) => order === 'descending' ? b.getTime() - a.getTime() : a.getTime() - b.getTime());
-    }
+    sortFns.push(orderOrSortFn);
 
-    throw new Error('Arrays.sort(): Can\'t use sort() on an array that is not composed of numbers, strings, or Dates. Please use Array.prototype.sort() for other data types.');
+    return array.sort((a, b) => {
+        const results: number[] = sortFns.map(x => x(a, b));
+
+        for (const result of results) {
+            if (result !== 0) {
+                return result;
+            }
+        }
+
+        return 0;
+    });
 }
 
 /** Clears all elements from the given array and returns the original array. */
