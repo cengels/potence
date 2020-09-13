@@ -154,3 +154,12 @@ describe('Arrays.closest() should', () => {
     // @ts-expect-error
     it('throw an error if no callback is specified and array is not number[]', () => expect(() => Arrays.closest([[1, 2, 3], [5, 6, 7], [2, 3, 4]], 13)).toThrowError());
 });
+
+describe('Arrays.moveAll() should', () => {
+    it('shift the array by x places (forward)', () => expect(Arrays.moveAll([1, 2, 3], 2)).toEqual([2, 3, 1]));
+    it('shift the array by x places (backward)', () => expect(Arrays.moveAll([1, 2, 3], -1)).toEqual([2, 3, 1]));
+    it('don\'t shift the array if x is 0', () => expect(Arrays.moveAll([1, 2, 3], 0)).toEqual([1, 2, 3]));
+    it('don\'t shift the array if x is array.length', () => expect(Arrays.moveAll([1, 2, 3], 3)).toEqual([1, 2, 3]));
+    it('don\'t shift the array if x is a multiple of array.length', () => expect(Arrays.moveAll([1, 2, 3], 9)).toEqual([1, 2, 3]));
+    it('shift the array by x places if x is bigger than array.length', () => expect(Arrays.moveAll([1, 2, 3], 5)).toEqual([2, 3, 1]));
+});

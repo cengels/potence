@@ -312,3 +312,22 @@ export function closest<T>(array: readonly T[], callbackOrTarget: ((item: T) => 
 
     return clone(array).sort((a, b) => Math.abs(referenceNumber - a) - Math.abs(referenceNumber - b))[0];
 }
+
+/**
+ * Moves each array item by `by`. This method will wrap the array. As a result, there will never be a negative or unfilled index.
+ */
+export function moveAll<T>(arr: T[], by: number): T[] {
+    by = by % arr.length;
+
+    if (by === 0 || by === arr.length) {
+        return arr;
+    } else if (by > 0) {
+        arr.push(...arr.splice(0, arr.length - by));
+
+        return arr;
+    } else {
+        arr.push(...arr.splice(0, Math.abs(by)));
+
+        return arr;
+    }
+}
