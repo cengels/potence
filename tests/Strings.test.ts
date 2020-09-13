@@ -1,4 +1,5 @@
 import * as Strings from '../src/strings/index.js';
+import { method } from './improved-syntax.js';
 
 describe('Strings.strip() should', () => {
     it('strip all spaces by default', () => expect(Strings.strip('     k     t      ')).toBe('kt'));
@@ -24,3 +25,26 @@ describe('Strings.suffix() should', () => {
     it('suffix a string if suffix does not exist', () => expect(Strings.suffix('banana', 'raw')).toBe('bananaraw'));
     it('not suffix a string if suffix exists', () => expect(Strings.suffix('bananaraw', 'raw')).toBe('bananaraw'));
 });
+
+method('Strings.isUrl()', Strings.isUrl, returns => {
+    returns(true, on => {
+        on('https://www.google.com');
+        on('https://www.google.com/');
+        on('http://www.google.com/');
+        on('https://google.com');
+        on('https://www.google.com/page');
+        on('https://www.google.com/page.html');
+        on('https://www.google.com/page/subpage.html');
+        on('https://www.google.com/query?key=value');
+        on('https://www.google.com/?key=value');
+        on('https://www.google.com/spaces%20included.html');
+    })
+    returns(false, on => {
+        on('');
+        on('://www.google.com');
+        on('http:google.com');
+        on('http:/google.com');
+        on('http:/google.com');
+        on('https://www.google.com/page\\\\wrongway');
+    })
+})

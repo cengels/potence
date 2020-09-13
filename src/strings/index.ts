@@ -60,3 +60,10 @@ export function prefix(string: string, prefix: string): string {
 export function suffix(string: string, suffix: string): string {
     return string.endsWith(suffix) ? string : `${string}${suffix}`;
 }
+
+const urlRegEx = new RegExp('^(https?://)?(www\\.)?([-a-z0-9]{1,63}\\.)*?[a-z0-9][-a-z0-9]{0,61}[a-z0-9]\\.[a-z]{2,6}(/[-\\w@\\+\\.~#\\?&/=%]*)?$', 'i');
+
+/** Tests if the given string is a valid URL. */
+export function isUrl(url: string): boolean {
+    return urlRegEx.test(url);
+}
