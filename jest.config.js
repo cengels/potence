@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   clearMocks: true,
   coverageDirectory: "coverage",
   preset: "ts-jest",
