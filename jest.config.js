@@ -2,5 +2,7 @@ export default {
   clearMocks: true,
   coverageDirectory: "coverage",
   preset: "ts-jest",
-  testEnvironment: "node"
+  testEnvironment: "jest-environment-node",
+  roots: ["<rootDir>/src/", "<rootDir>/tests/"],
+  resolver: "jest-ts-webcompat-resolver"
 };
