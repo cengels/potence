@@ -1,5 +1,5 @@
-import * as Arrays from '../src/arrays';
-import { Numbers } from '../src';
+import * as Arrays from '../src/arrays/index.js';
+import * as Numbers from '../src/numbers/index.js'
 
 describe('Arrays.clone() should', () => {
     it('create an equivalent array', () => {

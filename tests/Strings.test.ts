@@ -1,4 +1,4 @@
-import * as Strings from '../src/strings';
+import * as Strings from '../src/strings/index.js';
 
 describe('Strings.strip() should', () => {
     it('strip all spaces by default', () => expect(Strings.strip('     k     t      ')).toBe('kt'));

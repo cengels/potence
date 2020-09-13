@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.1.1] - 2020-09-13
+
+- Fix: "directory import '..." is not supported resolving ES modules" error when attempting to import from main module entry in node.js projects
+
 ## [0.1.0] - 2020-09-13
 
 - Change: mark package as being of type "module" to enable ESM in node.js projects

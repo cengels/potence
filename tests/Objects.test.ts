@@ -1,4 +1,4 @@
-import * as Objects from '../src/objects';
+import * as Objects from '../src/objects/index.js';
 
 describe('Objects.isObject() should return', () => {
     describe('true for', () => {

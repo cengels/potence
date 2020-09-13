@@ -1,4 +1,4 @@
-import { BaseType, BaseToType, Constructor, ObjectLiteral } from '../types';
+import { BaseType, BaseToType, Constructor, ObjectLiteral } from '../types.js';
 
 export interface Structure {
     [property: string]: Structure | Constructor | Exclude<BaseType, 'object' | 'undefined'> | 'array';

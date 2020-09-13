@@ -7,7 +7,7 @@
  * and a function that uses a cached Range every time it is called.
  */
 
-import Range from './Range';
+import Range from './Range.js';
 
 interface Configuration {
     /**

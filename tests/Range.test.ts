@@ -1,5 +1,5 @@
-import Range from '../src/numbers/Range';
 import each from 'jest-each';
+import Range from '../src/numbers/Range.js';
 
 it('Range.invert() should invert range', () => {
     const range = new Range(1, 3);

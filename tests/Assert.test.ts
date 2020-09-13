@@ -1,4 +1,4 @@
-import * as Assert from '../src/assert';
+import * as Assert from '../src/assert/index.js';
 
 describe('Assert.that() should', () => {
     describe('in general', () => {

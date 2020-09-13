@@ -1,8 +1,8 @@
-export * as Arrays from './arrays';
-export * as Numbers from './numbers';
-export * from './numbers/Range';
-export * as Objects from './objects';
-export * as Strings from './strings';
-export * as Assert from './assert';
+export * as Arrays from './arrays/index.js';
+export * as Numbers from './numbers/index.js';
+export * from './numbers/Range.js';
+export * as Objects from './objects/index.js';
+export * as Strings from './strings/index.js';
+export * as Assert from './assert/index.js';
 // Not namespaced, because namespaced types look kind of silly.
-export * from './types';
+export * from './types.js';

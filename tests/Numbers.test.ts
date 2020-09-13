@@ -1,5 +1,5 @@
 import each from 'jest-each';
-import * as Numbers from '../src/numbers';
+import * as Numbers from '../src/numbers/index.js';
 
 describe('Numbers.configure() should', () => {
     it('change the default tolerance', () => {
