@@ -8,7 +8,7 @@
  * the difference in performance makes up barely 30 ms.
  */
 
-import { BaseType, Constructor } from '../types.js';
+import { BaseType, Constructor, Concat } from '../types.js';
 
 /** Returns a copy of the specified array. */
 export function clone<T>(array: readonly T[]): T[] {
@@ -330,4 +330,20 @@ export function moveAll<T>(arr: T[], by: number): T[] {
 
         return arr;
     }
+}
+
+type TransformTo1DArray<T extends unknown[]> = {
+    [K in keyof T]: T[K] extends (infer U)[] ? U : T[K];
+};
+
+/**
+ * Zips the selected arrays, creating a new nested array where the number of elements per level is equal to the number of passed arrays.
+ * @example zip([0, 1, 2], [4, 5, 6]) => [[0, 4], [1, 5], [2, 6]]
+ */
+export function zip<T, Args extends unknown[][]>(source: T[], ...arrays: Args): Array<Concat<T, TransformTo1DArray<Args>>> {
+    if (arrays.some(x => x.length !== source.length)) {
+        throw new Error(`Arrays are not of identical length! Expected length ${source.length}, but found ${arrays.map(x => x.length).join(', ')}.`);
+    }
+
+    return source.map((x, i) => [x, ...arrays.map(array => array[i])]) as Array<Concat<T, TransformTo1DArray<Args>>>;
 }

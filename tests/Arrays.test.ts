@@ -163,3 +163,10 @@ describe('Arrays.moveAll() should', () => {
     it('don\'t shift the array if x is a multiple of array.length', () => expect(Arrays.moveAll([1, 2, 3], 9)).toEqual([1, 2, 3]));
     it('shift the array by x places if x is bigger than array.length', () => expect(Arrays.moveAll([1, 2, 3], 5)).toEqual([2, 3, 1]));
 });
+
+describe('Arrays.zip() should', () => {
+    it('return 2D array if no other arrays are passed', () => expect(Arrays.zip([1, 2, 3])).toEqual([[1], [2], [3]]));
+    it('throw if arrays don\'t have the same length', () => expect(() => Arrays.zip([1, 2, 3], [1, 2])).toThrowError());
+    it('merge 2 arrays', () => expect(Arrays.zip([1, 2, 3], ['one', 'two', 'three'])).toEqual([[1, 'one'], [2, 'two'], [3, 'three']]));
+    it('merge 3 arrays', () => expect(Arrays.zip([1, 2, 3], ['one', 'two', 'three'], [0.1, 0.2, 0.3])).toEqual([[1, 'one', 0.1], [2, 'two', 0.2], [3, 'three', 0.3]]));
+});
