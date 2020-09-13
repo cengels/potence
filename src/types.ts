@@ -1,4 +1,4 @@
-import { Objects } from '.';
+import * as Objects from './objects/index.js';
 
 /** Represents a type that is nullable (i.e. may be null or undefined). */
 export type Nullable<T = unknown> = T | undefined | null;
