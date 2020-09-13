@@ -6,17 +6,6 @@ export type Nullable<T = unknown> = T | undefined | null;
 /** Extracts the type from an array. */
 export type ArrayType<T> = T extends (infer U)[] ? U : T;
 
-/**
- * Creates a tuple type out of a type T and an array type U.
- * Perfect for merging tuple types in cases where the rest operator
- * is not accepted.
- *
- * @example
- * [number, ...[number, string]]     // error: A rest element type must be an array type.
- * Concat<number, [number, string]>  // [number, number, string]
- */
-export type Concat<T, U extends unknown[]> = ((h: T, ...u: U) => void) extends ((...u: infer U) => void) ? U : never;
-
 /** All possible results from the `typeof` operator. */
 export type BaseType = 'bigint' | 'boolean' | 'function' | 'number' | 'object' | 'string' | 'symbol' | 'undefined';
 
