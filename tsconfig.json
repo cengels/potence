@@ -13,6 +13,7 @@
       "strictNullChecks": true,
       "module": "es6",
       "moduleResolution": "node",
+      "esModuleInterop": true,
       "target": "es6",
       "allowJs": false,
       "sourceMap": false,
