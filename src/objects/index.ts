@@ -177,3 +177,24 @@ export function equatable<T extends Record<string | number | symbol, unknown>>(s
 
     return source as Equatable & T;
 }
+
+/** Checks if an object has a property with the specified name and optionally the specified `typeof` type. */
+export function hasProperty(source: unknown, propertyName: string, type?: BaseType | Constructor): boolean {
+    return source != null
+        && isObject(source)
+        && propertyName in source
+        && (type == null || (typeof type === 'string' ? typeof source[propertyName] === type : source[propertyName] instanceof type));
+}
+
+/**
+ * Checks if an object has a function with the specified name and optionally the specified number of arguments.
+ */
+export function hasFunction(source: unknown, functionName: string, argumentCount?: number): boolean {
+    // tslint:disable-next-line: no-unsafe-any
+    return source != null
+        && isObject(source)
+        && typeof source[functionName] === 'function'
+        && (argumentCount == null
+            // eslint-disable-next-line @typescript-eslint/ban-types
+            || (source[functionName] as Function).length === argumentCount);
+}
