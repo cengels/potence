@@ -132,3 +132,48 @@ export function equals(source: unknown, ...others: unknown[]): boolean {
 
     return others.every(other => compare(source, other));
 }
+
+/**
+ * Injects a default `equals()` function into the specified object that iterates through all
+ * its keys and compares it with the target object.
+ *
+ * Do not use this function with prototyped objects. This function does not compare inherited
+ * properties or functions.
+ *
+ * The object must be extensible for this function to succeed. If it is not, this function will
+ * throw an error.
+ *
+ * @returns The original object cast with `Equatable` implemented.
+ */
+export function equatable<T extends Record<string | number | symbol, unknown>>(source: T): Equatable & T {
+    if (source['equals'] != null) {
+        return source as Equatable & T;
+    }
+
+    if (!Object.isExtensible(source)) {
+        throw new Error('Cannot inject equals() into object: object is not extensible!');
+    }
+
+    Object.defineProperty(source, 'equals', {
+        enumerable: false,
+        writable: false,
+        value: function(target: unknown): boolean {
+            // We have to cast to any here because TypeScript still doesn't allow
+            // indexing with symbols (even though object keys can be symbols).
+            return isObject(target) && Reflect.ownKeys(source).every(key => {
+                const sourceValue = source[key as string];
+
+                if (typeof sourceValue === 'function') {
+                    // There are some cases (like the strategy pattern) where it makes
+                    // sense to compare functions, but in this very simple Equatable
+                    // mix-in, it is more likely that comparing functions is not intended.
+                    return true;
+                }
+
+                return sourceValue === target[key as string];
+            });
+        }
+    });
+
+    return source as Equatable & T;
+}

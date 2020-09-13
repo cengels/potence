@@ -151,3 +151,28 @@ describe('Objects.equals() should return', () => {
     it('true if all objects return equals() === true', () => expect(Objects.equals(t(5), t(5), t(5))).toBe(true));
     it('false if some objects return equals() === false', () => expect(Objects.equals(t(5), t(5), t(6))).toBe(false));
 });
+
+describe('Objects.equatable() should', () => {
+    // @ts-expect-error
+    it('throw on unextensible objects (like numbers)', () => expect(() => Objects.equatable(5)).toThrowError());
+    // @ts-expect-error
+    it('throw on unextensible objects (like strings)', () => expect(() => Objects.equatable('5')).toThrowError());
+    it('augment with an equals function', () => {
+        const equatable = Objects.equatable({ value: 5 });
+
+        expect(equatable.value).toBe(5);
+        expect(typeof equatable.equals === 'function').toBe(true);
+    });
+    it('iterate over all properties in the equals function', () => {
+        const equatable1 = Objects.equatable({ value1: 5, value2: 'foo', value3: 'bar' });
+        const other = { value1: 5, value2: 'foo', value3: 'bar' };
+
+        expect(equatable1.equals(other)).toBe(true);
+        equatable1.value3 = 'baz';
+        expect(equatable1.equals(other)).toBe(false);
+        equatable1.value3 = 'bar';
+        expect(equatable1.equals(other)).toBe(true);
+        equatable1.value2 = 'bar';
+        expect(equatable1.equals(other)).toBe(false);
+    });
+});
