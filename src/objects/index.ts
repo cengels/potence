@@ -1,8 +1,9 @@
-import { BaseType, BaseToType, Constructor, ObjectLiteral } from '../types.js';
+import { BaseType, BaseToType, Constructor, ObjectLiteral, isEquatable } from '../types.js';
 
 export interface Structure {
     [property: string]: Structure | Constructor | Exclude<BaseType, 'object' | 'undefined'> | 'array';
 }
+
 export type MappedStructure<T extends Structure> = {
     [P in keyof T]: T[P] extends Structure ? MappedStructure<T[P]>
         : T[P] extends Constructor<infer C> ? C
@@ -115,4 +116,19 @@ export function swap<T extends ObjectLiteral>(source: T, from: keyof T, to: keyo
     source[to] = temp;
 
     return source;
+}
+
+/**
+ * Compares any object (including primitives) with one or multiple others and returns true if all are equal.
+ *
+ * This function will use `Equatable` to check for equality if the source object implements it. Otherwise
+ * this function will compare objects by comparing each key value individually (shallow comparison), value types
+ * by value, and reference types by reference.
+ */
+export function equals(source: unknown, ...others: unknown[]): boolean {
+    if (isEquatable(source)) {
+        return others.every(other => source.equals(other));
+    }
+
+    return others.every(other => compare(source, other));
 }

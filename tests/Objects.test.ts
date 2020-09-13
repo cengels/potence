@@ -132,3 +132,22 @@ describe('Objects.structure() should', () => {
 describe('Objects.swap() should', () => {
     it('properly swap the object', () => expect(Objects.swap({ x: 5, y: 2 }, 'x', 'y')).toStrictEqual({ x: 2, y: 5 }));
 });
+
+describe('Objects.equals() should return', () => {
+    function t(value: unknown) {
+        return {
+            value,
+            equals(other: unknown): boolean {
+                return other != null && Objects.isObject(other) && other.value === value;
+            }
+        }
+    }
+
+    it('true if two numbers are the same', () => expect(Objects.equals(5, 5)).toBe(true));
+    it('true if two strings are the same', () => expect(Objects.equals('foo', 'foo')).toBe(true));
+    it('false if both objects are not the same', () => expect(Objects.equals(5, '5')).toBe(false));
+    it('true if a.equals(b) is true', () => expect(Objects.equals(t(5), t(5))).toBe(true));
+    it('false if a.equals(b) is false', () => expect(Objects.equals(t(5), t(6))).toBe(false));
+    it('true if all objects return equals() === true', () => expect(Objects.equals(t(5), t(5), t(5))).toBe(true));
+    it('false if some objects return equals() === false', () => expect(Objects.equals(t(5), t(5), t(6))).toBe(false));
+});
