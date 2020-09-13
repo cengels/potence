@@ -82,6 +82,10 @@ describe('Arrays.remove() should', () => {
     });
 });
 
+describe('Arrays.removeAt() should', () => {
+    it('remove an array element by index', () => expect(Arrays.removeAt([1, 3, 5], 2)).toEqual([1, 3]));
+});
+
 describe('Arrays.replace() should', () => {
     it('replace an array element', () => expect(Arrays.replace([1, 3, 5], 3, 6)).toEqual([1, 6, 5]));
     it('throw an error if element is not found', () => expect(() => Arrays.replace([1, 3, 5], 4, 6)).toThrowError());

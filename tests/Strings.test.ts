@@ -14,6 +14,7 @@ describe('Strings.camelCase() should', () => {
     it('convert hyphenated-text', () => expect(Strings.camelCase('hyphens-are-here')).toBe('hyphensAreHere'));
     it('convert spaced text', () => expect(Strings.camelCase('normal text is here')).toBe('normalTextIsHere'));
     it('convert wide-spaced text', () => expect(Strings.camelCase('normal     text   is     here')).toBe('normalTextIsHere'));
+    it('don\'t convert nothing', () => expect(Strings.camelCase('')).toBe(''));
 });
 
 describe('Strings.prefix() should', () => {

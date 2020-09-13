@@ -117,11 +117,13 @@ export function remove<T>(array: T[], ...elements: T[]): T[] {
 }
 
 /**
- * Removes the element at the specified index from the array.
+ * Removes the element at the specified index from the array and returns the original array.
  * @param index The zero-based index of the element to be removed. If negative, iterates backward from the end of the array.
  */
-export function removeAt<T>(source: T[], index: number): void {
+export function removeAt<T>(source: T[], index: number): T[] {
     source.splice(index, 1);
+
+    return source;
 }
 
 /**

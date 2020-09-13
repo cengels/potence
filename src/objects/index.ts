@@ -143,6 +143,8 @@ export function equals(source: unknown, ...others: unknown[]): boolean {
  * The object must be extensible for this function to succeed. If it is not, this function will
  * throw an error.
  *
+ * This function does nothing if the target object already contains an `equals` property.
+ *
  * @returns The original object cast with `Equatable` implemented.
  */
 export function equatable<T extends Record<string | number | symbol, unknown>>(source: T): Equatable & T {
