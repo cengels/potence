@@ -50,3 +50,13 @@ export function camelCase(source: string): string {
 
     return result;
 }
+
+/** Prefixes the string with the specified prefix only if the string is not already prefixed with it. */
+export function prefix(string: string, prefix: string): string {
+    return string.startsWith(prefix) ? string : `${prefix}${string}`;
+}
+
+/** Suffixes the string with the specified prefix only if the string is not already suffixed with it. */
+export function suffix(string: string, suffix: string): string {
+    return string.endsWith(suffix) ? string : `${string}${suffix}`;
+}

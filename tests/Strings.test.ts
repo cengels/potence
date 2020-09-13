@@ -14,3 +14,13 @@ describe('Strings.camelCase() should', () => {
     it('convert spaced text', () => expect(Strings.camelCase('normal text is here')).toBe('normalTextIsHere'));
     it('convert wide-spaced text', () => expect(Strings.camelCase('normal     text   is     here')).toBe('normalTextIsHere'));
 });
+
+describe('Strings.prefix() should', () => {
+    it('prefix a string if prefix does not exist', () => expect(Strings.prefix('banana', 'raw')).toBe('rawbanana'));
+    it('not prefix a string if prefix exists', () => expect(Strings.prefix('rawbanana', 'raw')).toBe('rawbanana'));
+});
+
+describe('Strings.suffix() should', () => {
+    it('suffix a string if suffix does not exist', () => expect(Strings.suffix('banana', 'raw')).toBe('bananaraw'));
+    it('not suffix a string if suffix exists', () => expect(Strings.suffix('bananaraw', 'raw')).toBe('bananaraw'));
+});
