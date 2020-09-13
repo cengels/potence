@@ -66,10 +66,6 @@ if [[ $version = true ]]; then
     ask "Did you bump the version number?"
 fi
 
-if [[ $tag = true ]]; then
-    ask "Did you tag the release commit in the repository?"
-fi
-
 if [[ $linter = true ]]; then
     ask "Did you run a linter across the source code?"
 fi
@@ -84,6 +80,10 @@ fi
 
 if [[ $documentation = true ]]; then
     ask "Did you update the documentation, if necessary?"
+fi
+
+if [[ $tag = true ]]; then
+    ask "Did you tag the release commit in the repository?"
 fi
 
 printf "\nGreat! All checks complete. You are now ready to release.\n"
