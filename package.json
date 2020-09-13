@@ -1,6 +1,6 @@
 {
   "name": "potence",
-  "version": "0.0.4",
+  "version": "0.1.0",
   "description": "A tiny modularized JavaScript library providing a variety of convenience functions.",
   "keywords": [
     "utility",
@@ -19,6 +19,7 @@
   "types": "index.d.ts",
   "readme": "README.md",
   "repository": "https://github.com/cengels/potence",
+  "type": "module",
   "scripts": {
     "build": "tsc && cp README.md LICENSE package.json build",
     "lint": "npx eslint . --ext .js,.jsx,.ts,.tsx",
