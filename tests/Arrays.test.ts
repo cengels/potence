@@ -1,5 +1,6 @@
 import * as Arrays from '../src/arrays/index.js';
 import * as Numbers from '../src/numbers/index.js'
+import * as Objects from '../src/objects/index.js'
 
 describe('Arrays.clone() should', () => {
     it('create an equivalent array', () => {
@@ -169,4 +170,25 @@ describe('Arrays.zip() should', () => {
     it('throw if arrays don\'t have the same length', () => expect(() => Arrays.zip([1, 2, 3], [1, 2])).toThrowError());
     it('merge 2 arrays', () => expect(Arrays.zip([1, 2, 3], ['one', 'two', 'three'])).toEqual([[1, 'one'], [2, 'two'], [3, 'three']]));
     it('merge 3 arrays', () => expect(Arrays.zip([1, 2, 3], ['one', 'two', 'three'], [0.1, 0.2, 0.3])).toEqual([[1, 'one', 0.1], [2, 'two', 0.2], [3, 'three', 0.3]]));
+});
+
+describe('Arrays.groupBy() should', () => {
+    it('group an array by a boolean', () => expect(Arrays.groupBy([1, 2, 3], num => num < 3)).toEqual([[1, 2], [3]]));
+    it('group an array by a property', () => expect(Arrays.groupBy([1, 1, 3], num => num)).toEqual([[1, 1], [3]]));
+    it('group an array by an equatable property', () => {
+        function t(value: string) {
+            return {
+                value,
+                equals(object: unknown): boolean {
+                    return object != null && Objects.isObject(object) && object.value === value;
+                }
+            }
+        }
+
+        const one = t('one');
+        const one2 = t('one');
+        const three = t('three');
+
+        return expect(Arrays.groupBy([one, one2, three], value => value)).toEqual([[one, one2], [three]]);
+    });
 });

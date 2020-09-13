@@ -8,7 +8,8 @@
  * the difference in performance makes up barely 30 ms.
  */
 
-import { BaseType, Constructor, Concat } from '../types.js';
+import { Objects } from '..';
+import { BaseType, Concat, Constructor } from '../types.js';
 
 /** Returns a copy of the specified array. */
 export function clone<T>(array: readonly T[]): T[] {
@@ -346,4 +347,25 @@ export function zip<T, Args extends unknown[][]>(source: T[], ...arrays: Args): 
     }
 
     return source.map((x, i) => [x, ...arrays.map(array => array[i])]) as Array<Concat<T, TransformTo1DArray<Args>>>;
+}
+
+/**
+ * Groups the values in the array by the return value of the property callback.
+ *
+ * If the return value of the `property` callback implements `Equatable`, this
+ * function will call `equals()` to group the objects.
+ */
+export function groupBy<T, TProp>(array: T[], property: (item: T) => TProp): T[][] {
+    return array.reduce<T[][]>((acc, item) => {
+        const result = property(item);
+        const found = acc.find(childArray => Objects.equals(result, property(childArray[0])));
+
+        if (found != null) {
+            found.push(item);
+        } else {
+            acc.push([item]);
+        }
+
+        return acc;
+    }, []);
 }
