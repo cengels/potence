@@ -26,10 +26,14 @@ baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: cengelsdev
 github_username:  cengels
+repository: https://github.com/cengels/potence
+links:
+  - name: github
+    url: https://github.com/cengels/potence
 
 # Build settings
-theme: minima
 plugins:
+include: ['_pages']
 
 # Exclude from processing.
 # The following items will not be processed, by default.
