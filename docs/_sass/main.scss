@@ -1,7 +1,6 @@
-@import "variables.scss";
 @import "syntax-highlighting.scss";
-@import "header.scss";
-@import "nav.scss";
+@import "links.scss";
+@import "sidebar.scss";
 
 * {
     box-sizing: border-box;
@@ -19,9 +18,11 @@ body, html {
 
 .main-body {
     display: flex;
-    height: 100% - $header-height;
+    height: 100%;
+    margin: 0 auto;
 }
 
 .main-content {
     height: 100%;
+    flex: 0 1 100%;
 }

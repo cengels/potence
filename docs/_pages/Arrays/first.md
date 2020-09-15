@@ -4,7 +4,7 @@ title:  "Arrays.first()"
 ---
 Returns the first element in an array. If the array is empty, returns undefined.
 
-### Syntax
+## Syntax
 
 ```ts
 function first<T>(array: readonly T[]): T | undefined
@@ -13,7 +13,7 @@ function first<T>(array: readonly T[]): T | undefined
 * `<T>`: Optional. Type of the passed array items. The array item type is automatically inferred if omitted.
 * `array`: An array with 0 or more elements from which the "0th" element is returned (but not removed).
 
-### Remarks
+## Remarks
 
 This function is functionally equivalent to `array[0]` and is mainly provided for the sake of completeness in regards to [`Arrays.last()`]({% link _pages/Arrays/last.md %}).
 

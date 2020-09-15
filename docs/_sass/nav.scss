@@ -1,11 +1,6 @@
 @import "variables.scss";
 @import "mixins.scss";
 
-nav {
-    height: 100%;
-    width: 20%;
-}
-
 nav ul {
     @include unstyled-list;
 }

@@ -12,12 +12,12 @@
     {%- endif -%}
 </head>
 <body>
-    {% include header.html %}
-
     <div class="main-body">
-        {% include nav.html %}
+        {% include sidebar.html %}
 
         <div class="main-content">
+            {% include links.html %}
+
             {{ content }}
         </div>
     </div>

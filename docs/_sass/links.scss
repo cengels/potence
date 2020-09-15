@@ -1,0 +1,13 @@
+@import "mixins.scss";
+
+.links {
+    @include unstyled-list;
+
+    display: flex;
+    justify-content: flex-end;
+    margin-left: auto;
+
+    > li:not(:last-child) {
+        margin-right: 1em;
+    }
+}

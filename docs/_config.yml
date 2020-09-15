@@ -30,6 +30,8 @@ repository: https://github.com/cengels/potence
 links:
   - name: github
     url: https://github.com/cengels/potence
+  - name: npm
+    url: https://www.npmjs.com/package/potence
 
 # Build settings
 plugins:
