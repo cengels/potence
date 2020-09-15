@@ -3,8 +3,54 @@
 
 nav ul {
     @include unstyled-list;
+
+    transition: height 0.1s ease;
+    overflow: hidden;
+
+    > li {
+        width: 100%;
+
+        > .module, > .submodule {
+            display: block;
+            width: 100%;
+            border-radius: 12px;
+            padding: 3px 7px;
+            transition: color 0.1s ease, background-color 0.1s ease;
+
+            &:hover, &.selected {
+                color: #deddf2;
+            }
+
+            &.selected {
+                background-color: #37386f;
+            }
+
+            &:hover {
+                background-color: #3d3f91;
+            }
+        }
+
+        &.module:not(:first-child) {
+            margin-top: 1em;
+        }
+
+        > .module {
+            @include unstyled-button;
+
+            cursor: pointer;
+
+            > a {
+                color: #dbdaee;
+            }
+        }
+
+        > .submodule {
+            color: #afaeca;
+            font-size: 0.95em;
+        }
+    }
 }
 
-nav > ul ul {
-    margin-left: 1.5em;
+.module-list li {
+    margin-top: 0.2em;
 }

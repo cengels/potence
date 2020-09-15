@@ -1,6 +1,7 @@
 @import "syntax-highlighting.scss";
 @import "links.scss";
 @import "sidebar.scss";
+@import "page.scss";
 
 * {
     box-sizing: border-box;
@@ -25,4 +26,7 @@ body, html {
 .main-content {
     height: 100%;
     flex: 0 1 100%;
+    background-color: #292848;
+    color: #a6aec1;
+    padding: 0.5em 6em 0em 3em;
 }

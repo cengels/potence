@@ -1,19 +1,37 @@
 <nav>
+    <script>
+        function onClick() {
+            const listElements = event.target.parentNode.children;
 
+            for (const element of listElements) {
+                if (element.tagName === 'UL') {
+                    element.style.height = element.style.height === '0px' ? element.scrollHeight + 'px' : '0px';
+                }
+            }
+        }
+    </script>
 
     <ul>
-    {% for page in site.pages %}
-    {% assign module = page.title | split: '.' %}
+    {% for site_page in site.pages %}
+    {% assign module = site_page.title | split: '.' %}
     {% assign length = module | size %}
 
     {% if length == 1 %}
-    <li><a href="{{ page.url }}">{{ page.title }}</a>
+    {% if site_page.title == page.title %}
+    <li class="module-list"><button onclick="onClick()" class="module selected"><a href="{{ site_page.url }}">{{ site_page.title }}</button></a>
+    {% else %}
+    <li class="module-list"><button onclick="onClick()" class="module"><a href="{{ site_page.url }}">{{ site_page.title }}</button></a>
+    {% endif %}
         <ul>
         {% for subpage in site.pages %}
         {% assign submodule = subpage.title | split: '.' | first %}
 
-        {% if page.title == submodule and subpage.title != page.title %}
-        <li><a href="{{ subpage.url }}">{{ subpage.title }}</a></li>
+        {% if site_page.title == submodule and subpage.title != site_page.title %}
+        {% if page.title == subpage.title %}
+        <li><a class="submodule selected" href="{{ subpage.url }}">{{ subpage.title }}</a></li>
+        {% else %}
+        <li><a class="submodule" href="{{ subpage.url }}">{{ subpage.title }}</a></li>
+        {% endif %}
         {% endif %}
 
         {% endfor %}
@@ -24,3 +42,15 @@
     {% endfor %}
     </ul>
 </nav>
+
+<script>
+    (function() {
+        const moduleSublists = document.getElementsByClassName('module-list').children;
+
+        for (const element of moduleSublists) {
+            if (element.tagName === 'UL' && element.style.height === '') {
+                element.style.height = element.scrollHeight + 'px';
+            }
+        }
+    })()
+</script>

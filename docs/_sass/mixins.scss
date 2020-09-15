@@ -2,3 +2,13 @@
     list-style: none;
     padding: 0;
 }
+
+@mixin unstyled-button {
+    outline: none;
+    background: none;
+    box-shadow: none;
+    border: none;
+    text-align: initial;
+    font-size: initial;
+    font-family: inherit;
+}
