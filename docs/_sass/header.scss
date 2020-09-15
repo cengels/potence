@@ -1,0 +1,19 @@
+@import "variables.scss";
+@import "mixins.scss";
+
+.header {
+    height: $header-height;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: solid black 1px;
+    padding: 2px 5px;
+}
+
+.site-title {
+    font-size: 2rem;
+}
+
+.links {
+    @include unstyled-list;
+}

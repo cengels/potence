@@ -1,0 +1,15 @@
+@import "variables.scss";
+@import "mixins.scss";
+
+nav {
+    height: 100%;
+    width: 20%;
+}
+
+nav ul {
+    @include unstyled-list;
+}
+
+nav > ul ul {
+    margin-left: 1.5em;
+}

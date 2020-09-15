@@ -1,5 +1,27 @@
+@import "variables.scss";
 @import "syntax-highlighting.scss";
+@import "header.scss";
+@import "nav.scss";
+
+* {
+    box-sizing: border-box;
+}
 
 body {
     font-family: 'Open Sans';
+    margin: 0;
+}
+
+body, html {
+    height: 100%;
+    width: 100%;
+}
+
+.main-body {
+    display: flex;
+    height: 100% - $header-height;
+}
+
+.main-content {
+    height: 100%;
 }
