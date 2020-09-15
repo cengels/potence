@@ -1,5 +1,10 @@
 @import "rouge.scss";
 
 code {
-    font-family: 'Fira Code';
+    font-family: 'Fira Mono', 'Fira Code', 'Source Code Pro', Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+.highlight {
+    padding: 1px 10px;
+    font-size: 10pt;
 }

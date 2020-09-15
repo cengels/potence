@@ -23,7 +23,7 @@ const array2 = Arrays.clone(array);
 
 array2.length = 3;
 
-console.log(array);  // -> [0, 1, 2, 3, 4, 5]
+console.log(array);   // -> [0, 1, 2, 3, 4, 5]
 console.log(array2);  // -> [0, 1, 2]
 ```
 
