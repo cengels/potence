@@ -45,7 +45,7 @@
 
 <script>
     (function() {
-        const moduleSublists = document.getElementsByClassName('module-list').children;
+        const moduleSublists = document.getElementsByClassName('module-list')[0].children;
 
         for (const element of moduleSublists) {
             if (element.tagName === 'UL' && element.style.height === '') {

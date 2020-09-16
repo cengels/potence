@@ -13,9 +13,10 @@
 }
 
 a, a:visited {
-    color: #88a0ff;
+    color: var(--a-color);
+    transition: color 0.1s ease;
 }
 
 a:hover {
-    color: #7375fa;
+    color: var(--a-color-hovered);
 }

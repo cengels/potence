@@ -1,8 +1,9 @@
 .highlight table td { padding: 5px; }
 .highlight table pre { margin: 0; }
 .highlight {
-  color: #e4e4fa;
-  background-color: #252442;
+  color: var(--code-text-color);
+  background-color: var(--code-background-color);
+  transition: color 0.5s ease, background-color 0.5s ease;
 }
 .highlight .gl {
   color: #dee5e7;
@@ -12,8 +13,9 @@
   color: #a8e1fe;
 }
 .highlight .c, .highlight .ch, .highlight .cd, .highlight .cm, .highlight .cpf, .highlight .c1, .highlight .cs {
-  color: #6d6c9f;
+  color: var(--code-comment-color);
   font-style: italic;
+  transition: color 0.5s ease;
 }
 .highlight .cp {
   color: #b2fd6d;
@@ -28,13 +30,16 @@
   font-style: italic;
 }
 .highlight .k, .highlight .kd, .highlight .kv {
-  color: #8463df;
+  color: var(--code-token-color);
+  transition: color 0.5s ease;
 }
 .highlight .o, .highlight .ow {
-  color: #a3c0ff;
+  color: var(--code-symbol-color);
+  transition: color 0.5s ease;
 }
 .highlight .p, .highlight .pi {
-  color: #a3c0ff;
+  color: var(--code-symbol-color);
+  transition: color 0.5s ease;
 }
 .highlight .gd {
   color: #cc0000;
@@ -98,7 +103,8 @@
   color: #ffb000;
 }
 .highlight .m, .highlight .mb, .highlight .mf, .highlight .mh, .highlight .mi, .highlight .il, .highlight .mo, .highlight .mx {
-  color: #96e0f6;
+  color: var(--code-number-color);
+  transition: color 0.5s ease;
 }
 .highlight .ld {
   color: #f696db;
@@ -107,7 +113,8 @@
   color: #f696db;
 }
 .highlight .s, .highlight .sa, .highlight .sb, .highlight .dl, .highlight .sd, .highlight .s2, .highlight .sh, .highlight .sx, .highlight .sr, .highlight .s1 {
-  color: #eda6ff;
+  color: var(--code-string-color);
+  transition: color 0.5s ease;
 }
 .highlight .se {
   color: #4df4ff;

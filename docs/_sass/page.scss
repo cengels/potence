@@ -1,14 +1,16 @@
 h1, h2, h3, h4, h5, h6 {
-    color: #d6dae9;
+    color: var(--heading-color);
+    transition: color 0.5s ease;
     font-weight: normal;
     letter-spacing: 1px;
 }
 
 h1 {
-    color: #e4eaff;
+    color: var(--h1-color);
     font-size: 1.9rem;
 }
 
 h2 {
     font-size: 1.5rem;
+    margin-top: 1.2em;
 }

@@ -1,19 +1,20 @@
 ---
-layout: page
-title:  "Arrays.clone()"
+layout:      page
+title:       "Arrays.clone()"
+description: "Returns a copy of an array."
 ---
-Returns a copy of an array.
-
 ## Syntax
 
 ```ts
 function clone<T>(array: readonly T[]): T[]
 ```
 
+{{ page.description }}
+
 * `<T>`: Optional. Type of the passed array items. The array item type is automatically inferred if omitted.
 * `array`: The array that should be cloned.
 
-## Examples
+## Example
 
 ```ts
 import { Arrays } from 'potence';

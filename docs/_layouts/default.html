@@ -12,6 +12,18 @@
     {%- endif -%}
 </head>
 <body>
+    <script>
+        (function() {
+            let theme = localStorage.getItem('theme');
+
+            if (theme === '' || theme == null) {
+                theme = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            }
+
+            document.getElementsByTagName('body')[0].classList.add(theme);
+        })();
+    </script>
+
     <div class="main-body">
         {% include sidebar.html %}
 

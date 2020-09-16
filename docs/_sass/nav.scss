@@ -18,15 +18,15 @@ nav ul {
             transition: color 0.1s ease, background-color 0.1s ease;
 
             &:hover, &.selected {
-                color: #deddf2;
+                color: var(--module-color-hovered);
             }
 
             &.selected {
-                background-color: #37386f;
+                background-color: var(--module-background-color-selected);
             }
 
             &:hover {
-                background-color: #3d3f91;
+                background-color: var(--module-background-color-hovered);
             }
         }
 
@@ -40,15 +40,24 @@ nav ul {
             cursor: pointer;
 
             > a {
-                color: #dbdaee;
+                color: var(--module-color);
+                transition: color 0.1s ease;
+            }
+
+            &:hover > a, &.selected > a {
+                color: var(--module-color-hovered);
             }
         }
 
         > .submodule {
-            color: #afaeca;
+            color: var(--submodule-color);
             font-size: 0.95em;
         }
     }
+}
+
+.module-list > ul {
+    margin-left: 0.8em;
 }
 
 .module-list li {

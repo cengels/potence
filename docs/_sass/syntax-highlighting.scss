@@ -2,9 +2,20 @@
 
 code {
     font-family: 'Fira Mono', 'Fira Code', 'Source Code Pro', Menlo, Monaco, Consolas, 'Courier New', monospace;
+    font-size: 10.5pt;
 }
 
 .highlight {
     padding: 1px 10px;
-    font-size: 10pt;
+    border-radius: 10px;
+}
+
+code.language-plaintext {
+    color: var(--code-plain-text-color);
+    margin: 0 1px;
+    transition: color 0.5s ease;
+}
+
+a > code.language-plaintext {
+    color: inherit;
 }

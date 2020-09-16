@@ -1,14 +1,15 @@
 ---
-layout: page
-title:  "Arrays.first()"
+layout:      page
+title:       "Arrays.first()"
+description: "Returns the first element in an array. If the array is empty, returns undefined."
 ---
-Returns the first element in an array. If the array is empty, returns undefined.
-
 ## Syntax
 
 ```ts
 function first<T>(array: readonly T[]): T | undefined
 ```
+
+{{ page.description }}
 
 * `<T>`: Optional. Type of the passed array items. The array item type is automatically inferred if omitted.
 * `array`: An array with 0 or more elements from which the "0th" element is returned (but not removed).

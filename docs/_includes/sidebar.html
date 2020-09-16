@@ -1,4 +1,14 @@
 <div class="sidebar">
-    <div class="site-title"><a href="{% link index.md %}">potence</a></div>
+    <div class="sidebar-header">
+        <div class="site-title"><a href="{% link index.md %}">potence</a></div>
+        <button onclick="{
+            const body = document.getElementsByTagName('body')[0];
+            const theme = body.classList.contains('dark') ? 'light' : 'dark';
+            localStorage.setItem('theme', theme);
+            body.classList.remove('dark', 'light');
+            body.classList.add(theme);
+        }">switch</button>
+    </div>
+    {% include search.html %}
     {% include nav.html %}
 </div>
