@@ -1,13 +1,15 @@
 <div class="sidebar">
     <div class="sidebar-header">
         <div class="site-title"><a href="{% link index.md %}">potence</a></div>
-        <button onclick="{
+        <button class="night-switch" onclick="{
             const body = document.getElementsByTagName('body')[0];
             const theme = body.classList.contains('dark') ? 'light' : 'dark';
             localStorage.setItem('theme', theme);
             body.classList.remove('dark', 'light');
             body.classList.add(theme);
-        }">switch</button>
+        }">
+            <div class="icon moon"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 16 16" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M14.53 10.53a7 7 0 01-9.058-9.058A7.003 7.003 0 008 15a7.002 7.002 0 006.53-4.47z" clip-rule="evenodd"></path></svg></div>
+        </button>
     </div>
     {% include search.html %}
     {% include nav.html %}
