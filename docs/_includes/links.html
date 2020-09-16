@@ -2,7 +2,14 @@
 <div class="link-bar">
     <ul class="links">
         {% for link in site.links %}
-        <li><a href="{{ link.url }}">{{ link.name }}</a></li>
+        <li><a href="{{ link.url }}" title="{{ link.name }}">
+            {{ site.data.icons[0] }}
+            {% if link.icon %}
+            <div class="icon">{{ site.data.icons[link.icon] }}</div>
+            {% else %}
+            {{ link.name }}
+            {% endif %}
+        </a></li>
         {% endfor %}
     </ul>
 </div>

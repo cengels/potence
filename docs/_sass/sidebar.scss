@@ -28,7 +28,6 @@
 
 .night-switch {
     @include unstyled-button;
-    font-size: 0.95rem;
     cursor: pointer;
 }
 
@@ -46,5 +45,9 @@
 
     &:hover {
         color: var(--icon-color-hovered);
+    }
+
+    > svg {
+        height: 17px;
     }
 }

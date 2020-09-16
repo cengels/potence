@@ -4,11 +4,16 @@
     @include unstyled-list;
 
     display: flex;
+    align-items: center;
     justify-content: flex-end;
     margin-left: auto;
 
     > li:not(:last-child) {
-        margin-right: 1em;
+        margin-right: 2em;
+    }
+
+    .icon > svg {
+        height: 25px;
     }
 }
 
