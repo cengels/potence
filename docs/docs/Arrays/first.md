@@ -2,6 +2,11 @@
 layout:      page
 title:       "Arrays.first()"
 description: "Returns the first element in an array. If the array is empty, returns undefined."
+parameters:
+  array: An array with 0 or more elements from which the "0th" element is returned (but not removed).
+  test:
+    description: test description
+    optional: yes
 ---
 ## Syntax
 
@@ -9,10 +14,8 @@ description: "Returns the first element in an array. If the array is empty, retu
 function first<T>(array: readonly T[]): T | undefined
 ```
 
-{{ page.description }}
-
-* `<T>`: Optional. Type of the passed array items. The array item type is automatically inferred if omitted.
-* `array`: An array with 0 or more elements from which the "0th" element is returned (but not removed).
+<p class="description">{{ page.description }}</p>
+{% include parameters.html parameters=page.parameters %}
 
 ## Remarks
 

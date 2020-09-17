@@ -1,0 +1,32 @@
+<table class="parameters">
+    <thead>
+        <tr>
+            <td colspan="2">Parameters</td>
+        </tr>
+    </thead>
+    <tbody>
+        {% for parameter in include.parameters %}
+        <tr>
+            {% assign uppercased = parameter[0] | upcase %}
+            {% if uppercased == parameter[0] %}
+            <td class="type-parameter">
+            {% else %}
+            <td class="parameter">
+            {% endif %}
+                <code>{{ parameter[0] }}</code>
+
+                {% if parameter[1].optional %}
+                <span class="optional-indicator">Optional</span>
+                {% endif %}
+            </td>
+            <td class="parameter-description">
+                {% if parameter[1].description %}
+                {{ parameter[1].description }}
+                {% else %}
+                {{ parameter[1] }}
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>

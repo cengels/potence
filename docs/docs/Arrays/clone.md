@@ -2,17 +2,15 @@
 layout:      page
 title:       "Arrays.clone()"
 description: "Returns a copy of an array."
+parameters:
+  array: The array that should be cloned.
 ---
-## Syntax
-
 ```ts
 function clone<T>(array: readonly T[]): T[]
 ```
 
-{{ page.description }}
-
-* `<T>`: Optional. Type of the passed array items. The array item type is automatically inferred if omitted.
-* `array`: The array that should be cloned.
+<p class="description">{{ page.description }}</p>
+{% include parameters.html parameters=page.parameters %}
 
 ## Example
 

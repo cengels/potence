@@ -2,6 +2,8 @@
 layout:      page
 title:       "Arrays.last()"
 description: "Returns the last element in an array. If the array is empty, returns undefined."
+parameters:
+  array: An array with 0 or more elements from which the `n - 1`th element is returned (but not removed).
 ---
 ## Syntax
 
@@ -9,11 +11,8 @@ description: "Returns the last element in an array. If the array is empty, retur
 function last<T>(array: readonly T[]): T | undefined
 ```
 
-{{ page.description }}
-
-* `<T>`: Optional. Type of the passed array items. The array item type is automatically inferred if omitted.
-* `array`: An array with 0 or more elements from which the `n - 1`th element is returned (but not removed).
-{: class="my-custom-class"}
+<p class="description">{{ page.description }}</p>
+{% include parameters.html parameters=page.parameters %}
 
 ## Remarks
 
