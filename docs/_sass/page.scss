@@ -47,6 +47,11 @@ h2 {
 
 .parameter, .type-parameter {
     font-size: 0.85em;
+
+    > code {
+        color: var(--code-text-color);
+        font-weight: bold;
+    }
 }
 
 .optional-indicator {
