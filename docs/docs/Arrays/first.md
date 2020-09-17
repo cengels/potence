@@ -1,7 +1,7 @@
 ---
 layout:      page
-title:       "Arrays.first()"
-description: "Returns the first element in an array. If the array is empty, returns undefined."
+title:       Arrays.first()
+description: Returns the first element in an array. If the array is empty, returns undefined.
 parameters:
   array: An array with 0 or more elements from which the "0th" element is returned (but not removed).
   test:

@@ -1,7 +1,7 @@
 ---
 layout:      page
-title:       "Arrays.last()"
-description: "Returns the last element in an array. If the array is empty, returns undefined."
+title:       Arrays.last()
+description: Returns the last element in an array. If the array is empty, returns undefined.
 parameters:
   array: An array with 0 or more elements from which the `n - 1`th element is returned (but not removed).
 ---

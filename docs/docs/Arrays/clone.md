@@ -1,7 +1,7 @@
 ---
 layout:      page
-title:       "Arrays.clone()"
-description: "Returns a copy of an array."
+title:       Arrays.clone()
+description: Returns a copy of an array.
 parameters:
   array: The array that should be cloned.
 ---

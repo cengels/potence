@@ -19,7 +19,7 @@ h2 {
     margin: 1.5em 0;
 }
 
-.parameters {
+.parameters, .submodules-table {
     width: 100%;
     border-collapse: collapse;
     background: var(--code-background-color);
@@ -38,11 +38,14 @@ h2 {
         font-weight: 600;
         opacity: 0.35;
     }
+
+    td:first-child {
+        width: 1%;
+        white-space: nowrap;
+    }
 }
 
 .parameter, .type-parameter {
-    width: 1%;
-    white-space: nowrap;
     font-size: 0.85em;
 }
 

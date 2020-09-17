@@ -1,8 +1,17 @@
-<ul>
-    {% for page in site.pages %}
-    {% assign module = page.title | split: '.' | first %}
-    {% if module == include.module and page.title != include.module %}
-    <li><a href="{{ page.url }}">{{ page.title }}</a></li>
-    {% endif %}
-    {% endfor %}
-</ul>
+<table class="submodules-table">
+    <tbody>
+        {% for page in site.pages %}
+        {% assign module = page.title | split: '.' | first %}
+        {% if module == include.module and page.title != include.module %}
+        <tr>
+            <td class="code">
+                <a href="{{ page.url }}">{{ page.title }}</a>
+            </td>
+            <td>
+                {{ page.description }}
+            </td>
+        </tr>
+        {% endif %}
+        {% endfor %}
+    </tbody>
+</table>
