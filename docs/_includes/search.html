@@ -1,0 +1,52 @@
+<script>
+    const submodules = [];
+</script>
+
+<div class="search-bar">
+    <div class="icon search-icon">{{ site.data.icons.search }}</div>
+    <input class="search-input" type="text" placeholder="Search for a module or function" oninput="{
+        const searchTerm = event.target.value;
+
+        function add(text, url) {
+            const listElement = document.createElement('li');
+            const newElement = document.createElement('a');
+            newElement.href = url;
+            newElement.textContent = text;
+            newElement.className = 'submodule';
+            listElement.appendChild(newElement);
+            submodules.push(listElement);
+        }
+
+        if (submodules.length === 0) {
+            for (const moduleButton of document.getElementsByClassName('module')) {
+                const module = moduleButton.children.item(0);
+                add(module.textContent, module.href);
+            }
+
+            for (const submodule of document.getElementsByClassName('submodule')) {
+                add(submodule.textContent, submodule.href);
+            }
+        }
+
+        const normalList = document.getElementsByClassName('normal-list')[0]
+        const searchList = document.getElementsByClassName('search-list')[0];
+
+        while (searchList.lastChild) {
+            searchList.lastChild.remove();
+        }
+
+        if (searchTerm !== '') {
+            normalList.classList.add('hidden');
+            searchList.classList.remove('hidden');
+
+            for (const module of submodules) {
+                if (module.textContent.toLowerCase().includes(searchTerm.toLowerCase())) {
+                    searchList.appendChild(module);
+                }
+            }
+        } else {
+            normalList.classList.remove('hidden');
+            searchList.classList.add('hidden');
+        }
+    }" />
+</div>

@@ -14,9 +14,10 @@ body {
     --a-color: #5c7dff;
     --a-color-hovered: #3f66ff;
     --module-color: #2b2b2c;
-    --module-color-hovered: #deddf2;
+    --module-color-hovered: #2b2b2c;
+    --module-color-selected: #deddf2;
     --module-background-color-selected: #6a6a71;
-    --module-background-color-hovered: #545459;
+    --module-background-color-hovered: #aeb1b4;
     --submodule-color: #4e4e4e;
     --code-background-color: #cacad2;
     --code-text-color: #696482;
@@ -26,4 +27,8 @@ body {
     --code-symbol-color: #763cb0;
     --code-comment-color: #88a;
     --code-plain-text-color: #541173;
+    --search-background-color: #c8c8d0;
+    --search-icon-color: #6A6A71;
+    --search-placeholder-color: #77778A;
+    --search-border-color-active: #6A6A7177;
 }

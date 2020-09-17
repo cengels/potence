@@ -1,6 +1,10 @@
 @import "variables.scss";
 @import "mixins.scss";
 
+nav {
+    position: relative;
+}
+
 nav ul {
     @include unstyled-list;
 
@@ -17,15 +21,13 @@ nav ul {
             padding: 3px 7px;
             transition: color 0.1s ease, background-color 0.1s ease;
 
-            &:hover, &.selected {
-                color: var(--module-color-hovered);
-            }
-
             &.selected {
+                color: var(--module-color-selected);
                 background-color: var(--module-background-color-selected);
             }
 
             &:hover {
+                color: var(--module-color-hovered);
                 background-color: var(--module-background-color-hovered);
             }
         }
@@ -44,8 +46,12 @@ nav ul {
                 transition: color 0.1s ease;
             }
 
-            &:hover > a, &.selected > a {
+            &:hover > a {
                 color: var(--module-color-hovered);
+            }
+
+            &.selected > a {
+                color: var(--module-color-selected);
             }
         }
 
@@ -62,4 +68,22 @@ nav ul {
 
 .module-list li {
     margin-top: 0.2em;
+}
+
+.search-list > li {
+    transition: opacity 0.5s ease;
+}
+
+nav > ul {
+    position: absolute;
+    width: 100%;
+    margin: 0;
+    transition: height 0.1s ease, opacity 0.5s ease;
+
+    &.hidden {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition: height 0.1s ease, opacity 0.5s ease, visibility 0s linear 0.5s;
+    }
 }

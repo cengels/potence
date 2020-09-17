@@ -1,5 +1,6 @@
 @import "nav.scss";
 @import "mixins.scss";
+@import "search.scss";
 
 .sidebar {
     height: 100%;
@@ -19,6 +20,7 @@
 
     > a {
         color: var(--site-title-color);
+        transition: color 0.5s ease;
 
         &:hover {
             color: var(--site-title-color-hovered);
