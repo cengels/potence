@@ -14,6 +14,17 @@ function first<T>(array: readonly T[]): T | undefined
 <p class="description">{{ page.description }}</p>
 {% include parameters.html parameters=page.parameters %}
 
+## Example
+
+```ts
+import { Arrays } from 'potence';
+
+const array = [3, 1, 5];
+const firstElement = Arrays.first(array);
+
+console.log(firstElement);   // -> 3
+```
+
 ## Remarks
 
 This function is functionally equivalent to `array[0]` and is mainly provided for the sake of completeness in regards to [`Arrays.last()`]({% link docs/Arrays/last.md %}).
