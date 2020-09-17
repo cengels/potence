@@ -2,15 +2,6 @@
 
 code, .code {
     font-family: 'Fira Mono', 'Fira Code', 'Source Code Pro', Menlo, Monaco, Consolas, 'Courier New', monospace;
-    font-size: 10.5pt;
-}
-
-div.highlight {
-    padding: 1px 1em;
-    border-radius: 10px;
-}
-
-code.language-plaintext {
     font-size: 0.82em;
     color: var(--code-token-color);
     background: var(--code-plain-text-background-color);
@@ -20,6 +11,22 @@ code.language-plaintext {
     transition: color 0.5s ease, background-color 0.5s ease;
 }
 
-a > code.language-plaintext {
+div.highlight {
+    padding: 1px 1em;
+    border-radius: 10px;
+    font-size: 10.5pt;
+
+    code {
+        font-size: inherit;
+        color: inherit;
+        background: inherit;
+        margin: 0;
+        border-radius: 0;
+        padding: 0;
+        transition: none;
+    }
+}
+
+a > code {
     color: inherit;
 }
