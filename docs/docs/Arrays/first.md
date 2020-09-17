@@ -16,7 +16,7 @@ function first<T>(array: readonly T[]): T | undefined
 
 ## Remarks
 
-This function is functionally equivalent to `array[0]` and is mainly provided for the sake of completeness in regards to [`Arrays.last()`]({% link _pages/Arrays/last.md %}).
+This function is functionally equivalent to `array[0]` and is mainly provided for the sake of completeness in regards to [`Arrays.last()`]({% link docs/Arrays/last.md %}).
 
 The only advantage it offers compared to `array[0]` is that, in TypeScript, `array[0]` is *not* type-safe in regards to `undefined` values.
 You can freely use `array[0].someFunction()` without null checks and TypeScript will not bark. This function will warn you, however, that its

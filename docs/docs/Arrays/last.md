@@ -19,4 +19,4 @@ function last<T>(array: readonly T[]): T | undefined
 
 This function is especially useful for anonymous arrays—that is, arrays
 
-This function is analogous to [`Arrays.first()`]({% link _pages/Arrays/first.md %}).
+This function is analogous to [`Arrays.first()`]({% link docs/Arrays/first.md %}).

@@ -36,8 +36,10 @@ links:
     icon: npm
 
 # Build settings
+permalink: pretty
 plugins:
-include: ['_pages']
+include:
+  - docs
 
 # Exclude from processing.
 # The following items will not be processed, by default.
