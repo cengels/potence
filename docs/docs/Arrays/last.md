@@ -1,6 +1,7 @@
 ---
 layout:      page
 title:       Arrays.last()
+module:      Arrays
 description: Returns the last element in an array. If the array is empty, returns undefined.
 parameters:
   array: An array with 0 or more elements from which the <code>(n-1)</code>th element is returned (but not removed).

@@ -1,6 +1,7 @@
 ---
 layout:      page
 title:       Arrays.inBounds()
+module:      Arrays
 description: Returns true if the given index is within the array's bounds.
 parameters:
   array: An array with any number of elements.
