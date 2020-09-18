@@ -12,6 +12,7 @@
 body {
     font-family: 'Open Sans';
     margin: 0;
+    overflow: hidden;
 }
 
 body, html {
@@ -32,4 +33,5 @@ body, html {
     color: var(--text-color);
     padding: 0.5em 6em 0em 3em;
     transition: background-color 0.5s ease, color 0.5s ease;
+    overflow-y: auto;
 }

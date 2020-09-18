@@ -16,7 +16,10 @@
                 <code>{{ parameter[0] }}</code>
 
                 {% if parameter[1].optional %}
-                <span class="optional-indicator">Optional</span>
+                <span class="indicator optional-indicator">Optional</span>
+                {% endif %}
+                {% if parameter[1].rest %}
+                <span class="indicator rest-indicator" title="This is a rest parameter, so the function may be called with an arbitrary number of arguments.">Rest</span>
                 {% endif %}
             </td>
             <td class="parameter-description">

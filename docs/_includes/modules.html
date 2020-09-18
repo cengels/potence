@@ -1,8 +1,7 @@
 <table class="submodules-table">
     <tbody>
         {% for page in site.pages %}
-        {% assign module = page.title | split: '.' | first %}
-        {% if module == include.module and page.title != include.module %}
+        {% if page.module == include.module and page.title != include.module %}
         <tr>
             <td class="code">
                 <a href="{{ page.url }}">{{ page.title }}</a>
