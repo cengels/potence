@@ -24,9 +24,9 @@
             </td>
             <td class="parameter-description">
                 {% if parameter[1].description %}
-                {{ parameter[1].description }}
+                {{ parameter[1].description | markdownify }}
                 {% else %}
-                {{ parameter[1] }}
+                {{ parameter[1] | markdownify }}
                 {% endif %}
             </td>
         </tr>
