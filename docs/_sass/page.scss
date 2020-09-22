@@ -19,6 +19,12 @@ p {
     line-height: 150%;
 }
 
+.documentation-section {
+    // Adds a little space to the bottom of main-content
+    // so that the last line isn't hugging the bottom edge of the screen.
+    margin-bottom: 3em;
+}
+
 .description {
     margin: 1.5em 0;
 }
