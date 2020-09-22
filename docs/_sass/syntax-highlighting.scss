@@ -4,10 +4,14 @@ code, .code {
     font-family: 'Fira Mono', 'Fira Code', 'Source Code Pro', Menlo, Monaco, Consolas, 'Courier New', monospace;
     font-size: 0.82em;
     color: var(--code-token-color);
-    background: var(--code-plain-text-background-color);
     margin: 0 1px;
     border-radius: 5px;
     padding: 4px 5px;
+    transition: color 0.5s ease;
+}
+
+code {
+    background: var(--code-plain-text-background-color);
     transition: color 0.5s ease, background-color 0.5s ease;
 }
 
