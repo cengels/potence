@@ -275,13 +275,13 @@ export function clear<T>(array: T[]): T[] {
 export function clearNull<T>(array: T[]): T[] {
     let i: number = 0;
 
-    clone(array).forEach(item => {
-        if (item == null) {
+    while (i < array.length) {
+        if (array[i] == null) {
             array.splice(i, 1);
         } else {
             i++;
         }
-    });
+    }
 
     return array;
 }
