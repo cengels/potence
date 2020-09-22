@@ -6,7 +6,7 @@ export type Nullable<T = unknown> = T | undefined | null;
 /** Extracts the type from an array. */
 export type ArrayType<T> = T extends (infer U)[] ? U : T;
 
-/** All possible results from the `typeof` operator. */
+/** Represents the result of the `typeof` keyword. */
 export type BaseType = 'bigint' | 'boolean' | 'function' | 'number' | 'object' | 'string' | 'symbol' | 'undefined';
 
 /**
@@ -38,24 +38,21 @@ export type BaseToType<T extends BaseType> =
  * Represents a class or constructor. Note that this type includes abstract constructors
  * as well. If you'd like to call `new ...` on the constructor, consider using the `Instantiable` type instead.
  *
- * Particularly useful for parameterized instanceof checks. Take the following function as an example,
- * which will search through a base's ancestors until it finds the ancestor with the specified
- * type or until it reaches the topmost ancestor.
+ * Particularly useful for parameterized instanceof checks.
  *
  * @example
  *
- * function findAncestor<T>(base: HasParent, type: Constructor<T>): T | null {
- *     let ancestor = base.parent;
+ * import { Constructor } from 'potence';
  *
- *     while (ancestor != null) {
- *          if (ancestor instanceof type) {
- *              return ancestor as T;
- *          }
+ * function checkType<T>(object: unknown, constructor: Constructor<T>): object is T {
+ *     return object instanceof constructor;
+ * }
  *
- *          ancestor = ancestor.parent;
- *     }
+ * let value: unknown = new Date();
  *
- *     return null;
+ * if (checkType(value, Date)) {
+ *     value.setDate(5);   // no error
+ *     // ...
  * }
  */
 // eslint-disable-next-line @typescript-eslint/ban-types

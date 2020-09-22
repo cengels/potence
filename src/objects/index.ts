@@ -139,7 +139,7 @@ export function equal(source: unknown, ...others: unknown[]): boolean {
 }
 
 /**
- * Injects a default `equals()` function into the specified object that iterates through all
+ * Attempts to inject a default `equals()` function into the specified object that iterates through all
  * its keys and compares it with the target object.
  *
  * Do not use this function with prototyped objects. This function does not compare inherited

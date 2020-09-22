@@ -68,12 +68,12 @@ export function previous<T>(array: readonly T[], fromIndex: number): T | undefin
     return array[fromIndex - 1];
 }
 
-/** Returns true if the given array is empty, else false. */
+/** Returns true if the given array is empty, otherwise false. */
 export function empty(array: readonly unknown[]): boolean {
     return array.length === 0;
 }
 
-/** Returns true if the given array is not empty, else false. */
+/** Returns true if the given array is not empty, otherwise false. */
 export function notEmpty(array: readonly unknown[]): boolean {
     return array.length > 0;
 }
@@ -199,7 +199,7 @@ type SortFunction<T = unknown> = (a: T, b: T) => number;
  * if you want an ascending sort (i.e. smallest element first) and `(a, b) => b - a`
  * if you want a descending sort (i.e. largest element first).
  */
-export function sort<T>(source: T[], ...sortFns: SortFunction<T>[]): T[];
+export function sort<T>(array: T[], ...sortFns: SortFunction<T>[]): T[];
 /**
  * Sorts the array in the standard way according to the data type contained within.
  * Unsupported data types (like object literals or arrays) will throw an error.
