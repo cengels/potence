@@ -139,7 +139,7 @@ export function replace<T>(array: T[], element: T, replacement: T): T[] {
     const index = array.indexOf(element);
 
     if (index === -1) {
-        throw new Error('Arrays.remove(): element not found in array!');
+        throw new Error('Arrays.replace(): element not found in array!');
     }
 
     array.splice(index, 1, replacement);
