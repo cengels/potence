@@ -84,6 +84,7 @@ describe('Arrays.remove() should', () => {
 
 describe('Arrays.removeAt() should', () => {
     it('remove an array element by index', () => expect(Arrays.removeAt([1, 3, 5], 2)).toEqual([1, 3]));
+    it('throw if the index is out of bounds', () => expect(() => Arrays.removeAt([1, 3, 5], 3)).toThrowError());
 });
 
 describe('Arrays.replace() should', () => {
