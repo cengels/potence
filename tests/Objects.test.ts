@@ -142,13 +142,15 @@ describe('Objects.equals() should return', () => {
         }
     }
 
-    it('true if two numbers are the same', () => expect(Objects.equals(5, 5)).toBe(true));
-    it('true if two strings are the same', () => expect(Objects.equals('foo', 'foo')).toBe(true));
-    it('false if both objects are not the same', () => expect(Objects.equals(5, '5')).toBe(false));
-    it('true if a.equals(b) is true', () => expect(Objects.equals(t(5), t(5))).toBe(true));
-    it('false if a.equals(b) is false', () => expect(Objects.equals(t(5), t(6))).toBe(false));
-    it('true if all objects return equals() === true', () => expect(Objects.equals(t(5), t(5), t(5))).toBe(true));
-    it('false if some objects return equals() === false', () => expect(Objects.equals(t(5), t(5), t(6))).toBe(false));
+    it('true if two numbers are the same', () => expect(Objects.equal(5, 5)).toBe(true));
+    it('true if two strings are the same', () => expect(Objects.equal('foo', 'foo')).toBe(true));
+    it('false if two arrays contain the same elements', () => expect(Objects.equal(['a', 'b'], ['a', 'b'])).toBe(false));
+    it('false if two objects contain the same key-values', () => expect(Objects.equal({ a: 'b' }, { a: 'b' })).toBe(false));
+    it('false if both objects are not the same', () => expect(Objects.equal(5, '5')).toBe(false));
+    it('true if a.equals(b) is true', () => expect(Objects.equal(t(5), t(5))).toBe(true));
+    it('false if a.equals(b) is false', () => expect(Objects.equal(t(5), t(6))).toBe(false));
+    it('true if all objects return equals() === true', () => expect(Objects.equal(t(5), t(5), t(5))).toBe(true));
+    it('false if some objects return equals() === false', () => expect(Objects.equal(t(5), t(5), t(6))).toBe(false));
 });
 
 describe('Objects.equatable() should', () => {

@@ -364,7 +364,7 @@ export function zip<T, Args extends unknown[][]>(source: T[], ...arrays: Args): 
 export function groupBy<T, TProp>(array: T[], property: (item: T) => TProp): T[][] {
     return array.reduce<T[][]>((acc, item) => {
         const result = property(item);
-        const found = acc.find(childArray => Objects.equals(result, property(childArray[0])));
+        const found = acc.find(childArray => Objects.equal(result, property(childArray[0])));
 
         if (found != null) {
             found.push(item);

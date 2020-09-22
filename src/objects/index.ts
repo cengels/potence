@@ -127,16 +127,15 @@ export function swap<T extends object>(source: T, from: keyof T, to: keyof T): T
 /**
  * Compares any object (including primitives) with one or multiple others and returns true if all are equal.
  *
- * This function will use `Equatable` to check for equality if the source object implements it. Otherwise
- * this function will compare objects by comparing each key value individually (shallow comparison), value types
- * by value, and reference types by reference.
+ * This function will use `Equatable` to check for equality if the source object implements it, otherwise
+ * this function will use a simple referential equality check (or structural equality check in the case of value types).
  */
-export function equals(source: unknown, ...others: unknown[]): boolean {
+export function equal(source: unknown, ...others: unknown[]): boolean {
     if (isEquatable(source)) {
         return others.every(other => source.equals(other));
     }
 
-    return others.every(other => compare(source, other));
+    return others.every(other => source === other);
 }
 
 /**
