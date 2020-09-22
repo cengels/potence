@@ -33,6 +33,14 @@ p {
 
     td {
         padding: 0.5em 1em;
+
+        > p:first-child {
+            margin-top: 0;
+    }
+
+        > p:last-child {
+            margin-bottom: 0;
+        }
     }
 
     thead {
@@ -69,4 +77,8 @@ p {
     font-size: 9.5pt;
     letter-spacing: 0.7px;
     transition: background-color 0.5s ease;
+}
+
+.documentation-section > ol > li, .documentation-section > ul > li {
+    margin-bottom: 0.3em;
 }
