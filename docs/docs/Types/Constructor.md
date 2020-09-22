@@ -2,7 +2,7 @@
 layout:      page
 title:       Constructor
 module:      Types
-description: Represents a constructible type (i.e. a class). The class may be abstract.
+description: Represents a constructible type (like a class). The class may be abstract.
 ---
 ## Syntax
 
