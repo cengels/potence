@@ -30,7 +30,7 @@ export function last<T>(array: readonly T[]): T | undefined {
  * Returns true if the given index is in-bounds of the array, i.e. if it corresponds to an
  * actual array element, or false otherwise.
  */
-export function inBounds<T>(array: readonly T[], index: number): boolean {
+export function inBounds(array: readonly unknown[], index: number): boolean {
     return index >= 0 && index < array.length;
 }
 
