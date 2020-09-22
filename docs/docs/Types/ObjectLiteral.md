@@ -2,12 +2,12 @@
 layout:      page
 title:       ObjectLiteral
 module:      Types
-description: Represents an object literal, i.e. a
+description: Represents an object literal, i.e. a [`Record`](https://www.typescriptlang.org/docs/handbook/utility-types.html#recordkeystype) composed of a string key and a value.
 ---
 ## Syntax
 
 ```ts
-type Instantiable<T = unknown, Args extends ReadonlyArray<unknown> = []>
+type ObjectLiteral<T = unknown>
 ```
 
 <p class="description">{{ page.description | markdownify }}</p>
@@ -15,26 +15,19 @@ type Instantiable<T = unknown, Args extends ReadonlyArray<unknown> = []>
 ## Example
 
 ```ts
-import { Instantiable } from 'potence';
+import { ObjectLiteral } from 'potence';
 
-const instantiables: Instantiable[] = [
-    Date,
-    Object,
-    CustomClass
-];
-
-const instantiated = instantiables.map(instantiable => new instantiable());
+function getValue(object: ObjectLiteral<number>, key: string): number {
+    return object[key];
+}
 ```
 
 ## Remarks
 
-Particularly useful for factory functions. See above for a possible usage example.
-
-The second type `Args` allows consumers to specify the types of any parameters
-the constructor may have as a [tuple](https://www.typescriptlang.org/docs/handbook/basic-types.html#tuple).
-
-Also see the related type [`Constructor`]({% link docs/Types/Constructor.md %}),
-which is the superset of this type, only that a `Constructor` may also refer to an
-abstract constructor (for instance an abstract class) that cannot be instantiated.
-
-Every `Instantiable` is a `Constructor`, but not every `Constructor` is an `Instantiable`.
+The `ObjectLiteral` type specifically defines a TypeScript `Record<string, T>`.
+In other words, it is a string-keyed map type with no explicitly defined keys.
+This is not a type-safe collection—the TypeScript compiler will assume that
+any key you access actually exists, even if that key returns a value of `undefined`.
+For that reason (and for the ability to delete keys in a well-defined and performant way),
+it is generally recommended to use a [`Map`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map)
+instead.
