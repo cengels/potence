@@ -2,7 +2,7 @@
 layout: page
 ---
 
-<p class="description">{{ page.description }}</p>
+<p class="description">{{ page.description | markdownify }}</p>
 
 {{ content }}
 
