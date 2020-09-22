@@ -10,7 +10,7 @@ description: Utility type that transforms a <code>BaseType</code> into the type 
 type BaseToType<T>
 ```
 
-<p class="description">{{ page.description }}</p>
+<p class="description">{{ page.description | markdownify }}</p>
 
 ## Example
 

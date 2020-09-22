@@ -10,7 +10,7 @@ description: Represents a constructible type (i.e. a class). The class may be ab
 type Constructor<T = unknown>
 ```
 
-<p class="description">{{ page.description }}</p>
+<p class="description">{{ page.description | markdownify }}</p>
 
 ## Example
 

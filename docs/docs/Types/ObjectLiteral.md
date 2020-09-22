@@ -10,7 +10,7 @@ description: Represents an object literal, i.e. a
 type Instantiable<T = unknown, Args extends ReadonlyArray<unknown> = []>
 ```
 
-<p class="description">{{ page.description }}</p>
+<p class="description">{{ page.description | markdownify }}</p>
 
 ## Example
 

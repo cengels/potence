@@ -13,7 +13,7 @@ parameters:
 function type(array: readonly unknown[], type: BaseType | Constructor): boolean
 ```
 
-<p class="description">{{ page.description }}</p>
+<p class="description">{{ page.description | markdownify }}</p>
 {% include parameters.html parameters=page.parameters %}
 
 ## Example

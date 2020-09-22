@@ -15,7 +15,7 @@ parameters:
 function remove<T>(array: T[], ...elements: T[]): T[]
 ```
 
-<p class="description">{{ page.description }}</p>
+<p class="description">{{ page.description | markdownify }}</p>
 {% include parameters.html parameters=page.parameters %}
 
 ## Example

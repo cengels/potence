@@ -10,7 +10,7 @@ description: Represents a type that may be <code>null</code> or <code>undefined<
 type Nullable<T = unknown>
 ```
 
-<p class="description">{{ page.description }}</p>
+<p class="description">{{ page.description | markdownify }}</p>
 
 ## Example
 

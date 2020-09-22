@@ -10,7 +10,7 @@ parameters:
 function clone<T>(array: readonly T[]): T[]
 ```
 
-<p class="description">{{ page.description }}</p>
+<p class="description">{{ page.description | markdownify }}</p>
 {% include parameters.html parameters=page.parameters %}
 
 ## Example

@@ -10,7 +10,7 @@ description: Represents the result of the <code>typeof</code> keyword.
 type BaseType
 ```
 
-<p class="description">{{ page.description }}</p>
+<p class="description">{{ page.description | markdownify }}</p>
 
 ## Example
 

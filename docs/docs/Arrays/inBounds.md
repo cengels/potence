@@ -13,7 +13,7 @@ parameters:
 function inBounds(array: readonly unknown[], index: number): boolean
 ```
 
-<p class="description">{{ page.description }}</p>
+<p class="description">{{ page.description | markdownify }}</p>
 {% include parameters.html parameters=page.parameters %}
 
 ## Example
