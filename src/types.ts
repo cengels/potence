@@ -83,6 +83,11 @@ export type Instantiable<T = unknown, Args extends ReadonlyArray<unknown> = []> 
  */
 export type ObjectLiteral<T = unknown> = Record<string | number | symbol, T>;
 
+/** An object structure that can be used in `Objects.structure()`. */
+export interface Structure {
+    [property: string]: Structure | Constructor | Exclude<BaseType, 'object' | 'undefined'> | 'array';
+}
+
 /**
  * An interface representing an object that can be equated to another.
  *

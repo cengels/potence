@@ -1,10 +1,6 @@
-import { BaseToType, BaseType, Constructor, Equatable, isEquatable, ObjectLiteral } from '../types.js';
+import { BaseToType, BaseType, Constructor, Equatable, isEquatable, ObjectLiteral, Structure } from '../types.js';
 
-export interface Structure {
-    [property: string]: Structure | Constructor | Exclude<BaseType, 'object' | 'undefined'> | 'array';
-}
-
-export type MappedStructure<T extends Structure> = {
+type MappedStructure<T extends Structure> = {
     [P in keyof T]: T[P] extends Structure ? MappedStructure<T[P]>
         : T[P] extends Constructor<infer C> ? C
         // This error is unavoidable since type guards
