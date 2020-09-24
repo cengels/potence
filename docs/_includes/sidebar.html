@@ -1,4 +1,10 @@
-<div class="sidebar">
+<script>
+    function onScroll() {
+        localStorage.setItem('sidebar-scroll', event.target.scrollTop);
+    }
+</script>
+
+<div class="sidebar" onscroll="onScroll()">
     <div class="sidebar-header">
         <div class="site-title"><a href="{% link index.md %}">potence</a></div>
         <button class="night-switch" onclick="{
@@ -13,4 +19,14 @@
     </div>
     {% include search.html %}
     {% include nav.html %}
+
+    <script>
+        (function() {
+            const sidebarScroll = localStorage.getItem('sidebar-scroll');
+
+            if (sidebarScroll != null) {
+                document.getElementsByClassName('sidebar')[0].scrollTop = parseInt(sidebarScroll);
+            }
+        })();
+    </script>
 </div>
