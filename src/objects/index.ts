@@ -78,7 +78,7 @@ export function compare(object1: unknown, object2: unknown, comparisonMode: Comp
  * Checks if the passed object literal conforms to the given structure.
  */
 export function structure<T extends Structure>(object: object, struct: T): object is MappedStructure<T> {
-    if (!isObjectLiteral(object) || !isObjectLiteral(struct)) {
+    if (!isObject(object) || !isObject(struct)) {
         throw new Error('Objects.structure(): must pass an object!');
     }
 

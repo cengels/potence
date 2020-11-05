@@ -56,8 +56,7 @@ describe('Objects.compare() should', () => {
 });
 
 describe('Objects.structure() should', () => {
-    // @ts-expect-error
-    it('throw an error if the passed objects aren\'t literals', () => expect(() => Objects.structure(new Number(), {})).toThrowError());
+    it('throw an error if the passed objects aren\'t literals', () => expect(() => Objects.structure(5 as unknown as object, {})).toThrowError());
     it('succeed in comparing an object against a simple structure', () => expect(Objects.structure({ a: 52, b: 'foo' },
                                                                                                    { a: 'number', b: 'string' })).toBe(true));
     it('fail to compare an object against a non-matching simple structure', () => expect(Objects.structure({ a: 52, b: 'foo' },
