@@ -154,16 +154,12 @@ export function equals(source: unknown, ...others: unknown[]): boolean {
  * @returns The original object cast with `Equatable` implemented.
  */
 export function equatable<T extends object>(source: T): Equatable & T {
-    if (isEquatable(source)) {
+    if (hasProperty(source, 'equals')) {
         return source as Equatable & T;
     }
 
     if (!Object.isExtensible(source)) {
         throw new Error('Cannot inject equals() into object: object is not extensible!');
-    }
-
-    if (hasProperty(source, 'equals')) {
-        return source as Equatable & T;
     }
 
     Object.defineProperty(source, 'equals', {
