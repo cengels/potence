@@ -162,6 +162,10 @@ export function equatable<T extends object>(source: T): Equatable & T {
         throw new Error('Cannot inject equals() into object: object is not extensible!');
     }
 
+    if (hasProperty(source, 'equals')) {
+        return source as Equatable & T;
+    }
+
     Object.defineProperty(source, 'equals', {
         enumerable: false,
         writable: false,
