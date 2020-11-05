@@ -1,5 +1,31 @@
 # Changelog
 
+## [0.3.0](https://github.com/cengels/potence/compare/0.2.0...0.3.0) - 2020-11-05
+
+### Assert
+
+- **Changed**: the assertion functions `truthy()`, `falsy()`, `notNull()`, `every()`, and `some()`
+  now return the value that was passed in to allow for more fluent usage syntax
+
+### Numbers
+
+- **Added**: new function `Range.wrap(value)`
+
+### Objects
+
+- **Changed**: the `Objects` functions `structure()`, `swap()`, and `equatable()` now only expect an `object` as their
+  first argument (previously expected an object with an index signature)
+- **Changed**: `Objects.structure()` now accepts any object (previously threw an error if the object was not an object literal)
+- **Changed**: `Objects.equatable()` now throws an error if target object contains a non-function "equals" property
+
+### Types
+
+- **Changed**: the helper type `ObjectLiteral<T>` now stands for `Record<string | number | symbol, T>` (from `Record<string, T>`)
+
+### Other
+
+- **Changed**: updated several JsDoc texts to be more descriptive
+
 ## [0.2.0](https://github.com/cengels/potence/compare/0.1.1...0.2.0) - 2020-09-13
 
 ### Arrays
