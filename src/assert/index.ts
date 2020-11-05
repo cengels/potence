@@ -77,30 +77,36 @@ export function that(condition: boolean, failureMessage?: string): void {
  * Throws an assertion error if the value is not truthy and
  * optionally supplies the error with the given failure message.
  */
-export function truthy(value: unknown, failureMessage: string = 'expression was not truthy.'): void {
+export function truthy<T>(value: T, failureMessage: string = 'expression was not truthy.'): T {
     if (!value) {
         throw assertionError(failureMessage);
     }
+
+    return value;
 }
 
 /**
  * Throws an assertion error if the value is not falsy and
  * optionally supplies the error with the given failure message.
  */
-export function falsy(value: unknown, failureMessage: string = 'expression was not falsy.'): void {
+export function falsy<T>(value: T, failureMessage: string = 'expression was not falsy.'): T {
     if (value) {
         throw assertionError(failureMessage);
     }
+
+    return value;
 }
 
 /**
  * Throws an assertion error if the value is null or undefined.
  * Useful for checking the existence of mandatory arguments.
  */
-export function notNull(value: unknown, failureMessage: string = 'expression was null.'): void {
+export function notNull<T>(value: T, failureMessage: string = 'expression was null.'): T {
     if (value == null) {
         throw assertionError(failureMessage);
     }
+
+    return value;
 }
 
 /**
@@ -108,12 +114,14 @@ export function notNull(value: unknown, failureMessage: string = 'expression was
  * did not meet the specified condition and optionally supplies
  * the error with the given failure message.
  */
-export function every<T>(array: T[], predicate: (value: T) => boolean, failureMessage: string = 'not all elements matched the specified predicate.'): void {
+export function every<T>(array: T[], predicate: (value: T) => boolean, failureMessage: string = 'not all elements matched the specified predicate.'): T[] {
     array.forEach((value, index) => {
         if (!predicate(value)) {
             throw assertionError(failureMessage, `Assertion failed at index ${index}`);
         }
     });
+
+    return array;
 }
 
 /**
@@ -121,8 +129,10 @@ export function every<T>(array: T[], predicate: (value: T) => boolean, failureMe
  * meet the specified condition and optionally supplies
  * the error with the given failure message.
  */
-export function some<T>(array: T[], predicate: (value: T) => boolean, failureMessage: string = 'no elements matched the specified predicate.'): void {
+export function some<T>(array: T[], predicate: (value: T) => boolean, failureMessage: string = 'no elements matched the specified predicate.'): T[] {
     if (!array.some(predicate)) {
         throw assertionError(failureMessage, `Assertion failed`);
     }
+
+    return array;
 }
