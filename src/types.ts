@@ -33,6 +33,7 @@ export type BaseToType<T extends BaseType> =
     : T extends 'string' ? string
     : T extends 'symbol' ? symbol
     : undefined;
+
 /**
  * Represents a class or constructor. Note that this type includes abstract constructors
  * as well. If you'd like to call `new ...` on the constructor, consider using the `Instantiable` type instead.
@@ -59,6 +60,7 @@ export type BaseToType<T extends BaseType> =
  */
 // eslint-disable-next-line @typescript-eslint/ban-types
 export type Constructor<T = unknown> = Function & { prototype: T };
+
 /**
  * Represents a type that can be instantiated using the `new` keyword.
  * Particularly useful for factory functions.
@@ -67,8 +69,22 @@ export type Constructor<T = unknown> = Function & { prototype: T };
  * @template Args A [tuple](https://www.typescriptlang.org/docs/handbook/basic-types.html#tuple) of constructor arguments.
  */
 export type Instantiable<T = unknown, Args extends ReadonlyArray<unknown> = []> = { new(...args: Args): T; };
-/** Represents an object literal with the given key and value type. */
-export type ObjectLiteral<T = unknown> = Record<string, T>;
+
+/**
+ * Represents an object literal with the given value type.
+ * This is a shorthand for `Record<string | number | symbol, T>`.
+ *
+ * If you need an object literal without an index signature,
+ * use `object`. Note that this will not allow you to access
+ * arbitrary keys but *will* allow you to assign it any object type
+ * (whereas ObjectLiteral requires an object with an index signature).
+ *
+ * For this reason, it is recommended that you only use this type
+ * in covariant contexts, for example as the return type of a function.
+ * Prefer the `object` type for parameters, as that will allow you to pass
+ * in any object, even those without an index signature.
+ */
+export type ObjectLiteral<T = unknown> = Record<string | number | symbol, T>;
 
 /**
  * An interface representing an object that can be equated to another.
