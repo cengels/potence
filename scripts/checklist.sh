@@ -7,7 +7,7 @@ Prompts the user to confirm that all the following steps are done before committ
   1. Bumped version number? (-v)
   2. Ran linter? (-l)
   3. Tested and uploaded new code coverage? (-c)
-  4. Updated release notes? (r)
+  4. Updated release notes? (-r)
   5. Added documentation? (-d)
   6. Added a new tag for the release commit? (-t)
 
