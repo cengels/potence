@@ -6,7 +6,13 @@
     ],
     "rules": {
         "@typescript-eslint/no-inferrable-types": 0,
-        "@typescript-eslint/ban-ts-comment": 0
+        "@typescript-eslint/ban-ts-comment": 0,
+        "@typescript-eslint/ban-types": ["error", {
+            "extendDefaults": true,
+            "types": {
+                "object": false
+            }
+        }]
     },
     "extends": [
       "eslint:recommended",
