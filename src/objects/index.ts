@@ -1,4 +1,4 @@
-import { BaseType, BaseToType, Constructor, ObjectLiteral, isEquatable, Equatable } from '../types.js';
+import { BaseToType, BaseType, Constructor, Equatable, isEquatable, ObjectLiteral } from '../types.js';
 
 export interface Structure {
     [property: string]: Structure | Constructor | Exclude<BaseType, 'object' | 'undefined'> | 'array';
@@ -13,13 +13,19 @@ export type MappedStructure<T extends Structure> = {
         : BaseToType<T[P]>;
 }
 
-/** Checks if a value is an object, excluding `null` but including arrays and functions. */
-export function isObject(object: unknown): object is Record<string | number | symbol, unknown> {
+/**
+ * Checks if a value is an object, excluding `null` but including arrays and functions.
+ * If this check succeeds, you can safely access the object's members via bracket syntax.
+ */
+export function isObject(object: unknown): object is ObjectLiteral {
     return object != null && (typeof object === 'object' || typeof object === 'function');
 }
 
-/** Checks if a value is an object literal, i.e. an object whose direct prototype is `Object.prototype`. */
-export function isObjectLiteral(object: unknown): object is Record<string | number | symbol, unknown> {
+/**
+ * Checks if a value is an object literal, i.e. an object whose direct prototype is `Object.prototype`.
+ * Like `isObject()`, you can safely access the object's members via bracket syntax if this check succeeds.
+ */
+export function isObjectLiteral(object: unknown): object is ObjectLiteral {
     return object != null && typeof object === 'object' && Object.getPrototypeOf(object) === Object.prototype;
 }
 
@@ -71,7 +77,7 @@ export function compare(object1: unknown, object2: unknown, comparisonMode: Comp
 /**
  * Checks if the passed object literal conforms to the given structure.
  */
-export function structure<T extends Structure>(object: ObjectLiteral, struct: T): object is MappedStructure<T> {
+export function structure<T extends Structure>(object: object, struct: T): object is MappedStructure<T> {
     if (!isObjectLiteral(object) || !isObjectLiteral(struct)) {
         throw new Error('Objects.structure(): must pass an object!');
     }
@@ -110,7 +116,7 @@ export function structure<T extends Structure>(object: ObjectLiteral, struct: T)
  * Swaps the values `source[from]` and `source[to]` and returns the original object.
  * Note that this will invoke setters.
  */
-export function swap<T extends ObjectLiteral>(source: T, from: keyof T, to: keyof T): T {
+export function swap<T extends object>(source: T, from: keyof T, to: keyof T): T {
     const temp = source[from];
     source[from] = source[to];
     source[to] = temp;
@@ -147,8 +153,8 @@ export function equals(source: unknown, ...others: unknown[]): boolean {
  *
  * @returns The original object cast with `Equatable` implemented.
  */
-export function equatable<T extends Record<string | number | symbol, unknown>>(source: T): Equatable & T {
-    if (source['equals'] != null) {
+export function equatable<T extends object>(source: T): Equatable & T {
+    if (isEquatable(source)) {
         return source as Equatable & T;
     }
 
@@ -163,7 +169,7 @@ export function equatable<T extends Record<string | number | symbol, unknown>>(s
             // We have to cast to any here because TypeScript still doesn't allow
             // indexing with symbols (even though object keys can be symbols).
             return isObject(target) && Reflect.ownKeys(source).every(key => {
-                const sourceValue = source[key as string];
+                const sourceValue = source[key as keyof T];
 
                 if (typeof sourceValue === 'function') {
                     // There are some cases (like the strategy pattern) where it makes
