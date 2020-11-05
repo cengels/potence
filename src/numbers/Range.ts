@@ -142,6 +142,21 @@ export default class Range implements ReadonlyRange {
         return this.from > this.to ? 1 - relativeValue : relativeValue;
     }
 
+    public wrap(value: number): number {
+        if (value >= this.min() && value <= this.max()) {
+            return value;
+        }
+
+        if (value < this.min()) {
+            const difference = this.min() - value;
+            return this.max() - Math.abs(difference % (this.max() - this.min()));
+        }
+
+        const difference = value - this.max();
+
+        return this.min() + Math.abs(difference % (this.max() - this.min()));
+    }
+
     public equals(range: ReadonlyRange): boolean;
     public equals(from: number, to: number): boolean;
     public equals(rangeOrFrom: ReadonlyRange | number, to?: number): boolean {

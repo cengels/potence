@@ -64,6 +64,12 @@ export default interface ReadonlyRange {
     at(value: number): number;
     /** Gets a relative value between 0.0 and 1.0 to indicate the position of the passed value inside the range. This function is the counter-component to `at()`. */
     relative(value: number): number;
+    /**
+     * Wraps the number into this range. That is, if the number exceeds this range, it will "wrap around" the range's start.
+     *
+     * For instance, in a range of -3 to 3, the value 4 would be wrapped to -2.
+     */
+    wrap(value: number): number;
     /** Checks if the given range is identical to this one. */
     equals(range: ReadonlyRange): boolean;
     /** Checks if this range has the given `from` and `to` values. */

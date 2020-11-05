@@ -132,6 +132,16 @@ describe('Range.relative() should return', () => {
     ]).it('inverted relative(%d): %d', (value, expected) => expect(new Range(25, 5).relative(value)).toBeCloseTo(expected));
 });
 
+describe('Range.wrap() should', () => {
+    it('wrap if it exceeds the range once', () => expect(new Range(10, 50).wrap(51)).toBe(11));
+    it('wrap if it exceeds the range twice', () => expect(new Range(10, 50).wrap(91)).toBe(11));
+    it('wrap if it deceeds the range once', () => expect(new Range(10, 50).wrap(8)).toBe(48));
+    it('wrap if it deceeds the range twice', () => expect(new Range(10, 50).wrap(-32)).toBe(48));
+    it('not wrap if it equals the range\'s start', () => expect(new Range(10, 50).wrap(10)).toBe(10));
+    it('not wrap if it equals the range\'s end', () => expect(new Range(10, 50).wrap(50)).toBe(50));
+    it('not wrap if value is contained in range', () => expect(new Range(10, 50).wrap(35)).toBe(35));
+});
+
 describe('Range.equals() should return', () => {
     it('true if used with equal arguments', () => expect(new Range(-55, 22).equals(-55, 22)).toBe(true));
     it('false if used with unequal arguments', () => expect(new Range(-55, 22).equals(22, -55)).toBe(false));
