@@ -149,17 +149,23 @@ export function equals(source: unknown, ...others: unknown[]): boolean {
  * The object must be extensible for this function to succeed. If it is not, this function will
  * throw an error.
  *
- * This function does nothing if the target object already contains an `equals` property.
+ * This function does nothing if the target object already contains an `equals` function.
+ * If the target object contains an `equals` property that is not a function, this function
+ * will throw an error.
  *
  * @returns The original object cast with `Equatable` implemented.
  */
 export function equatable<T extends object>(source: T): Equatable & T {
-    if (hasProperty(source, 'equals')) {
+    if (isEquatable(source)) {
         return source as Equatable & T;
     }
 
     if (!Object.isExtensible(source)) {
         throw new Error('Cannot inject equals() into object: object is not extensible!');
+    }
+
+    if (hasProperty(source, 'equals')) {
+        throw new Error('Object already contains a definition for "equals".');
     }
 
     Object.defineProperty(source, 'equals', {

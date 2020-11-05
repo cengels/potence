@@ -156,7 +156,9 @@ describe('Objects.equatable() should', () => {
     it('throw on unextensible objects (like numbers)', () => expect(() => Objects.equatable(5)).toThrowError());
     // @ts-expect-error
     it('throw on unextensible objects (like strings)', () => expect(() => Objects.equatable('5')).toThrowError());
-    it('do nothing if object already contains equals', () => expect(typeof Objects.equatable({ equals: '' }).equals).toBe('string'));
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    it('do nothing if object already contains function equals', () => expect(Objects.equatable({ equals: (val: unknown) => true }).equals(5)).toBe(true));
+    it('throw error if object already contains property equals', () => expect(() => Objects.equatable({ equals: '' })).toThrowError());
     it('augment with an equals function', () => {
         const equatable = Objects.equatable({ value: 5 });
 
