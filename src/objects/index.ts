@@ -36,14 +36,18 @@ export function isObjectLiteral(object: unknown): object is ObjectLiteral {
 type ComparisonMode = 'shallow' | 'deep';
 
 /**
- * Does a shallow or deep compare of the two objects and returns a value indicating whether the two objects are equal.
+ * Performs a shallow or deep comparison of the two objects and returns a value
+ * indicating whether the two objects are equal.
  *
- * This is really only meant for literals, but you can technically pass any value here. It'll automatically fall back
- * to a standard `===` comparison if either of the values are not true objects.
+ * This is really only meant for literals, but you can technically pass any
+ * value here. It'll automatically fall back to a standard `===` comparison if
+ * either of the values are not true objects.
  *
- * @param comparisonMode What kind of a comparison to apply. Possible values are 'shallow' (only compares the first level
- * of keys and values; compares nested objects by reference only) and 'deep' (recursively compares all levels of keys and
- * values, meaning it properly compares nested objects as well). Default is 'shallow'.
+ * @param comparisonMode What kind of comparison to apply. Possible values are
+ * 'shallow' (only compares the first level of keys and values; compares nested
+ * objects by reference only) and 'deep' (recursively compares all levels of
+ * keys and values, meaning it properly compares nested objects as well).
+ * Default is 'shallow'.
  */
 export function compare(object1: unknown, object2: unknown, comparisonMode: ComparisonMode = 'shallow'): boolean {
     if (object1 == null || object2 == null || !isObject(object1) || !isObject(object2)) {
