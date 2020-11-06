@@ -224,18 +224,32 @@ export function equatable<T extends object>(source: T): Equatable & T {
     return source as Equatable & T;
 }
 
+type HasProperty<TKey extends string, T> = { [key in TKey]: T };
+type HasPropertyReturnType<T extends BaseType | Constructor> =
+      T extends BaseType ? BaseToType<T>
+    : T extends Constructor<infer C> ? C
+    : unknown;
+
 /** Checks if an object has a property with the specified name and optionally the specified `typeof` type. */
-export function hasProperty(source: unknown, propertyName: string, type?: BaseType | Constructor): boolean {
+export function hasProperty<
+    TKey extends string,
+    T extends BaseType | Constructor
+>(source: unknown, propertyName: TKey, type?: T): source is HasProperty<TKey, HasPropertyReturnType<T>> {
     return source != null
         && isObject(source)
         && propertyName in source
-        && (type == null || (typeof type === 'string' ? typeof source[propertyName] === type : source[propertyName] instanceof type));
+        && (type == null || (typeof type === 'string'
+            ? typeof source[propertyName] === type
+            : source[propertyName] instanceof (type as Constructor)));
 }
+
+type Func = (...args: unknown[]) => unknown;
 
 /**
  * Checks if an object has a function with the specified name and optionally the specified number of arguments.
  */
-export function hasFunction(source: unknown, functionName: string, argumentCount?: number): boolean {
+// eslint-disable-next-line @typescript-eslint/ban-types
+export function hasFunction<T extends string>(source: unknown, functionName: T, argumentCount?: number): source is HasProperty<T, Func> {
     // tslint:disable-next-line: no-unsafe-any
     return source != null
         && isObject(source)
