@@ -10,7 +10,7 @@ description: Utility type that extracts the element type from an array type.
 type ArrayType<T>
 ```
 
-<p class="description">{{ page.description | markdownify }}</p>
+<div class="description">{{ page.description | markdownify }}</div>
 
 ## Example 1
 

@@ -11,7 +11,7 @@ description: Represents a constructible type (like a class).
 type Constructor<T = unknown>
 ```
 
-<p class="description">{{ page.description | markdownify }}</p>
+<div class="description">{{ page.description | markdownify }}</div>
 
 ## Example
 

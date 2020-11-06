@@ -11,7 +11,7 @@ parameters:
 ```ts
 function isPrimitive(object: unknown): object is primitive
 ```
-<p class="description">{{ page.description | markdownify }}</p>
+<div class="description">{{ page.description | markdownify }}</div>
 {% include parameters.html parameters=page.parameters %}
 
 ## Example

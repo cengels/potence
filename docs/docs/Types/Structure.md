@@ -11,7 +11,7 @@ description: Represents an object structure that can
 interface Structure
 ```
 
-<p class="description">{{ page.description | markdownify }}</p>
+<div class="description">{{ page.description | markdownify }}</div>
 
 ## Remarks
 

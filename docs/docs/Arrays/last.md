@@ -14,7 +14,7 @@ parameters:
 function last<T>(array: readonly T[]): T | undefined
 ```
 
-<p class="description">{{ page.description | markdownify }}</p>
+<div class="description">{{ page.description | markdownify }}</div>
 {% include parameters.html parameters=page.parameters %}
 
 ## Example

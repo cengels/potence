@@ -12,7 +12,7 @@ parameters:
 function isEquatable(object: unknown): object is Equatable
 ```
 
-<p class="description">{{ page.description | markdownify }}</p>
+<div class="description">{{ page.description | markdownify }}</div>
 {% include parameters.html parameters=page.parameters %}
 
 ## Example

@@ -12,7 +12,7 @@ parameters:
 function clear<T>(array: T[]): T[]
 ```
 
-<p class="description">{{ page.description | markdownify }}</p>
+<div class="description">{{ page.description | markdownify }}</div>
 {% include parameters.html parameters=page.parameters %}
 
 ## Example

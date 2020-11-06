@@ -13,7 +13,7 @@ interface Equatable {
 }
 ```
 
-<p class="description">{{ page.description | markdownify }}</p>
+<div class="description">{{ page.description | markdownify }}</div>
 
 ## Example
 

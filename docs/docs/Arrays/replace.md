@@ -15,7 +15,7 @@ parameters:
 function replace<T>(array: T[], element: T, replacement: T): T[]
 ```
 
-<p class="description">{{ page.description | markdownify }}</p>
+<div class="description">{{ page.description | markdownify }}</div>
 {% include parameters.html parameters=page.parameters %}
 
 ## Example

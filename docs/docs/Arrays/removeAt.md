@@ -15,7 +15,7 @@ parameters:
 function removeAt<T>(array: T[], index: number): T[]
 ```
 
-<p class="description">{{ page.description | markdownify }}</p>
+<div class="description">{{ page.description | markdownify }}</div>
 {% include parameters.html parameters=page.parameters %}
 
 ## Example

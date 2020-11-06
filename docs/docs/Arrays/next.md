@@ -16,7 +16,7 @@ parameters:
 function next<T>(array: readonly T[], fromIndex: number): T | undefined
 ```
 
-<p class="description">{{ page.description | markdownify }}</p>
+<div class="description">{{ page.description | markdownify }}</div>
 {% include parameters.html parameters=page.parameters %}
 
 ## Example

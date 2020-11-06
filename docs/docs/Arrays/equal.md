@@ -13,7 +13,7 @@ parameters:
 function equal(array1: readonly unknown[], array2: readonly unknown[]): boolean
 ```
 
-<p class="description">{{ page.description | markdownify }}</p>
+<div class="description">{{ page.description | markdownify }}</div>
 {% include parameters.html parameters=page.parameters %}
 
 ## Example

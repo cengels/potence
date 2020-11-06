@@ -10,7 +10,7 @@ description: Represents a primitive.
 type primitive
 ```
 
-<p class="description">{{ page.description | markdownify }}</p>
+<div class="description">{{ page.description | markdownify }}</div>
 
 ## Example
 

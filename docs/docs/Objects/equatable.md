@@ -14,7 +14,7 @@ parameters:
 function equatable<T extends object>(source: T): Equatable & T
 ```
 
-<p class="description">{{ page.description | markdownify }}</p>
+<div class="description">{{ page.description | markdownify }}</div>
 {% include parameters.html parameters=page.parameters %}
 
 ## Example

@@ -11,7 +11,7 @@ description: Represents an object with an index signature keyed to a `string`,
 type ObjectLiteral<T = unknown>
 ```
 
-<p class="description">{{ page.description | markdownify }}</p>
+<div class="description">{{ page.description | markdownify }}</div>
 
 ## Example
 
