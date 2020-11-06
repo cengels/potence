@@ -6,7 +6,10 @@
 
 <div class="sidebar" onscroll="onScroll()">
     <div class="sidebar-header">
-        <div class="site-title"><a href="{% link index.md %}">potence</a></div>
+        <div class="site-title">
+            <div class="site-name"><a href="{% link index.md %}">potence</a></div>
+            <div class="site-version">{{ site.version }}</div>
+        </div>
         <button class="night-switch" onclick="{
             const body = document.getElementsByTagName('body')[0];
             const theme = body.classList.contains('dark') ? 'light' : 'dark';
