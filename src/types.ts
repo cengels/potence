@@ -83,9 +83,28 @@ export type Instantiable<T = unknown, Args extends ReadonlyArray<unknown> = []> 
  */
 export type ObjectLiteral<T = unknown> = Record<string | number | symbol, T>;
 
-/** An object structure that can be used in `Objects.structure()`. */
+/** One of the possible values of @see Structure. */
+export type StructureValue = Structure | Constructor | Exclude<BaseType, 'object'> | 'null' | 'array';
+
+/**
+ * An object structure that can be used in `Objects.structure()`.
+ * Each property must be the name of a property that should exist in the target
+ * and each property value must be one of the following:
+ *
+ * * Another `Structure`: this will recursively check against the nested object
+ * * A class (`Constructor`): matches if the target value contains
+ *   anywhere the constructor in its prototype chain
+ * * Any of the possible return values of the `typeof` operator *except*
+ *   for `'object'` (to check against an object, use another `Structure`)
+ * * `'null'` or `'undefined'`: matches against those two specific values
+ * * `'array'`: matches if the value is any kind of array
+ * * An array with a single element containing any of the above: matches
+ *   an array where each element matches the element in the structure array
+ * * An array with multiple elements containing any of the above: matches
+ *   if any of the array elements match the value
+ */
 export interface Structure {
-    [property: string]: Structure | Constructor | Exclude<BaseType, 'object' | 'undefined'> | 'array';
+    [property: string]: StructureValue | readonly [StructureValue] | readonly StructureValue[];
 }
 
 /**

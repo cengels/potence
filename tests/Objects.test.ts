@@ -61,8 +61,30 @@ describe('Objects.structure() should', () => {
                                                                                                    { a: 'number', b: 'string' })).toBe(true));
     it('fail to compare an object against a non-matching simple structure', () => expect(Objects.structure({ a: 52, b: 'foo' },
                                                                                                            { a: 'number', b: 'number' })).toBe(false));
-    it('fail to compare an object against a missing property', () => expect(Objects.structure({ a: 52, b: 'foo' },
+    it('fail to compare an object with an extraneous property', () => expect(Objects.structure({ a: 52, b: 'foo' },
                                                                                               { a: 'number' })).toBe(false));
+    it('fail to compare an object against a missing property', () => expect(Objects.structure({ a: 52 },
+                                                                                              { a: 'number', b: 'number' })).toBe(false));
+    it('succeed if property is missing and expects undefined', () => expect(Objects.structure({ a: 52 },
+                                                                                              { a: 'number', b: ['number', 'undefined'] })).toBe(true));
+    it('succeed when a property value is null', () => expect(Objects.structure({ a: null },
+                                                                               { a: 'null' })).toBe(true));
+    it('fail when a property value is null but expects undefined', () => expect(Objects.structure({ a: null },
+                                                                                                  { a: 'undefined' })).toBe(false));
+    it('succeed when a property value is undefined', () => expect(Objects.structure({ a: undefined },
+                                                                                    { a: 'undefined' })).toBe(true));
+    it('fail when a property value is undefined but expects null', () => expect(Objects.structure({ a: undefined },
+                                                                                                  { a: 'null' })).toBe(false));
+    it('succeed when comparing against multiple matching types', () => expect(Objects.structure({ a: 'foo' },
+                                                                                                { a: ['string', 'number'] })).toBe(true));
+    it('fail when comparing against multiple non-matching types', () => expect(Objects.structure({ a: null },
+                                                                                                 { a: ['string', 'number'] })).toBe(false));
+    it('succeed when comparing against a nullable property', () => expect(Objects.structure({ a: null },
+                                                                                            { a: ['string', 'null'] })).toBe(true));
+    it('succeed when comparing against a matching single-element array', () => expect(Objects.structure({ a: [5, 3, 2] },
+                                                                                            { a: ['number'] })).toBe(true));
+    it('fail when comparing against a non-matching single-element array', () => expect(Objects.structure({ a: [5, 'foo', 2] },
+                                                                                            { a: ['number'] })).toBe(false));
     it('succeed in comparing an object against a nested structure', () => expect(Objects.structure({
             a: 52,
             b: {

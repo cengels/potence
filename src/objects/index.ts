@@ -1,12 +1,20 @@
-import { BaseToType, BaseType, Constructor, Equatable, isEquatable, ObjectLiteral, Structure } from '../types.js';
+import { BaseToType, BaseType, Constructor, Equatable, isEquatable, ObjectLiteral, Structure, StructureValue } from '../types.js';
+
+type DistributeStructureValue<T> = T extends StructureValue ? MappedStructureValue<T> : never;
+
+type MappedStructureValue<T extends StructureValue | readonly StructureValue[]> =
+    T extends Structure ? MappedStructure<T>
+    : T extends Constructor<infer C> ? C
+    : T extends readonly [infer ArrayType] ? DistributeStructureValue<ArrayType>[]
+    : T extends ReadonlyArray<infer OrType> ? DistributeStructureValue<OrType>
+    : T extends 'null' ? null
+    // This error is unavoidable because TypeScript doesn't understand
+    // that T cannot be anything other than BaseType here.
+    // @ts-expect-error
+    : BaseToType<T>;
 
 type MappedStructure<T extends Structure> = {
-    [P in keyof T]: T[P] extends Structure ? MappedStructure<T[P]>
-        : T[P] extends Constructor<infer C> ? C
-        // This error is unavoidable since type guards
-        // do not work on array values.
-        // @ts-expect-error
-        : BaseToType<T[P]>;
+    [P in keyof T]: MappedStructureValue<T[P]>
 }
 
 /**
@@ -70,37 +78,62 @@ export function compare(object1: unknown, object2: unknown, comparisonMode: Comp
     return true;
 }
 
+function match(expected: Structure[''], actual: unknown): boolean {
+    if (typeof expected === 'string') {
+        switch (expected) {
+            case 'array': return Array.isArray(actual);
+            case 'null': return actual === null;
+            case 'undefined': return actual === undefined;
+            default: return typeof actual === expected;
+        }
+    }
+
+    if (isObjectLiteral(expected)) {
+        if (!isObject(actual)) {
+            return false;
+        }
+
+        return structure(actual, expected);
+    }
+
+    if (Array.isArray(expected)) {
+        switch (expected.length) {
+            case 0: throw new Error('Objects.structure(): must pass an array with at least one element!');
+            case 1: return Array.isArray(actual) && actual.every(element => match(expected[0], element));
+            default: return expected.some(orType => match(orType, actual));
+        }
+    }
+
+    if (isObject(expected)) {
+        return actual instanceof expected;
+    }
+
+    return false;
+}
+
 /**
- * Checks if the passed object literal conforms to the given structure.
+ * Checks if the passed object conforms to the given structure.
+ *
+ * Note that this check is *exhaustive*, that is it will fail if `object`
+ * contains more properties than defined by `struct`.
  */
 export function structure<T extends Structure>(object: object, struct: T): object is MappedStructure<T> {
     if (!isObject(object) || !isObject(struct)) {
         throw new Error('Objects.structure(): must pass an object!');
     }
 
-    for (const property in object) {
-        const objectValue = object[property];
-        const expectedType = struct[property];
+    if (Object.keys(object).length > Object.keys(struct).length) {
+        // If object has more props than struct, always fail.
+        // If struct has more props than object, fail only if that property is
+        // not defined as 'undefined' in struct (see match()).
+        return false;
+    }
 
-        if (expectedType == null) {
-            return false;
-        } else if (typeof expectedType === 'string') {
-            if (expectedType === 'array') {
-                if (!Array.isArray(objectValue)) {
-                    return false;
-                }
-            } else if (typeof objectValue !== expectedType) {
-                return false;
-            }
-        } else if (isObjectLiteral(objectValue)) {
-            if (!structure(objectValue, expectedType as Structure)) {
-                return false;
-            }
-        } else if (expectedType.prototype != null) {
-            if (!(objectValue instanceof (expectedType as Constructor))) {
-                return false;
-            }
-        }  else {
+    for (const property in struct) {
+        const expected = struct[property];
+        const actual = object[property];
+
+        if (!match(expected, actual)) {
             return false;
         }
     }
