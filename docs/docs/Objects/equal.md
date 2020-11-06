@@ -39,11 +39,14 @@ console.log(Objects.equal(equatable, nonEquatable));   // -> true
 
 "Equality" in this context means one of three things:
 
-* If the source object is a value type (i.e. most primitives), this function will directly
-  compare them for *structural equality*, i.e. whether the value is the same, not the reference.
-* If the source object is a reference type (i.e. objects and arrays), this function will
-  compare them for *referential equality*, i.e. whether the reference is the same, not the value.
-* If the source object implements [`Equatable`]({% link docs/Types/Equatable.md %}), this function will call
-  `source.equals()` and return `true` if and only if `equals()` returned `true` for every other object.
+* If the source object is a value type (i.e. most primitives), this function
+  will directly compare them for *structural equality*, i.e. whether the value
+  is the same, not the reference.
+* If the source object is a reference type (i.e. objects and arrays), this
+  function will compare them for *referential equality*, i.e. whether the
+  reference is the same, not the value.
+* If the source object implements [`Equatable`]({% link docs/Types/Equatable.md
+  %}), this function will call `source.equals()` and return `true` if and only
+  if `equals()` returned `true` for every other object.
 
 As a result, this function can compare any type with each other.

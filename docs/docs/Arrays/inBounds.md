@@ -30,5 +30,6 @@ console.log(Arrays.inBounds(array, 3));    // -> false
 
 ## Remarks
 
-This function only checks if a given index is greater than `0` and lower than `array.length`.
-It does *not* check whether the item behind the index is actually defined.
+This function only checks if a given index is greater than `0` and lower than
+`array.length`. It does *not* check whether the item behind the index is
+actually defined.

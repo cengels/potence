@@ -2,12 +2,14 @@
 layout:      page
 title:       Arrays.previous()
 module:      Arrays
-description: Gets the previous element in the array, starting at the given index.
+description: Gets the previous element in the array,
+             starting at the given index.
 parameters:
   array: An array with any number of elements.
   fromIndex:
-    An in-bounds index. The function will return the element belonging to <code>fromIndex - 1</code>, or
-    <code>array.length - 1</code> if <code>fromIndex</code> is <code>0</code>.
+    An in-bounds index. The function will return the element belonging
+    to <code>fromIndex - 1</code>, or <code>array.length - 1</code> if
+    <code>fromIndex</code> is <code>0</code>.
 ---
 ## Syntax
 

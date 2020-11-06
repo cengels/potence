@@ -2,9 +2,11 @@
 layout:      page
 title:       Arrays.first()
 module:      Arrays
-description: Returns the first element in an array. If the array is empty, returns undefined.
+description: Returns the first element in an array. If the array is empty,
+             returns undefined.
 parameters:
-  array: An array with 0 or more elements from which the "0th" element is returned (but not removed).
+  array: An array with 0 or more elements from which the "0th" element
+         is returned (but not removed).
 ---
 ## Syntax
 
@@ -28,8 +30,11 @@ console.log(firstElement);   // -> 3
 
 ## Remarks
 
-This function is functionally equivalent to `array[0]` and is mainly provided for the sake of completeness in regards to [`Arrays.last()`]({% link docs/Arrays/last.md %}).
+This function is functionally equivalent to `array[0]` and is mainly provided
+for the sake of completeness in regards to [`Arrays.last()`]({% link
+docs/Arrays/last.md %}).
 
-The only advantage it offers compared to `array[0]` is that, in TypeScript, `array[0]` is *not* type-safe in regards to `undefined` values.
-You can freely use `array[0].someFunction()` without null checks and TypeScript will not bark. This function will warn you, however, that its
-return value may be undefined.
+The only advantage it offers compared to `array[0]` is that, in TypeScript,
+`array[0]` is *not* type-safe in regards to `undefined` values. You can freely
+use `array[0].someFunction()` without null checks and TypeScript will not bark.
+This function will warn you, however, that its return value may be undefined.

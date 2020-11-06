@@ -6,8 +6,9 @@ description: Gets the next element in the array, starting at the given index.
 parameters:
   array: An array with any number of elements.
   fromIndex:
-    An in-bounds index. The function will return the element belonging to <code>fromIndex + 1</code>, or
-    <code>0</code> if <code>fromIndex</code> is the last index in the array.
+    An in-bounds index. The function will return the element belonging to
+    <code>fromIndex + 1</code>, or <code>0</code> if <code>fromIndex</code> is
+    the last index in the array.
 ---
 ## Syntax
 
@@ -31,11 +32,12 @@ console.log(Arrays.next(array, 2));   // -> 3
 
 ## Remarks
 
-This function will "wrap", that is it will return the first element if the passed index
-belongs to the last element in the array.
+This function will "wrap", that is it will return the first element if the
+passed index belongs to the last element in the array.
 
-The index must be within the bounds of the array. If it isn't, the function returns `undefined`.
-In TypeScript, you can use the non-null assertion operator (`!`) on the return value if you are absolutely
-certain the index is in-bounds.
+The index must be within the bounds of the array. If it isn't, the function
+returns `undefined`. In TypeScript, you can use the non-null assertion operator
+(`!`) on the return value if you are absolutely certain the index is in-bounds.
 
-This function is analogous to [`Arrays.previous()`]({% link docs/Arrays/previous.md %}).
+This function is analogous to [`Arrays.previous()`]({% link
+docs/Arrays/previous.md %}).

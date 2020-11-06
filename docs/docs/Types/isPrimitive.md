@@ -30,6 +30,9 @@ if (isPrimitive(value)) {
 
 ## Remarks
 
-There are 6 primitive data types: `string`, `number`, `bigint`, `boolean`, `undefined`, and `symbol`. See [MDN](https://developer.mozilla.org/en-US/docs/Glossary/Primitive) for more information.
+There are 6 primitive data types: `string`, `number`, `bigint`, `boolean`,
+`undefined`, and `symbol`. See
+[MDN](https://developer.mozilla.org/en-US/docs/Glossary/Primitive) for more
+information.
 
 See [`primitive`]({% link docs/Types/primitive.md %}).

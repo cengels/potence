@@ -29,10 +29,13 @@ console.log(array2);  // -> [0, 1, 2]
 
 ## Remarks
 
-There are several different ways to clone an array in JavaScript. Some of those ways are, in practice, superior
-to others, either because of performance or because of syntax. This function removes those considerations from
-your mind: it will always use the method which performs the best in most browsers while also maintaining a clear
-and concise syntax.
+There are several different ways to clone an array in JavaScript. Some of those
+ways are, in practice, superior to others, either because of performance or
+because of syntax. This function removes those considerations from your mind: it
+will always use the method which performs the best in most browsers while also
+maintaining a clear and concise syntax.
 
-Note that this function returns a shallow copy. If you'd like to clone not just the array but also the values
-inside, consider using [`Array.prototype.map()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) instead.
+Note that this function returns a shallow copy. If you'd like to clone not just
+the array but also the values inside, consider using
+[`Array.prototype.map()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map)
+instead.

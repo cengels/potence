@@ -26,6 +26,8 @@ console.log(checkType('foo', 'string'));   // true
 
 ## Remarks
 
-The type expands into `'bigint' | 'boolean' | 'function' | 'number' | 'object' | 'string' | 'symbol' | 'undefined'`.
-Note that these are the `string`s that may be returned by the `typeof` keyword, not their respective actual types.
-To get the actual type from a BaseType, use [`BaseToType<T>`]({% link docs/Types/BaseToType.md %}).
+The type expands into `'bigint' | 'boolean' | 'function' | 'number' | 'object' |
+'string' | 'symbol' | 'undefined'`. Note that these are the `string`s that may
+be returned by the `typeof` keyword, not their respective actual types. To get
+the actual type from a BaseType, use [`BaseToType<T>`]({% link
+docs/Types/BaseToType.md %}).

@@ -2,7 +2,8 @@
 layout:      page
 title:       Arrays.replace()
 module:      Arrays
-description: Replaces the specified element with another and returns the original array.
+description: Replaces the specified element with another
+             and returns the original array.
 parameters:
   array: An array containing the elements you wish to replace.
   element: The element you wish to replace. The array must contain this element.
@@ -31,10 +32,12 @@ console.log(array);   // -> ['foo', 'baz']
 
 ## Remarks
 
-This function modifies the array *in-place*, i.e. it modifies the original array and returns it.
-It does *not* return a new array.
+This function modifies the array *in-place*, i.e. it modifies the original array
+and returns it. It does *not* return a new array.
 
-This function throws an error if the element to be replaced is not found in the array.
+This function throws an error if the element to be replaced is not found in the
+array.
 
-If the array contains multiples of `element`, only the first occurrence is replaced.
-To replace all occurrences, use `while (array.includes(element)) { ... }`.
+If the array contains multiples of `element`, only the first occurrence is
+replaced. To replace all occurrences, use `while (array.includes(element)) { ...
+}`.

@@ -2,7 +2,8 @@
 layout:      page
 title:       BaseToType
 module:      Types
-description: Utility type that transforms a <code>BaseType</code> into the type it represents.
+description: Utility type that transforms a <code>BaseType</code> into the type
+             it represents.
 ---
 ## Syntax
 

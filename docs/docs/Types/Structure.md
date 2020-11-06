@@ -2,7 +2,8 @@
 layout:      page
 title:       Structure
 module:      Types
-description: Represents an object structure that can be used in `Objects.structure()`.
+description: Represents an object structure that can
+             be used in `Objects.structure()`.
 ---
 ## Syntax
 

@@ -28,13 +28,17 @@ const instantiated = instantiables.map(instantiable => new instantiable());
 
 ## Remarks
 
-Particularly useful for factory functions. See above for a possible usage example.
+Particularly useful for factory functions. See above for a possible usage
+example.
 
 The second type `Args` allows consumers to specify the types of any parameters
-the constructor may have as a [tuple](https://www.typescriptlang.org/docs/handbook/basic-types.html#tuple).
+the constructor may have as a
+[tuple](https://www.typescriptlang.org/docs/handbook/basic-types.html#tuple).
 
 Also see the related type [`Constructor`]({% link docs/Types/Constructor.md %}),
-which is the superset of this type, only that a `Constructor` may also refer to an
-abstract constructor (for instance an abstract class) that cannot be instantiated.
+which is the superset of this type, only that a `Constructor` may also refer to
+an abstract constructor (for instance an abstract class) that cannot be
+instantiated.
 
-Every `Instantiable` is a `Constructor`, but not every `Constructor` is an `Instantiable`.
+Every `Instantiable` is a `Constructor`, but not every `Constructor` is an
+`Instantiable`.

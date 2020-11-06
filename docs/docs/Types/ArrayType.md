@@ -33,6 +33,7 @@ function foo<T extends unknown[]>(array: T): ArrayType<T> {
 
 ## Remarks
 
-This type is primarily useful with other generics, such as in the second example above.
-Even in those cases, though, it is generally preferable to use a type `T[]` instead and
-then simply return `T`, unless you *really* need an array type, not an array element type.
+This type is primarily useful with other generics, such as in the second example
+above. Even in those cases, though, it is generally preferable to use a type
+`T[]` instead and then simply return `T`, unless you *really* need an array
+type, not an array element type.

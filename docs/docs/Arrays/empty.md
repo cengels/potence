@@ -26,4 +26,5 @@ console.log(Arrays.empty([1, 2, 3]));   // -> false
 
 ## Remarks
 
-This function is analogous to [`Arrays.notEmpty()`]({% link docs/Arrays/notEmpty.md %}).
+This function is analogous to [`Arrays.notEmpty()`]({% link
+docs/Arrays/notEmpty.md %}).

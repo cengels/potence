@@ -2,7 +2,8 @@
 layout:      page
 title:       Constructor
 module:      Types
-description: Represents a constructible type (like a class). The class may be abstract.
+description: Represents a constructible type (like a class).
+             The class may be abstract.
 ---
 ## Syntax
 
@@ -31,8 +32,11 @@ if (checkType(value, Date)) {
 
 ## Remarks
 
-Note that constructors of this type cannot be instantiated (i.e. you cannot call `new ...` on them).
-If you'd like to type an instantiable constructor, see the related type [`Instantiable`]({% link docs/Types/Instantiable.md %}),
-which represents a subset of `Constructor` types that can be instantiated (i.e. that are not abstract).
+Note that constructors of this type cannot be instantiated (i.e. you cannot call
+`new ...` on them). If you'd like to type an instantiable constructor, see the
+related type [`Instantiable`]({% link docs/Types/Instantiable.md %}), which
+represents a subset of `Constructor` types that can be instantiated (i.e. that
+are not abstract).
 
-Every `Instantiable` is a `Constructor`, but not every `Constructor` is an `Instantiable`.
+Every `Instantiable` is a `Constructor`, but not every `Constructor` is an
+`Instantiable`.

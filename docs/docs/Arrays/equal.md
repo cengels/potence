@@ -27,9 +27,12 @@ console.log(Arrays.equal([new Object()], [new Object()]));   // -> false
 
 ## Remarks
 
-If the array is composed of reference types (i.e. objects, arrays, or functions), this function only
-compares their references, not the contents. If the array is composed of data types (i.e. booleans,
-numbers, strings, `BigInt`s, symbols, as well as `null` or `undefined`), this function checks their structural equality.
-For more information on data and structural types, click [here](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures).
+If the array is composed of reference types (i.e. objects, arrays, or
+functions), this function only compares their references, not the contents. If
+the array is composed of data types (i.e. booleans, numbers, strings, `BigInt`s,
+symbols, as well as `null` or `undefined`), this function checks their
+structural equality. For more information on data and structural types, click
+[here](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures).
 
-If the arrays do not have the same length, the function automatically returns `false` without comparing the contents.
+If the arrays do not have the same length, the function automatically returns
+`false` without comparing the contents.
