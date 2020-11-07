@@ -21,16 +21,16 @@ type MappedStructure<T extends Structure> = {
  * Checks if a value is an object, excluding `null` but including arrays and functions.
  * If this check succeeds, you can safely access the object's members via bracket syntax.
  */
-export function isObject(object: unknown): object is ObjectLiteral {
-    return object != null && (typeof object === 'object' || typeof object === 'function');
+export function isObject(value: unknown): value is ObjectLiteral {
+    return value != null && (typeof value === 'object' || typeof value === 'function');
 }
 
 /**
  * Checks if a value is an object literal, i.e. an object whose direct prototype is `Object.prototype`.
  * Like `isObject()`, you can safely access the object's members via bracket syntax if this check succeeds.
  */
-export function isObjectLiteral(object: unknown): object is ObjectLiteral {
-    return object != null && typeof object === 'object' && Object.getPrototypeOf(object) === Object.prototype;
+export function isObjectLiteral(value: unknown): value is ObjectLiteral {
+    return value != null && typeof value === 'object' && Object.getPrototypeOf(value) === Object.prototype;
 }
 
 type ComparisonMode = 'shallow' | 'deep';
