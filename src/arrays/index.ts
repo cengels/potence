@@ -347,7 +347,7 @@ type TransformTo1DArray<T extends unknown[]> = {
  * Zips the selected arrays, creating a new nested array where the number of elements per level is equal to the number of passed arrays.
  * @example zip([0, 1, 2], [4, 5, 6]) => [[0, 4], [1, 5], [2, 6]]
  */
-export function zip<T, Args extends unknown[][]>(source: T[], ...arrays: Args): Array<[T, ...TransformTo1DArray<Args>]> {
+export function zip<T, Args extends Array<ReadonlyArray<unknown>>>(source: readonly T[], ...arrays: Args): Array<[T, ...TransformTo1DArray<Args>]> {
     if (arrays.some(x => x.length !== source.length)) {
         throw new Error(`Arrays are not of identical length! Expected length ${source.length}, but found ${arrays.map(x => x.length).join(', ')}.`);
     }
@@ -361,7 +361,7 @@ export function zip<T, Args extends unknown[][]>(source: T[], ...arrays: Args): 
  * If the return value of the `property` callback implements `Equatable`, this
  * function will call `equals()` to group the objects.
  */
-export function groupBy<T, TProp>(array: T[], property: (item: T) => TProp): T[][] {
+export function groupBy<T, TProp>(array: readonly T[], property: (item: T) => TProp): T[][] {
     return array.reduce<T[][]>((acc, item) => {
         const result = property(item);
         const found = acc.find(childArray => Objects.equal(result, property(childArray[0])));
