@@ -323,19 +323,19 @@ export function closest<T>(array: readonly T[], callbackOrTarget: ((item: T) => 
 /**
  * Moves each array item by `by`. This method will wrap the array. As a result, there will never be a negative or unfilled index.
  */
-export function moveAll<T>(arr: T[], by: number): T[] {
-    by = by % arr.length;
+export function moveAll<T>(array: T[], by: number): T[] {
+    by = by % array.length;
 
-    if (by === 0 || by === arr.length) {
-        return arr;
+    if (by === 0 || by === array.length) {
+        return array;
     } else if (by > 0) {
-        arr.push(...arr.splice(0, arr.length - by));
+        array.push(...array.splice(0, array.length - by));
 
-        return arr;
+        return array;
     } else {
-        arr.push(...arr.splice(0, Math.abs(by)));
+        array.push(...array.splice(0, Math.abs(by)));
 
-        return arr;
+        return array;
     }
 }
 
