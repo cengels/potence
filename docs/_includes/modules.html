@@ -1,7 +1,7 @@
 <table class="submodules-table">
     <tbody>
         {% for page in site.pages %}
-        {% if page.module == include.module and page.title != include.module %}
+        {% if page.module == include.module %}
         <tr>
             <td class="code">
                 <a href="{{ page.url }}">{{ page.title }}</a>

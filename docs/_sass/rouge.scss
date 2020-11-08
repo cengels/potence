@@ -5,6 +5,15 @@
   background-color: var(--code-background-color);
   transition: color 0.5s ease, background-color 0.5s ease;
 }
+
+figure.highlight {
+    margin: 0;
+
+    pre {
+        margin: 0;
+    }
+}
+
 .highlight .gl {
   color: #dee5e7;
   background-color: #302f55;

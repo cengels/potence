@@ -29,7 +29,7 @@ p {
     margin-bottom: 3em;
 }
 
-.description {
+div.description {
     margin: 1.5em 0;
 
     table {
@@ -50,7 +50,7 @@ p {
     }
 }
 
-.parameters, .submodules-table {
+.parameters, .submodules-table, .class-members {
     width: 100%;
     border-collapse: collapse;
     background: var(--code-background-color);
@@ -60,6 +60,10 @@ p {
 
     td {
         padding: 0.5em 1em;
+
+        p {
+            margin: 0.35em 0;
+        }
 
         > p:first-child {
             margin-top: 0;
@@ -84,7 +88,7 @@ p {
     }
 }
 
-.parameter, .type-parameter {
+.parameter, .type-parameter, .class-members .signature {
     font-size: 1.05em;
 
     > code {
@@ -92,6 +96,10 @@ p {
         font-weight: bold;
         margin-bottom: 3px;
     }
+}
+
+.class-members .signature {
+    vertical-align: top;
 }
 
 .indicator {
