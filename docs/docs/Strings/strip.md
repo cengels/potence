@@ -1,0 +1,37 @@
+---
+layout:      page
+title:       Strings.strip()
+module:      Strings
+description: Returns a new string with all the specified tokens removed.
+parameters:
+  from: The string to strip.
+  what:
+    description: The tokens to remove from `from` if found. If not specified,
+                 the function will remove all spaces from the string.
+    optional: yes
+    rest: yes
+---
+## Syntax
+
+```ts
+function strip(from: string, ...what: string[]): string
+```
+
+<div class="description">{{ page.description | markdownify }}</div>
+{% include parameters.html parameters=page.parameters %}
+
+## Example
+
+```ts
+import { Strings } from 'potence';
+
+const string = 'T&hi%s i$s a !string w&ith str!ange ch$aracters in it.';
+
+Strings.strip(string, '%' '!', '&', '$');
+// -> 'This is a string with strange characters in it.'
+```
+
+## Remarks
+
+This function removes *all* occurrences of the tokens specified by `what`, not
+just the first one.
