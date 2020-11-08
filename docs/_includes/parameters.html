@@ -19,7 +19,9 @@
                 <span class="indicator optional-indicator">Optional</span>
                 {% endif %}
                 {% if parameter[1].rest %}
-                <span class="indicator rest-indicator" title="This is a rest parameter, so the function may be called with an arbitrary number of arguments.">Rest</span>
+                <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/rest_parameters">
+                    <span class="indicator rest-indicator" title="This is a rest parameter, so the function may be called with an arbitrary number of arguments.">Rest</span>
+                </a>
                 {% endif %}
             </td>
             <td class="parameter-description">

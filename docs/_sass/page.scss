@@ -103,7 +103,12 @@ p {
     margin-left: 1em;
     font-size: 9.5pt;
     letter-spacing: 0.7px;
-    transition: background-color 0.5s ease;
+    transition: background-color 0.2s ease;
+}
+
+a:hover > .indicator {
+    text-decoration: underline;
+    background: var(--annotation-hover-background-color);
 }
 
 .documentation-section > ol > li, .documentation-section > ul > li {
