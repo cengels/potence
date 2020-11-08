@@ -51,8 +51,4 @@ This function is particularly useful when defining custom type guards.
 Compare with [`Objects.hasProperty()`]({% link docs/Objects/hasProperty.md %}),
 which can check for the presence of properties of other types.
 
-*Side note: this function's signature as described in [Syntax](#syntax) may
-differ from its actual signature in `potence`. This is by design: in order to
-ensure that this function acts as a type guard, a slightly more complex function
-signature is needed. For the purposes of comprehension, that signature is
-simplified here.*
+{% include complex-signature.md %}

@@ -50,8 +50,4 @@ Compare with [`Objects.hasFunction()`]({% link docs/Objects/hasFunction.md %}),
 which can check for the presence of functions with a certain number of
 arguments.
 
-*Side note: this function's signature as described in [Syntax](#syntax) may
-differ from its actual signature in `potence`. This is by design: in order to
-ensure that this function acts as a type guard, a slightly more complex function
-signature is needed. For the purposes of comprehension, that signature is
-simplified here.*
+{% include complex-signature.md %}
