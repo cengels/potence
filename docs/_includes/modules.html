@@ -1,10 +1,11 @@
 <table class="submodules-table">
     <tbody>
+        {% capture module_prefix %}{{ include.module | append: '.' }}{% endcapture %}
         {% for page in site.pages %}
         {% if page.module == include.module %}
         <tr>
             <td class="code">
-                <a href="{{ page.url }}">{{ page.title }}</a>
+                <a href="{{ page.url }}">{{ page.title | remove_first: module_prefix }}</a>
             </td>
             <td>
                 {{ page.description | split: '.' | first | append: '.' | markdownify }}

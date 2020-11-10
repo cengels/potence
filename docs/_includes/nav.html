@@ -21,12 +21,13 @@
         <li class="module-list"><button onclick="onClick()" class="module"><a href="{{ site_page.url }}">{{ site_page.title }}</button></a>
         {% endif %}
             <ul>
+            {% capture module_prefix %}{{ site_page.title | append: '.' }}{% endcapture %}
             {% for subpage in site.pages %}
             {% if site_page.title == subpage.module %}
             {% if page.title == subpage.title %}
-            <li><a class="submodule selected" href="{{ subpage.url }}">{{ subpage.title }}</a></li>
+            <li><a class="submodule selected" href="{{ subpage.url }}">{{ subpage.title | remove_first: module_prefix }}</a></li>
             {% else %}
-            <li><a class="submodule" href="{{ subpage.url }}">{{ subpage.title }}</a></li>
+            <li><a class="submodule" href="{{ subpage.url }}">{{ subpage.title | remove_first: module_prefix }}</a></li>
             {% endif %}
             {% endif %}
 
