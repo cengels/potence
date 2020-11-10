@@ -59,10 +59,10 @@
 
 <script>
     (function() {
-        const moduleSublists = document.getElementsByClassName('module-list')[0].children;
+        const moduleSublists = document.querySelectorAll('.module-list > ul');
 
         for (const element of moduleSublists) {
-            if (element.tagName === 'UL' && element.style.height === '') {
+            if (element.style.height === '') {
                 // Give each element a defined height so that they can be collapsed.
                 element.style.height = element.scrollHeight + 'px';
             }
