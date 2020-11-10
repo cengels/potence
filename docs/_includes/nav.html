@@ -5,7 +5,8 @@
 
             for (const element of listElements) {
                 if (element.tagName === 'UL') {
-                    element.style.height = element.style.height === '0px' ? element.scrollHeight + 'px' : '0px';
+                    // element.style.height = element.style.height === '0px' ? element.scrollHeight + 'px' : '0px';
+                    element.classList.toggle('collapsed');
                 }
             }
         }
