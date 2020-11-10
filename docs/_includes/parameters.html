@@ -6,6 +6,17 @@
     </thead>
     <tbody>
         {% for parameter in include.parameters %}
+
+        {% if parameter[1].description %}
+        {% assign description=parameter[1].description %}
+        {% else %}
+        {% assign description=parameter[1] %}
+        {% endif %}
+
+        {% if include.replace and include.with %}
+        {% assign description=(description | replace: include.replace, include.with) %}
+        {% endif %}
+
         <tr>
             {% assign uppercased = parameter[0] | upcase %}
             {% if uppercased == parameter[0] %}
@@ -25,11 +36,7 @@
                 {% endif %}
             </td>
             <td class="parameter-description">
-                {% if parameter[1].description %}
-                {{ parameter[1].description | markdownify }}
-                {% else %}
-                {{ parameter[1] | markdownify }}
-                {% endif %}
+                {{ description | markdownify }}
             </td>
         </tr>
         {% endfor %}
