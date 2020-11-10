@@ -1,6 +1,6 @@
 <script>
     function onScroll() {
-        localStorage.setItem('sidebar-scroll', event.target.scrollTop);
+        sessionStorage.setItem('sidebar-scroll', event.target.scrollTop);
     }
 </script>
 
@@ -13,7 +13,7 @@
         <button class="night-switch" onclick="{
             const body = document.getElementsByTagName('body')[0];
             const theme = body.classList.contains('dark') ? 'light' : 'dark';
-            localStorage.setItem('theme', theme);
+            sessionStorage.setItem('theme', theme);
             body.classList.remove('dark', 'light');
             body.classList.add(theme);
         }">
@@ -25,7 +25,7 @@
 
     <script>
         (function() {
-            const sidebarScroll = localStorage.getItem('sidebar-scroll');
+            const sidebarScroll = sessionStorage.getItem('sidebar-scroll');
 
             if (sidebarScroll != null) {
                 document.getElementsByClassName('sidebar')[0].scrollTop = parseInt(sidebarScroll);
