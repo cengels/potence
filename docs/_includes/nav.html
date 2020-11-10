@@ -1,14 +1,39 @@
 <nav>
     <script>
+        function updateSessionStorage() {
+            const moduleLists = document.getElementsByClassName('module-list');
+            const expandedModules = [];
+
+            for (const element of moduleLists) {
+                let moduleName;
+                let isExpanded;
+
+                for (const subElement of element.children) {
+                    if (subElement.className === 'module') {
+                        moduleName = subElement.textContent;
+                    } else if (subElement.tagName === 'UL') {
+                        isExpanded = !subElement.classList.contains('collapsed');
+                    }
+
+                    if (isExpanded && moduleName != null) {
+                        expandedModules.push(moduleName);
+                    }
+                }
+            }
+
+            sessionStorage.setItem('expandedModules', expandedModules.join(';'));
+        }
+
         function onClick() {
             const listElements = event.target.parentNode.children;
 
             for (const element of listElements) {
                 if (element.tagName === 'UL') {
-                    // element.style.height = element.style.height === '0px' ? element.scrollHeight + 'px' : '0px';
                     element.classList.toggle('collapsed');
                 }
             }
+
+            updateSessionStorage();
         }
     </script>
 
@@ -60,12 +85,77 @@
 
 <script>
     (function() {
+        // Give each element a defined height so that they can be collapsed.
         const moduleSublists = document.querySelectorAll('.module-list > ul');
 
         for (const element of moduleSublists) {
             if (element.style.height === '') {
-                // Give each element a defined height so that they can be collapsed.
                 element.style.height = element.scrollHeight + 'px';
+            }
+        }
+
+        function collapse(submoduleList) {
+            // We do this so no transitions happen before the page is initialized
+            submoduleList.style.transition = 'none';
+            submoduleList.classList.add('collapsed');
+            // Requesting offsetHeight causes a CSS reflow.
+            // If we didn't do this, the browser would update the page
+            // at an unspecified point in the future, which means
+            // disabling the transitions here wouldn't do anything.
+            // We use void() so that browsers can't "optimize away"
+            // this empty getter call.
+            void(submoduleList.offsetHeight);
+            submoduleList.style.transition = null;
+        }
+
+        // Check which modules were previously collapsed and restore them
+        const expandedModulesString = sessionStorage.getItem('expandedModules');
+        const expandedModules = expandedModulesString == null || expandedModulesString.length === 0
+            ? []
+            : expandedModulesString.split(';');
+
+        // If no expanded modules, expand the module list of the page we're on.
+        if (expandedModules.length === 0) {
+            const selected = document.getElementsByClassName('selected');
+
+            for (const element of selected) {
+                if (element.classList.contains('submodule')) {
+                    const ul = element.parentElement.parentElement;
+                    const button = ul.previousElementSibling;
+
+                    if (button != null) {
+                        expandedModules.push(button.textContent);
+                    }
+                } else if (element.classList.contains('module')) {
+                    expandedModules.push(element.textContent);
+                }
+            }
+        }
+
+        if (expandedModules.length > 0) {
+            const moduleLists = document.getElementsByClassName('module-list');
+
+            for (const element of moduleLists) {
+                let expanded = true;
+
+                for (const subElement of element.children) {
+                    if (subElement.className === 'module') {
+                        expanded = expandedModules.includes(subElement.textContent);
+                    }
+
+                    if (subElement.tagName === 'UL' && !expanded) {
+                        collapse(subElement);
+                    }
+                }
+            }
+        } else {
+            let first = true;
+            for (const submoduleList of moduleSublists) {
+                if (first) {
+                    first = false;
+                } else {
+                    collapse(submoduleList);
+                }
             }
         }
     })()
