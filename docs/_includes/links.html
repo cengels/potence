@@ -1,6 +1,11 @@
 {% if site.links and site.links | size > 0 %}
 <div class="link-bar">
     <ul class="links">
+        <li class="menu-button">
+            <button title="Opens the sidebar." onclick="document.getElementsByClassName('sidebar')[0].classList.toggle('expanded')">
+                <div class="icon">{{ site.data.icons['menu'] }}</div>
+            </button>
+        </li>
         {% for link in site.links %}
         <li><a href="{{ link.url }}" title="{{ link.name }}">
             {{ site.data.icons[0] }}

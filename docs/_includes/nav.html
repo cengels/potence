@@ -26,14 +26,19 @@
 
         function onClick() {
             const listElements = event.target.parentNode.children;
+            const sidebar = document.getElementsByClassName('sidebar')[0];
 
-            for (const element of listElements) {
-                if (element.tagName === 'UL') {
-                    element.classList.toggle('collapsed');
+            if (sidebar.classList.contains('expanded')) {
+                event.target.children[0].click();
+            } else {
+                for (const element of listElements) {
+                    if (element.tagName === 'UL') {
+                        element.classList.toggle('collapsed');
+                    }
                 }
-            }
 
-            updateSessionStorage();
+                updateSessionStorage();
+            }
         }
     </script>
 

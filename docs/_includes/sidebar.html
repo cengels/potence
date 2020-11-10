@@ -2,6 +2,16 @@
     function onScroll() {
         sessionStorage.setItem('sidebar-scroll', event.target.scrollTop);
     }
+
+    window.onclick = function() {
+        const sidebar = document.getElementsByClassName('sidebar')[0];
+
+        if (sidebar.classList.contains('expanded')
+            && event.target.closest('.sidebar') == null
+            && event.target.closest('.menu-button') == null) {
+            sidebar.classList.remove('expanded');
+        }
+    }
 </script>
 
 <div class="sidebar" onscroll="onScroll()">
