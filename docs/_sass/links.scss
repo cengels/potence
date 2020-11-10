@@ -20,6 +20,7 @@
 a, a:visited {
     color: var(--a-color);
     transition: color 0.1s ease;
+    text-decoration: none;
 }
 
 a:hover {
