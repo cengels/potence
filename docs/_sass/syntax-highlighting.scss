@@ -20,6 +20,10 @@ div.highlight {
     border-radius: 10px;
     font-size: 10.5pt;
     line-height: 150%;
+    // Since code is not line-wrapped, these properties ensure the container
+    // exceeds its parent width if the code inside does as well.
+    display: inline-block;
+    min-width: 100%;
 
     code {
         font-size: inherit;
