@@ -13,7 +13,7 @@ function isEquatable(object: unknown): object is Equatable
 ```
 
 <div class="description">{{ page.description | markdownify }}</div>
-{% include parameters.html parameters=page.parameters %}
+{% include parameters.html %}
 
 ## Example
 

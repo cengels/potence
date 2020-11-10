@@ -18,7 +18,7 @@ function groupBy<T, TProp>(array: T[], property: (item: T) => TProp): T[][];
 ```
 
 <div class="description">{{ page.description | markdownify }}</div>
-{% include parameters.html parameters=page.parameters %}
+{% include parameters.html %}
 
 ## Example
 

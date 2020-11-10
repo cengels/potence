@@ -15,7 +15,7 @@ function suffix(string: string, suffix: string): string
 ```
 
 <div class="description">{{ page.description | markdownify }}</div>
-{% include parameters.html parameters=page.parameters %}
+{% include parameters.html %}
 
 ## Example
 

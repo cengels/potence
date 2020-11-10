@@ -13,7 +13,7 @@ function empty(array: readonly unknown[]): boolean
 ```
 
 <div class="description">{{ page.description | markdownify }}</div>
-{% include parameters.html parameters=page.parameters %}
+{% include parameters.html %}
 
 ## Example
 

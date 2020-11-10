@@ -16,7 +16,7 @@ function structure<T extends Structure>(object: object, struct: T): object is Ma
 ```
 
 <div class="description">{{ page.description | markdownify }}</div>
-{% include parameters.html parameters=page.parameters %}
+{% include parameters.html %}
 
 ## Example 1
 

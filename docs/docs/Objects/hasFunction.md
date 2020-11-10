@@ -19,7 +19,7 @@ function hasFunction(source: unknown, functionName: string, argumentCount?: numb
 ```
 
 <div class="description">{{ page.description | markdownify }}</div>
-{% include parameters.html parameters=page.parameters %}
+{% include parameters.html %}
 
 ## Example
 

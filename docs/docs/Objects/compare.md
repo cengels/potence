@@ -20,7 +20,7 @@ function compare(object1: unknown, object2: unknown, comparisonMode: ComparisonM
 ```
 
 <div class="description">{{ page.description | markdownify }}</div>
-{% include parameters.html parameters=page.parameters %}
+{% include parameters.html %}
 
 ## Example
 

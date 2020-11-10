@@ -18,7 +18,7 @@ function previous<T>(array: readonly T[], fromIndex: number): T | undefined
 ```
 
 <div class="description">{{ page.description | markdownify }}</div>
-{% include parameters.html parameters=page.parameters %}
+{% include parameters.html %}
 
 ## Example
 

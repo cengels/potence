@@ -22,7 +22,7 @@ function type(array: readonly unknown[], type: BaseType | Constructor): boolean
 ```
 
 <div class="description">{{ page.description | markdownify }}</div>
-{% include parameters.html parameters=page.parameters %}
+{% include parameters.html %}
 
 ## Example 1
 

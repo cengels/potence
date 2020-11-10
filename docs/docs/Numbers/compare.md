@@ -21,7 +21,7 @@ function compare(value1: number, value2: number, tolerance: number = defaultTole
 
 <div class="description">{{ page.description | markdownify }}</div>
 {% capture link %}{% link docs/Numbers/configure.md %}{% endcapture %}
-{% include parameters.html parameters=page.parameters replace='URL' with=link %}
+{% include parameters.html replace='URL' with=link %}
 
 ## Example
 
