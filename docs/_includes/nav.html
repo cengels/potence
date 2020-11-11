@@ -1,29 +1,5 @@
 <nav>
     <script>
-        function updateSessionStorage() {
-            const moduleLists = document.getElementsByClassName('module-list');
-            const expandedModules = [];
-
-            for (const element of moduleLists) {
-                let moduleName;
-                let isExpanded;
-
-                for (const subElement of element.children) {
-                    if (subElement.className === 'module') {
-                        moduleName = subElement.textContent;
-                    } else if (subElement.tagName === 'UL') {
-                        isExpanded = !subElement.classList.contains('collapsed');
-                    }
-
-                    if (isExpanded && moduleName != null) {
-                        expandedModules.push(moduleName);
-                    }
-                }
-            }
-
-            sessionStorage.setItem('expandedModules', expandedModules.join(';'));
-        }
-
         function onClick() {
             const listElements = event.target.parentNode.children;
             const sidebar = document.getElementsByClassName('sidebar')[0];
@@ -31,13 +7,30 @@
             if (sidebar.classList.contains('expanded')) {
                 event.target.children[0].click();
             } else {
+                let moduleName;
+
                 for (const element of listElements) {
-                    if (element.tagName === 'UL') {
-                        element.classList.toggle('collapsed');
+                    if (element.className === 'module') {
+                        moduleName = element.textContent;
+                    } else if (element.tagName === 'UL') {
+                        const collapsed = element.classList.toggle('collapsed');
+
+                        let expandedModules = sessionStorage.getItem('expandedModules');
+                        expandedModules = expandedModules != null && expandedModules.length > 0
+                            ? expandedModules.split(';')
+                            : [];
+
+                        if (collapsed) {
+                            if (expandedModules.includes(moduleName)) {
+                                expandedModules.splice(expandedModules.indexOf(moduleName), 1);
+                            }
+                        } else {
+                            expandedModules.push(moduleName);
+                        }
+
+                        sessionStorage.setItem('expandedModules', expandedModules.join(';'));
                     }
                 }
-
-                updateSessionStorage();
             }
         }
     </script>
@@ -146,10 +139,10 @@
                 for (const subElement of element.children) {
                     if (subElement.className === 'module') {
                         expanded = expandedModules.includes(subElement.textContent);
-                    }
-
-                    if (subElement.tagName === 'UL' && !expanded) {
-                        collapse(subElement);
+                    } else if (subElement.tagName === 'UL' && !expanded) {
+                        if (subElement.getElementsByClassName('selected').length === 0) {
+                            collapse(subElement);
+                        }
                     }
                 }
             }
