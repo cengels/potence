@@ -5,7 +5,12 @@ module:      Arrays
 description: Sorts an array in a standard way depending on its contained
              data type, or use custom sort functions.
 overloads:
-  - description: 'Sorts an array in a predefined way according to the contained
+  - name: Standard Sort
+    signature: |
+      function sort(array: number[], order?: SortOrder): number[]
+      function sort(array: string[], order?: SortOrder): string[]
+      function sort(array: Date[], order?: SortOrder): Date[]
+    description: 'Sorts an array in a predefined way according to the contained
                  data type:
 
                  <table>
@@ -34,7 +39,9 @@ overloads:
                      and `'descending'` (largest first). If not specified,
                      defaults to `'ascending'`.
         optional: yes
-  - description: Sorts an array according to a variable number of custom sort
+  - name: Custom Sort
+    signature: 'function sort<T>(array: T[], ...sortFns: SortFunction<T>[]): T[]'
+    description: Sorts an array according to a variable number of custom sort
                  functions. If the first sort function does not return a
                  conclusive result, the next sort function is used and so on.
     parameters:
@@ -50,25 +57,7 @@ overloads:
 ---
 ## Syntax
 
-### Standard Sort
-
-```ts
-function sort(array: number[], order?: SortOrder): number[]
-function sort(array: string[], order?: SortOrder): string[]
-function sort(array: Date[], order?: SortOrder): Date[]
-```
-
-<div class="description">{{ page.overloads[0].description | markdownify }}</div>
-{% include parameters.html parameters=page.overloads.first.parameters %}
-
-### Custom Sort
-
-```ts
-function sort<T>(array: T[], ...sortFns: SortFunction<T>[]): T[]
-```
-
-<div class="description">{{ page.overloads[1].description | markdownify }}</div>
-{% include parameters.html parameters=page.overloads.last.parameters %}
+{% include overloads.md %}
 
 ## Example 1
 

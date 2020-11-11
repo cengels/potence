@@ -4,13 +4,17 @@ title:       Arrays.closest()
 module:      Arrays
 description: Returns the closest array element to some other element.
 overloads:
-  - description: In an array of numbers, returns the number
+  - name: Closest Number
+    signature: 'function closest(array: readonly number[], target: number): number'
+    description: In an array of numbers, returns the number
                  closest to the given number.
     parameters:
       array: An array that contains only numbers.
       target: Any number. The function will loop through `array`
               and return the number closest to `target`.
-  - description: Returns the array element closest to the result of a custom
+  - name: Closest Element
+    signature: 'function closest<T>(array: readonly T[], callback: (item: T) => number, target: number): T'
+    description: Returns the array element closest to the result of a custom
                  callback function.
     parameters:
       array: An array that may contain any type.
@@ -23,23 +27,7 @@ overloads:
 ---
 ## Syntax
 
-### Closest Number
-
-```ts
-function closest(array: readonly number[], target: number): number
-```
-
-<div class="description">{{ page.overloads[0].description | markdownify }}</div>
-{% include parameters.html parameters=page.overloads.first.parameters %}
-
-### Closest Element
-
-```ts
-function closest<T>(array: readonly T[], callback: (item: T) => number, target: number): T
-```
-
-<div class="description">{{ page.overloads[1].description | markdownify }}</div>
-{% include parameters.html parameters=page.overloads.last.parameters %}
+{% include overloads.md %}
 
 ## Example 1: Number Array
 

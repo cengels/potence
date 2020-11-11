@@ -5,7 +5,8 @@
         </tr>
     </thead>
     <tbody>
-        {% for parameter in page.parameters %}
+        {% assign parameters = include.parameters | default: page.parameters %}
+        {% for parameter in parameters %}
 
         {% if parameter[1].description %}
         {% assign description=parameter[1].description %}
