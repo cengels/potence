@@ -217,3 +217,9 @@ first call and only recomputed if the range bounds change. As a result, there is
 no need to store their results in temporary variables to avoid recomputation.
 
 There is also a read-only interface of `Range` available called `ReadonlyRange`.
+
+Due to conflicts with the
+[`Range`](https://github.com/microsoft/TypeScript/blob/b5b0437a86661c8d7bc76c5860c07305df17899c/lib/lib.dom.d.ts#L12437)
+from `lib.dom.d.ts`, you may wish to create a new range using
+[`Numbers.range()`]({% link docs/Numbers/range_func.md %})
+instead of using the constructor directly.
