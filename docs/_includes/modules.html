@@ -8,7 +8,13 @@
                 <a href="{{ page.url }}">{{ page.title | remove_first: module_prefix }}</a>
             </td>
             <td>
-                {{ page.description | split: '.' | first | append: '.' | markdownify }}
+                {% capture description %}{{ page.description | split: '. ' | first }}{% endcapture %}
+                {% capture last_char %}{{ description | slice: -1 }}{% endcapture %}
+                {% if last_char != "." %}
+                {% capture description %}{{ description }}.{% endcapture %}
+                {% endif %}
+
+                {{ description | markdownify }}
             </td>
         </tr>
         {% endif %}
