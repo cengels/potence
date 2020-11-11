@@ -24,7 +24,7 @@
             }
 
             for (const submodule of document.getElementsByClassName('submodule')) {
-                add(submodule.textContent, submodule.href);
+                add(submodule.dataset.title, submodule.href);
             }
         }
 
