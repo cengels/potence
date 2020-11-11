@@ -11,10 +11,10 @@
                 {% capture description %}{{ page.description | split: '. ' | first }}{% endcapture %}
                 {% capture last_char %}{{ description | slice: -1 }}{% endcapture %}
                 {% if last_char != "." %}
-                {% capture description %}{{ description }}.{% endcapture %}
+                    {% capture description %}{{ description }}.{% endcapture %}
                 {% endif %}
 
-                {{ description | markdownify }}
+                {% include linkify.html description=description %}
             </td>
         </tr>
         {% endif %}

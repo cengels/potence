@@ -11,7 +11,7 @@ description: Utility type that transforms a <code>BaseType</code> into the type
 type BaseToType<T>
 ```
 
-<div class="description">{{ page.description | markdownify }}</div>
+<div class="description">{% include linkify.html description=page.description %}</div>
 
 ## Example
 

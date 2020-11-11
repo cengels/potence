@@ -11,7 +11,7 @@ parameters:
   tolerance: The tolerance to use for this comparison.
              By default, this is `0.0000001`. To use a custom tolerance, either
              supply this argument or configure a new global default tolerance
-             using [`Numbers.configure()`](URL).
+             using §Numbers.configure()§.
 ---
 ## Syntax
 
@@ -19,9 +19,8 @@ parameters:
 function compare(value1: number, value2: number, tolerance: number = defaultTolerance): boolean
 ```
 
-<div class="description">{{ page.description | markdownify }}</div>
-{% capture link %}{% link docs/Numbers/configure.md %}{% endcapture %}
-{% include parameters.html replace='URL' with=link %}
+<div class="description">{% include linkify.html description=page.description %}</div>
+{% include parameters.html %}
 
 ## Example
 

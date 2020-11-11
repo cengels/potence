@@ -3,7 +3,7 @@ layout:      page
 title:       Structure
 module:      Types
 description: Represents an object structure that can
-             be used in `Objects.structure()`.
+             be used in §Objects.structure()§.
              A structure is an object literal where each key corresponds to
              a property and each value corresponds to that property's type.
 ---
@@ -16,7 +16,7 @@ interface Structure {
 }
 ```
 
-<div class="description">{{ page.description | markdownify }}</div>
+<div class="description">{% include linkify.html description=page.description %}</div>
 
 ## Example
 

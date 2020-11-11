@@ -2,7 +2,7 @@
 layout:      page
 title:       isEquatable()
 module:      Types
-description: Type guard that checks whether a value is an `Equatable`.
+description: Type guard that checks whether a value is an §Equatable§.
 parameters:
   object: An object whose type isn't known.
 ---
@@ -12,7 +12,7 @@ parameters:
 function isEquatable(object: unknown): object is Equatable
 ```
 
-<div class="description">{{ page.description | markdownify }}</div>
+<div class="description">{% include linkify.html description=page.description %}</div>
 {% include parameters.html %}
 
 ## Example

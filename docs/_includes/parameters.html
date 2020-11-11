@@ -13,10 +13,6 @@
         {% assign description=parameter[1] %}
         {% endif %}
 
-        {% if include.replace and include.with %}
-        {% assign description=(description | replace: include.replace, include.with) %}
-        {% endif %}
-
         <tr>
             {% assign uppercased = parameter[0] | upcase %}
             {% if uppercased == parameter[0] %}
@@ -36,7 +32,7 @@
                 {% endif %}
             </td>
             <td class="parameter-description">
-                {{ description | markdownify }}
+                {% include linkify.html description=description %}
             </td>
         </tr>
         {% endfor %}

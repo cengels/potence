@@ -11,7 +11,7 @@ description: Represents a type that may be <code>null</code> or
 type Nullable<T = unknown>
 ```
 
-<div class="description">{{ page.description | markdownify }}</div>
+<div class="description">{% include linkify.html description=page.description %}</div>
 
 ## Example
 

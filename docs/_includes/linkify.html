@@ -1,0 +1,25 @@
+{% comment %}
+This file converts all links as specified by §Module.function()$ into
+proper page links.
+
+This is used in places where Liquid is not allowed (e.g. front matter).
+{% endcomment %}
+
+{% assign description = include.description %}
+{% assign split = description | split: '§' %}
+
+{% if split.size > 1 %}
+    {% for substring in split %}
+        {% unless substring contains " " %}
+            {% for other_page in site.pages %}
+                {% if other_page.title == substring %}
+                    {% capture replace_string %}§{{ substring }}§{% endcapture %}
+                    {% capture with %}[`{{ substring }}`]({{ other_page.url }}){% endcapture %}
+                    {% capture description %}{{ description | replace_first: replace_string, with }}{% endcapture %}
+                {% endif %}
+            {% endfor %}
+        {% endunless %}
+    {% endfor %}
+{% endif %}
+
+{{ description | markdownify }}
