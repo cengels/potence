@@ -49,4 +49,4 @@ console.log(Objects.equal(equatable, nonEquatable));   // -> true
   %}), this function will call `source.equals()` and return `true` if and only
   if `equals()` returned `true` for every other object.
 
-As a result, this function can compare any type with each other.
+As a result, this function can compare any type with one another.

@@ -16,7 +16,7 @@ parameters:
 ## Syntax
 
 ```ts
-function compare(value1: number, value2: number, tolerance: number = defaultTolerance): boolean
+function compare(value1: number, value2: number, tolerance?: number): boolean
 ```
 
 <div class="description">{% include linkify.html description=page.description %}</div>
@@ -29,6 +29,13 @@ import { Numbers } from 'potence';
 
 Numbers.compare(0.1 + 0.2, 0.3)  // -> true
 ```
+
+## Remarks
+
+This function will always return false if one of the operands is either
+[`NaN`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/NaN),
+[`Infinity`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/POSITIVE_INFINITY),
+or [`-Infinity`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/NEGATIVE_INFINITY).
 
 ## On Tolerances
 

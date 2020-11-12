@@ -2,7 +2,7 @@
 layout:      page
 title:       Instantiable
 module:      Types
-description: Represents an instantiable type (i.e. a "newable" type).
+description: Represents an instantiable ("newable") type.
 ---
 ## Syntax
 
@@ -23,7 +23,7 @@ const instantiables: Instantiable[] = [
     CustomClass
 ];
 
-const instantiated = instantiables.map(instantiable => new instantiable());
+const instances = instantiables.map(instantiable => new instantiable());
 ```
 
 ## Remarks

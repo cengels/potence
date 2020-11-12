@@ -40,7 +40,7 @@ points, you should use `Numbers.compare()`'s third argument instead, which
 allows you to specify a custom tolerance for that specific number comparison.
 
 *Important*: As expressed in
-[`Numbers.compare()`]({% link docs/Numbers/compare.md %}#remarks),
+[`Numbers.compare()`]({% link docs/Numbers/compare.md %}#on-tolerances),
 you *mustn't* assign
 [`Number.EPSILON`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/EPSILON)
 to the default tolerance. Choose a tolerance appropriate for your application.
