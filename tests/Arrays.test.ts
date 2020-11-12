@@ -197,3 +197,9 @@ describe('Arrays.groupBy() should', () => {
         return expect(Arrays.groupBy([one, one2, three], value => value)).toEqual([[one, one2], [three]]);
     });
 });
+
+describe('Arrays.distinct() should', () => {
+    it('return empty array if empty array is passed', () => expect(Arrays.distinct([])).toEqual([]));
+    it('return same elements if all elements are unique', () => expect(Arrays.distinct([1, 2, 3])).toEqual([1, 2, 3]));
+    it('remove all duplicates', () => expect(Arrays.distinct([1, 1, 1, 1, 1, 2])).toEqual([1, 2]));
+});

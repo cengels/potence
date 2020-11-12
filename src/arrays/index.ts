@@ -375,3 +375,17 @@ export function groupBy<T>(array: readonly T[], property: (item: T) => unknown):
         return acc;
     }, []);
 }
+
+/**
+ * Returns a new array with all duplicate elements removed.
+ *
+ * Note that this function only compares values for value types,
+ * otherwise it compares references.
+ *
+ * Prefer using
+ * [Set](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set)
+ * instead of this function.
+ */
+export function distinct<T>(array: readonly T[]): T[] {
+    return Array.from(new Set(array));
+}
