@@ -389,3 +389,13 @@ export function groupBy<T>(array: readonly T[], property: (item: T) => unknown):
 export function distinct<T>(array: readonly T[]): T[] {
     return Array.from(new Set(array));
 }
+
+/**
+ * Returns `true` if the array contains duplicate values.
+ *
+ * Note that this function only compares values for value types,
+ * otherwise it compares references.
+ */
+export function hasDuplicates(array: readonly unknown[]): boolean {
+    return new Set(array).size !== array.length;
+}

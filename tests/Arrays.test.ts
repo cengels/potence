@@ -202,4 +202,20 @@ describe('Arrays.distinct() should', () => {
     it('return empty array if empty array is passed', () => expect(Arrays.distinct([])).toEqual([]));
     it('return same elements if all elements are unique', () => expect(Arrays.distinct([1, 2, 3])).toEqual([1, 2, 3]));
     it('remove all duplicates', () => expect(Arrays.distinct([1, 1, 1, 1, 1, 2])).toEqual([1, 2]));
+    it('ignore different references', () => expect(Arrays.distinct([{}, {}, [], []])).toEqual([{}, {}, [], []]));
+    it('remove same references', () => {
+        const ref = {};
+        return expect(Arrays.distinct([ref, ref, {}])).toEqual([{}, {}]);
+    });
+});
+
+describe('Arrays.hasDuplicates() should', () => {
+    it('return false for empty array', () => expect(Arrays.hasDuplicates([])).toEqual(false));
+    it('return false if all elements are unique', () => expect(Arrays.hasDuplicates([1, 2, 3])).toEqual(false));
+    it('return true if there are duplicates', () => expect(Arrays.hasDuplicates([1, 1, 1, 1, 1, 2])).toEqual(true));
+    it('ignore different references', () => expect(Arrays.hasDuplicates([{}, {}, [], []])).toEqual(false));
+    it('return true for same references', () => {
+        const ref = {};
+        return expect(Arrays.hasDuplicates([ref, ref, {}])).toEqual(true);
+    });
 });
