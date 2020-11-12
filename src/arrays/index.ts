@@ -361,7 +361,7 @@ export function zip<T, Args extends Array<ReadonlyArray<unknown>>>(source: reado
  * If the return value of the `property` callback implements `Equatable`, this
  * function will call `equals()` to group the objects.
  */
-export function groupBy<T, TProp>(array: readonly T[], property: (item: T) => TProp): T[][] {
+export function groupBy<T>(array: readonly T[], property: (item: T) => unknown): T[][] {
     return array.reduce<T[][]>((acc, item) => {
         const result = property(item);
         const found = acc.find(childArray => Objects.equal(result, property(childArray[0])));
