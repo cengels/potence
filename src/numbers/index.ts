@@ -94,16 +94,11 @@ export function odd(value: number): boolean {
 }
 
 /**
- * Returns true if the number is an integral number, i.e.
- * a whole number without fractions or decimals.
- */
-export function integral(value: number): boolean {
-    return value % 1 === 0;
-}
-
-/**
  * Returns true if the number is a floating point number,
  * i.e. it is not an integral number.
+ *
+ * To check whether a number is an integer, use
+ * [`Number.isInteger()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/isInteger).
  */
 export function float(value: number): boolean {
     return value % 1 !== 0;

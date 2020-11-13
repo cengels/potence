@@ -36,12 +36,6 @@ describe('Numbers.odd() should return', () => {
     it('false for decimals', () => expect(Numbers.odd(634611.55)).toBe(false));
 });
 
-describe('Numbers.integral() should return', () => {
-    it('true for positive integral numbers', () => expect(Numbers.integral(5)).toBe(true));
-    it('true for negative integral numbers', () => expect(Numbers.integral(-5235)).toBe(true));
-    it('false for floating point numbers', () => expect(Numbers.integral(0.1)).toBe(false));
-    it('false for small floating point numbers', () => expect(Numbers.integral(0.0000000001)).toBe(false));
-});
 
 describe('Numbers.fraction() should return', () => {
     it('true for positive floating point numbers', () => expect(Numbers.float(354.2)).toBe(true));
