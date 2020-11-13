@@ -144,15 +144,15 @@ export function stringify(value: unknown, options: StringifyOptions = DEFAULT_OP
         return string.substring(0, openingBraceIndex) + '{ ... }';
     }
 
-    const constructorName = Objects.isObject(value) ? value.constructor.name : null;
+    const constructorName = Objects.isObject(value) && value.constructor != null ? value.constructor.name : 'Object';
 
     if (options.typesOnly) {
-        return constructorName ?? 'Object';
+        return constructorName;
     }
 
     let result: string = '';
 
-    if (!options.hideClasses && constructorName != null && constructorName !== 'Object' && constructorName !== 'Array') {
+    if (!options.hideClasses && constructorName !== 'Object' && constructorName !== 'Array') {
         result += constructorName + ' ';
     }
 

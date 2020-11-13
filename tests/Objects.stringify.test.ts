@@ -88,6 +88,8 @@ describe('Objects.stringify() should', () => {
             () => expect(stringify([], { truncateContents: true })).toBe('[]'));
         it('truncate contents after n',
             () => expect(stringify([1, 2, 3], { truncateContents: 2 })).toBe('[1, 2, ...]'));
+        it('don\'t truncate contents if limit is greater than array.length',
+            () => expect(stringify([1, 2, 3], { truncateContents: 5})).toBe('[1, 2, 3]'));
         it('print strings with quotes',
             () => expect(stringify(['hello', 'hello2'])).toBe('["hello", "hello2"]'));
         it('print strings without quotes',
@@ -128,6 +130,8 @@ describe('Objects.stringify() should', () => {
             () => expect(stringify({}, { typesOnly: true })).toBe('Object'));
         it('print types of contents with primitiveTypesOnly',
             () => expect(stringify({ prop: 'i am a string' }, { primitiveTypesOnly: true })).toBe('{ prop: string }'));
+        it('work with Object.create(null)',
+            () => expect(stringify(Object.create(null))).toBe('{}'));
     });
 
     describe('for classes', () => {
