@@ -4,8 +4,11 @@ title:       Numbers.configure()
 module:      Numbers
 description: Configures the default tolerance to use for number comparison.
 parameters:
-  configuration: A configuration object containing one property
-                 `defaultTolerance`.
+  configuration: A configuration object containing any of the below properties.
+  configuration.defaultTolerance:
+    description: A new default tolerance to use in §Numbers.compare()§.
+                 See below for more information.
+    optional: yes
 ---
 ## Syntax
 
