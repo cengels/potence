@@ -101,7 +101,9 @@ export function odd(value: number): boolean {
  * [`Number.isInteger()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/isInteger).
  */
 export function isFloat(value: number): boolean {
-    return value % 1 !== 0;
+    return !Number.isInteger(value)
+        && !Number.isNaN(value)
+        && Number.isFinite(value);
 }
 
 /**
