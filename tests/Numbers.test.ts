@@ -11,8 +11,8 @@ describe('Numbers.configure() should', () => {
 
 describe('Numbers.compare() should return', () => {
     it('true for equal integral numbers', () => expect(Numbers.compare(5, 5)).toBe(true));
-    it('false for non-equal integral numbers', () => expect(Numbers.approaches(5, 4)).toBe(false));
-    it('true for equal floating point numbers', () => expect(Numbers.closeTo(5.333, 5.333)).toBe(true));
+    it('false for non-equal integral numbers', () => expect(Numbers.compare(5, 4)).toBe(false));
+    it('true for equal floating point numbers', () => expect(Numbers.compare(5.333, 5.333)).toBe(true));
     it('true for equal calculated floating point numbers', () => expect(Numbers.compare(5.1, 5 * 1.02)).toBe(true));
     it('true for any number with bigger tolerance', () => expect(Numbers.compare(5, 3, 2)).toBe(true));
 });
@@ -151,6 +151,4 @@ describe('Numbers.mean() should return', () => {
         [[55, 22], 38.5],
         [[623, 365452, 412, -5321], 90291.5]
     ]).it('with integers %p: %d', (values, expected) => expect(Numbers.mean(...values)).toBeCloseTo(expected));
-    it('the same as average()', () => expect(Numbers.average(5, 3)).toBeCloseTo(Numbers.mean(5, 3)));
-    it('the same as avg()', () => expect(Numbers.avg(5, 3)).toBeCloseTo(Numbers.mean(5, 3)));
 });

@@ -37,25 +37,6 @@ export function compare(value1: number, value2: number, tolerance: number = defa
 }
 
 /**
- * Alias for `compare()`. Checks if a value1 approaches a value2 with the given tolerance.
- *
- * The default tolerance is `0.0000001`. It can be configured using `configure()`.
- */
-export function approaches(value1: number, value2: number, tolerance?: number): boolean {
-    return compare(value1, value2, tolerance);
-}
-
-/**
- * Alias for `compare()`. Checks if a value1 is close to a value2. A value is considered
- * "close to" another if it is at most `tolerance` greater or smaller than it.
- *
- * The default tolerance is `0.0000001`. It can be configured using `configure()`.
- */
-export function closeTo(value1: number, value2: number, tolerance?: number): boolean {
-    return compare(value1, value2, tolerance);
-}
-
-/**
  * Creates a new `Range` with the given `from` and `to` values.
  *
  * Ranges are powerful mathematical objects with the ability to, for instance,
@@ -294,14 +275,4 @@ export function mean(...values: number[]): number {
     }
 
     return sum(...values) / values.length;
-}
-
-/** Alias for `mean()`. */
-export function average(...values: number[]): number {
-    return mean(...values);
-}
-
-/** Alias for `mean()`. */
-export function avg(...values: number[]): number {
-    return mean(...values);
 }
