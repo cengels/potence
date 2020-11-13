@@ -152,6 +152,18 @@ describe('Objects.structure() should', () => {
             // @ts-expect-error
             a: [ 'foo' ]
         })).toBe(false));
+    it('fail if structure property is an object and object property is not', () => expect(Objects.structure({
+            a: 5
+        },
+        {
+            a: { prop: 'number' }
+        })).toBe(false));
+    it('throw if structure has empty array', () => expect(() => Objects.structure({
+            a: 5
+        },
+        {
+            a: []
+        })).toThrowError());
 });
 
 describe('Objects.swap() should', () => {

@@ -109,11 +109,7 @@ function match(expected: Structure[''], actual: unknown): boolean {
         }
     }
 
-    if (isObject(expected)) {
-        return actual instanceof expected;
-    }
-
-    return false;
+    return actual instanceof expected;
 }
 
 /**
