@@ -77,6 +77,10 @@ function assertionError(failureMessage?: string): AssertionError {
             : new AssertionError(`Assertion failed.`);
     }
 
+    if (failureMessage == null || failureMessage.length === 0) {
+        return new AssertionError('Assertion failed');
+    }
+
     return new AssertionError(failureMessage);
 }
 
