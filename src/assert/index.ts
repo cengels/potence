@@ -70,18 +70,18 @@ export let stringifyOptions: StringifyOptions = {
     truncateContents: true
 };
 
-function assertionError(failureMessage?: string): AssertionError {
+function assertionError(failureMessage?: string, ignoreCapitalization: boolean = false): AssertionError {
     if (prefixed) {
         return failureMessage != null
-            ? new AssertionError(`Assertion failed: ${Strings.uncapitalize(failureMessage)}`)
+            ? new AssertionError(`Assertion failed: ${ignoreCapitalization ? failureMessage : Strings.uncapitalize(failureMessage)}`)
             : new AssertionError(`Assertion failed.`);
     }
 
     if (failureMessage == null || failureMessage.length === 0) {
-        return new AssertionError('Assertion failed');
+        return new AssertionError('Assertion failed.');
     }
 
-    return new AssertionError(failureMessage);
+    return new AssertionError(ignoreCapitalization ? failureMessage : Strings.capitalize(failureMessage));
 }
 
 /**
@@ -95,7 +95,7 @@ export function that(condition: boolean, failureMessage?: string): asserts condi
     // Using condition === false here to make sure
     // falsy-but-not-false values don't trigger the error.
     if (condition === false) {
-        throw assertionError(failureMessage);
+        throw assertionError(failureMessage, true);
     }
 }
 
