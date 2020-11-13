@@ -1,7 +1,8 @@
 export * as Arrays from './arrays/index.js';
 export * as Numbers from './numbers/index.js';
 import Range from './numbers/Range.js';
-export { Range };
+import ReadonlyRange from './numbers/ReadonlyRange.js';
+export { Range, ReadonlyRange };
 export * as Objects from './objects/index.js';
 export * as Strings from './strings/index.js';
 export * as Assert from './assert/index.js';
