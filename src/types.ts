@@ -86,6 +86,19 @@ export type ObjectLiteral<T = unknown> = Record<string | number | symbol, T>;
 /** One of the possible values of @see Structure. */
 export type StructureValue = Structure | Constructor | Exclude<BaseType, 'object'> | 'null' | 'array';
 
+/** Represents only truthy values that are assignable to `T`. */
+export type Truthy<T> = Exclude<T, false | 0 | 0n | '' | null | undefined>;
+
+/** Represents only falsy values that are assignable to `T`. */
+export type Falsy<T = unknown> =
+    T extends boolean ? (false extends T ? false : never)
+    : T extends number ? (0 extends T ? 0 : never)
+    : T extends bigint ? (0n extends T ? 0n : never)
+    : T extends string ? ('' extends T ? '' : never)
+    : T extends null | undefined ? Extract<T, null | undefined>
+    : T extends object | primitive ? never
+    : false | 0 | 0n | '' | null | undefined;
+
 /**
  * An object structure that can be used in `Objects.structure()`.
  * Each property must be the name of a property that should exist in the target
