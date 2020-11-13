@@ -39,6 +39,9 @@ links:
 # Build settings
 permalink: pretty
 plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
 include:
   - docs
 
