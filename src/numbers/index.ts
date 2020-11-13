@@ -100,7 +100,7 @@ export function odd(value: number): boolean {
  * To check whether a number is an integer, use
  * [`Number.isInteger()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/isInteger).
  */
-export function float(value: number): boolean {
+export function isFloat(value: number): boolean {
     return value % 1 !== 0;
 }
 
@@ -123,7 +123,7 @@ export function float(value: number): boolean {
  * of this function. If you're trying to compare two
  * floating point numbers, use `Numbers.compare()` instead.*
  */
-export function safeFloat(value: number): boolean {
+export function isSafeFloat(value: number): boolean {
     return (value * 1.5 / 1.5) === value;
 }
 
@@ -146,7 +146,7 @@ export function safeFloat(value: number): boolean {
  * of this function. If you're trying to compare two
  * floating point numbers, use `Numbers.compare()` instead.*
  */
-export function unsafeFloat(value: number): boolean {
+export function isUnsafeFloat(value: number): boolean {
     return (value * 1.5 / 1.5) !== value;
 }
 
@@ -166,7 +166,7 @@ export function gcd(...values: number[]): number {
     let result: number = values[0];
 
     for (let i: number = 1; i < values.length; i++) {
-        if (result === 0 || values[i] === 0 || float(values[i])) {
+        if (result === 0 || values[i] === 0 || isFloat(values[i])) {
             return 0;
         }
 
@@ -200,7 +200,7 @@ export function lcm(...values: number[]): number {
     let result: number = values[0];
 
     for (let i: number = 1; i < values.length; i++) {
-        if (result === 0 || values[i] === 0 || float(values[i])) {
+        if (result === 0 || values[i] === 0 || isFloat(values[i])) {
             return 0;
         }
 

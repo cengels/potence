@@ -36,49 +36,48 @@ describe('Numbers.odd() should return', () => {
     it('false for decimals', () => expect(Numbers.odd(634611.55)).toBe(false));
 });
 
-
-describe('Numbers.fraction() should return', () => {
-    it('true for positive floating point numbers', () => expect(Numbers.float(354.2)).toBe(true));
-    it('true for negative floating point numbers', () => expect(Numbers.float(-1255.99999999999)).toBe(true));
-    it('false for positive integers', () => expect(Numbers.float(55)).toBe(false));
-    it('false for negative integers', () => expect(Numbers.float(-253)).toBe(false));
-    it('false for 0', () => expect(Numbers.float(0)).toBe(false));
+describe('Numbers.isFloat() should return', () => {
+    it('true for positive floating point numbers', () => expect(Numbers.isFloat(354.2)).toBe(true));
+    it('true for negative floating point numbers', () => expect(Numbers.isFloat(-1255.99999999999)).toBe(true));
+    it('false for positive integers', () => expect(Numbers.isFloat(55)).toBe(false));
+    it('false for negative integers', () => expect(Numbers.isFloat(-253)).toBe(false));
+    it('false for 0', () => expect(Numbers.isFloat(0)).toBe(false));
 });
 
-describe('Numbers.safeFloat() should return', () => {
-    it('true for 0.5', () => expect(Numbers.safeFloat(0.5)).toBe(true));
-    it('true for 212.5', () => expect(Numbers.safeFloat(212.5)).toBe(true));
-    it('true for 0.25', () => expect(Numbers.safeFloat(0.25)).toBe(true));
-    it('true for 0.125', () => expect(Numbers.safeFloat(0.125)).toBe(true));
-    it('true for 0.0625', () => expect(Numbers.safeFloat(0.0625)).toBe(true));
+describe('Numbers.isSafeFloat() should return', () => {
+    it('true for 0.5', () => expect(Numbers.isSafeFloat(0.5)).toBe(true));
+    it('true for 212.5', () => expect(Numbers.isSafeFloat(212.5)).toBe(true));
+    it('true for 0.25', () => expect(Numbers.isSafeFloat(0.25)).toBe(true));
+    it('true for 0.125', () => expect(Numbers.isSafeFloat(0.125)).toBe(true));
+    it('true for 0.0625', () => expect(Numbers.isSafeFloat(0.0625)).toBe(true));
     it('true for any number divided by a power of 2', () => {
         let current: number = 1;
         for (let i: number = 0; i < 50; i++) {
             current /= 2;
-            expect(Numbers.safeFloat(current)).toBe(true);
+            expect(Numbers.isSafeFloat(current)).toBe(true);
         }
     });
-    it('false for 0.1', () => expect(Numbers.safeFloat(0.1)).toBe(false));
-    it('false for 0.2', () => expect(Numbers.safeFloat(0.2)).toBe(false));
-    it('true for 0.6', () => expect(Numbers.safeFloat(0.6)).toBe(true));
+    it('false for 0.1', () => expect(Numbers.isSafeFloat(0.1)).toBe(false));
+    it('false for 0.2', () => expect(Numbers.isSafeFloat(0.2)).toBe(false));
+    it('true for 0.6', () => expect(Numbers.isSafeFloat(0.6)).toBe(true));
 });
 
-describe('Numbers.unsafeFloat() should return', () => {
-    it('false for 0.5', () => expect(Numbers.unsafeFloat(0.5)).toBe(false));
-    it('false for 212.5', () => expect(Numbers.unsafeFloat(212.5)).toBe(false));
-    it('false for 0.25', () => expect(Numbers.unsafeFloat(0.25)).toBe(false));
-    it('false for 0.125', () => expect(Numbers.unsafeFloat(0.125)).toBe(false));
-    it('false for 0.0625', () => expect(Numbers.unsafeFloat(0.0625)).toBe(false));
+describe('Numbers.isUnsafeFloat() should return', () => {
+    it('false for 0.5', () => expect(Numbers.isUnsafeFloat(0.5)).toBe(false));
+    it('false for 212.5', () => expect(Numbers.isUnsafeFloat(212.5)).toBe(false));
+    it('false for 0.25', () => expect(Numbers.isUnsafeFloat(0.25)).toBe(false));
+    it('false for 0.125', () => expect(Numbers.isUnsafeFloat(0.125)).toBe(false));
+    it('false for 0.0625', () => expect(Numbers.isUnsafeFloat(0.0625)).toBe(false));
     it('false for any number divided by a power of 2', () => {
         let current: number = 1;
         for (let i: number = 0; i < 50; i++) {
             current /= 2;
-            expect(Numbers.unsafeFloat(current)).toBe(false);
+            expect(Numbers.isUnsafeFloat(current)).toBe(false);
         }
     });
-    it('true for 0.1', () => expect(Numbers.unsafeFloat(0.1)).toBe(true));
-    it('true for 0.2', () => expect(Numbers.unsafeFloat(0.2)).toBe(true));
-    it('false for 0.6', () => expect(Numbers.unsafeFloat(0.6)).toBe(false));
+    it('true for 0.1', () => expect(Numbers.isUnsafeFloat(0.1)).toBe(true));
+    it('true for 0.2', () => expect(Numbers.isUnsafeFloat(0.2)).toBe(true));
+    it('false for 0.6', () => expect(Numbers.isUnsafeFloat(0.6)).toBe(false));
 });
 
 describe('Numbers.gcd() should return', () => {
