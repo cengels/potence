@@ -39,7 +39,7 @@ describe('Assert.truthy() should', () => {
     });
     describe('accept stringifyOptions', () => {
         beforeAll(() => Assert.configure({ stringifyOptions: { typesOnly: true } }));
-        it('fail on number', () => expect(() => Assert.truthy(0, 'var')).toThrowError('Assertion failed: expected var to be truthy but was: number'));
+        it('fail on number', () => expect(() => Assert.truthy(0, 'var')).toThrowError('Assertion failed: expected var to be truthy but was number'));
         afterAll(() => Assert.configure({ stringifyOptions: { } }));
     });
 });
@@ -69,6 +69,6 @@ describe('Assert.notNull() should', () => {
 });
 
 describe('Assert.every() should', () => {
-    it('throw if not all values match the predicate', () => expect(() => Assert.every([0, null, 1], value => Assert.notNull(value), 'testArray')).toThrowError('testArray failed assertion. Element at 1 reported: "Assertion failed: expected non-null value but got: null"'));
+    it('throw if not all values match the predicate', () => expect(() => Assert.every([0, null, 1], value => Assert.notNull(value), 'testArray')).toThrowError('testArray failed assertion. Element at 1 reported: "Assertion failed: expected non-null value but got null"'));
     it('not throw if all values match the predicate', () => expect(() => Assert.every([0, 2, 1], value => Assert.that(value >= 0))).not.toThrowError());
 });
