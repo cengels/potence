@@ -126,7 +126,7 @@ export function isFloat(value: number): boolean {
  * floating point numbers, use `Numbers.compare()` instead.*
  */
 export function isSafeFloat(value: number): boolean {
-    return (value * 1.5 / 1.5) === value;
+    return isFloat(value) && (value * 1.5 / 1.5) === value;
 }
 
 /**
@@ -149,7 +149,7 @@ export function isSafeFloat(value: number): boolean {
  * floating point numbers, use `Numbers.compare()` instead.*
  */
 export function isUnsafeFloat(value: number): boolean {
-    return (value * 1.5 / 1.5) !== value;
+    return isFloat(value) && !isSafeFloat(value);
 }
 
 /**
