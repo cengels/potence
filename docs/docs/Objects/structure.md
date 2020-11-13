@@ -8,6 +8,17 @@ parameters:
   object: The object to perform the structural check on.
   struct: A valid `Structure` object that determines
           the desired shape of the object.
+  exhaustive:
+    description: |
+      If true, the check is exhaustive, that is, all properties
+      of `object` must match a corresponding property on `struct`. If
+      either argument contains keys that the other argument does not
+      have, the check fails.
+
+      This is `false` by default, so the check will succeed even if `struct`
+      has properties that `object` does not, as long as `object` has all
+      properties of `struct`.
+    optional: yes
 ---
 ## Syntax
 

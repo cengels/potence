@@ -118,15 +118,19 @@ function match(expected: Structure[''], actual: unknown): boolean {
 /**
  * Checks if the passed object conforms to the given structure.
  *
- * Note that this check is *exhaustive*, that is it will fail if `object`
- * contains more properties than defined by `struct`.
+ * @param exhaustive Whether this check should be exhaustive or not, that is
+ *  whether it should fail if `object` contains more properties than `struct`.
  */
-export function structure<T extends Structure>(object: object, struct: T): object is MappedStructure<T> {
-    if (!isObject(object) || !isObject(struct)) {
+export function structure<T extends Structure>(object: unknown, struct: T, exhaustive: boolean = false): object is MappedStructure<T> {
+    if (!isObject(object)) {
+        return false;
+    }
+
+    if (!isObject(struct)) {
         throw new Error('Objects.structure(): must pass an object!');
     }
 
-    if (Object.keys(object).length > Object.keys(struct).length) {
+    if (exhaustive && Object.keys(object).length > Object.keys(struct).length) {
         // If object has more props than struct, always fail.
         // If struct has more props than object, fail only if that property is
         // not defined as 'undefined' in struct (see match()).

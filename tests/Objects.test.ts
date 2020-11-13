@@ -1,4 +1,5 @@
 import * as Objects from '../src/objects/index.js';
+import { Structure } from '../src/types.js';
 
 describe('Objects.isObject() should return', () => {
     describe('true for', () => {
@@ -56,13 +57,16 @@ describe('Objects.compare() should', () => {
 });
 
 describe('Objects.structure() should', () => {
-    it('throw an error if the passed objects aren\'t literals', () => expect(() => Objects.structure(5 as unknown as object, {})).toThrowError());
+    it('return false if object isn\'t an object', () => expect(Objects.structure(5 as unknown as object, {})).toBe(false));
+    it('throw an error if the structure isn\'t an object', () => expect(() => Objects.structure({}, 5 as unknown as Structure)).toThrowError());
     it('succeed in comparing an object against a simple structure', () => expect(Objects.structure({ a: 52, b: 'foo' },
                                                                                                    { a: 'number', b: 'string' })).toBe(true));
     it('fail to compare an object against a non-matching simple structure', () => expect(Objects.structure({ a: 52, b: 'foo' },
                                                                                                            { a: 'number', b: 'number' })).toBe(false));
-    it('fail to compare an object with an extraneous property', () => expect(Objects.structure({ a: 52, b: 'foo' },
-                                                                                              { a: 'number' })).toBe(false));
+    it('succeed if object has extraneous property', () => expect(Objects.structure({ a: 52, b: 'foo' },
+                                                                                              { a: 'number' })).toBe(true));
+    it('fail if object has extraneous property with flag', () => expect(Objects.structure({ a: 52, b: 'foo' },
+                                                                                            { a: 'number' }, true)).toBe(false));
     it('fail to compare an object against a missing property', () => expect(Objects.structure({ a: 52 },
                                                                                               { a: 'number', b: 'number' })).toBe(false));
     it('succeed if property is missing and expects undefined', () => expect(Objects.structure({ a: 52 },
