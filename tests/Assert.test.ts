@@ -9,6 +9,10 @@ describe('Assert.that() should', () => {
         it('output "Assertion failed." if no message was supplied', () => expect(() => Assert.that(false)).toThrowError('Assertion failed.'));
         it('output "Assertion failed: [message]" if a message was supplied', () => expect(() => Assert.that(false, 'foo')).toThrowError('Assertion failed: foo'));
     });
+    describe('if prefixed is turned on', () => {
+        it('output only prefix if no message was supplied', () => expect(() => Assert.that(false)).toThrowError('Assertion failed.'));
+        it('output "[prefix]: [message]" if a message was supplied', () => expect(() => Assert.that(false, 'foo')).toThrowError('Assertion failed: foo'));
+    });
     describe('if prefixed is turned off', () => {
         beforeAll(() => Assert.configure({ prefixed: false }));
         it('output nothing if no message was supplied', () => expect(() => Assert.that(false)).toThrowError(''));
@@ -32,6 +36,11 @@ describe('Assert.truthy() should', () => {
         it('any non-zero number', () => expect(() => Assert.truthy(1)).not.toThrowError());
         it('any non-empty string', () => expect(() => Assert.truthy(' ')).not.toThrowError());
         it('any instance', () => expect(() => Assert.truthy(new Date())).not.toThrowError());
+    });
+    describe('accept stringifyOptions', () => {
+        beforeAll(() => Assert.configure({ stringifyOptions: { typesOnly: true } }));
+        it('fail on number', () => expect(() => Assert.truthy(0, 'var')).toThrowError('Assertion failed: expected var to be truthy but was: number'));
+        afterAll(() => Assert.configure({ stringifyOptions: { } }));
     });
 });
 
@@ -59,12 +68,13 @@ describe('Assert.notNull() should', () => {
     it('not throw otherwise', () => expect(() => Assert.notNull(0)).not.toThrowError());
 });
 
-describe('Assert.every() should', () => {
-    it('throw if not all values match the predicate', () => expect(() => Assert.every([0, -5, 1], value => value >= 0)).toThrowError(Assert.AssertionError));
-    it('not throw if all values match the predicate', () => expect(() => Assert.every([0, 2, 1], value => value >= 0)).not.toThrowError());
+describe('Assert.notNull() should', () => {
+    it('throw if value is not null', () => expect(() => Assert.isNull(0)).toThrowError(Assert.AssertionError));
+    it('not throw if value is null', () => expect(() => Assert.isNull(null)).not.toThrowError());
+    it('not throw if value is undefined', () => expect(() => Assert.isNull(undefined)).not.toThrowError());
 });
 
-describe('Assert.some() should', () => {
-    it('throw if no values match the predicate', () => expect(() => Assert.some([0, 5, 1], value => value < 0)).toThrowError(Assert.AssertionError));
-    it('not throw if at least one value matches the predicate', () => expect(() => Assert.some([0, -5, 1], value => value < 0)).not.toThrowError());
+describe('Assert.every() should', () => {
+    it('throw if not all values match the predicate', () => expect(() => Assert.every([0, null, 1], value => Assert.notNull(value), 'testArray')).toThrowError('testArray failed assertion. Element at 1 reported: "Assertion failed: expected non-null value but got: null"'));
+    it('not throw if all values match the predicate', () => expect(() => Assert.every([0, 2, 1], value => Assert.that(value >= 0))).not.toThrowError());
 });
