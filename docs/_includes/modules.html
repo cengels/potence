@@ -13,7 +13,7 @@
         {% if page.module == include.module %}
         <tr>
             <td class="code">
-                <a href="{{ page.url }}">{{ page.title | remove_first: module_prefix }}</a>
+                <a href="{{ page.url | relative_url }}">{{ page.title | remove_first: module_prefix }}</a>
             </td>
             <td>
                 {% capture description %}{{ page.description | split: '. ' | first }}{% endcapture %}

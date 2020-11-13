@@ -49,19 +49,19 @@
         {% if site_page.layout == 'module' %}
         {% if site_page.title == page.title %}
         <li class="module-list">
-            <button onclick="onClick()" class="module selected"><a href="{{ site_page.url }}">{{ site_page.title }}</button></a>
+            <button onclick="onClick()" class="module selected"><a href="{{ site_page.url | relative_url }}">{{ site_page.title }}</button></a>
         {% else %}
         <li class="module-list">
-            <button onclick="onClick()" class="module"><a href="{{ site_page.url }}">{{ site_page.title }}</button></a>
+            <button onclick="onClick()" class="module"><a href="{{ site_page.url | relative_url }}">{{ site_page.title }}</button></a>
         {% endif %}
             <ul>
             {% capture module_prefix %}{{ site_page.title | append: '.' }}{% endcapture %}
             {% for subpage in sorted_pages %}
             {% if site_page.title == subpage.module %}
             {% if page.title == subpage.title %}
-            <li><a class="submodule selected" href="{{ subpage.url }}" data-title="{{ subpage.title }}">{{ subpage.title | remove_first: module_prefix }}</a></li>
+            <li><a class="submodule selected" href="{{ subpage.url | relative_url }}" data-title="{{ subpage.title }}">{{ subpage.title | remove_first: module_prefix }}</a></li>
             {% else %}
-            <li><a class="submodule" href="{{ subpage.url }}" data-title="{{ subpage.title }}">{{ subpage.title | remove_first: module_prefix }}</a></li>
+            <li><a class="submodule" href="{{ subpage.url | relative_url}}" data-title="{{ subpage.title }}">{{ subpage.title | remove_first: module_prefix }}</a></li>
             {% endif %}
             {% endif %}
 

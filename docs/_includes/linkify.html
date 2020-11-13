@@ -14,7 +14,7 @@ This is used in places where Liquid is not allowed (e.g. front matter).
             {% for other_page in site.pages %}
                 {% if other_page.title == substring %}
                     {% capture replace_string %}§{{ substring }}§{% endcapture %}
-                    {% capture with %}[`{{ substring }}`]({{ other_page.url }}){% endcapture %}
+                    {% capture with %}[`{{ substring }}`]({{ other_page.url | relative_url }}){% endcapture %}
                     {% capture description %}{{ description | replace_first: replace_string, with }}{% endcapture %}
                 {% endif %}
             {% endfor %}
