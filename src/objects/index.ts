@@ -1,4 +1,5 @@
 import { BaseToType, BaseType, Constructor, Equatable, isEquatable, ObjectLiteral, Structure, StructureValue } from '../types.js';
+export * from './stringify.js';
 
 type DistributeStructureValue<T> = T extends StructureValue ? MappedStructureValue<T> : never;
 
