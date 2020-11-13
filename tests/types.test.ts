@@ -1,4 +1,4 @@
-import { isPrimitive, isEquatable } from '../src/types';
+import { isEquatable, isIterable, isPrimitive } from '../src/types';
 import TypeTester from './TypeTester.js';
 
 describe('isPrimitive() should return', () => {
@@ -20,6 +20,35 @@ describe('isEquatable() should return', () => {
     it('false when object has equals method without arguments', () => expect(isEquatable({ equals: () => true })).toBe(false));
     it('false when object has a non-function equals property', () => expect(isEquatable({ equals: 'string' })).toBe(false));
     it('false when object has no equals property', () => expect(isEquatable({ })).toBe(false));
+});
+
+describe('isIterable() should return', () => {
+    it('true for Arrays', () => expect(isIterable([1, 2, 3])).toBe(true));
+    it('true for Sets', () => expect(isIterable(new Set([1, 2, 3]))).toBe(true));
+    it('true for Maps', () => expect(isIterable(new Map([['key', 1]]))).toBe(true));
+    it('true for strings', () => expect(isIterable('123')).toBe(true));
+    it('true for TypedArrays', () => expect(isIterable(new Uint8Array([1, 2, 3]))).toBe(true));
+});
+
+describe('Iterable should', () => {
+    const tester = new TypeTester();
+
+    tester.import('Iterable').from('./src/types');
+    tester.write(`
+        function sum(iterable: Iterable<number>): number {
+            let sum: number = 0;
+
+            for (const item of iterable) {
+                sum += item;
+            }
+
+            return sum;
+        }
+    `);
+
+    it('not throw error on array with correct type', () => tester.expect('sum([0, 1, 2])').toNotThrowError());
+    it('throw error on array with incorrect type', () => tester.expect('sum([0, "hello", 2])').toThrowError());
+    it('not throw error on set', () => tester.expect('sum(new Set([0, 1, 2]))').toNotThrowError());
 });
 
 describe('Truthy<T> should', () => {
