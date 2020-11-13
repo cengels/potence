@@ -68,12 +68,6 @@ describe('Assert.notNull() should', () => {
     it('not throw otherwise', () => expect(() => Assert.notNull(0)).not.toThrowError());
 });
 
-describe('Assert.notNull() should', () => {
-    it('throw if value is not null', () => expect(() => Assert.isNull(0)).toThrowError(Assert.AssertionError));
-    it('not throw if value is null', () => expect(() => Assert.isNull(null)).not.toThrowError());
-    it('not throw if value is undefined', () => expect(() => Assert.isNull(undefined)).not.toThrowError());
-});
-
 describe('Assert.every() should', () => {
     it('throw if not all values match the predicate', () => expect(() => Assert.every([0, null, 1], value => Assert.notNull(value), 'testArray')).toThrowError('testArray failed assertion. Element at 1 reported: "Assertion failed: expected non-null value but got: null"'));
     it('not throw if all values match the predicate', () => expect(() => Assert.every([0, 2, 1], value => Assert.that(value >= 0))).not.toThrowError());

@@ -146,21 +146,6 @@ export function notNull<T>(value: T, name?: string): asserts value is NonNullabl
 }
 
 /**
- * Throws an assertion error if the value is not null or undefined.
- *
- * @param name If you're checking a named value (like a variable or property),
- *   you can enter its name here for a more expressive error message.
- */
-// @ts-expect-error See https://github.com/microsoft/TypeScript/issues/39036
-export function isNull<T>(value: T, name?: string): asserts value is null | undefined {
-    if (value != null) {
-        throw assertionError(name == null
-            ? `Expected null value but got: ${Objects.stringify(value, stringifyOptions)}`
-            : `Expected ${name} to be null but was: ${Objects.stringify(value, stringifyOptions)}`);
-    }
-}
-
-/**
  * Iterates across the given array and calls the specified callback on each
  * array item. If any of the callbacks throw an assertion error, stops iterating
  * and propagates the assertion error with an expressive failure message
