@@ -2,6 +2,7 @@
 layout:      page
 title:       Assert.that()
 module:      Assert
+order:       -1
 description: Asserts that an arbitrary condition is true by throwing an
              assertion error if it isn't.
 parameters:

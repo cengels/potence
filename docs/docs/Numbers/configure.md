@@ -3,6 +3,7 @@ layout:      page
 title:       Numbers.configure()
 module:      Numbers
 description: Configures the default tolerance to use for number comparison.
+order:       -1
 parameters:
   configuration: A configuration object containing any of the below properties.
   configuration.defaultTolerance:

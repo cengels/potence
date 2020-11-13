@@ -3,6 +3,7 @@ layout:      class
 title:       Range
 module:      Numbers
 description: A class that encompasses a range between two numbers.
+order:       -2
 ---
 
 ## Constructor

@@ -2,6 +2,7 @@
 layout:      page
 title:       Assert.configure()
 module:      Assert
+order:       -2
 description: Allows you to configure various behavior in regards to the
              assertion messages.
 parameters:

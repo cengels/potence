@@ -1,6 +1,7 @@
 ---
 layout:      module
 title:       Assert
+order:       -99
 description: |
   The Assert module provides a variety of assertion functions that test
   a condition or variable and throw an assertion error if the assertion

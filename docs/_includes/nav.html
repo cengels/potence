@@ -36,7 +36,15 @@
     </script>
 
     <ul class="normal-list">
-        {% for site_page in site.pages %}
+        {% assign pages_with_negative_order = site.pages | where_exp: "page", "page.order < 0" %}
+        {% assign pages_without_order = site.pages | where_exp: "page", "page.order == nil" %}
+        {% assign pages_with_positive_order = site.pages | where_exp: "page", "page.order >= 0" %}
+
+        {% assign pages_with_negative_order = pages_with_negative_order | sort: 'order' %}
+        {% assign pages_with_positive_order = pages_with_positive_order | sort: 'order' %}
+        {% assign sorted_pages = pages_with_negative_order | concat: pages_without_order | concat: pages_with_positive_order %}
+
+        {% for site_page in sorted_pages %}
 
         {% if site_page.layout == 'module' %}
         {% if site_page.title == page.title %}
@@ -48,7 +56,7 @@
         {% endif %}
             <ul>
             {% capture module_prefix %}{{ site_page.title | append: '.' }}{% endcapture %}
-            {% for subpage in site.pages %}
+            {% for subpage in sorted_pages %}
             {% if site_page.title == subpage.module %}
             {% if page.title == subpage.title %}
             <li><a class="submodule selected" href="{{ subpage.url }}" data-title="{{ subpage.title }}">{{ subpage.title | remove_first: module_prefix }}</a></li>

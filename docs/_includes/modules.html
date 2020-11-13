@@ -1,7 +1,15 @@
+{% assign pages_with_negative_order = site.pages | where_exp: "page", "page.order < 0" %}
+{% assign pages_without_order = site.pages | where_exp: "page", "page.order == nil" %}
+{% assign pages_with_positive_order = site.pages | where_exp: "page", "page.order >= 0" %}
+
+{% assign pages_with_negative_order = pages_with_negative_order | sort: 'order' %}
+{% assign pages_with_positive_order = pages_with_positive_order | sort: 'order' %}
+{% assign sorted_pages = pages_with_negative_order | concat: pages_without_order | concat: pages_with_positive_order %}
+
 <table class="submodules-table">
     <tbody>
         {% capture module_prefix %}{{ include.module | append: '.' }}{% endcapture %}
-        {% for page in site.pages %}
+        {% for page in sorted_pages %}
         {% if page.module == include.module %}
         <tr>
             <td class="code">
