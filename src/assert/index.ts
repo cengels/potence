@@ -163,7 +163,7 @@ export function every<T>(array: readonly T[], callback: (value: T, index: number
             callback(value, index);
         } catch (e) {
             if (e instanceof AssertionError) {
-                e.message = `${name ?? 'Array'} failed assertion. Element at ${index} reported: "${e.message}"`;
+                e.message = `${name ?? 'Array'} failed assertion. Element at index ${index} reported: "${e.message}"`;
             }
 
             throw e;
