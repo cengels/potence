@@ -72,6 +72,7 @@ describe('Truthy<T> should', () => {
     it('properly segregate literal union types', () => tester.expectType('Truthy<0 | 5 | 2 | "five" | "">').toResolveTo('5 | 2 | "five"'));
     it('return never for non-matching literal types', () => tester.expectType('Truthy<0>').toResolveTo('never'));
     it('return never for non-matching literal unions', () => tester.expectType('Truthy<0 | "">').toResolveTo('never'));
+    it('return never for -0', () => tester.expectType('Truthy<-0>').toResolveTo('never'));
 });
 
 describe('Falsy<T> should', () => {
@@ -96,4 +97,5 @@ describe('Falsy<T> should', () => {
     it('properly segregate literal union types', () => tester.expectType('Falsy<0 | 5 | 2 | "five" | "">').toResolveTo('0 | ""'));
     it('return never for non-matching literal types', () => tester.expectType('Falsy<5>').toResolveTo('never'));
     it('return never for non-matching literal unions', () => tester.expectType('Falsy<5 | 2 | "five">').toResolveTo('never'));
+    it('keep -0', () => tester.expectType('Falsy<-0>').toResolveTo('0'));
 });
