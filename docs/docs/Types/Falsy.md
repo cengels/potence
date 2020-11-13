@@ -30,3 +30,6 @@ Note that there is currently no way to express
 [`NaN`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/NaN)
 as part of a numeric literal (in fact, any value of `NaN` is automatically
 inferred as `number`), so `Falsy<T>` will not extract `NaN` from a type.
+
+Click [here](https://developer.mozilla.org/en-US/docs/Glossary/Falsy) for more
+information on "falsiness" as a concept.
