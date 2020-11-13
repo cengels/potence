@@ -60,7 +60,7 @@ export default interface ReadonlyRange {
      * If there is no intersection, throws an error. To avoid this, check if there is an intersection using `overlap()` first.
      */
     intersect(range: ReadonlyRange): number;
-    /** Gets the value located at `at`. For the returned value to be inside this range, `at` should be between 0.0 and 1.0. */
+    /** Gets the value located at the specified value. For the returned value to be inside this range, the argument should be between 0.0 and 1.0. */
     at(value: number): number;
     /** Gets a relative value between 0.0 and 1.0 to indicate the position of the passed value inside the range. This function is the counter-component to `at()`. */
     relative(value: number): number;
