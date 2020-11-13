@@ -43,6 +43,7 @@
     "jest-each": "^26.1.0",
     "jest-ts-webcompat-resolver": "^1.0.0",
     "ts-jest": "^26.1.1",
+    "ts-morph": "^8.2.0",
     "typescript": "^4.1.0-beta"
   }
 }
