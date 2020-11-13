@@ -81,7 +81,15 @@ function assertionError(failureMessage?: string, ignoreCapitalization: boolean =
         return new AssertionError('Assertion failed.');
     }
 
-    return new AssertionError(ignoreCapitalization ? failureMessage : Strings.capitalize(failureMessage));
+    return new AssertionError(failureMessage);
+}
+
+function throwIf(condition: boolean, value: unknown, what: string, name?: string): void {
+    if (condition) {
+        throw assertionError(name == null
+            ? `Expected ${what} value but got ${Objects.stringify(value, stringifyOptions)}`
+            : `Expected ${name} to be ${what} but was ${Objects.stringify(value, stringifyOptions)}`);
+    }
 }
 
 /**
@@ -107,11 +115,7 @@ export function that(condition: boolean, failureMessage?: string): asserts condi
  *   you can enter its name here for a more expressive error message.
  */
 export function truthy<T>(value: T, name?: string): asserts value is Truthy<T> {
-    if (!value) {
-        throw assertionError(name == null
-            ? `Expected truthy value but got ${Objects.stringify(value, stringifyOptions)}`
-            : `Expected ${name} to be truthy but was ${Objects.stringify(value, stringifyOptions)}`);
-    }
+    throwIf(!value, value, 'truthy', name);
 }
 
 /**
@@ -123,11 +127,7 @@ export function truthy<T>(value: T, name?: string): asserts value is Truthy<T> {
  */
 // @ts-expect-error See https://github.com/microsoft/TypeScript/issues/39036
 export function falsy<T>(value: T, name?: string): asserts value is Falsy<T> {
-    if (value) {
-        throw assertionError(name == null
-            ? `Expected falsy value but got ${Objects.stringify(value, stringifyOptions)}`
-            : `Expected ${name} to be falsy but was ${Objects.stringify(value, stringifyOptions)}`);
-    }
+    throwIf(Boolean(value), value, 'falsy', name);
 }
 
 /**
@@ -138,11 +138,7 @@ export function falsy<T>(value: T, name?: string): asserts value is Falsy<T> {
  *   you can enter its name here for a more expressive error message.
  */
 export function notNull<T>(value: T, name?: string): asserts value is NonNullable<T> {
-    if (value == null) {
-        throw assertionError(name == null
-            ? `Expected non-null value but got ${Objects.stringify(value, stringifyOptions)}`
-            : `Expected ${name} to be non-null but was ${Objects.stringify(value, stringifyOptions)}`);
-    }
+    throwIf(value == null, value, 'non-null', name);
 }
 
 /**
