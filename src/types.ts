@@ -65,7 +65,7 @@ export type Constructor<T = unknown> = Function & { prototype: T };
  * @template T The type to  be instantiated.
  * @template Args A [tuple](https://www.typescriptlang.org/docs/handbook/basic-types.html#tuple) of constructor arguments.
  */
-export type Instantiable<T = unknown, Args extends ReadonlyArray<unknown> = []> = { new(...args: Args): T; };
+export type Instantiable<T = unknown, Args extends ReadonlyArray<unknown> = unknown[]> = { new(...args: Args): T; };
 
 /**
  * Represents an object literal with the given value type.
