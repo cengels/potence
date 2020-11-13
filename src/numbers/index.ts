@@ -111,11 +111,7 @@ export function isFloat(value: number): boolean {
  * i.e. a number with a low chance of floating
  * point inaccuracies.
  *
- * In general, a floating point number is only safe
- * if its denominator is the product of an exponentiation of 2,
- * like 1/2 (0.5), 1/4 (0.25), 1/8 (0.125) etc.
- *
- * However, this function instead tests for floating point
+ * This function tests for floating point
  * inaccuracy by conducting an arbitrary mathematical
  * operation on the value, inverting it, and comparing
  * it with the original value.
@@ -134,11 +130,7 @@ export function isSafeFloat(value: number): boolean {
  * i.e. a number with a high chance of floating
  * point inaccuracies.
  *
- * In general, a floating point number is only safe
- * if its denominator is the product of the exponent of 2,
- * like 1/2 (0.5), 1/4 (0.25), 1/8 (0.125) etc.
- *
- * However, this function instead tests for floating point
+ * This function tests for floating point
  * inaccuracy by conducting an arbitrary mathematical
  * operation on the value, inverting it, and comparing
  * it with the original value.
@@ -216,9 +208,9 @@ export function lcm(...values: number[]): number {
  * Gets the median of the specified numbers. The median is defined as:
  *
  * * If the sequence contains an odd number of values, the sequence
- * is first sorted and then the middle value is extracted.
+ *   is first sorted and then the middle value is extracted.
  * * If the sequence contains an even number of values, the sequence
- * is first sorted and then the average of the two middle values is extracted.
+ *   is first sorted and then the average of the two middle values is extracted.
  */
 export function median(...values: number[]): number {
     if (values.length === 0) {
