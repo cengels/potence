@@ -15,7 +15,7 @@ parameters:
 ## Syntax
 
 ```ts
-function hasFunction(source: unknown, functionName: string, argumentCount?: number): boolean
+function hasFunction(source: unknown, functionName: string | number | symbol, argumentCount?: number): boolean
 ```
 
 <div class="description">{% include linkify.html description=page.description %}</div>

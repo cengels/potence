@@ -16,7 +16,7 @@ parameters:
 ## Syntax
 
 ```ts
-function hasProperty(source: unknown, propertyName: string, type?: BaseType | Constructor): boolean
+function hasProperty(source: unknown, propertyName: string | number | symbol, type?: BaseType | Constructor): boolean
 ```
 
 <div class="description">{% include linkify.html description=page.description %}</div>
