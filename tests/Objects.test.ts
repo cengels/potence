@@ -215,12 +215,16 @@ describe('Objects.hasProperty() should', () => {
     };
 
     it('return true if the property exists', () => expect(Objects.hasProperty(object, 'value')).toBe(true));
+    it('return true if the property exists but is null', () => expect(Objects.hasProperty({ prop: null }, 'prop')).toBe(true));
+    it('return true if the property exists but is undefined', () => expect(Objects.hasProperty({ prop: undefined }, 'prop')).toBe(true));
     it('return true if the property has the right type', () => expect(Objects.hasProperty(object, 'value', 'number')).toBe(true));
     it('return true if the property has the right constructor', () => expect(Objects.hasProperty(object, 'value3', Date)).toBe(true));
+    it('return true even if object is not an object', () => expect(Objects.hasProperty(5, 'constructor')).toBe(true));
     it('return false if the property does not exist', () => expect(Objects.hasProperty(object, 'value5')).toBe(false));
     it('return false if the property has the wrong type', () => expect(Objects.hasProperty(object, 'value', 'string')).toBe(false));
     it('return false if the property does not exist and has no type', () => expect(Objects.hasProperty(object, 'value5', 'string')).toBe(false));
-    it('return false if the object is not an object', () => expect(Objects.hasProperty(5, 'value')).toBe(false));
+    it('work on strings', () => expect(Objects.hasProperty('', 'indexOf')).toBe(true));
+    it('work on number', () => expect(Objects.hasProperty(5, 'toPrecision')).toBe(true));
 });
 
 describe('Objects.hasFunction() should', () => {
@@ -235,9 +239,12 @@ describe('Objects.hasFunction() should', () => {
     it('return true if the function has the right number of arguments (0)', () => expect(Objects.hasFunction(object, 'func', 0)).toBe(true));
     it('return true if the function has the right number of arguments (1)', () => expect(Objects.hasFunction(object, 'func2', 1)).toBe(true));
     it('return true if the function has the right number of arguments (2)', () => expect(Objects.hasFunction(object, 'func3', 2)).toBe(true));
+    it('return true if the function exists on primitive type', () => expect(Objects.hasFunction(5, 'toString')).toBe(true));
     it('return false if the property is not a function', () => expect(Objects.hasFunction(object, 'value')).toBe(false));
     it('return false if the function does not exist', () => expect(Objects.hasFunction(object, 'func4')).toBe(false));
     it('return false if the function has the wrong number of arguments (too few)', () => expect(Objects.hasFunction(object, 'func', 2)).toBe(false));
     it('return false if the function has the wrong number of arguments (too many)', () => expect(Objects.hasFunction(object, 'func3', 0)).toBe(false));
-    it('return false if the object is not an object', () => expect(Objects.hasFunction(5, 'valueOf')).toBe(false));
+    it('return false if the object is not an object', () => expect(Objects.hasFunction(null, 'valueOf')).toBe(false));
+    it('work on strings', () => expect(Objects.hasFunction('', 'indexOf')).toBe(true));
+    it('work on number', () => expect(Objects.hasFunction(5, 'toPrecision')).toBe(true));
 });

@@ -240,11 +240,13 @@ export function hasProperty<
     T extends BaseType | Constructor
 >(source: unknown, propertyName: TKey, type?: T): source is HasProperty<TKey, HasPropertyReturnType<T>> {
     return source != null
-        && isObject(source)
-        && propertyName in source
+        // The 'in' operator can't be used with primitive types, but
+        // we can get around that by explicitly converting them
+        // to objects first.
+        && propertyName in new Object(source)
         && (type == null || (typeof type === 'string'
-            ? typeof source[propertyName] === type
-            : source[propertyName] instanceof (type as Constructor)));
+            ? typeof (source as ObjectLiteral)[propertyName] === type
+            : (source as ObjectLiteral)[propertyName] instanceof (type as Constructor)));
 }
 
 type Func = (...args: unknown[]) => unknown;
@@ -255,9 +257,8 @@ type Func = (...args: unknown[]) => unknown;
 // eslint-disable-next-line @typescript-eslint/ban-types
 export function hasFunction<T extends string | number | symbol>(source: unknown, functionName: T, argumentCount?: number): source is HasProperty<T, Func> {
     return source != null
-        && isObject(source)
-        && typeof source[functionName] === 'function'
+        && typeof (source as ObjectLiteral)[functionName] === 'function'
         && (argumentCount == null
             // eslint-disable-next-line @typescript-eslint/ban-types
-            || (source[functionName] as Function).length === argumentCount);
+            || ((source as ObjectLiteral)[functionName] as Function).length === argumentCount);
 }
