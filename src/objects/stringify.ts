@@ -144,7 +144,7 @@ export function stringify(value: unknown, options: StringifyOptions = DEFAULT_OP
         return string.substring(0, openingBraceIndex) + '{ ... }';
     }
 
-    const constructorName = Objects.getConstructor(value)?.name;
+    const constructorName = Objects.isObject(value) ? value.constructor.name : null;
 
     if (options.typesOnly) {
         return constructorName ?? 'Object';
