@@ -24,14 +24,6 @@ describe('Numbers.range() should', () => {
     it('throw with less than 3 values', () => expect(() => Numbers.range(5)).toThrowError());
 });
 
-describe('Numbers.center() should', () => {
-    it('work with integral numbers', () => expect(Numbers.center(5, 7)).toBe(6));
-    it('work with floating point numbers', () => expect(Numbers.center(2.3, 118.11)).toBeCloseTo(60.205, 3));
-    it('work with multiple numbers', () => expect(Numbers.center(5, 2, 10, -15, 17)).toBe(1));
-    it('return 0 without numbers passed', () => expect(Numbers.center()).toBe(0));
-    it('return number if only number is passed', () => expect(Numbers.center(52)).toBe(52));
-});
-
 describe('Numbers.even() should return', () => {
     it('true for even numbers', () => expect(Numbers.even(5234)).toBe(true));
     it('false for odd numbers', () => expect(Numbers.even(634611)).toBe(false));

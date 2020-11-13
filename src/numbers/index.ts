@@ -83,28 +83,6 @@ export function range(...values: number[]): Range {
     return new Range(values[0], values[values.length - 1]);
 }
 
-/**
- * Gets the center between the specified numbers.
- *
- * This function is not to be confused with `median()`.
- * While the median simply takes the middle number in the sequence,
- * this function calculates the number halfway between the maximum
- * and minimum numbers, regardless of whether it is an actual
- * value contained in the given sequence or not.
- */
-export function center(...values: number[]): number {
-    if (values.length === 0) {
-        return 0;
-    } else if (values.length === 1) {
-        return values[0];
-    }
-
-    const smallest = Math.min(...values);
-    const largest = Math.max(...values);
-
-    return (largest - smallest) / 2 + smallest;
-}
-
 /** Returns true if the number is an even number. */
 export function even(value: number): boolean {
     return value % 2 === 0;
