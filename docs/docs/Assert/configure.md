@@ -22,8 +22,7 @@ parameters:
       this argument to change the behavior of `Objects.stringify()` in those
       cases.
 
-      By default, the default stringify options for `Objects.stringify()`
-      are used.
+      The default configuration is `{ truncateContents: true }`.
     optional: yes
 ---
 ## Syntax

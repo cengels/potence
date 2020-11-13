@@ -40,7 +40,7 @@ describe('Assert.truthy() should', () => {
     describe('accept stringifyOptions', () => {
         beforeAll(() => Assert.configure({ stringifyOptions: { typesOnly: true } }));
         it('fail on number', () => expect(() => Assert.truthy(0, 'var')).toThrowError('Assertion failed: expected var to be truthy but was number'));
-        afterAll(() => Assert.configure({ stringifyOptions: { } }));
+        afterAll(() => Assert.configure({ stringifyOptions: { truncateContents: true } }));
     });
 });
 
