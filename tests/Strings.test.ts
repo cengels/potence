@@ -49,3 +49,15 @@ method('Strings.isUrl()', Strings.isUrl, returns => {
         on('https://www.google.com/page\\\\wrongway');
     })
 })
+
+describe('Strings.capitalize() should', () => {
+    it('capitalize uncapitalized strings', () => expect(Strings.capitalize('abc')).toBe('Abc'));
+    it('not capitalize capitalized strings', () => expect(Strings.capitalize('Abc')).toBe('Abc'));
+    it('ignore strings that do not start with a letter', () => expect(Strings.capitalize('5bc')).toBe('5bc'));
+});
+
+describe('Strings.uncapitalize() should', () => {
+    it('uncapitalize capitalized strings', () => expect(Strings.uncapitalize('Abc')).toBe('abc'));
+    it('not uncapitalize uncapitalized strings', () => expect(Strings.uncapitalize('abc')).toBe('abc'));
+    it('ignore strings that do not start with a letter', () => expect(Strings.uncapitalize('5bc')).toBe('5bc'));
+});

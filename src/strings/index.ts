@@ -67,3 +67,19 @@ const urlRegEx = new RegExp('^(https?://)?(www\\.)?([-a-z0-9]{1,63}\\.)*?[a-z0-9
 export function isUrl(url: string): boolean {
     return urlRegEx.test(url);
 }
+
+/**
+ * Capitalizes the first letter of the string.
+ * Has no effect if the first character isn't a letter.
+ */
+export function capitalize(string: string): string {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+/**
+ * If the first letter of the string is capitalized, uncapitalizes it.
+ * Has no effect if the first character isn't a letter.
+ */
+export function uncapitalize(string: string): string {
+    return string.charAt(0).toLowerCase() + string.slice(1);
+}
