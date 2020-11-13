@@ -1,6 +1,6 @@
 {
   "name": "potence",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "A tiny modularized JavaScript library providing a variety of convenience functions.",
   "keywords": [
     "utility",
@@ -26,7 +26,7 @@
     "test": "jest",
     "coverage": "jest --collect-coverage",
     "upload-coverage": "curl -s https://codecov.io/bash | bash -s - -s coverage",
-    "pub": "./scripts/checklist.sh -vlcrt && npm run lint && npm run test && npm run build && cd build && npm publish",
+    "pub": "./scripts/checklist.sh && npm run lint && npm run test && npm run build && cd build && npm publish",
     "serve-docs": "cd docs && bundle exec jekyll serve",
     "prepublishOnly": "if [ $(basename \"$PWD\") != \"build\" ]; then echo \"Build must be run from build directory.\"; exit 1; fi"
   },
