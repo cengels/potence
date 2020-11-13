@@ -15,6 +15,9 @@ describe('Numbers.compare() should return', () => {
     it('true for equal floating point numbers', () => expect(Numbers.compare(5.333, 5.333)).toBe(true));
     it('true for equal calculated floating point numbers', () => expect(Numbers.compare(5.1, 5 * 1.02)).toBe(true));
     it('true for any number with bigger tolerance', () => expect(Numbers.compare(5, 3, 2)).toBe(true));
+    it('false for NaN', () => expect(Numbers.compare(Number.NaN, Number.NaN)).toBe(false));
+    it('false for Infinity', () => expect(Numbers.compare(Infinity, Infinity)).toBe(false));
+    it('false for -Infinity', () => expect(Numbers.compare(-Infinity, -Infinity)).toBe(false));
 });
 
 describe('Numbers.range() should', () => {
@@ -28,12 +31,18 @@ describe('Numbers.even() should return', () => {
     it('true for even numbers', () => expect(Numbers.even(5234)).toBe(true));
     it('false for odd numbers', () => expect(Numbers.even(634611)).toBe(false));
     it('false for decimals', () => expect(Numbers.even(634612.55)).toBe(false));
+    it('false for NaN', () => expect(Numbers.even(Number.NaN)).toBe(false));
+    it('false for Infinity', () => expect(Numbers.even(Infinity)).toBe(false));
+    it('false for -Infinity', () => expect(Numbers.even(-Infinity)).toBe(false));
 });
 
 describe('Numbers.odd() should return', () => {
     it('true for odd numbers', () => expect(Numbers.odd(634611)).toBe(true));
     it('false for even numbers', () => expect(Numbers.odd(5234)).toBe(false));
     it('false for decimals', () => expect(Numbers.odd(634611.55)).toBe(false));
+    it('false for NaN', () => expect(Numbers.odd(Number.NaN)).toBe(false));
+    it('false for Infinity', () => expect(Numbers.odd(Infinity)).toBe(false));
+    it('false for -Infinity', () => expect(Numbers.odd(-Infinity)).toBe(false));
 });
 
 describe('Numbers.isFloat() should return', () => {
@@ -42,6 +51,9 @@ describe('Numbers.isFloat() should return', () => {
     it('false for positive integers', () => expect(Numbers.isFloat(55)).toBe(false));
     it('false for negative integers', () => expect(Numbers.isFloat(-253)).toBe(false));
     it('false for 0', () => expect(Numbers.isFloat(0)).toBe(false));
+    it('false for NaN', () => expect(Numbers.isFloat(Number.NaN)).toBe(false));
+    it('false for Infinity', () => expect(Numbers.isFloat(Infinity)).toBe(false));
+    it('false for -Infinity', () => expect(Numbers.isFloat(-Infinity)).toBe(false));
 });
 
 describe('Numbers.isSafeFloat() should return', () => {
@@ -60,6 +72,9 @@ describe('Numbers.isSafeFloat() should return', () => {
     it('false for 0.1', () => expect(Numbers.isSafeFloat(0.1)).toBe(false));
     it('false for 0.2', () => expect(Numbers.isSafeFloat(0.2)).toBe(false));
     it('true for 0.6', () => expect(Numbers.isSafeFloat(0.6)).toBe(true));
+    it('false for NaN', () => expect(Numbers.isSafeFloat(Number.NaN)).toBe(false));
+    it('false for Infinity', () => expect(Numbers.isSafeFloat(Infinity)).toBe(false));
+    it('false for -Infinity', () => expect(Numbers.isSafeFloat(-Infinity)).toBe(false));
 });
 
 describe('Numbers.isUnsafeFloat() should return', () => {
@@ -78,6 +93,9 @@ describe('Numbers.isUnsafeFloat() should return', () => {
     it('true for 0.1', () => expect(Numbers.isUnsafeFloat(0.1)).toBe(true));
     it('true for 0.2', () => expect(Numbers.isUnsafeFloat(0.2)).toBe(true));
     it('false for 0.6', () => expect(Numbers.isUnsafeFloat(0.6)).toBe(false));
+    it('false for NaN', () => expect(Numbers.isUnsafeFloat(Number.NaN)).toBe(false));
+    it('false for Infinity', () => expect(Numbers.isUnsafeFloat(Infinity)).toBe(false));
+    it('false for -Infinity', () => expect(Numbers.isUnsafeFloat(-Infinity)).toBe(false));
 });
 
 describe('Numbers.gcd() should return', () => {
