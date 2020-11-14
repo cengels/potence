@@ -1,4 +1,4 @@
-<h1 align="center">potence</h1>
+<a href="https://cengels.github.io/potence/"><h1 align="center">potence</h1></a>
 
 <p align="center">
 <a href="https://codecov.io/gh/cengels/potence"><img src="https://img.shields.io/codecov/c/github/cengels/potence" alt="Code Coverage" /></a>
