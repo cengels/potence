@@ -2,6 +2,7 @@
 layout:      page
 title:       primitive
 module:      Types
+added:       0.0.1
 description: Represents a primitive.
 ---
 ## Syntax

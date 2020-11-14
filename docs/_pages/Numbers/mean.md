@@ -2,6 +2,7 @@
 layout:      page
 title:       Numbers.mean()
 module:      Numbers
+added:       0.0.1
 description: Gets the average of a sequence of numbers.
 parameters:
   values:

@@ -2,6 +2,7 @@
 layout:      page
 title:       Arrays.equal()
 module:      Arrays
+added:       0.0.1
 description: Checks whether the contents of two arrays are referentially equal.
 parameters:
   array1: An array with any number of elements.

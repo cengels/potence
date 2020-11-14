@@ -2,6 +2,7 @@
 layout:      page
 title:       Constructor
 module:      Types
+added:       0.0.1
 description: Represents a constructible type (like a class).
              The class may be abstract.
 ---

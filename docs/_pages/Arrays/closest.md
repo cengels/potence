@@ -2,6 +2,7 @@
 layout:      page
 title:       Arrays.closest()
 module:      Arrays
+added:       0.0.1
 description: Returns the closest array element to some other element.
 overloads:
   - name: Closest Number

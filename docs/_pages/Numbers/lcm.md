@@ -2,6 +2,7 @@
 layout:      page
 title:       Numbers.lcm()
 module:      Numbers
+added:       0.0.1
 description: Returns the
              [least common multiple](https://en.wikipedia.org/wiki/Least_common_multiple)
              of two or more integers.

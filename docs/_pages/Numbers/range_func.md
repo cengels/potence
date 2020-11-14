@@ -2,6 +2,7 @@
 layout:      page
 title:       Numbers.range()
 module:      Numbers
+added:       0.0.1
 description: Creates a new §Range§ from the given numbers.
 permalink:   :path/range()
 overloads:

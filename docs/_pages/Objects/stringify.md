@@ -2,6 +2,7 @@
 layout:      page
 title:       Objects.stringify()
 module:      Objects
+added:       0.4.0
 description: Converts an arbitrary value to a string.
 parameters:
   value: A value of any type. No value will throw an error. The resulting

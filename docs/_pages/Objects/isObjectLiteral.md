@@ -2,6 +2,7 @@
 layout:      page
 title:       Objects.isObjectLiteral()
 module:      Objects
+added:       0.0.1
 description: Checks if a value was created using object literal syntax (curly
              brackets), that is if it has a prototype other than `Object`.
 parameters:

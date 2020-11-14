@@ -2,6 +2,7 @@
 layout:      page
 title:       Equatable
 module:      Types
+added:       0.2.0
 description: An interface representing an object that has an `equals()` method
              and can be equated to another.
 ---

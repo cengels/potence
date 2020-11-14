@@ -2,6 +2,7 @@
 layout:      page
 title:       Arrays.remove()
 module:      Arrays
+added:       0.0.1
 description: Removes the specified element(s) from the array
              and returns the original array.
 parameters:

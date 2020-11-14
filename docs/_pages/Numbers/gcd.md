@@ -2,6 +2,7 @@
 layout:      page
 title:       Numbers.gcd()
 module:      Numbers
+added:       0.0.1
 description: Returns the
              [greatest common divisor](https://en.wikipedia.org/wiki/Greatest_common_divisor)
              of two or more integers.

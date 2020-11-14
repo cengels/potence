@@ -2,6 +2,7 @@
 layout:      page
 title:       Arrays.last()
 module:      Arrays
+added:       0.0.1
 description: Returns the last element in an array.
              If the array is empty, returns undefined.
 parameters:

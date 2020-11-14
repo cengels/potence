@@ -2,6 +2,7 @@
 layout:      page
 title:       Strings.isUrl()
 module:      Strings
+added:       0.2.0
 description: Checks if a string is a valid URL.
 parameters:
   url: The string to check.

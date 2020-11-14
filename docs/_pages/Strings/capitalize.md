@@ -2,6 +2,7 @@
 layout:      page
 title:       Strings.capitalize()
 module:      Strings
+added:       0.4.0
 description: Returns a new string with the first letter capitalized.
 parameters:
   string: The string whose first letter to capitalize.

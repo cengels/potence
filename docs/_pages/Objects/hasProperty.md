@@ -2,6 +2,8 @@
 layout:      page
 title:       Objects.hasProperty()
 module:      Objects
+added:       0.2.0
+updated:     0.4.0
 description: Checks if an object contains a property by the
              specified name and optionally type.
 parameters:

@@ -2,6 +2,7 @@
 layout:      page
 title:       ArrayType
 module:      Types
+added:       0.2.0
 description: Utility type that extracts the element type from an array type.
 ---
 ## Syntax

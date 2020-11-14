@@ -2,6 +2,7 @@
 layout:      page
 title:       Arrays.next()
 module:      Arrays
+added:       0.0.1
 description: Gets the next element in the array, starting at the given index.
 parameters:
   array: An array with any number of elements.

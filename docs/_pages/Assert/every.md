@@ -2,7 +2,9 @@
 layout:      page
 title:       Assert.every()
 module:      Assert
-order: 99
+order:       99
+added:       0.0.1
+updated:     0.4.0
 description: Asserts that every element of an array passes an arbitrary
              assertion.
 parameters:

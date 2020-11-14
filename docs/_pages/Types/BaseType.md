@@ -2,6 +2,7 @@
 layout:      page
 title:       BaseType
 module:      Types
+added:       0.0.1
 description: Represents the result of the <code>typeof</code> keyword.
 ---
 ## Syntax

@@ -2,6 +2,8 @@
 layout:      page
 title:       Objects.hasFunction()
 module:      Objects
+added:       0.2.0
+updated:     0.4.0
 description: Checks if an object contains a function by the specified name
              and number of arguments.
 parameters:

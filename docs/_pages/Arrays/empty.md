@@ -2,6 +2,7 @@
 layout:      page
 title:       Arrays.empty()
 module:      Arrays
+added:       0.0.1
 description: Checks whether an array is empty.
 parameters:
   array: An array with any number of elements.

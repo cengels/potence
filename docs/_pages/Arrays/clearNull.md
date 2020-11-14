@@ -2,6 +2,8 @@
 layout:      page
 title:       Arrays.clearNull()
 module:      Arrays
+added:       0.0.1
+updated:     0.4.0
 description: Removes all `null` or `undefined` elements from the array.
 parameters:
   array: The array you want to clear of `null` values.

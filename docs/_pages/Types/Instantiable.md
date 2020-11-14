@@ -2,6 +2,8 @@
 layout:      page
 title:       Instantiable
 module:      Types
+added:       0.0.1
+updated:     0.4.0
 description: Represents an instantiable ("newable") type.
 ---
 ## Syntax

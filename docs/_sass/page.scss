@@ -8,6 +8,8 @@ h1, h2, h3, h4, h5, h6 {
 h1 {
     color: var(--h1-color);
     font-size: 1.9rem;
+    margin-right: 2em;
+    margin-bottom: 0;
 }
 
 h2 {
@@ -27,6 +29,17 @@ p {
     // Adds a little space to the bottom of main-content
     // so that the last line isn't hugging the bottom edge of the screen.
     margin-bottom: 3em;
+}
+
+.documentation-section-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+
+    .documentation-section-meta-information {
+        font-size: 0.9rem;
+    }
 }
 
 div.description {

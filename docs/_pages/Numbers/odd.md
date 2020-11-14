@@ -2,6 +2,7 @@
 layout:      page
 title:       Numbers.odd()
 module:      Numbers
+added:       0.0.1
 description: Checks if a number is an odd number.
 parameters:
   value: A number which may or may not be odd.

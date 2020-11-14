@@ -2,6 +2,8 @@
 layout:      page
 title:       Assert.notNull()
 module:      Assert
+added:       0.0.1
+updated:     0.4.0
 description: Asserts that a value isn't `null` or `undefined` and throws
              an assertion error if it is.
 parameters:

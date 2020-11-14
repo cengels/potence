@@ -2,6 +2,7 @@
 layout:      page
 title:       Objects.isObject()
 module:      Objects
+added:       0.0.1
 description: Checks if a value is an object (that is, not a primitive).
 parameters:
   value: The value to check.

@@ -2,6 +2,7 @@
 layout:      page
 title:       Strings.strip()
 module:      Strings
+added:       0.0.1
 description: Returns a new string with all the specified tokens removed.
 parameters:
   from: The string to strip.

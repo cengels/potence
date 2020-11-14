@@ -2,6 +2,8 @@
 layout:      page
 title:       Arrays.replace()
 module:      Arrays
+added:       0.0.1
+updated:     0.4.0
 description: Replaces the specified element with another
              and returns the original array.
 parameters:

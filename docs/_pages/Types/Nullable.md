@@ -2,6 +2,7 @@
 layout:      page
 title:       Nullable
 module:      Types
+added:       0.0.1
 description: Represents a type that may be <code>null</code> or
              <code>undefined</code>.
 ---

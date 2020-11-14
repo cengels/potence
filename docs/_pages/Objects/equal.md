@@ -2,6 +2,8 @@
 layout:      page
 title:       Objects.equal()
 module:      Objects
+added:       0.2.0
+updated:     0.4.0
 description: Compares two or more objects for equality and returns `true` if all are "equal".
 parameters:
   source: An arbitrary object of any type.

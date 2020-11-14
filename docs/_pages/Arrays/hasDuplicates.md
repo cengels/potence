@@ -2,6 +2,7 @@
 layout:      page
 title:       Arrays.hasDuplicates()
 module:      Arrays
+added:       0.4.0
 description: Checks whether an array contains duplicate values or references.
 parameters:
   array: The array you want to check.

@@ -2,6 +2,8 @@
 layout:      page
 title:       Objects.equatable()
 module:      Objects
+added:       0.2.0
+updated:     0.3.0
 description: Attempts to inject a default `equals()` function into the specified
              object that iterates through all its keys and compares it with the
              target object.

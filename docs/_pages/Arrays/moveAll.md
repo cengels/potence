@@ -2,6 +2,7 @@
 layout:      page
 title:       Arrays.moveAll()
 module:      Arrays
+added:       0.2.0
 description: Wraps all array elements around by a specified number of places.
 parameters:
   array: The array whose elements to move.

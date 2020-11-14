@@ -2,6 +2,7 @@
 layout:      page
 title:       Numbers.median()
 module:      Numbers
+added:       0.0.1
 description: Gets the [median](https://en.wikipedia.org/wiki/Median)
              of a sequence of numbers.
 parameters:

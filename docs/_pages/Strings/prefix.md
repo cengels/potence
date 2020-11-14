@@ -2,6 +2,7 @@
 layout:      page
 title:       Strings.prefix()
 module:      Strings
+added:       0.2.0
 description: Adds a prefix to a string if it does not yet exist.
 parameters:
   string: The string to prefix.

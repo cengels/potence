@@ -3,7 +3,30 @@ layout: default
 ---
 
 <section class="documentation-section">
-    <h1>{{ page.title }}</h1>
+    <div class="documentation-section-header">
+        <h1>{{ page.title }}</h1>
+        <div class="documentation-section-meta-information">
+            {% if page.added %}
+            {% assign version = site.data.versions | where: "name", page.added | first %}
+            {% capture link %}https://github.com/cengels/potence/blob/master/CHANGELOG.md#{{ version.name | remove: '.' }}---{{ version.date }}{% endcapture %}
+            <span class="meta-added" title="This submodule was first added in this version.">
+                added in <a class="meta-added-version" href="{{ link }}">{{ page.added }}</a>
+            </span>
+            •
+            {% endif %}
+            {% if page.updated %}
+            {% assign version = site.data.versions | where: "name", page.updated | first %}
+            {% capture link %}https://github.com/cengels/potence/blob/master/CHANGELOG.md#{{ version.name | remove: '.' }}---{{ version.date }}{% endcapture %}
+            <span class="meta-updated" title="This submodule was last updated in this version.">
+                updated in <a class="meta-updated-version" href="{{ link }}">{{ page.updated }}</a>
+            </span>
+            •
+            {% endif %}
+            <span class="meta-last-revisions" title="Show all recent revisions on this document.">
+                <a href="https://github.com/cengels/potence/blame/master/docs/{{ page.path }}">last revisions</a>
+            </span>
+        </div>
+    </div>
 
     {{ content }}
 </section>

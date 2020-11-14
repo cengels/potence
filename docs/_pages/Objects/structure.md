@@ -2,6 +2,8 @@
 layout:      page
 title:       Objects.structure()
 module:      Objects
+added:       0.0.1
+updated:     0.4.0
 description: Type guard that checks if an object
              conforms to the given shape.
 parameters:

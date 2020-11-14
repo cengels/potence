@@ -2,6 +2,8 @@
 layout:      page
 title:       Arrays.groupBy()
 module:      Arrays
+added:       0.2.0
+updated:     0.4.0
 description: Creates a two-dimensional array by grouping the values in the
              original array by the return value of the property callback.
 parameters:

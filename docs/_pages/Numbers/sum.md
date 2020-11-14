@@ -2,6 +2,7 @@
 layout:      page
 title:       Numbers.sum()
 module:      Numbers
+added:       0.0.1
 description: Gets the sum of a sequence of numbers.
 parameters:
   values:

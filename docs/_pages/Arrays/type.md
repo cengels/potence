@@ -2,6 +2,7 @@
 layout:      page
 title:       Arrays.type()
 module:      Arrays
+added:       0.0.1
 description: Checks if the array contains only elements of the given type.
         If the passed type is a `BaseType`, the function will use the `typeof`
         keyword to compare the expected type with the actual type.

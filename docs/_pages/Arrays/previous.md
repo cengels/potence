@@ -2,6 +2,7 @@
 layout:      page
 title:       Arrays.previous()
 module:      Arrays
+added:       0.0.1
 description: Gets the previous element in the array,
              starting at the given index.
 parameters:

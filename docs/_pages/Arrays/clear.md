@@ -2,6 +2,7 @@
 layout:      page
 title:       Arrays.clear()
 module:      Arrays
+added:       0.0.1
 description: Clears all elements from the given array.
 parameters:
   array: The array you want to clear.

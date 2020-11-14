@@ -2,6 +2,7 @@
 layout:      page
 title:       Numbers.configure()
 module:      Numbers
+added:       0.0.1
 description: Configures the default tolerance to use for number comparison.
 order:       -1
 parameters:

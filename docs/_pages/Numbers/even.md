@@ -2,6 +2,7 @@
 layout:      page
 title:       Numbers.even()
 module:      Numbers
+added:       0.0.1
 description: Checks if a number is an even number.
 parameters:
   value: A number which may or may not be even.

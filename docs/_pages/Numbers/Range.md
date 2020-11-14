@@ -2,6 +2,8 @@
 layout:      class
 title:       Range
 module:      Numbers
+added:       0.0.1
+updated:     0.3.0
 description: A class that encompasses a range between two numbers.
 order:       -2
 ---

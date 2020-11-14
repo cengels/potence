@@ -2,6 +2,7 @@
 layout:      page
 title:       Objects.compare()
 module:      Objects
+added:       0.0.1
 description: Performs a shallow or deep comparison of two objects.
 parameters:
   object1: The object to compare against `object2`.

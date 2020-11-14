@@ -2,6 +2,7 @@
 layout:      page
 title:       Structure
 module:      Types
+added:       0.0.1
 description: Represents an object structure that can
              be used in §Objects.structure()§.
              A structure is an object literal where each key corresponds to

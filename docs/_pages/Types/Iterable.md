@@ -2,6 +2,7 @@
 layout:      page
 title:       Iterable
 module:      Types
+added:       0.4.0
 description: An interface representing an object that can be iterated over.
 ---
 ## Syntax

@@ -2,6 +2,7 @@
 layout:      page
 title:       Arrays.distinct()
 module:      Arrays
+added:       0.4.0
 description: Returns a new array of only the unique values of the original
              array (without duplicates).
 parameters:

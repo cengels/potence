@@ -35,6 +35,14 @@
         }
     }
 
+    .documentation-section-header {
+        flex-direction: column-reverse;
+
+        .documentation-section-meta-information {
+            margin-left: auto;
+        }
+    }
+
     td.description {
         min-width: 320px;
     }

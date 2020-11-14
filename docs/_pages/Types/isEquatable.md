@@ -2,6 +2,7 @@
 layout:      page
 title:       isEquatable()
 module:      Types
+added:       0.2.0
 description: Type guard that checks whether a value is an §Equatable§.
 parameters:
   object: An object whose type isn't known.

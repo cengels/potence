@@ -2,6 +2,8 @@
 layout:      page
 title:       Numbers.isUnsafeFloat()
 module:      Numbers
+added:       0.0.1
+updated:     0.4.0
 description: Checks if a number is an "unsafe" floating point number, that is
              whether it is likely to suffer from floating point inaccuracies.
 parameters:

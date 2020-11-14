@@ -2,6 +2,7 @@
 layout:      page
 title:       Falsy
 module:      Types
+added:       0.4.0
 description: Attempts to extract all falsy values from a type.
 ---
 ## Syntax

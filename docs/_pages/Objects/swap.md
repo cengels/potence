@@ -2,6 +2,8 @@
 layout:      page
 title:       Objects.swap()
 module:      Objects
+added:       0.2.0
+updated:     0.3.0
 description: Swaps the values of two properties on an object and returns the original object.
 parameters:
   source: The object which holds the two properties whose values to swap.

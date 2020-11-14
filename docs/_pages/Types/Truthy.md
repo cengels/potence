@@ -2,6 +2,7 @@
 layout:      page
 title:       Truthy
 module:      Types
+added:       0.4.0
 description: Attempts to remove all falsy types from another type.
 ---
 ## Syntax

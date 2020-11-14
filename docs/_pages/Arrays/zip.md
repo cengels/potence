@@ -2,6 +2,8 @@
 layout:      page
 title:       Arrays.zip()
 module:      Arrays
+added:       0.2.0
+updated:     0.4.0
 description: Combines two or more arrays, creating a new two-dimensional array
              where each element is a tuple of each element at that index.
 parameters:

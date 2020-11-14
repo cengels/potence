@@ -2,6 +2,8 @@
 layout:      page
 title:       Assert.truthy()
 module:      Assert
+added:       0.0.1
+updated:     0.4.0
 description: Asserts that a value is
              [truthy](https://developer.mozilla.org/en-US/docs/Glossary/Truthy)
              and throws an assertion error if it isn't.

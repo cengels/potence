@@ -2,7 +2,7 @@
 layout: home
 ---
 
-# Welcome!
+# potence
 
 Welcome to the official *potence* documentation. *potence* is a tiny modularized
 JavaScript library containing a variety of convenience functions related to

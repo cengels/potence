@@ -2,6 +2,8 @@
 layout:      page
 title:       Arrays.removeAt()
 module:      Arrays
+added:       0.2.0
+updated:     0.4.0
 description: Removes the element at the specified index
              and returns the original array.
 parameters:

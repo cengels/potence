@@ -2,6 +2,7 @@
 layout:      page
 title:       Numbers.compare()
 module:      Numbers
+added:       0.0.1
 description: Accurately compares two integral
              or floating point numbers with the given tolerance
              and returns a value indicating whether they are "equal".

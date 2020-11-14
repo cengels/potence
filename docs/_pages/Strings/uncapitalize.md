@@ -2,6 +2,7 @@
 layout:      page
 title:       Strings.uncapitalize()
 module:      Strings
+added:       0.4.0
 description: Returns a new string with the first letter uncapitalize.
 parameters:
   string: The string whose first letter to uncapitalize.

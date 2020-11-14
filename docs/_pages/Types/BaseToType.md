@@ -2,6 +2,7 @@
 layout:      page
 title:       BaseToType
 module:      Types
+added:       0.0.1
 description: Utility type that transforms a <code>BaseType</code> into the type
              it represents.
 ---

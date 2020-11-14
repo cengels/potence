@@ -2,6 +2,8 @@
 layout:      page
 title:       ObjectLiteral
 module:      Types
+added:       0.0.1
+updated:     0.3.0
 description: Represents an object with an index signature keyed to a `string`,
              `number`, or `symbol`.
 ---

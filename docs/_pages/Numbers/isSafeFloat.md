@@ -2,6 +2,8 @@
 layout:      page
 title:       Numbers.isSafeFloat()
 module:      Numbers
+added:       0.0.1
+updated:     0.4.0
 description: Checks if a number is a "safe" floating point number, that is
              whether it is unlikely to suffer from floating point inaccuracies.
 parameters:

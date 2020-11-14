@@ -2,6 +2,8 @@
 layout:      page
 title:       Assert.falsy()
 module:      Assert
+added:       0.0.1
+updated:     0.4.0
 description: Asserts that a value is
              [falsy](https://developer.mozilla.org/en-US/docs/Glossary/Falsy)
              and throws an assertion error if it isn't.

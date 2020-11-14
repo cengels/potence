@@ -2,6 +2,7 @@
 layout:      page
 title:       Strings.camelCase()
 module:      Strings
+added:       0.2.0
 description: Converts a string to camel case.
 parameters:
   source: A string whose casing is either snake_case, ALL_CAPS,

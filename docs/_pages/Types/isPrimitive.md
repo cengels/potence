@@ -2,6 +2,7 @@
 layout:      page
 title:       isPrimitive()
 module:      Types
+added:       0.2.0
 description: Type guard that checks whether a value is a primitive.
 parameters:
   object: An object whose type isn't known.
