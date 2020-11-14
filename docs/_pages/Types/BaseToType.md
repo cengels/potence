@@ -33,4 +33,4 @@ if (checkType(object, 'string')) {
 
 ## Remarks
 
-See [`BaseType`]({% link _pages/Types/BaseType.md %}).
+See [`BaseType`]({{ site.baseurl }}{% link _pages/Types/BaseType.md %}).

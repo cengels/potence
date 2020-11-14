@@ -37,4 +37,4 @@ The least common multiple is the smallest multiple of themselves that all the
 integers share.
 
 The calculation is based on
-[`Numbers.gcd()`]({% link _pages/Numbers/gcd.md %}).
+[`Numbers.gcd()`]({{ site.baseurl }}{% link _pages/Numbers/gcd.md %}).

@@ -45,7 +45,7 @@ console.log(Objects.equal(equatable, nonEquatable));   // -> true
 * If the source object is a reference type (i.e. objects and arrays), this
   function will compare them for *referential equality*, i.e. whether the
   reference is the same, not the value.
-* If the source object implements [`Equatable`]({% link _pages/Types/Equatable.md
+* If the source object implements [`Equatable`]({{ site.baseurl }}{% link _pages/Types/Equatable.md
   %}), this function will call `source.equals()` and return `true` if and only
   if `equals()` returned `true` for every other object.
 

@@ -36,4 +36,4 @@ from having to assign it to a temporary variable to be able to write
 `array[array.length - 1]`.
 
 This function is analogous to
-[`Arrays.first()`]({% link _pages/Arrays/first.md %}).
+[`Arrays.first()`]({{ site.baseurl }}{% link _pages/Arrays/first.md %}).

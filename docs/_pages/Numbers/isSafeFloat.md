@@ -38,8 +38,8 @@ This function always returns false for
 and [`-Infinity`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/NEGATIVE_INFINITY).
 
 To compare floating point numbers, use
-[`Numbers.compare()`]({% link _pages/Numbers/compare.md %})
+[`Numbers.compare()`]({{ site.baseurl }}{% link _pages/Numbers/compare.md %})
 instead. Its page also offers a more detailed explanation of floating
 point inaccuracies.
 
-Contrast [`Numbers.isUnsafeFloat()`]({% link _pages/Numbers/isUnsafeFloat.md %}).
+Contrast [`Numbers.isUnsafeFloat()`]({{ site.baseurl }}{% link _pages/Numbers/isUnsafeFloat.md %}).

@@ -40,4 +40,4 @@ The index must be within the bounds of the array. If it isn't, the function retu
 In TypeScript, you can use the non-null assertion operator (`!`) on the return value if you are absolutely
 certain the index is in-bounds.
 
-This function is analogous to [`Arrays.next()`]({% link _pages/Arrays/next.md %}).
+This function is analogous to [`Arrays.next()`]({{ site.baseurl }}{% link _pages/Arrays/next.md %}).

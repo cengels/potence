@@ -64,8 +64,8 @@ reasons.
 
 1. You can't have two return types for a function without tuple (which would be
    anything but clean), so to allow a user to check against both a
-   [`BaseType`]({% link _pages/Types/BaseType.md %}) and a
-   [`Constructor`]({% link _pages/Types/Constructor.md %})
+   [`BaseType`]({{ site.baseurl }}{% link _pages/Types/BaseType.md %}) and a
+   [`Constructor`]({{ site.baseurl }}{% link _pages/Types/Constructor.md %})
    would require two functions.
 2. An array can be *variant*, that is it can contain more than one type. To make
    variant arrays work would then necessitate returning an array of all the

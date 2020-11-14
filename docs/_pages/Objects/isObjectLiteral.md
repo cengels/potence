@@ -37,7 +37,7 @@ the object was not created using object literal syntax.
 This function is most useful to ensure that a plain object was passed to your
 function, as opposed to, for example, a class instance.
 
-Just like [`Objects.isObject()`]({% link _pages/Objects/isObject.md %}), this
+Just like [`Objects.isObject()`]({{ site.baseurl }}{% link _pages/Objects/isObject.md %}), this
 function serves as a type guard against an arbitrary
 [`Record`](https://www.typescriptlang.org/docs/handbook/utility-types.html#recordkeystype)
 type with values of type `unknown`, allowing you to safely access any of the

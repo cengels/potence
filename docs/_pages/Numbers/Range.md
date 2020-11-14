@@ -222,5 +222,5 @@ There is also a read-only interface of `Range` available called `ReadonlyRange`.
 Due to conflicts with the
 [`Range`](https://github.com/microsoft/TypeScript/blob/b5b0437a86661c8d7bc76c5860c07305df17899c/lib/lib.dom.d.ts#L12437)
 from `lib.dom.d.ts`, you may wish to create a new range using
-[`Numbers.range()`]({% link _pages/Numbers/range_func.md %})
+[`Numbers.range()`]({{ site.baseurl }}{% link _pages/Numbers/range_func.md %})
 instead of using the constructor directly.

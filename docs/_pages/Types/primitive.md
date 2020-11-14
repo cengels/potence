@@ -34,4 +34,4 @@ consistency with actual primitive types, whose types are also uncapitalized
 (think: `string` or `number`).
 
 There is a type guard available for this type: see
-[`isPrimitive()`]({% link _pages/Types/isPrimitive.md %}).
+[`isPrimitive()`]({{ site.baseurl }}{% link _pages/Types/isPrimitive.md %}).

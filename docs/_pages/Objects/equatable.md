@@ -56,4 +56,4 @@ the `Equatable` interface.
 This function does nothing if the object to be modified already contains an
 `equals()` method with one parameter, regardless of the return value.
 
-See [`Equatable`]({% link _pages/Types/Equatable.md %}).
+See [`Equatable`]({{ site.baseurl }}{% link _pages/Types/Equatable.md %}).

@@ -35,7 +35,7 @@ Numbers.configure({ defaultTolerance: 0.000001 });
 ## Remarks
 
 If this function is never called, the default tolerance used for
-[`Numbers.compare()`]({% link _pages/Numbers/compare.md %}) is `0.0000001`. This
+[`Numbers.compare()`]({{ site.baseurl }}{% link _pages/Numbers/compare.md %}) is `0.0000001`. This
 value is sufficiently large to cover most floating point inaccuracies that are
 likely to occur. If you find this value too high or too low for your
 application, it is recommended to call this function once near the entry point
@@ -44,7 +44,7 @@ points, you should use `Numbers.compare()`'s third argument instead, which
 allows you to specify a custom tolerance for that specific number comparison.
 
 *Important*: As expressed in
-[`Numbers.compare()`]({% link _pages/Numbers/compare.md %}#on-tolerances),
+[`Numbers.compare()`]({{ site.baseurl }}{% link _pages/Numbers/compare.md %}#on-tolerances),
 you *mustn't* assign
 [`Number.EPSILON`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/EPSILON)
 to the default tolerance. Choose a tolerance appropriate for your application.

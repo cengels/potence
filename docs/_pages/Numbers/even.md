@@ -31,4 +31,4 @@ Floating point numbers are never even. The same goes for
 [`Infinity`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/POSITIVE_INFINITY),
 and [`-Infinity`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/NEGATIVE_INFINITY).
 
-Compare [`Numbers.odd()`]({% link _pages/Numbers/odd.md %}).
+Compare [`Numbers.odd()`]({{ site.baseurl }}{% link _pages/Numbers/odd.md %}).

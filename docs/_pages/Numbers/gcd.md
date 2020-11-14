@@ -40,4 +40,4 @@ This function uses the
 [Euclidean algorithm](https://en.wikipedia.org/wiki/Euclidean_algorithm)
 to obtain its result.
 
-Compare [`Numbers.lcm()`]({% link _pages/Numbers/lcm.md %}).
+Compare [`Numbers.lcm()`]({{ site.baseurl }}{% link _pages/Numbers/lcm.md %}).

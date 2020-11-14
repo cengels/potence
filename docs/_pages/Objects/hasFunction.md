@@ -48,7 +48,7 @@ perform another type check.
 
 This function is particularly useful when defining custom type guards.
 
-Compare with [`Objects.hasProperty()`]({% link _pages/Objects/hasProperty.md %}),
+Compare with [`Objects.hasProperty()`]({{ site.baseurl }}{% link _pages/Objects/hasProperty.md %}),
 which can check for the presence of properties of other types.
 
 {% include complex-signature.md %}

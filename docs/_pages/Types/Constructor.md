@@ -34,7 +34,7 @@ if (checkType(value, Date)) {
 
 Note that constructors of this type cannot be instantiated (i.e. you cannot call
 `new ...` on them). If you'd like to type an instantiable constructor, see the
-related type [`Instantiable`]({% link _pages/Types/Instantiable.md %}), which
+related type [`Instantiable`]({{ site.baseurl }}{% link _pages/Types/Instantiable.md %}), which
 represents a subset of `Constructor` types that can be instantiated (i.e. that
 are not abstract).
 

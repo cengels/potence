@@ -41,4 +41,4 @@ const humanStructure: Structure = {
 
 ## Remarks
 
-See [`Objects.structure()`]({% link _pages/Objects/structure.md %}) for more examples.
+See [`Objects.structure()`]({{ site.baseurl }}{% link _pages/Objects/structure.md %}) for more examples.

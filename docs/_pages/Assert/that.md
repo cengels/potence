@@ -49,5 +49,5 @@ when using the variable afterwards.
 
 You should still prefer one of the other assertion functions if possible, as the
 other functions typically have superior assertion error messages. For instance,
-prefer [`Assert.notNull()`]({% link _pages/Assert/notNull.md %}) over
+prefer [`Assert.notNull()`]({{ site.baseurl }}{% link _pages/Assert/notNull.md %}) over
 `Assert.that(x != null)`.

@@ -47,4 +47,4 @@ and
 [TypedArrays](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray)
 ) implement `Iterable` and are assignable to it.
 
-This type also has [a type guard]({% link _pages/Types/isIterable.md %}).
+This type also has [a type guard]({{ site.baseurl }}{% link _pages/Types/isIterable.md %}).

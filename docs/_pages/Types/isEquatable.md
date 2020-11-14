@@ -36,4 +36,4 @@ if (isEquatable(object)) {
 
 ## Remarks
 
-See [`Equatable`]({% link _pages/Types/Equatable.md %}).
+See [`Equatable`]({{ site.baseurl }}{% link _pages/Types/Equatable.md %}).

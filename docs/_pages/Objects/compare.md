@@ -38,7 +38,7 @@ console.log(Objects.compare(obj1, obj2, 'deep'));     // -> true
 ## Remarks
 
 Note that this function is distinct from
-[`Objects.equal()`]({% link _pages/Objects/equal.md %})
+[`Objects.equal()`]({{ site.baseurl }}{% link _pages/Objects/equal.md %})
 in that `compare()` compares the contents of two
 objects, whereas `equal()` is meant to be used on values of any type and
 checks their structural equality (if it's a primitive), their referential

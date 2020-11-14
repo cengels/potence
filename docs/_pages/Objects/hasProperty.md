@@ -44,9 +44,9 @@ specify `type`, the property's type will be `unknown`.
 
 This function is particularly useful when defining custom type guards, though it
 is generally recommended to use
-[`Objects.structure()`]({% link _pages/Objects/structure.md %}) instead.
+[`Objects.structure()`]({{ site.baseurl }}{% link _pages/Objects/structure.md %}) instead.
 
-Compare with [`Objects.hasFunction()`]({% link _pages/Objects/hasFunction.md %}),
+Compare with [`Objects.hasFunction()`]({{ site.baseurl }}{% link _pages/Objects/hasFunction.md %}),
 which can check for the presence of functions with a certain number of
 arguments.
 

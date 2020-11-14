@@ -40,4 +40,4 @@ returns `undefined`. In TypeScript, you can use the non-null assertion operator
 (`!`) on the return value if you are absolutely certain the index is in-bounds.
 
 This function is analogous to
-[`Arrays.previous()`]({% link _pages/Arrays/previous.md %}).
+[`Arrays.previous()`]({{ site.baseurl }}{% link _pages/Arrays/previous.md %}).

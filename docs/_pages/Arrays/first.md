@@ -32,7 +32,7 @@ console.log(firstElement);   // -> 3
 
 This function is functionally equivalent to `array[0]` and is mainly provided
 for the sake of completeness in regards to
-[`Arrays.last()`]({% link _pages/Arrays/last.md %}).
+[`Arrays.last()`]({{ site.baseurl }}{% link _pages/Arrays/last.md %}).
 
 The only advantage it offers compared to `array[0]` is that, in TypeScript,
 `array[0]` is *not* type-safe in regards to `undefined` values. You can freely

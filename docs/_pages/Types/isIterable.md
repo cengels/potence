@@ -32,4 +32,4 @@ if (isIterable(variable)) {
 
 ## Remarks
 
-See [`Iterable`]({% link _pages/Types/Iterable.md %}).
+See [`Iterable`]({{ site.baseurl }}{% link _pages/Types/Iterable.md %}).

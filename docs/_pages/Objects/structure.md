@@ -102,6 +102,6 @@ The function can also be especially useful for use in a user-defined type guard,
 as seen in [Example 2](#example-2) above, even though you lose the advantages of
 `Objects.structure()`'s own type guard this way.
 
-See [`Structure`]({% link _pages/Types/Structure.md %}) for detailed information
+See [`Structure`]({{ site.baseurl }}{% link _pages/Types/Structure.md %}) for detailed information
 on the `Structure` type as well as a complete example showing all possible
 values.

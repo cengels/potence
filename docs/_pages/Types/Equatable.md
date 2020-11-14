@@ -38,7 +38,7 @@ class CodeEditor implements Equatable {
 
 The reason that Equatable does not have a generic is because it is impossible to
 check for generics in type constraints (i.e.
-[`isEquatable()`]({% link _pages/Types/isEquatable.md %})),
+[`isEquatable()`]({{ site.baseurl }}{% link _pages/Types/isEquatable.md %})),
 which would cause potential uncaught runtime
 exceptions when calling `equals()` with an unexpected object type.
 
@@ -47,16 +47,16 @@ In other words: you must always implement `equals()` with a parameter type of
 an unexpected object into the function.
 
 This interface is used in some functions belonging to the
-[`Objects`]({% link _pages/Objects/index.md %})
-and [`Arrays`]({% link _pages/Arrays/index.md %}) module
+[`Objects`]({{ site.baseurl }}{% link _pages/Objects/index.md %})
+and [`Arrays`]({{ site.baseurl }}{% link _pages/Arrays/index.md %}) module
 to compare two arbitrary objects with each other (if the interface is
 implemented). If you use functions like
-[`Objects.equal()`]({% link _pages/Objects/equal.md %})
-or [`Arrays.groupBy()`]({% link _pages/Arrays/groupBy.md
+[`Objects.equal()`]({{ site.baseurl }}{% link _pages/Objects/equal.md %})
+or [`Arrays.groupBy()`]({{ site.baseurl }}{% link _pages/Arrays/groupBy.md
 %}), you can manipulate the way those functions compare two objects by
 implementing this interface.
 
-You can use [`Objects.equatable()`]({% link _pages/Objects/equatable.md %}) to
+You can use [`Objects.equatable()`]({{ site.baseurl }}{% link _pages/Objects/equatable.md %}) to
 inject a generic `equals()` method into a given object that shallowly compares
 all of the object's keys.
 

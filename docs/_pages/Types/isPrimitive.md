@@ -35,4 +35,4 @@ There are 6 primitive data types: `string`, `number`, `bigint`, `boolean`,
 [MDN](https://developer.mozilla.org/en-US/docs/Glossary/Primitive) for more
 information.
 
-See [`primitive`]({% link _pages/Types/primitive.md %}).
+See [`primitive`]({{ site.baseurl }}{% link _pages/Types/primitive.md %}).

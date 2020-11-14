@@ -46,5 +46,5 @@ const range2 = Numbers.range(10, 2, 12, 0);  // -> Range from 0 to 12
 Due to conflicts with the
 [`Range`](https://github.com/microsoft/TypeScript/blob/b5b0437a86661c8d7bc76c5860c07305df17899c/lib/lib.dom.d.ts#L12437)
 from `lib.dom.d.ts`, you may wish to create a new range using this function
-instead of using [`Range`]({% link _pages/Numbers/Range.md %})'s constructor
+instead of using [`Range`]({{ site.baseurl }}{% link _pages/Numbers/Range.md %})'s constructor
 directly.

@@ -35,7 +35,7 @@ The second type `Args` allows consumers to specify the types of any parameters
 the constructor may have as a
 [tuple](https://www.typescriptlang.org/docs/handbook/basic-types.html#tuple).
 
-Also see the related type [`Constructor`]({% link _pages/Types/Constructor.md %}),
+Also see the related type [`Constructor`]({{ site.baseurl }}{% link _pages/Types/Constructor.md %}),
 which is the superset of this type, only that a `Constructor` may also refer to
 an abstract constructor (for instance an abstract class) that cannot be
 instantiated.

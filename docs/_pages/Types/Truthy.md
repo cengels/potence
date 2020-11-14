@@ -26,7 +26,7 @@ type E = Truthy<0 | ''>;            // -> never
 
 ## Remarks
 
-Unlike [`Falsy<T>`]({% link _pages/Types/Falsy.md %}), there is no clearly defined
+Unlike [`Falsy<T>`]({{ site.baseurl }}{% link _pages/Types/Falsy.md %}), there is no clearly defined
 set of "truthy" values. Truthy values are instead all those that are not one
 of the known falsy values. As a result, it isn't possible to exclude all falsy
 values from a non-literal type like `number`. `Truthy<number>` will simply

@@ -27,4 +27,4 @@ console.log(Arrays.notEmpty([1, 2, 3]));   // -> true
 ## Remarks
 
 This function is analogous to
-[`Arrays.empty()`]({% link _pages/Arrays/empty.md %}).
+[`Arrays.empty()`]({{ site.baseurl }}{% link _pages/Arrays/empty.md %}).

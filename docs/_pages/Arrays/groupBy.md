@@ -54,7 +54,7 @@ divide an array of numbers into two arrays: one that is below a certain
 threshold and one that is at or above by simply using a *greater or equals*
 (`>=`) sign.
 
-Note that this function uses [`Objects.equal()`]({% link _pages/Objects/equal.md
+Note that this function uses [`Objects.equal()`]({{ site.baseurl }}{% link _pages/Objects/equal.md
 %}) to compare the callback results with each other, so returning an object that
-implements [`Equatable`]({% link _pages/Types/Equatable.md %}) from the callback
+implements [`Equatable`]({{ site.baseurl }}{% link _pages/Types/Equatable.md %}) from the callback
 will compare the return values using `Equatable.equals()`.
