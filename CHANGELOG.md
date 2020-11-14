@@ -11,28 +11,42 @@ if you wish to upgrade.
 
 - **Removed**: `Assert.some()` as its usefulness was limited (you could just do
   `Assert.that(array.some(predicate))` instead)
-- **Changed**: all assertion functions (except `Assert.every()`) now return
-  `void` and are
-  [TypeScript assertion functions](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-7.html#assertion-functions)
-- **Changed**: all assertion functions except `Assert.that()` now no longer
+- **Changed**: all assertion functions (except
+  [`Assert.every()`](https://cengels.github.io/potence/Assert/every)) now return
+  `void` and are [TypeScript assertion
+  functions](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-7.html#assertion-functions)
+- **Changed**: all assertion functions except
+  [`Assert.that()`](https://cengels.github.io/potence/Assert/that) now no longer
   accept a second argument to change the failure message; instead this argument
   now specifies the name of the variable or property of the value that is being
   checked
-- **Changed**: `Assert.every()` no longer accepts a predicate as its second
-  argument; instead it is now a callback function returning void that should
-  throw an assertion error if the element does not pass the assertion
-- **Added**: new configuration property `stringifyOptions` (see `Objects.stringify()`)
+- **Changed**:
+  [`Assert.every()`](https://cengels.github.io/potence/Assert/every) no longer
+  accepts a predicate as its second argument; instead it is now a callback
+  function returning void that should throw an assertion error if the element
+  does not pass the assertion
+- **Added**: new configuration property `stringifyOptions` (see
+  [`Objects.stringify()`](https://cengels.github.io/potence/Objects/stringify))
 
 ### Arrays
 
-- **Added**: new function `Arrays.distinct()`
-- **Added**: new function `Arrays.hasDuplicates()`
-- **Fixed**: `Arrays.removeAt()` previously didn't check if the index was
-  in-bounds; now it throws an error if the index is out of bounds
-- **Fixed**: `Arrays.replace()` using wrong function name in its error text
-- **Fixed**: `Arrays.zip()` and `Arrays.groupBy()` not allowing readonly arrays
-  to be passed
-- **Fixed**: improved `Arrays.clearNull()` performance
+- **Added**: new function
+  [`Arrays.distinct()`](https://cengels.github.io/potence/Arrays/distinct)
+- **Added**: new function
+  [`Arrays.hasDuplicates()`](https://cengels.github.io/potence/Arrays/hasDuplicates)
+- **Fixed**:
+  [`Arrays.removeAt()`](https://cengels.github.io/potence/Arrays/removeAt)
+  previously didn't check if the index was in-bounds; now it throws an error if
+  the index is out of bounds
+- **Fixed**:
+  [`Arrays.replace()`](https://cengels.github.io/potence/Arrays/replace) using
+  wrong function name in its error text
+- **Fixed**: [`Arrays.zip()`](https://cengels.github.io/potence/Arrays/zip) and
+  [`Arrays.groupBy()`](https://cengels.github.io/potence/Arrays/groupBy) not
+  allowing readonly arrays to be passed
+- **Fixed**: improved
+  [`Arrays.clearNull()`](https://cengels.github.io/potence/Arrays/clearNull)
+  performance
 
 ### Numbers
 
@@ -40,78 +54,123 @@ if you wish to upgrade.
   `Arrays.closeTo()`, `Arrays.average()`, and `Arrays.avg()` (see
   [edff19f2](https://github.com/cengels/potence/commit/edff19f281b44cebb60dd7302462e0cb3b2ebbec)
   for the reasoning behind this change)
-- **Removed**: `Numbers.center()` in favor of `Range.center()`
+- **Removed**: `Numbers.center()` in favor of
+  [`Range.center()`](https://cengels.github.io/potence/Numbers/Range)
 - **Removed**: `Numbers.integral()` in favor of
   [`Number.isInteger()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/isInteger)
-- **Renamed**: `Numbers.float()` to `Numbers.isFloat()` to better communicate its
-  intent
-- **Renamed**: `Numbers.safeFloat()` to `Numbers.isSafeFloat()` to better
-  communicate its intent
-- **Renamed**: `Numbers.unsafeFloat()` to `Numbers.isUnsafeFloat()` to better
-  communicate its intent
-- **Fixed**: `Numbers.isFloat()` did not handle `NaN`, `Infinity` and `-Infinity` correctly
+- **Renamed**: `Numbers.float()` to
+  [`Numbers.isFloat()`](https://cengels.github.io/potence/Numbers/isFloat) to
+  better communicate its intent
+- **Renamed**: `Numbers.safeFloat()` to
+  [`Numbers.isSafeFloat()`](https://cengels.github.io/potence/Numbers/isSafeFloat)
+  to better communicate its intent
+- **Renamed**: `Numbers.unsafeFloat()` to
+  [`Numbers.isUnsafeFloat()`](https://cengels.github.io/potence/Numbers/isUnsafeFloat)
+  to better communicate its intent
+- **Fixed**:
+  [`Numbers.isFloat()`](https://cengels.github.io/potence/Numbers/isFloat) did
+  not handle `NaN`, `Infinity` and `-Infinity` correctly
 
 ### Objects
 
-- **Renamed**: `Objects.equals()` to `Objects.equal()` as it sounds better
-  grammatically
+- **Renamed**: `Objects.equals()` to
+  [`Objects.equal()`](https://cengels.github.io/potence/Objects/equal) as it
+  sounds better grammatically
 - **Changed**: hid some previously exposed internal types like
   `MappedStructure<T>`
-- **Changed**: `Objects.structure()` is now by default a non-exhaustive check
-  (meaning the object may have more properties than the structure declares)
-- **Changed**: `Objects.equal()` now performs a simple equality check if object
-  does not implement `Equatable` (previously performed a shallow comparison)
-- **Changed**: `Objects.hasProperty()` and `Objects.hasFunction()` are now type
-  guards
-- **Changed**: `Objects.hasProperty()` and `Objects.hasFunction()` can now be
-  called on primitive types too (previously always returned `false`)
-- **Added**: new function `Objects.stringify()`
-- **Added**: second parameter to `Objects.structure()` that may be passed to
-  make the check exhaustive
+- **Changed**:
+  [`Objects.structure()`](https://cengels.github.io/potence/Objects/structure)
+  is now by default a non-exhaustive check (meaning the object may have more
+  properties than the structure declares)
+- **Changed**:
+  [`Objects.equal()`](https://cengels.github.io/potence/Objects/equal) now
+  performs a simple equality check if object does not implement `Equatable`
+  (previously performed a shallow comparison)
+- **Changed**:
+  [`Objects.hasProperty()`](https://cengels.github.io/potence/Objects/hasProperty)
+  and
+  [`Objects.hasFunction()`](https://cengels.github.io/potence/Objects/hasFunction)
+  are now type guards
+- **Changed**:
+  [`Objects.hasProperty()`](https://cengels.github.io/potence/Objects/hasProperty)
+  and
+  [`Objects.hasFunction()`](https://cengels.github.io/potence/Objects/hasFunction)
+  can now be called on primitive types too (previously always returned `false`)
+- **Added**: new function
+  [`Objects.stringify()`](https://cengels.github.io/potence/Objects/stringify)
+- **Added**: second parameter to
+  [`Objects.structure()`](https://cengels.github.io/potence/Objects/structure)
+  that may be passed to make the check exhaustive
 
 ### Strings
 
-- **Added**: new function `Strings.capitalize()`
-- **Added**: new function `Strings.uncapitalize()`
+- **Added**: new function
+  [`Strings.capitalize()`](https://cengels.github.io/potence/Strings/capitalize)
+- **Added**: new function
+  [`Strings.uncapitalize()`](https://cengels.github.io/potence/Strings/uncapitalize)
 
 ### Types
 
-- **Added**: new type alias `Truthy<T>`
-- **Added**: new type alias `Falsy<T>`
-- **Added**: new interface `Iterable` and corresponding type guard
-  `isIterable()`
-- **Fixed**: `Instantiable`: leaving the second type parameter as its default
-  now allows you specify any number of constructor arguments of any type
-  (previously allowed no arguments)
+- **Added**: new type alias
+  [`Truthy<T>`](https://cengels.github.io/potence/Types/Truthy)
+- **Added**: new type alias
+  [`Falsy<T>`](https://cengels.github.io/potence/Types/Falsy)
+- **Added**: new interface
+  [`Iterable`](https://cengels.github.io/potence/Types/Iterable) and
+  corresponding type guard
+  [`isIterable()`](https://cengels.github.io/potence/Types/isIterable)
+- **Fixed**:
+  [`Instantiable`](https://cengels.github.io/potence/Types/Instantiable):
+  leaving the second type parameter as its default now allows you specify any
+  number of constructor arguments of any type (previously allowed no arguments)
 
 ### Other
 
 - **Added**: online documentation for all modules, functions, and types
 - **Changed**: updated JsDocs across the board
-- **Fixed**: `Range` is now properly re-exported from the main module entry
+- **Fixed**: [`Range`](https://cengels.github.io/potence/Numbers/Range) is now
+  properly re-exported from the main module entry
 - **Changed**: Added `ReadonlyRange` as export from main module entry
 
 ## [0.3.0](https://github.com/cengels/potence/compare/0.2.0...0.3.0) - 2020-11-05
 
 ### Assert
 
-- **Changed**: the assertion functions `truthy()`, `falsy()`, `notNull()`, `every()`, and `some()`
-  now return the value that was passed in to allow for more fluent usage syntax
+- **Changed**: the assertion functions
+  [`truthy()`](https://cengels.github.io/potence/Assert/truthy),
+  [`falsy()`](https://cengels.github.io/potence/Assert/falsy),
+  [`notNull()`](https://cengels.github.io/potence/Assert/notNull),
+  [`every()`](https://cengels.github.io/potence/Assert/every), and `some()` now
+  return the value that was passed in to allow for more fluent usage syntax
 
 ### Numbers
 
-- **Added**: new function `Range.wrap(value)`
+- **Added**: new function
+  [`Range.wrap(value)`](https://cengels.github.io/potence/Numbers/Range)
 
 ### Objects
 
-- **Changed**: the `Objects` functions `structure()`, `swap()`, and `equatable()` now only expect an `object` as their
-  first argument (previously expected an object with an index signature)
-- **Changed**: `Objects.structure()` now accepts any object (previously threw an error if the object was not an object literal)
-- **Changed**: `Objects.equatable()` now throws an error if target object contains a non-function "equals" property
+- **Changed**: the [`Objects`](https://cengels.github.io/potence/Objects/index)
+  functions
+  [`structure()`](https://cengels.github.io/potence/Objects/structure),
+  [`swap()`](https://cengels.github.io/potence/Objects/swap), and
+  [`equatable()`](https://cengels.github.io/potence/Objects/equatable) now only
+  expect an `object` as their first argument (previously expected an object with
+  an index signature)
+- **Changed**:
+  [`Objects.structure()`](https://cengels.github.io/potence/Objects/structure)
+  now accepts any object (previously threw an error if the object was not an
+  object literal)
+- **Changed**:
+  [`Objects.equatable()`](https://cengels.github.io/potence/Objects/equatable)
+  now throws an error if target object contains a non-function "equals" property
 
 ### Types
 
-- **Changed**: the helper type `ObjectLiteral<T>` now stands for `Record<string | number | symbol, T>` (from `Record<string, T>`)
+- **Changed**: the helper type
+  [`ObjectLiteral<T>`](https://cengels.github.io/potence/Types/ObjectLiteral)
+  now stands for `Record<string | number | symbol, T>` (from `Record<string,
+  T>`)
 
 ### Other
 
@@ -121,33 +180,33 @@ if you wish to upgrade.
 
 ### Arrays
 
-- **Added**: new function `Arrays.removeAt(array, index)`
-- **Added**: new overload `Arrays.sort(array, ...sortFunctions)`
-- **Added**: new function `Arrays.moveAll(array, by)`
-- **Added**: new function `Arrays.zip(array, ...otherArrays)`
-- **Added**: new function `Arrays.groupBy(array, (item) => property)`
+- **Added**: new function [`Arrays.removeAt(array, index)`](https://cengels.github.io/potence/Arrays/removeAt)
+- **Added**: new overload [`Arrays.sort(array, ...sortFunctions)`](https://cengels.github.io/potence/Arrays/sort)
+- **Added**: new function [`Arrays.moveAll(array, by)`](https://cengels.github.io/potence/Arrays/moveAll)
+- **Added**: new function [`Arrays.zip(array, ...otherArrays)`](https://cengels.github.io/potence/Arrays/zip)
+- **Added**: new function [`Arrays.groupBy(array, (item) => property)`](https://cengels.github.io/potence/Arrays/groupBy)
 
 ### Objects
 
-- **Added**: new function `Objects.swap(object, from, to)`
-- **Added**: new function `Objects.equals(object, ...otherObjects)`
-- **Added**: new function `Objects.equatable(object)`
-- **Added**: new function `Objects.hasProperty(object, propertyName, propertyType)`
-- **Added**: new function `Objects.hasFunction(object, functionName, argumentCount)`
+- **Added**: new function [`Objects.swap(object, from, to)`](https://cengels.github.io/potence/Objects/swap)
+- **Added**: new function [`Objects.equals(object, ...otherObjects)`](https://cengels.github.io/potence/Objects/equal)
+- **Added**: new function [`Objects.equatable(object)`](https://cengels.github.io/potence/Objects/equatable)
+- **Added**: new function [`Objects.hasProperty(object, propertyName, propertyType)`](https://cengels.github.io/potence/Objects/hasProperty)
+- **Added**: new function [`Objects.hasFunction(object, functionName, argumentCount)`](https://cengels.github.io/potence/Objects/hasFunction)
 
 ### Strings
 
-- **Added**: new function `Strings.camelCase(string)`
-- **Added**: new function `Strings.prefix(string, prefix)`
-- **Added**: new function `Strings.suffix(string, suffix)`
-- **Added**: new function `Strings.isUrl(string)`
+- **Added**: new function [`Strings.camelCase(string)`](https://cengels.github.io/potence/Strings/camelCase)
+- **Added**: new function [`Strings.prefix(string, prefix)`](https://cengels.github.io/potence/Strings/prefix)
+- **Added**: new function [`Strings.suffix(string, suffix)`](https://cengels.github.io/potence/Strings/suffix)
+- **Added**: new function [`Strings.isUrl(string)`](https://cengels.github.io/potence/Strings/isUrl)
 
 ### Types
 
-- **Added**: new type `ArrayType<T>`
-- **Added**: new type `Equatable`
-- **Added**: new function `isPrimitive(target)`
-- **Added**: new function `isEquatable(target)`
+- **Added**: new type [`ArrayType<T>`](https://cengels.github.io/potence/Types/ArrayType)
+- **Added**: new type [`Equatable`](https://cengels.github.io/potence/Types/Equatable)
+- **Added**: new function [`isPrimitive(target)`](https://cengels.github.io/potence/Types/isPrimitive)
+- **Added**: new function [`isEquatable(target)`](https://cengels.github.io/potence/Types/isEquatable)
 
 ## [0.1.1](https://github.com/cengels/potence/compare/0.1.0...0.1.1) - 2020-09-13
 
