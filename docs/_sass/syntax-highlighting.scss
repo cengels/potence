@@ -15,6 +15,10 @@ code {
     transition: color 0.5s ease, background-color 0.5s ease;
 }
 
+div.highlight, figure.highlight {
+    overflow-x: auto;
+}
+
 div.highlight {
     padding: 1px 1em;
     border-radius: 10px;
