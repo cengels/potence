@@ -23,7 +23,7 @@
         <button class="night-switch" onclick="{
             const body = document.getElementsByTagName('body')[0];
             const theme = body.classList.contains('dark') ? 'light' : 'dark';
-            sessionStorage.setItem('theme', theme);
+            localStorage.setItem('theme', theme);
             body.classList.remove('dark', 'light');
             body.classList.add(theme);
         }">
