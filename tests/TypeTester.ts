@@ -65,13 +65,19 @@ function errorChecker<T extends Statement>(create: () => T[]): ErrorChecker {
     }
 }
 
+const project = new Project({ tsConfigFilePath: 'tsconfig.json' });
+
 export default class TypeTester {
-    private readonly project: Project;
     private readonly testFile: SourceFile;
 
     public constructor() {
-        this.project = new Project({ tsConfigFilePath: 'tsconfig.json' });
-        this.testFile = this.project.createSourceFile('__TEST_FILE.ts');
+        let fileName = '__TEST_FILE.ts';
+
+        for (let i: number = 1; project.getSourceFile(fileName) != null; i++) {
+            fileName = `__TEST_FILE_${i}.ts`;
+        }
+
+        this.testFile = project.createSourceFile(fileName, undefined);
     }
 
     /**
