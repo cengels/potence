@@ -147,16 +147,21 @@ export function notNull<T>(value: T, name?: string): asserts value is NonNullabl
  * and propagates the assertion error with an expressive failure message
  * that shows which element failed the assertion.
  *
- * Note that the callback has no effect if you return a boolean. You must use
- * one of the individual assertion functions inside the callback.
+ * Note that, while returning a simple boolean (instead of using an assertion
+ * function inside the callback) is not encouraged, it does generate an
+ * appropriate assertion error.
  *
  * @param name If you're checking a named value (like a variable or property),
  *   you can enter its name here for a more expressive error message.
  */
-export function every<T>(array: readonly T[], callback: (value: T, index: number) => void, name?: string): void {
+export function every<T>(array: readonly T[], callback: (value: T, index: number) => void | boolean, name?: string): void {
     array.forEach((value, index) => {
         try {
-            callback(value, index);
+            const returnValue = callback(value, index);
+
+            if (typeof returnValue === 'boolean') {
+                that(returnValue, `Callback returned false for ${Objects.stringify(value, stringifyOptions)}`);
+            }
         } catch (e) {
             if (e instanceof AssertionError) {
                 e.message = `${name ?? 'Array'} failed assertion. Element at index ${index} reported: "${e.message}"`;

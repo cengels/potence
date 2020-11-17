@@ -4,7 +4,7 @@ title:       Assert.every()
 module:      Assert
 order:       99
 added:       0.0.1
-updated:     0.4.0
+updated:     0.5.0
 description: Asserts that every element of an array passes an arbitrary
              assertion.
 parameters:
@@ -14,8 +14,9 @@ parameters:
     throw an assertion error (via one of the other assertion functions)
     if the element does not pass the assertion.
 
-    Note that this function has no effect if you return a `boolean`. You must
-    use one of the other assertion functions inside the callback.
+    Alternatively it is possible to return a `boolean` from the callback,
+    but this will generate an unexpressive default error message if the
+    assertion fails and is therefore not encouraged.
   name:
     description: A variable, property, or parameter name which, if specified,
                  will print the name as part of the assertion error to make it
