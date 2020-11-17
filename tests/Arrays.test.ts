@@ -198,6 +198,20 @@ describe('Arrays.groupBy() should', () => {
     });
 });
 
+describe('Arrays.correlate() should', () => {
+    it('correlate elements from two arrays', () => {
+        const results: number[] = [];
+        Arrays.correlate([1, 2], [5, 2], (a, b) => results.push(a * b));
+        expect(results).toEqual([5, 4]);
+    });
+    it('correlate elements from many arrays', () => {
+        const results: string[] = [];
+        Arrays.correlate([1, 2], ['9', '8'], [-5, -2], ['ha', 'fa'], (a, b, c, d) => results.push(a + b + c + d));
+        expect(results).toEqual(['19-5ha', '28-2fa']);
+    });
+    it('throw if arrays are of different length', () => expect(() => Arrays.correlate([0], [1, 2], () => null)).toThrowError('All arguments except the last one must be arrays of the same length.'));
+});
+
 describe('Arrays.distinct() should', () => {
     it('return empty array if empty array is passed', () => expect(Arrays.distinct([])).toEqual([]));
     it('return same elements if all elements are unique', () => expect(Arrays.distinct([1, 2, 3])).toEqual([1, 2, 3]));
