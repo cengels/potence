@@ -28,7 +28,7 @@
 
 import { Objects, Strings } from '../index.js';
 import { StringifyOptions } from '../objects/index.js';
-import { Falsy, Truthy } from '../types.js';
+import { BaseToType, BaseType, Constructor, Falsy, Truthy } from '../types.js';
 
 export class AssertionError extends Error {
     public constructor(message?: string) {
@@ -87,8 +87,8 @@ function assertionError(failureMessage?: string, ignoreCapitalization: boolean =
 function throwIf(condition: boolean, value: unknown, what: string, name?: string): void {
     if (condition) {
         throw assertionError(name == null
-            ? `Expected ${what} value but got ${Objects.stringify(value, stringifyOptions)}`
-            : `Expected ${name} to be ${what} but was ${Objects.stringify(value, stringifyOptions)}`);
+            ? `Expected ${what} but got ${Objects.stringify(value, stringifyOptions)}`
+            : `Expected ${name} to be ${what.replace(' value', '').replace('value ', '')} but was ${Objects.stringify(value, stringifyOptions)}`);
     }
 }
 
@@ -115,7 +115,7 @@ export function that(condition: boolean, failureMessage?: string): asserts condi
  *   you can enter its name here for a more expressive error message.
  */
 export function truthy<T>(value: T, name?: string): asserts value is Truthy<T> {
-    throwIf(!value, value, 'truthy', name);
+    throwIf(!value, value, 'truthy value', name);
 }
 
 /**
@@ -127,7 +127,7 @@ export function truthy<T>(value: T, name?: string): asserts value is Truthy<T> {
  */
 // @ts-expect-error See https://github.com/microsoft/TypeScript/issues/39036
 export function falsy<T>(value: T, name?: string): asserts value is Falsy<T> {
-    throwIf(Boolean(value), value, 'falsy', name);
+    throwIf(Boolean(value), value, 'falsy value', name);
 }
 
 /**
@@ -138,7 +138,7 @@ export function falsy<T>(value: T, name?: string): asserts value is Falsy<T> {
  *   you can enter its name here for a more expressive error message.
  */
 export function notNull<T>(value: T, name?: string): asserts value is NonNullable<T> {
-    throwIf(value == null, value, 'non-null', name);
+    throwIf(value == null, value, 'non-null value', name);
 }
 
 /**
