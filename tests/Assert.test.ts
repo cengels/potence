@@ -68,6 +68,30 @@ describe('Assert.notNull() should', () => {
     it('not throw otherwise', () => expect(() => Assert.notNull(0)).not.toThrowError());
 });
 
+describe('Assert.type() should', () => {
+    describe('throw if value has wrong type', () => {
+        it('number:string', () => expect(() => Assert.type(0, 'string')).toThrowError(Assert.AssertionError));
+        it('string:number', () => expect(() => Assert.type('string', 'number')).toThrowError(Assert.AssertionError));
+        it('string:symbol', () => expect(() => Assert.type('string', 'symbol')).toThrowError(Assert.AssertionError));
+    });
+    describe('not throw otherwise', () => {
+        it('number', () => expect(() => Assert.type(0, 'number')).not.toThrowError(Assert.AssertionError));
+        it('string', () => expect(() => Assert.type('', 'string')).not.toThrowError(Assert.AssertionError));
+        it('symbol', () => expect(() => Assert.type(Symbol(), 'symbol')).not.toThrowError(Assert.AssertionError));
+    });
+});
+
+describe('Assert.instanceOf() should', () => {
+    describe('throw if value has wrong type', () => {
+        it('number:Date', () => expect(() => Assert.instanceOf(0, Date)).toThrowError(Assert.AssertionError));
+        it('Symbol:Date', () => expect(() => Assert.instanceOf(Symbol(), Date)).toThrowError(Assert.AssertionError));
+    });
+    describe('not throw otherwise', () => {
+        it('Date', () => expect(() => Assert.instanceOf(new Date(), Date)).not.toThrowError(Assert.AssertionError));
+        it('inherited', () => expect(() => Assert.instanceOf(new Date(), Object)).not.toThrowError(Assert.AssertionError));
+    });
+});
+
 describe('Assert.every() should', () => {
     it('throw if not all values match the predicate', () => expect(() => Assert.every([0, null, 1], value => Assert.notNull(value), 'testArray')).toThrowError('testArray failed assertion. Element at index 1 reported: "Assertion failed: expected non-null value but got null"'));
     it('throw if callback returns false', () => expect(() => Assert.every([0, null, 1], value => value != null, 'testArray')).toThrowError('testArray failed assertion. Element at index 1 reported: "Assertion failed: Callback returned false for null"'));

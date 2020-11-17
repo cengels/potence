@@ -142,6 +142,26 @@ export function notNull<T>(value: T, name?: string): asserts value is NonNullabl
 }
 
 /**
+ * Throws an assertion error if the type of the value is not the specified type.
+ *
+ * @param name If you're checking a named value (like a variable or property),
+ *   you can enter its name here for a more expressive error message.
+ */
+export function type<T extends BaseType>(value: unknown, type: T, name?: string): asserts value is BaseToType<T> {
+    throwIf(typeof value !== type, value, `value of type ${type}`, name);
+}
+
+/**
+ * Throws an assertion error if the type of the value is not the specified type.
+ *
+ * @param name If you're checking a named value (like a variable or property),
+ *   you can enter its name here for a more expressive error message.
+ */
+export function instanceOf<T>(value: unknown, constructor: Constructor<T>, name?: string): asserts value is T {
+    throwIf(!(value instanceof constructor), value, `instance of ${constructor.name}`, name);
+}
+
+/**
  * Iterates across the given array and calls the specified callback on each
  * array item. If any of the callbacks throw an assertion error, stops iterating
  * and propagates the assertion error with an expressive failure message
