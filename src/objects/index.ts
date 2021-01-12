@@ -294,3 +294,15 @@ export function omit<T extends object, TOmit extends Extract<keyof T, string>>(o
 export function pick<T extends object, TPick extends Extract<keyof T, string>>(object: T, ...which: TPick[]): Pick<T, TPick> {
     return filter(object, key => which.includes(key as TPick)) as Pick<T, TPick>;
 }
+
+/** 
+ * Checks if the passed object is of the specified type.
+ * 
+ * Depending on the type of the second argument, this function
+ * will either call `typeof` or `instanceof`.
+ */
+export function is<T>(object: unknown, type: Constructor<T>): object is T;
+export function is<TTypeOf extends BaseType>(object: unknown, type: TTypeOf): object is TTypeOf;
+export function is(object: unknown, type: BaseType | Constructor): boolean {
+    return typeof type === 'string' ? typeof object === type : object instanceof type;
+}
