@@ -8,9 +8,9 @@
  * the difference in performance makes up barely 30 ms.
  */
 
-import * as Assert from '../assert';
-import * as Arrays from '../arrays';
-import * as Objects from '../objects';
+import * as Assert from '../assert/index.js';
+import * as Arrays from '../arrays/index.js';
+import * as Objects from '../objects/index.js';
 import { BaseType, Constructor } from '../types.js';
 
 /** Returns a copy of the specified array. */
