@@ -259,3 +259,38 @@ export function hasFunction<T extends string | number | symbol>(source: unknown,
             // eslint-disable-next-line @typescript-eslint/ban-types
             || ((source as ObjectLiteral)[functionName] as Function).length === argumentCount);
 }
+
+type ObjectPredicate<T> = (key: Extract<keyof T, string>, value: T[typeof key]) => boolean;
+
+/** 
+ * Creates a new object literal with only the properties that match the given predicate.
+ */
+export function filter<T extends object>(object: T, predicate: ObjectPredicate<T>): ObjectLiteral<unknown> {
+    const target: ObjectLiteral<unknown> = {};
+
+    for (const key in object) {
+        const value = object[key];
+
+        if (predicate(key, value)) {
+            target[key] = value;
+        }
+    }
+
+    return target;
+}
+
+/** 
+ * Creates a new object literal with the given keys removed.
+ * This is analogous to TypeScript's `Omit<T>` type.
+ */
+export function omit<T extends object, TOmit extends Extract<keyof T, string>>(object: T, ...which: TOmit[]): Omit<T, TOmit> {
+    return filter(object, key => !which.includes(key as TOmit)) as Omit<T, TOmit>;
+}
+
+/** 
+ * Creates a new object literal with only the given keys from the source object.
+ * This is analogous to TypeScript's `Pick<T>` type.
+ */
+export function pick<T extends object, TPick extends Extract<keyof T, string>>(object: T, ...which: TPick[]): Pick<T, TPick> {
+    return filter(object, key => which.includes(key as TPick)) as Pick<T, TPick>;
+}
