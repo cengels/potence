@@ -243,3 +243,45 @@ export function mean(...values: number[]): number {
 
     return sum(...values) / values.length;
 }
+
+const romanNumerals: ReadonlyArray<[number, string]> = [
+    [1000, 'M'],
+    [900, 'CM'],
+    [500, 'D'],
+    [400, 'CD'],
+    [100, 'C'],
+    [90, 'XC'],
+    [50, 'L'],
+    [40, 'XL'],
+    [10, 'X'],
+    [9, 'IX'],
+    [5, 'V'],
+    [4, 'IV'],
+    [1, 'I']
+];
+
+/** 
+ * Converts a positive non-zero integer to a roman numeral.
+ * 
+ * This function ignores all decimal places, in case the number is not an integer.
+ * If the number equals 0 or is less than 0, the function throws an error.
+ */
+export function roman(value: number): string {
+    if (value <= 0) {
+        throw new Error(`Called Numbers.roman(${value}), but roman numerals can only be used to represent numbers above 0.`);
+    }
+
+    let integer = Math.trunc(value);
+    let result = '';
+
+    for (const romanNumeral of romanNumerals) {
+        const correspondingNumber = romanNumeral[0];
+
+        while (integer >= correspondingNumber) {
+            integer -= correspondingNumber;
+            result += romanNumeral[1];
+        }
+    }
+
+    return result;
+}

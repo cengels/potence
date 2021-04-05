@@ -155,3 +155,33 @@ describe('Numbers.mean() should return', () => {
         [[623, 365452, 412, -5321], 90291.5]
     ]).it('with integers %p: %d', (values, expected) => expect(Numbers.mean(...values)).toBeCloseTo(expected));
 });
+
+describe('Numbers.roman() should', () => {
+    it('throw an error if argument is 0', () => expect(() => Numbers.roman(0)).toThrowError());
+    it('throw an error if argument is below 0', () => expect(() => Numbers.roman(-5)).toThrowError());
+    each([
+        [1000, 'M'],
+        [500, 'D'],
+        [100, 'C'],
+        [50, 'L'],
+        [10, 'X'],
+        [5, 'V'],
+        [1, 'I']
+    ]).it('return the corresponding base numeral to %p: %s', (value, expected) => expect(Numbers.roman(value)).toBe(expected));
+    each([
+        [2, 'II'],
+        [4, 'IV'],
+        [6, 'VI'],
+        [8, 'VIII'],
+        [9, 'IX'],
+        [39, 'XXXIX'],
+        [246 , 'CCXLVI'],
+        [789, 'DCCLXXXIX'],
+        [1009, 'MIX'],
+        [1066, 'MLXVI'],
+        [1555, 'MDLV'],
+        [1912, 'MCMXII'],
+        [2421, 'MMCDXXI'],
+        [3999, 'MMMCMXCIX']
+    ]).it('return the corresponding incremental numeral to %p: %s', (value, expected) => expect(Numbers.roman(value)).toBe(expected));
+});
