@@ -13,7 +13,7 @@ import * as Arrays from '../arrays/index.js';
 import * as Objects from '../objects/index.js';
 import { BaseType, Constructor } from '../types.js';
 
-/** Returns a copy of the specified array. */
+/** Returns a copy of the specified array. Note that only the array is copied, not the elements within. */
 export function clone<T>(array: readonly T[]): T[] {
     return array.slice();
 }
