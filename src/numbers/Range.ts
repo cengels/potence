@@ -119,7 +119,7 @@ export default class Range implements ReadonlyRange {
 
     public intersect(range: ReadonlyRange): number {
         if (!this.overlaps(range)) {
-            throw new Error('Range.intersect() found no intersection. Call Range.overlap() first to prevent this error.');
+            return Number.NaN;
         }
 
         const center = this.center();

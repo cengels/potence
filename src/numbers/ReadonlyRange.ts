@@ -57,7 +57,7 @@ export default interface ReadonlyRange {
     /**
      * Finds the intersection point closest to this range's center with the given range.
      * If this range completely envelops the target range, returns this range's center.
-     * If there is no intersection, throws an error. To avoid this, check if there is an intersection using `overlap()` first.
+     * If there is no intersection, returns NaN.
      */
     intersect(range: ReadonlyRange): number;
     /** Gets the value located at the specified value. For the returned value to be inside this range, the argument should be between 0.0 and 1.0. */

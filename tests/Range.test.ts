@@ -93,7 +93,7 @@ describe('Range.intersect() should return', () => {
     it('center if completely inside and enclosing center', () => expect(new Range(-55, 22).intersect(new Range(-33, 20))).toBe(-16.5));
     it('upper bounds if range exceeds lower bounds', () => expect(new Range(-55, 22).intersect(new Range(-58, -50))).toBe(-50));
     it('lower bounds if range exceeds upper bounds', () => expect(new Range(-55, 22).intersect(new Range(20, 25))).toBe(20));
-    it('error if ranges do not overlap', () => expect(() => new Range(-55, 22).intersect(new Range(-80, -60))).toThrowError());
+    it('NaN if ranges do not overlap', () => expect(new Range(-55, 22).intersect(new Range(-80, -60))).toBeNaN());
 });
 
 describe('Range.at() should return', () => {
