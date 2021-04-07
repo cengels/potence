@@ -233,3 +233,18 @@ describe('Arrays.hasDuplicates() should', () => {
         return expect(Arrays.hasDuplicates([ref, ref, {}])).toEqual(true);
     });
 });
+
+describe('Arrays.range() should', () => {
+    it('properly handle a sequential range', () => expect(Arrays.range(0, 5)).toEqual([0, 1, 2, 3, 4, 5]));
+    it('properly handle an inverted range', () => expect(Arrays.range(5, 0)).toEqual([5, 4, 3, 2, 1, 0]));
+    it('properly handle an offset range', () => expect(Arrays.range(3, 6)).toEqual([3, 4, 5, 6]));
+    it('properly handle a one-element range', () => expect(Arrays.range(21, 21)).toEqual([21]));
+    it('properly handle a negative range', () => expect(Arrays.range(-8, -3)).toEqual([-8, -7, -6, -5, -4, -3]));
+    it('properly handle an inverted negative range', () => expect(Arrays.range(-3, -8)).toEqual([-3, -4, -5, -6, -7, -8]));
+    it('properly handle floating point numbers', () => expect(Arrays.range(4.4, 7.2)).toEqual([4.4, 5.4, 6.4]));
+    it('properly handle integral step sizes', () => expect(Arrays.range(0, 6, 3)).toEqual([0, 3, 6]));
+    it('properly handle negative integral step sizes', () => expect(Arrays.range(0, 6, -3)).toEqual([0, 3, 6]));
+    it('properly handle a step size of zero', () => expect(() => Arrays.range(0, 6, 0)).toThrowError());
+    it('properly handle floating point step sizes', () => expect(Arrays.range(0, 2, 0.5)).toEqual([0, 0.5, 1, 1.5, 2]));
+    it('properly handle uneven floating point step sizes', () => Arrays.range(0, 2, 0.3).forEach((value, i) => expect(value).toBeCloseTo([0, 0.3, 0.6, 0.9, 1.2, 1.5, 1.8][i])));
+});

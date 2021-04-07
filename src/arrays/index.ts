@@ -423,3 +423,32 @@ export function distinct<T>(array: readonly T[]): T[] {
 export function hasDuplicates(array: readonly unknown[]): boolean {
     return new Set(array).size !== array.length;
 }
+
+/** 
+ * Generates an array of numbers between the specified boundaries.
+ * Note that both boundaries are inclusive, meaning they will be included
+ * in the range as well.
+ * 
+ * Note that if the step size or the boundaries are floating point numbers,
+ * the array will be filled until the next number would be greater than `to`,
+ * regardless of whether or not `to` itself is included in the array.
+ * 
+ * @param step The step between each number in the generated range. `1` by default.
+ */
+export function range(from: number, to: number, step: number = 1): number[] {
+    if (step === 0) {
+        throw new Error(`Arrays.range(): step must not be 0.`);
+    }
+
+    const inverted = to < from;
+    const normalizedStep = Math.abs(step);
+    let length = Math.abs(to - from) / normalizedStep;
+    length = Math.trunc(length) === length ? length + 1 : Math.ceil(length);
+    const array: number[] = new Array(length);
+
+    for (let i: number = 0; i < length; i++) {
+        array[i] = from + (inverted ? -i : i) * normalizedStep;
+    }
+
+    return array;
+}
