@@ -99,6 +99,12 @@ export type Falsy<T = unknown> =
     : T extends object | primitive ? never
     : false | 0 | 0n | '' | null | undefined;
 
+/** Represents a predicate with one argument of type `T`. */
+export type Predicate<T> = (value: T) => boolean;
+
+/** Represents a callback with one argument of type `T` and a return value of type `U`. */
+export type Callback<T, U = void> = (value: T) => U;
+
 /**
  * An object structure that can be used in `Objects.structure()`.
  * Each property must be the name of a property that should exist in the target
