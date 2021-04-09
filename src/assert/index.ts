@@ -108,8 +108,37 @@ export function that(condition: boolean, failureMessage?: string): asserts condi
 }
 
 /**
- * Throws an assertion error if the value is not truthy and optionally supplies
- * the error with the given failure message.
+ * Throws an assertion error if the value does not equal the specified value.
+ *
+ * @param name If you're checking a named value (like a variable or property),
+ *   you can enter its name here for a more expressive error message.
+ */
+export function equals<T>(actual: unknown, expected: T, name?: string): asserts actual is T {
+    throwIf(actual !== expected, actual, Objects.stringify(expected, stringifyOptions), name);
+}
+
+type NotEquals<T1, T2> = T1 extends T2 ? never : T1;
+
+/**
+ * Throws an assertion error if the value equals the specified value.
+ *
+ * @param name If you're checking a named value (like a variable or property),
+ *   you can enter its name here for a more expressive error message.
+ */
+export function notEquals<T1, T2 extends T1>(actual: T1, unexpected: T2, name?: string): asserts actual is NotEquals<T1, T2> {
+    if (actual === unexpected) {
+        const stringifiedUnexpected = Objects.stringify(unexpected, stringifyOptions);
+
+        if (name == null) {
+            name = 'value';
+        }
+
+        throw assertionError(`Expected ${name} not to equal ${stringifiedUnexpected}`);
+    }
+}
+
+/**
+ * Throws an assertion error if the value is not truthy.
  *
  * @param name If you're checking a named value (like a variable or property),
  *   you can enter its name here for a more expressive error message.
@@ -119,8 +148,7 @@ export function truthy<T>(value: T, name?: string): asserts value is Truthy<T> {
 }
 
 /**
- * Throws an assertion error if the value is not falsy and
- * optionally supplies the error with the given failure message.
+ * Throws an assertion error if the value is not falsy.
  *
  * @param name If you're checking a named value (like a variable or property),
  *   you can enter its name here for a more expressive error message.

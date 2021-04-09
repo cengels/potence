@@ -21,6 +21,16 @@ describe('Assert.that() should', () => {
     });
 });
 
+describe('Assert.equals() should', () => {
+    it('throw on inequality', () => expect(() => Assert.equals(0, 2)).toThrowError(Assert.AssertionError));
+    it('not throw on equality', () => expect(() => Assert.equals('foo', 'foo')).not.toThrowError());
+});
+
+describe('Assert.notEquals() should', () => {
+    it('not throw on inequality', () => expect(() => Assert.notEquals('foo', 'bar')).not.toThrowError());
+    it('throw on equality', () => expect(() => Assert.notEquals(0, 0)).toThrowError(Assert.AssertionError));
+});
+
 describe('Assert.truthy() should', () => {
     describe('throw when value is', () => {
         it('false', () => expect(() => Assert.truthy(false)).toThrowError(Assert.AssertionError));

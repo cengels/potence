@@ -436,9 +436,7 @@ export function hasDuplicates(array: readonly unknown[]): boolean {
  * @param step The step between each number in the generated range. `1` by default.
  */
 export function range(from: number, to: number, step: number = 1): number[] {
-    if (step === 0) {
-        throw new Error(`Arrays.range(): step must not be 0.`);
-    }
+    Assert.notEquals(step, 0, 'step');
 
     const inverted = to < from;
     const normalizedStep = Math.abs(step);
