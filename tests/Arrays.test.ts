@@ -248,3 +248,9 @@ describe('Arrays.range() should', () => {
     it('properly handle floating point step sizes', () => expect(Arrays.range(0, 2, 0.5)).toEqual([0, 0.5, 1, 1.5, 2]));
     it('properly handle uneven floating point step sizes', () => Arrays.range(0, 2, 0.3).forEach((value, i) => expect(value).toBeCloseTo([0, 0.3, 0.6, 0.9, 1.2, 1.5, 1.8][i])));
 });
+
+describe('Arrays.findIndices() should', () => {
+    it('find all number indices', () => expect(Arrays.findIndices([0, 0, 5, 2, 0, 8], 0)).toEqual([0, 1, 4]));
+    it('return an empty array if nothing is found', () => expect(Arrays.findIndices([0, 0, 5, 2, 0, 8], 9)).toEqual([]));
+    it('find all predicate results', () => expect(Arrays.findIndices([0, 0, 5, 2, 0, 8], num => num > 4)).toEqual([2, 5]));
+});

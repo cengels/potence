@@ -11,7 +11,7 @@
 import * as Assert from '../assert/index.js';
 import * as Arrays from '../arrays/index.js';
 import * as Objects from '../objects/index.js';
-import { BaseType, Constructor } from '../types.js';
+import { BaseType, Constructor, Predicate } from '../types.js';
 
 /** Returns a copy of the specified array. Note that only the array is copied, not the elements within. */
 export function clone<T>(array: readonly T[]): T[] {
@@ -451,4 +451,30 @@ export function range(from: number, to: number, step: number = 1): number[] {
     }
 
     return array;
+}
+
+/**
+ * Returns the indices for all objects that match the predicate in the array.
+ * This function is parallel to `Array.prototype.findIndex()`, but whereas `findIndex()`
+ * only returns the first matching index, this function returns all of them.
+ */
+export function findIndices<T>(array: T[], predicate: (object: T) => boolean): number[];
+/**
+ * Returns all indices for the matching object in the array.
+ * This function is parallel to `Array.prototype.indexOf()`, but whereas `indexOf()`
+ * only returns the first matching index, this function returns all of them.
+ */
+export function findIndices<T>(array: T[], object: T): number[];
+export function findIndices<T>(array: T[], objectOrPredicate: T | Predicate<T>): number[] {
+    const predicate: Predicate<T> = typeof objectOrPredicate === 'function' && objectOrPredicate.length === 1
+        ? objectOrPredicate as Predicate<T>
+        : (object: T) => object === objectOrPredicate;
+
+    return array.reduce<number[]>((acc, value, index) => {
+        if (predicate(value)) {
+            return acc.concat(index);
+        }
+
+        return acc;
+    }, []);
 }
