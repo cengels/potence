@@ -181,6 +181,7 @@ describe('Numbers.roman() should', () => {
         [1066, 'MLXVI'],
         [1555, 'MDLV'],
         [1912, 'MCMXII'],
+        [2021, 'MMXXI'],
         [2421, 'MMCDXXI'],
         [3999, 'MMMCMXCIX']
     ]).it('return the corresponding incremental numeral to %p: %s', (value, expected) => expect(Numbers.roman(value)).toBe(expected));
