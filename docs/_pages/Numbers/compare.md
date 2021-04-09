@@ -9,10 +9,12 @@ description: Accurately compares two integral
 parameters:
   value1:    The first number to compare.
   value2:    The second number to compare.
-  tolerance: The tolerance to use for this comparison.
-             By default, this is `0.0000001`. To use a custom tolerance, either
-             supply this argument or configure a new global default tolerance
-             using §Numbers.configure()§.
+  tolerance:
+    description: The tolerance to use for this comparison.
+                 By default, this is `0.0000001`. To use a custom tolerance, either
+                 supply this argument or configure a new global default tolerance
+                 using §Numbers.configure()§.
+    optional: yes
 ---
 ## Syntax
 

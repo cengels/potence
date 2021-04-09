@@ -26,7 +26,7 @@ parameters:
 ## Syntax
 
 ```ts
-function every<T>(array: readonly T[], callback: (value: T, index: number) => void, name?: string): void
+function every<T>(array: readonly T[], callback: (value: T, index: number) => void | boolean, name?: string): void
 ```
 
 <div class="description">{% include linkify.html description=page.description %}</div>

@@ -159,7 +159,7 @@ public constructor(from: number, to: number);
             {% highlight ts %}intersect(range: ReadonlyRange): number{% endhighlight %}
         </td>
         <td class="description" markdown="span">
-            Finds the intersection point closest to this range's center with the given range. If this range completely envelops the target range, returns this range's center. If there is no intersection, throws an error. To avoid this, check if there is an intersection using `overlap()` first.
+            Finds the intersection point closest to this range's center with the given range. If this range completely envelops the target range, returns this range's center. If there is no intersection, returns [NaN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/NaN).
         </td>
     </tr>
     <tr>
