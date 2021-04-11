@@ -260,3 +260,91 @@ describe('Objects.hasFunction() should', () => {
     it('work on strings', () => expect(Objects.hasFunction('', 'indexOf')).toBe(true));
     it('work on number', () => expect(Objects.hasFunction(5, 'toPrecision')).toBe(true));
 });
+
+const colors = {
+    red: 0xff0000,
+    yellow: 0xffff00,
+    green: 0x00ff00,
+    blue: 0x0000ff,
+    purple: 0xff00ff,
+    cyan: 0x00ffff
+};
+
+describe('Objects.map() should', () => {
+    it('map each value to another value', () => {
+        const stringColors = Objects.map(colors, color => color.toString(16).padStart(6, '0'));
+
+        expect(stringColors).not.toBe(colors);
+
+        expect(stringColors).toEqual({
+            red: 'ff0000',
+            yellow: 'ffff00',
+            green: '00ff00',
+            blue: '0000ff',
+            purple: 'ff00ff',
+            cyan: '00ffff'
+        });
+    });
+});
+
+describe('Objects.filter() should', () => {
+    it('filter an object based on value', () => {
+        // bitwise and
+        const blues = Objects.filter(colors, color => (color & colors.blue) === colors.blue);
+
+        expect(blues).not.toBe(colors);
+
+        expect(blues).toEqual({
+            blue: 0x0000ff,
+            purple: 0xff00ff,
+            cyan: 0x00ffff
+        });
+    });
+    it('filter an object based on key', () => {
+        const colorsWithL = Objects.filter(colors, (_, key) => key.includes('l'));
+
+        expect(colorsWithL).not.toBe(colors);
+
+        expect(colorsWithL).toEqual({
+            yellow: 0xffff00,
+            blue: 0x0000ff,
+            purple: 0xff00ff
+        });
+    });
+});
+
+describe('Objects.omit() should', () => {
+    it('omit keys from new object', () => {
+        const nonBlues = Objects.omit(colors, 'blue', 'cyan');
+
+        expect(nonBlues).not.toBe(colors);
+
+        expect(nonBlues).toEqual({
+            red: 0xff0000,
+            yellow: 0xffff00,
+            green: 0x00ff00,
+            purple: 0xff00ff
+        });
+    });
+});
+
+describe('Objects.pick() should', () => {
+    it('pick keys from new object', () => {
+        const reds = Objects.pick(colors, 'red', 'purple');
+
+        expect(reds).not.toBe(colors);
+
+        expect(reds).toEqual({
+            red: 0xff0000,
+            purple: 0xff00ff
+        });
+    });
+});
+
+describe('Objects.is() should', () => {
+    it('suceed a proper typeof check', () => expect(Objects.is('foo', 'string')).toBe(true));
+    it('fail an improper typeof check', () => expect(Objects.is('foo', 'number')).toBe(false));
+    it('succeed a proper instanceof check', () => expect(Objects.is(new Date(), Date)).toBe(true));
+    it('succeed a proper inherited instanceof check', () => expect(Objects.is(new Date(), Object)).toBe(true));
+    it('fail an improper instanceof check', () => expect(Objects.is(new Date(), Number)).toBe(false));
+});
