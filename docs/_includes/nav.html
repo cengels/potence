@@ -78,7 +78,7 @@
 </nav>
 
 <script>
-    (function() {
+    window.addEventListener('load', function() {
         // Give each element a defined height so that they can be collapsed.
         const moduleSublists = document.querySelectorAll('.module-list > ul');
 
@@ -152,5 +152,5 @@
                 }
             }
         }
-    })()
+    });
 </script>
