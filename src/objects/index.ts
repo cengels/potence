@@ -260,18 +260,35 @@ export function hasFunction<T extends string | number | symbol>(source: unknown,
             || ((source as ObjectLiteral)[functionName] as Function).length === argumentCount);
 }
 
-type ObjectPredicate<T> = (key: Extract<keyof T, string>, value: T[typeof key]) => boolean;
+type MappedType<T, U> = {
+    [key in keyof T]: U;
+};
 
 /** 
- * Creates a new object literal with only the properties that match the given predicate.
+ * Creates a new object literal that maps each property of the original object
+ * with a transform function.
  */
-export function filter<T extends object>(object: T, predicate: ObjectPredicate<T>): ObjectLiteral<unknown> {
-    const target: ObjectLiteral<unknown> = {};
+export function map<T extends object, U>(object: T, callback: (value: T[typeof key], key: keyof T) => U): MappedType<T, U> {
+    const target: MappedType<T, U> = {} as MappedType<T, U>;
+
+    for (const key in object) {
+        target[key] = callback(object[key], key);
+    }
+
+    return target;
+}
+
+/** 
+ * Creates a new object literal with only the properties that match the given
+ * predicate.
+ */
+export function filter<T extends object>(object: T, predicate: (value: T[typeof key], key: keyof T) => boolean): Partial<T> {
+    const target: Partial<T> = {};
 
     for (const key in object) {
         const value = object[key];
 
-        if (predicate(key, value)) {
+        if (predicate(value, key)) {
             target[key] = value;
         }
     }
@@ -283,16 +300,16 @@ export function filter<T extends object>(object: T, predicate: ObjectPredicate<T
  * Creates a new object literal with the given keys removed.
  * This is analogous to TypeScript's `Omit<T>` type.
  */
-export function omit<T extends object, TOmit extends Extract<keyof T, string>>(object: T, ...which: TOmit[]): Omit<T, TOmit> {
-    return filter(object, key => !which.includes(key as TOmit)) as Omit<T, TOmit>;
+export function omit<T extends object, Keys extends keyof T>(object: T, ...which: Keys[]): Omit<T, Keys> {
+    return filter(object, (_, key) => !which.includes(key as Keys)) as Omit<T, Keys>;
 }
 
 /** 
  * Creates a new object literal with only the given keys from the source object.
  * This is analogous to TypeScript's `Pick<T>` type.
  */
-export function pick<T extends object, TPick extends Extract<keyof T, string>>(object: T, ...which: TPick[]): Pick<T, TPick> {
-    return filter(object, key => which.includes(key as TPick)) as Pick<T, TPick>;
+export function pick<T extends object, Keys extends keyof T>(object: T, ...which: Keys[]): Pick<T, Keys> {
+    return filter(object, (_, key) => which.includes(key as Keys)) as Pick<T, Keys>;
 }
 
 /** 
