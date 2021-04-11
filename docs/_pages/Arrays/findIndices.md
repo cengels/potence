@@ -16,7 +16,6 @@ overloads:
       array: The array to filter.
       predicate: A predicate that returns `true` if the element's index should
                  be included in the array.
-overloads:
   - signature: "function findIndices<T>(array: T[], object: T): number[]"
     description: Returns the indices for all elements equal to `object`.
                  This function is parallel to
