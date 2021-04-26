@@ -32,7 +32,7 @@ export function last<T>(array: readonly T[]): T | undefined {
  * Returns true if the given index is in-bounds of the array, i.e. if it corresponds to an
  * actual array element, or false otherwise.
  */
-export function inBounds(array: readonly unknown[], index: number): boolean {
+export function isInBounds(array: readonly unknown[], index: number): boolean {
     return index >= 0 && index < array.length;
 }
 
@@ -42,11 +42,11 @@ export function inBounds(array: readonly unknown[], index: number): boolean {
  * is out of bounds or if there is only one element in the array.
  */
 export function next<T>(array: readonly T[], fromIndex: number): T | undefined {
-    if (!inBounds(array, fromIndex)) {
+    if (!isInBounds(array, fromIndex)) {
         return undefined;
     }
 
-    if (!inBounds(array, fromIndex + 1) && fromIndex !== 0) {
+    if (!isInBounds(array, fromIndex + 1) && fromIndex !== 0) {
         return array[0];
     }
 
@@ -59,11 +59,11 @@ export function next<T>(array: readonly T[], fromIndex: number): T | undefined {
  * is out of bounds or if there is only one element in the array.
  */
 export function previous<T>(array: readonly T[], fromIndex: number): T | undefined {
-    if (!inBounds(array, fromIndex)) {
+    if (!isInBounds(array, fromIndex)) {
         return undefined;
     }
 
-    if (!inBounds(array, fromIndex - 1) && fromIndex !== array.length - 1) {
+    if (!isInBounds(array, fromIndex - 1) && fromIndex !== array.length - 1) {
         return array[array.length - 1];
     }
 
@@ -71,12 +71,12 @@ export function previous<T>(array: readonly T[], fromIndex: number): T | undefin
 }
 
 /** Returns true if the given array is empty, otherwise false. */
-export function empty(array: readonly unknown[]): boolean {
+export function isEmpty(array: readonly unknown[]): boolean {
     return array.length === 0;
 }
 
 /** Returns true if the given array is not empty, otherwise false. */
-export function notEmpty(array: readonly unknown[]): boolean {
+export function isNotEmpty(array: readonly unknown[]): boolean {
     return array.length > 0;
 }
 
@@ -123,7 +123,7 @@ export function remove<T>(array: T[], ...elements: T[]): T[] {
  * @param index The zero-based index of the element to be removed. If negative, iterates backward from the end of the array.
  */
 export function removeAt<T>(array: T[], index: number): T[] {
-    if (!inBounds(array, index)) {
+    if (!isInBounds(array, index)) {
         throw new Error('Failed to remove element: the specified index was out of bounds.');
     }
 
@@ -408,7 +408,7 @@ export function groupBy<T>(array: readonly T[], property: (item: T) => unknown):
  *
  * Prefer using
  * [Set](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set)
- * instead of this function.
+ * instead of this function to avoid unnecessary memory allocation.
  */
 export function distinct<T>(array: readonly T[]): T[] {
     return Array.from(new Set(array));
