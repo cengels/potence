@@ -10,20 +10,20 @@ import ReadonlyRange from './ReadonlyRange.js';
  * values are modified.
  */
 export default class Range implements ReadonlyRange {
-    private _from: number;
-    private _to: number;
-    private _min?: number;
-    private _max?: number;
-    private _center?: number;
-    private _span?: number;
+    #from: number;
+    #to: number;
+    #min?: number;
+    #max?: number;
+    #center?: number;
+    #span?: number;
 
     public constructor(from: number, to: number) {
-        this._from = from;
-        this._to = to;
+        this.#from = from;
+        this.#to = to;
     }
 
-    public get from(): number { return this._from; }
-    public get to(): number { return this._to; }
+    public get from(): number { return this.#from; }
+    public get to(): number { return this.#to; }
 
     /**
      * Sets this range to the new values and returns itself.
@@ -32,8 +32,8 @@ export default class Range implements ReadonlyRange {
      * range can be helpful for, for instance, `Range.at()`.
      */
     public set(from: number, to: number): this {
-        this._from = from;
-        this._to = to;
+        this.#from = from;
+        this.#to = to;
         this.reset();
 
         return this;
@@ -45,46 +45,46 @@ export default class Range implements ReadonlyRange {
     }
 
     private reset(): void {
-        this._min = undefined;
-        this._max = undefined;
-        this._center = undefined;
-        this._span = undefined;
+        this.#min = undefined;
+        this.#max = undefined;
+        this.#center = undefined;
+        this.#span = undefined;
     }
 
     public min(): number {
-        if (this._min == null) {
+        if (this.#min == null) {
             // Using the ternary operator like this rather than Math.min()
             // is actually dramatically (about 5x) faster in tight loops.
-            this._min = this._from < this._to ? this._from : this._to;
+            this.#min = this.#from < this.#to ? this.#from : this.#to;
         }
 
-        return this._min;
+        return this.#min;
     }
 
     public max(): number {
-        if (this._max == null) {
+        if (this.#max == null) {
             // Using the ternary operator like this rather than Math.max()
             // is actually dramatically (about 5x) faster in tight loops.
-            this._max = this._from > this._to ? this._from : this._to;
+            this.#max = this.#from > this.#to ? this.#from : this.#to;
         }
 
-        return this._max;
+        return this.#max;
     }
 
     public center(): number {
-        if (this._center == null) {
-            this._center = (this.max() - this.min()) / 2 + this.min();
+        if (this.#center == null) {
+            this.#center = (this.max() - this.min()) / 2 + this.min();
         }
 
-        return this._center;
+        return this.#center;
     }
 
     public span(): number {
-        if (this._span == null) {
-            this._span = this.max() - this.min();
+        if (this.#span == null) {
+            this.#span = this.max() - this.min();
         }
 
-        return this._span;
+        return this.#span;
     }
 
     public clamp(value: number): number {
@@ -109,12 +109,12 @@ export default class Range implements ReadonlyRange {
         return this.contains(value.from, 0) && this.contains(value.to, 0);
     }
 
-    public between(value: number): boolean {
+    public isBetween(value: number): boolean {
         return this.min() < value && value < this.max();
     }
 
     public overlaps(range: ReadonlyRange): boolean {
-        return this.between(range.from) || this.between(range.to);
+        return this.isBetween(range.from) || this.isBetween(range.to);
     }
 
     public intersect(range: ReadonlyRange): number {
@@ -161,10 +161,10 @@ export default class Range implements ReadonlyRange {
     public equals(from: number, to: number): boolean;
     public equals(rangeOrFrom: ReadonlyRange | number, to?: number): boolean {
         if (typeof rangeOrFrom === 'number') {
-            return this._from === rangeOrFrom && this._to === to;
+            return this.#from === rangeOrFrom && this.#to === to;
         }
 
-        return this._from === rangeOrFrom.from && this._to === rangeOrFrom.to;
+        return this.#from === rangeOrFrom.from && this.#to === rangeOrFrom.to;
     }
 
     public clone(): Range {
