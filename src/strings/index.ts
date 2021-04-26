@@ -51,6 +51,35 @@ export function camelCase(source: string): string {
     return result;
 }
 
+/** Converts a string to pascalCase from either snake_case, ALL_CAPS, or hyphenated-case. */
+export function pascalCase(source: string): string {
+    if (source === '' || source == null) {
+        return '';
+    }
+
+    let result = source.toLowerCase();
+
+    result = result[0].toLowerCase() + result.slice(1);
+
+    let tokenIndex = result.indexOf('_');
+
+    while (tokenIndex !== -1) {
+        result = result.slice(0, tokenIndex) + result[tokenIndex + 1].toUpperCase() + result.slice(tokenIndex + 2);
+
+        tokenIndex = result.indexOf('_');
+    }
+
+    tokenIndex = result.indexOf('-');
+
+    while (tokenIndex !== -1) {
+        result = result.slice(0, tokenIndex) + result[tokenIndex + 1].toUpperCase() + result.slice(tokenIndex + 2);
+
+        tokenIndex = result.indexOf('-');
+    }
+
+    return result;
+}
+
 /** Prefixes the string with the specified prefix only if the string is not already prefixed with it. */
 export function prefix(string: string, prefix: string): string {
     return string.startsWith(prefix) ? string : `${prefix}${string}`;
