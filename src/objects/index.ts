@@ -347,3 +347,13 @@ export function getPropertyDescriptor(object: unknown, property: string | number
 
     return undefined;
 }
+
+/** 
+ * Returns true if the property exists on the target object and
+ * can be written to (i.e. is not read-only).
+ */
+export function isWritable<Key extends string | number | symbol>(object: unknown, property: Key): object is { [key in Key]: unknown; } {
+    const propertyDescriptor = getPropertyDescriptor(object, property);
+
+    return propertyDescriptor != null && (propertyDescriptor.writable === true || propertyDescriptor.set != null);
+}
