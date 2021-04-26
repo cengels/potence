@@ -323,3 +323,27 @@ export function is<TTypeOf extends BaseType>(object: unknown, type: TTypeOf): ob
 export function is(object: unknown, type: BaseType | Constructor): boolean {
     return typeof type === 'string' ? typeof object === type : object instanceof type;
 }
+
+/** 
+ * Gets the property's property descriptor if it exists on the object
+ * or somewhere along its prototype chain, else `undefined`.
+ * 
+ * Contrast
+ * [`Object.getOwnPropertyDescriptor()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/getOwnPropertyDescriptor),
+ * which only searches the object itself without considering its prototype.
+ */
+export function getPropertyDescriptor(object: unknown, property: string | number | symbol): PropertyDescriptor | undefined {
+    const propertyDescriptor = Object.getOwnPropertyDescriptor(object, property);
+
+    if (propertyDescriptor != null) {
+        return propertyDescriptor;
+    }
+
+    const prototype = Object.getPrototypeOf(object);
+
+    if (prototype != null) {
+        return getPropertyDescriptor(prototype, property);
+    }
+
+    return undefined;
+}
