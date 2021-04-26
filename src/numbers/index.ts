@@ -285,3 +285,15 @@ export function roman(value: number): string {
 
     return result;
 }
+
+/** 
+ * Returns the target number closest to the source number.
+ * 
+ * If two target numbers have the same absolute difference to `source`,
+ * returns the first one specified.
+ * 
+ * If no target number is specified, returns `source`.
+ */
+export function closest(source: number, ...targets: number[]): number {
+    return targets.sort((a, b) => Math.abs(source - a) - Math.abs(source - b))[0];
+}
