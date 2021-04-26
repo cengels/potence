@@ -12,17 +12,17 @@ export default interface ReadonlyRange {
     from: number;
     /** The end of the range (inclusive). This is not necessarily the largest value in the range. Use `Range.max()` for that. */
     to: number;
-    /** Gets the smallest value included in this range. */
+    /** Gets either `from` or `to`, whichever is smaller. */
     min(): number;
-    /** Gets the largest value included in this range. */
+    /** Gets either `from` or `to`, whichever is greater. */
     max(): number;
-    /** Gets the center of from and to. */
+    /** Gets the center between from and to. */
     center(): number;
-    /** Gets the difference between from and to. */
+    /** Gets the difference between from and to. This number can never be negative. */
     span(): number;
     /**
-     * If this range does not include value, returns either the min or max depending
-     * on whether the range was undershot or overshot, otherwise returns value.
+     * If this range does not include `value`, returns either `min` or `max` depending
+     * on whether the range was undershot or overshot, otherwise returns `value`.
      */
     clamp(value: number): number;
     /**
@@ -51,7 +51,7 @@ export default interface ReadonlyRange {
      * Use `contains()` with an appropriate tolerance instead. You can specify
      * a negative tolerance to shrink the valid range.
      */
-    between(value: number): boolean;
+    isBetween(value: number): boolean;
     /** Returns a value indicating whether the two ranges overlap. */
     overlaps(range: ReadonlyRange): boolean;
     /**
