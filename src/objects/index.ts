@@ -357,3 +357,15 @@ export function isWritable<Key extends string | number | symbol>(object: unknown
 
     return propertyDescriptor != null && (propertyDescriptor.writable === true || propertyDescriptor.set != null);
 }
+
+/** 
+ * Gets the constructor of `object` if `object` is an instantiable instance,
+ * otherwise returns `undefined`.
+ */
+export function getConstructor<T>(object: T): Instantiable<T> | undefined {
+    if (hasProperty(object, 'constructor')) {
+        return (object as unknown as { constructor: Instantiable<T> }).constructor;
+    }
+
+    return undefined;
+}
