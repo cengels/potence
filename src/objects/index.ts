@@ -369,3 +369,54 @@ export function getConstructor<T>(object: T): Instantiable<T> | undefined {
 
     return undefined;
 }
+
+/**
+ * Clones the passed object. This algorithm will attempt, in order:
+ *
+ * 1. If `object` is a primitive or `null`, returns `object`.
+ * 2. If `object` is an array, calls itself for each array item.
+ * 3. If `object` has a `clone()` function, calls it and returns the result.
+ * 4. If `object` has a callable constructor, calls it and assigns all
+ *    properties of `object` to the result before returning it.
+ * 5. Creates a new object literal and assigns all properties of `object`
+ *    to it before returning it.
+ * 
+ * Note that this function can throw an error, for instance if `object`
+ * has a callable constructor that requires arguments. In that case you probably
+ * want to implement a `clone()` function on the type.
+ */
+export function clone<T>(object: T): T {
+    if (object == null || isPrimitive(object)) {
+        return object;
+    }
+
+    if (Array.isArray(object)) {
+        return (object as Array<unknown>).map(clone) as unknown as T;
+    }
+
+    if (hasFunction(object, 'clone')) {
+        return object.clone() as T;
+    }
+
+    const constructor = getConstructor(object);
+
+    const newObject: Partial<T> = constructor != null
+        // This call can fail, for instance if constructor requires arguments.
+        // We don't want to catch this case as this function call is likely
+        // a mistake, so we propagate the error to the user instead.
+        ? new constructor()
+        : {};
+
+    // tslint:disable-next-line: forin
+    for (const key in object) {
+        try {
+            newObject[key] = object[key];
+        } catch {
+            // We could use isWritable() here instead, but since it
+            // travels all the way up the prototype chain, simply
+            // suppressing any errors may be more performant.
+        }
+    }
+
+    return newObject as T;
+}
