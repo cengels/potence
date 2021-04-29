@@ -74,9 +74,9 @@ describe('Range.contains(range) should return', () => {
 });
 
 describe('Range.between() should return', () => {
-    it('true if value is inside', () => expect(new Range(-55, 22).between(-20)).toBe(true));
-    it('false if value is lower boundary', () => expect(new Range(-55, 22).between(-55)).toBe(false));
-    it('false if value is upper boundary', () => expect(new Range(-55, 22).between(22)).toBe(false));
+    it('true if value is inside', () => expect(new Range(-55, 22).isBetween(-20)).toBe(true));
+    it('false if value is lower boundary', () => expect(new Range(-55, 22).isBetween(-55)).toBe(false));
+    it('false if value is upper boundary', () => expect(new Range(-55, 22).isBetween(22)).toBe(false));
 });
 
 describe('Range.overlaps() should return', () => {

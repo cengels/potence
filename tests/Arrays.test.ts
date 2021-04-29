@@ -23,11 +23,11 @@ describe('Arrays.last() should return', () => {
 });
 
 describe('Arrays.inBounds() should return', () => {
-    it('true if the index is the array\'s lower bound', () => expect(Arrays.inBounds([1, 3, 5], 0)).toBe(true));
-    it('true if the index is the array\'s upper bound', () => expect(Arrays.inBounds([1, 3, 5], 2)).toBe(true));
-    it('false if the index is lower than 0', () => expect(Arrays.inBounds([1, 3, 5], -1)).toBe(false));
-    it('false if the index is greater than array.length - 1', () => expect(Arrays.inBounds([1, 3, 5], 3)).toBe(false));
-    it('false if the array is empty', () => expect(Arrays.inBounds([], 0)).toBe(false));
+    it('true if the index is the array\'s lower bound', () => expect(Arrays.isInBounds([1, 3, 5], 0)).toBe(true));
+    it('true if the index is the array\'s upper bound', () => expect(Arrays.isInBounds([1, 3, 5], 2)).toBe(true));
+    it('false if the index is lower than 0', () => expect(Arrays.isInBounds([1, 3, 5], -1)).toBe(false));
+    it('false if the index is greater than array.length - 1', () => expect(Arrays.isInBounds([1, 3, 5], 3)).toBe(false));
+    it('false if the array is empty', () => expect(Arrays.isInBounds([], 0)).toBe(false));
 });
 
 describe('Arrays.next() should return', () => {
@@ -45,13 +45,13 @@ describe('Arrays.previous() should return', () => {
 });
 
 describe('Arrays.empty() should return', () => {
-    it('true if the array is empty', () => expect(Arrays.empty([])).toBe(true));
-    it('false if the array is not empty', () => expect(Arrays.empty([1])).toBe(false));
+    it('true if the array is empty', () => expect(Arrays.isEmpty([])).toBe(true));
+    it('false if the array is not empty', () => expect(Arrays.isEmpty([1])).toBe(false));
 });
 
 describe('Arrays.notEmpty() should return', () => {
-    it('true if the array is not empty', () => expect(Arrays.notEmpty([1])).toBe(true));
-    it('false if the array is empty', () => expect(Arrays.notEmpty([])).toBe(false));
+    it('true if the array is not empty', () => expect(Arrays.isNotEmpty([1])).toBe(true));
+    it('false if the array is empty', () => expect(Arrays.isNotEmpty([])).toBe(false));
 });
 
 describe('Arrays.equal() should', () => {
