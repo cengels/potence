@@ -1,3 +1,5 @@
+export * from './match.js';
+
 /**
  * Removes all of the given characters from the string.
  * By default, removes all spaces from the string.
