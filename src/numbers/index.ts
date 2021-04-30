@@ -297,3 +297,24 @@ export function roman(value: number): string {
 export function closest(source: number, ...targets: number[]): number {
     return targets.sort((a, b) => Math.abs(source - a) - Math.abs(source - b))[0];
 }
+
+/**
+ * Gets the exponent of a `base` raised to the given `power`.
+ * 
+ * In other words, gets `n` in a formula of the shape: `base ^ n = power`.
+ */
+export function exponent(power: number, base: number): number {
+    return Math.log(power) / Math.log(base);
+}
+
+/**
+ * Returns true if and only if `power` is one of the possible results
+ * of `base` raised to a certain `power` with an `integral` exponent.
+ * 
+ * @example
+ * isPower(8, 2)  // -> true (8 = 2 * 2 * 2)
+ * isPower(6, 2)  // -> false (4 = 2 * 2 and 8 = 2 * 2 * 2)
+ */
+export function isPower(power: number, base: number): boolean {
+    return Number.isInteger(exponent(power, base));
+}
