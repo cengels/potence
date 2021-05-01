@@ -18,7 +18,7 @@ export default class List<T> extends Array<T> implements ReadonlyList<T> {
     }
 
     public clone(): List<T> {
-        return new List(...Arrays.clone(this));
+        return new List(...this);
     }
 
     public first(): T | undefined {
