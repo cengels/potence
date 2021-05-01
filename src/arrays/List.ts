@@ -9,7 +9,7 @@ import ReadonlyList from './ReadonlyList';
  * free function variants in the `Arrays` module.
  */
 export default class List<T> extends Array<T> implements ReadonlyList<T> {
-    get(index: number): T {
+    public get(index: number): T {
         if (this.hasElementAt(index)) {
             return this[index];
         }
