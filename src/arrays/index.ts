@@ -11,9 +11,12 @@
 import * as Assert from '../assert/index.js';
 import * as Arrays from '../arrays/index.js';
 import * as Objects from '../objects/index.js';
-import { BaseType, Constructor, Predicate } from '../types.js';
+import { ArrayType, BaseType, Constructor, Predicate } from '../types.js';
 
-/** Returns a copy of the specified array. Note that only the array is copied, not the elements within. */
+/** 
+ * Returns a copy of the specified array.
+ * Note that only the array is copied, not the elements within.
+ */
 export function clone<T>(array: readonly T[]): T[] {
     return array.slice();
 }
@@ -29,11 +32,30 @@ export function last<T>(array: readonly T[]): T | undefined {
 }
 
 /**
- * Returns true if the given index is in-bounds of the array, i.e. if it corresponds to an
- * actual array element, or false otherwise.
+ * Returns true if the given index is in-bounds of the array, i.e. greater
+ * than 0 and smaller than the array's length.
+ * 
+ * Note that this function does **not** check whether there is actually an
+ * array element at the specified index, as in when an array is initialized
+ * with empty slots (e.g. using `Array`'s length constructor).
+ * Unless you have a good reason to use `isInBounds()`, you probably want to use
+ * `Arrays.hasElementAt()` instead.
  */
 export function isInBounds(array: readonly unknown[], index: number): boolean {
     return index >= 0 && index < array.length;
+}
+
+/**
+ * Returns true if the given index refers to an actual element on the specified
+ * array.
+ * 
+ * @example
+ * const array = new Array(5);     // contains 5 empty "slots"
+ * Arrays.isInBounds(array, 2);    // -> true
+ * Arrays.hasElementAt(array, 2);  // -> false
+ */
+export function hasElementAt(array: readonly unknown[], index: number): boolean {
+    return index in array;
 }
 
 /**
@@ -80,7 +102,10 @@ export function isNotEmpty(array: readonly unknown[]): boolean {
     return array.length > 0;
 }
 
-/** Compares the contents of two arrays for referential equality. */
+/** 
+ * Compares the contents of two arrays for referential equality and returns true
+ * if both arrays have the same elements in the same positions.
+ */
 export function equal(array1: readonly unknown[], array2: readonly unknown[]): boolean {
     if (array1.length !== array2.length) {
         return false;
@@ -100,8 +125,10 @@ export function equal(array1: readonly unknown[], array2: readonly unknown[]): b
  *
  * If the array contains multiples of the specified element(s), all of them
  * are removed.
+ * 
+ * If the array does not contain one of the elements, throws an error.
  */
-export function remove<T>(array: T[], ...elements: T[]): T[] {
+export function remove<T extends unknown[]>(array: T, ...elements: T): T {
     for (const element of elements) {
         let index = array.indexOf(element);
 
@@ -119,12 +146,15 @@ export function remove<T>(array: T[], ...elements: T[]): T[] {
 }
 
 /**
- * Removes the element at the specified index from the array and returns the original array.
- * @param index The zero-based index of the element to be removed. If negative, iterates backward from the end of the array.
+ * Removes the element at the specified index from the array
+ * and returns the original array.
+ * 
+ * @param index The zero-based index of the element to be removed.
+ *              If negative, iterates backwards from the end of the array.
  */
-export function removeAt<T>(array: T[], index: number): T[] {
-    if (!isInBounds(array, index)) {
-        throw new Error('Failed to remove element: the specified index was out of bounds.');
+export function removeAt<T extends unknown[]>(array: T, index: number): T {
+    if (!hasElementAt(array, index)) {
+        throw new Error(`Failed to remove element: no element found at index ${index}.`);
     }
 
     array.splice(index, 1);
@@ -137,7 +167,7 @@ export function removeAt<T>(array: T[], index: number): T[] {
  *
  * If the array contains multiples of the target element, it will only replace the first occurrence.
  */
-export function replace<T>(array: T[], element: T, replacement: T): T[] {
+export function replace<T extends unknown[]>(array: T, element: ArrayType<T>, replacement: ArrayType<T>): T {
     const index = array.indexOf(element);
 
     if (index === -1) {
@@ -183,8 +213,8 @@ export function type(array: readonly unknown[], type: BaseType | Constructor): b
     return array.every(item => item instanceof type);
 }
 
-type SortOrder = 'ascending' | 'descending';
-type SortFunction<T = unknown> = (a: T, b: T) => number;
+export type SortOrder = 'ascending' | 'descending';
+export type SortFunction<T = unknown> = (a: T, b: T) => number;
 
 /**
  * Sort an array by one or more sort functions. Later sort functions will only be used
@@ -201,7 +231,7 @@ type SortFunction<T = unknown> = (a: T, b: T) => number;
  * if you want an ascending sort (i.e. smallest element first) and `(a, b) => b - a`
  * if you want a descending sort (i.e. largest element first).
  */
-export function sort<T>(array: T[], ...sortFns: SortFunction<T>[]): T[];
+export function sort<T extends unknown[]>(array: T, ...sortFns: SortFunction<ArrayType<T>>[]): T;
 /**
  * Sorts the array in the standard way according to the data type contained within.
  * Unsupported data types (like object literals or arrays) will throw an error.
@@ -218,9 +248,7 @@ export function sort<T>(array: T[], ...sortFns: SortFunction<T>[]): T[];
  * @param order The order to sort in. Possible values are 'descending' (largest first)
  * and 'ascending' (smallest first). Default is 'ascending'.
  */
-export function sort(array: number[], order?: SortOrder): number[];
-export function sort(array: string[], order?: SortOrder): string[];
-export function sort(array: Date[], order?: SortOrder): Date[];
+export function sort<T extends Array<string | Date | number>>(array: T, order?: SortOrder): T;
 export function sort(array: unknown[], orderOrSortFn: SortOrder | SortFunction = 'ascending', ...sortFns: Array<SortFunction>): unknown[] {
     if (array.length <= 1) {
         // No sort necessary/possible.
@@ -266,15 +294,15 @@ export function sort(array: unknown[], orderOrSortFn: SortOrder | SortFunction =
     });
 }
 
-/** Clears all elements from the given array and returns the original array. */
-export function clear<T>(array: T[]): T[] {
+/** Clears all elements from the given array and returns the array. */
+export function clear<T extends unknown[]>(array: T): T {
     array.length = 0;
 
     return array;
 }
 
-/** Removes all null or undefined elements from the array *in-place* and returns the original array. */
-export function clearNull<T>(array: T[]): T[] {
+/** Removes all null or undefined elements from the array and returns the array. */
+export function clearNull<T extends unknown[]>(array: T): T  {
     let i: number = 0;
 
     while (i < array.length) {
@@ -325,7 +353,7 @@ export function closest<T>(array: readonly T[], callbackOrTarget: ((item: T) => 
 /**
  * Moves each array item by `by`. This method will wrap the array. As a result, there will never be a negative or unfilled index.
  */
-export function moveAll<T>(array: T[], by: number): T[] {
+export function moveAll<T extends unknown[]>(array: T, by: number): T {
     by = by % array.length;
 
     if (by === 0 || by === array.length) {
@@ -341,7 +369,7 @@ export function moveAll<T>(array: T[], by: number): T[] {
     }
 }
 
-type TransformTo1DArray<T extends unknown[]> = {
+export type TransformTo1DArray<T extends unknown[]> = {
     [K in keyof T]: T[K] extends (infer U)[] ? U : T[K];
 };
 
@@ -357,6 +385,12 @@ export function zip<T, Args extends Array<ReadonlyArray<unknown>>>(source: reado
     return source.map((x, i) => [x, ...arrays.map(array => array[i])]) as Array<[T, ...TransformTo1DArray<Args>]>;
 }
 
+/**
+ * Loops through multiple arrays at once, calling the specified callback
+ * function with the corresponding element at that index for each array.
+ * 
+ * Note that all arrays must have the same size or the function fill throw.
+ */
 export function correlate<A, B, C, D, E, F, G, H, I, J>(source1: readonly A[], source2: readonly B[], source3: readonly C[], source4: readonly D[], source5: readonly E[], source6: readonly F[], source7: readonly G[], source8: readonly H[], source9: readonly I[], source10: readonly J[], callback: (a: A, b: B, c: C, d: D, e: E, f: F, g: G, h: H, i: I, j: J) => void): void;
 export function correlate<A, B, C, D, E, F, G, H, I>(source1: readonly A[], source2: readonly B[], source3: readonly C[], source4: readonly D[], source5: readonly E[], source6: readonly F[], source7: readonly G[], source8: readonly H[], source9: readonly I[], callback: (a: A, b: B, c: C, d: D, e: E, f: F, g: G, h: H, i: I) => void): void;
 export function correlate<A, B, C, D, E, F, G, H>(source1: readonly A[], source2: readonly B[], source3: readonly C[], source4: readonly D[], source5: readonly E[], source6: readonly F[], source7: readonly G[], source8: readonly H[], callback: (a: A, b: B, c: C, d: D, e: E, f: F, g: G, h: H) => void): void;
