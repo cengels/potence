@@ -85,4 +85,12 @@ export default class Flags<T extends number> {
 
         return flags;
     }
+
+    public toJSON(): number {
+        return this.value;
+    }
+
+    public toString(): string {
+        return this.value.toString(10);
+    }
 }
