@@ -9,7 +9,6 @@
  */
 
 import * as Assert from '../assert/index.js';
-import * as Arrays from '../arrays/index.js';
 import * as Objects from '../objects/index.js';
 import { ArrayType, BaseType, Constructor, Predicate } from '../types.js';
 
@@ -401,7 +400,7 @@ export function correlate<A, B, C, D>(source1: readonly A[], source2: readonly B
 export function correlate<A, B, C>(source1: readonly A[], source2: readonly B[], source3: readonly C[], callback: (a: A, b: B, c: C) => void): void;
 export function correlate<A, B>(source1: readonly A[], source2: readonly B[], callback: (a: A, b: B) => void): void;
 export function correlate(...args: unknown[]): void {
-    const callback = Arrays.last(args);
+    const callback = last(args);
     const arrays = args.slice(0, -1) as unknown[][];
     Assert.that(typeof callback === 'function', 'Last argument must be a callback function.');
     Assert.that(arrays.length > 1, 'Must specify at least two arrays.');
