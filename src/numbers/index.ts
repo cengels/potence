@@ -84,7 +84,7 @@ export function range(...values: number[]): Range {
 }
 
 /** Returns true if the number is an even number. */
-export function even(value: number): boolean {
+export function isEven(value: number): boolean {
     return value % 2 === 0;
 }
 
