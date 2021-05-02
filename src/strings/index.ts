@@ -113,6 +113,19 @@ export function strip(from: string, ...what: string[]): string {
     return string;
 }
 
+/** Removes all of the given substrings from the start of the string. */
+export function stripStart(from: string, ...what: string[]): string {
+    let string = from;
+
+    for (const substring of what) {
+        while (string.startsWith(substring)) {
+            string = string.slice(substring.length);
+        }
+    }
+
+    return string;
+}
+
 /** Removes all of the given substrings from the end of the string. */
 export function stripEnd(from: string, ...what: string[]): string {
     let string = from;
@@ -123,6 +136,19 @@ export function stripEnd(from: string, ...what: string[]): string {
         while (index === string.length - what.length) {
             string = string.slice(0, index);
             index = string.lastIndexOf(substring);
+        }
+    }
+
+    return string;
+}
+
+/** Removes all of the given substrings from the start of the string. */
+export function stripStart(from: string, ...what: string[]): string {
+    let string = from;
+
+    for (const substring of what) {
+        while (string.startsWith(substring)) {
+            string = string.slice(substring.length);
         }
     }
 
