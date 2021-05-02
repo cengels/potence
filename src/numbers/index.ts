@@ -221,7 +221,7 @@ export function median(...values: number[]): number {
 
     values.sort((a, b) => a - b);
 
-    if (even(values.length)) {
+    if (isEven(values.length)) {
         const lowerMiddle = values[values.length / 2];
         const upperMiddle = values[values.length / 2 - 1];
         return (upperMiddle - lowerMiddle) / 2 + lowerMiddle;

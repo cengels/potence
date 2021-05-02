@@ -27,22 +27,22 @@ describe('Numbers.range() should', () => {
     it('throw with less than 3 values', () => expect(() => Numbers.range(5)).toThrowError());
 });
 
-describe('Numbers.even() should return', () => {
-    it('true for even numbers', () => expect(Numbers.even(5234)).toBe(true));
-    it('false for odd numbers', () => expect(Numbers.even(634611)).toBe(false));
-    it('false for decimals', () => expect(Numbers.even(634612.55)).toBe(false));
-    it('false for NaN', () => expect(Numbers.even(Number.NaN)).toBe(false));
-    it('false for Infinity', () => expect(Numbers.even(Infinity)).toBe(false));
-    it('false for -Infinity', () => expect(Numbers.even(-Infinity)).toBe(false));
+describe('Numbers.isEven() should return', () => {
+    it('true for even numbers', () => expect(Numbers.isEven(5234)).toBe(true));
+    it('false for odd numbers', () => expect(Numbers.isEven(634611)).toBe(false));
+    it('false for decimals', () => expect(Numbers.isEven(634612.55)).toBe(false));
+    it('false for NaN', () => expect(Numbers.isEven(Number.NaN)).toBe(false));
+    it('false for Infinity', () => expect(Numbers.isEven(Infinity)).toBe(false));
+    it('false for -Infinity', () => expect(Numbers.isEven(-Infinity)).toBe(false));
 });
 
-describe('Numbers.odd() should return', () => {
-    it('true for odd numbers', () => expect(Numbers.odd(634611)).toBe(true));
-    it('false for even numbers', () => expect(Numbers.odd(5234)).toBe(false));
-    it('false for decimals', () => expect(Numbers.odd(634611.55)).toBe(false));
-    it('false for NaN', () => expect(Numbers.odd(Number.NaN)).toBe(false));
-    it('false for Infinity', () => expect(Numbers.odd(Infinity)).toBe(false));
-    it('false for -Infinity', () => expect(Numbers.odd(-Infinity)).toBe(false));
+describe('Numbers.isOdd() should return', () => {
+    it('true for odd numbers', () => expect(Numbers.isEven(634611)).toBe(true));
+    it('false for even numbers', () => expect(Numbers.isEven(5234)).toBe(false));
+    it('false for decimals', () => expect(Numbers.isEven(634611.55)).toBe(false));
+    it('false for NaN', () => expect(Numbers.isEven(Number.NaN)).toBe(false));
+    it('false for Infinity', () => expect(Numbers.isEven(Infinity)).toBe(false));
+    it('false for -Infinity', () => expect(Numbers.isEven(-Infinity)).toBe(false));
 });
 
 describe('Numbers.isFloat() should return', () => {
