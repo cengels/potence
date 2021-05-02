@@ -156,8 +156,20 @@ export function stripBefore(from: string, what: string, searchBackwards: boolean
     return from.slice(index + what.length);
 }
 
-    return string;
+/** 
+ * Strips everything after the first or last occurrence of
+ * the specified substring from the string.
+ */
+export function stripAfter(from: string, what: string, searchBackwards: boolean = false): string {
+    const index = searchBackwards ? from.lastIndexOf(what) : from.indexOf(what);
+
+    if (index === -1) {
+        return from;
+    }
+
+    return from.slice(0, index);
 }
+
 function findTokensAndUppercaseNext(source: string, token: string): string {
     let result = source;
     let tokenIndex = result.indexOf(token);
