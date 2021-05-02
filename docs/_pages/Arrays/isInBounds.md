@@ -1,8 +1,9 @@
 ---
 layout:      page
-title:       Arrays.inBounds()
+title:       Arrays.isInBounds()
 module:      Arrays
 added:       0.0.1
+updated:     0.5.0
 description: Returns true if the given index is within the array's bounds.
 parameters:
   array: An array with any number of elements.
@@ -11,7 +12,7 @@ parameters:
 ## Syntax
 
 ```ts
-function inBounds(array: readonly unknown[], index: number): boolean
+function isInBounds(array: readonly unknown[], index: number): boolean
 ```
 
 <div class="description">{% include linkify.html description=page.description %}</div>
@@ -22,15 +23,23 @@ function inBounds(array: readonly unknown[], index: number): boolean
 ```ts
 import { Arrays } from 'potence';
 
-const array = [3, 1, 5];
+const array = new Array(5);
+array[0] = 1;
+array[1] = 5;
 
-console.log(Arrays.inBounds(array, -1));   // -> false
-console.log(Arrays.inBounds(array, 2));    // -> true
-console.log(Arrays.inBounds(array, 3));    // -> false
+// -> [1, 5, empty, empty, empty]
+
+Arrays.isInBounds(array, -1);   // -> false
+Arrays.isInBounds(array, 0);    // -> true
+Arrays.isInBounds(array, 3);    // -> true
+Arrays.isInBounds(array, 5);    // -> false
 ```
 
 ## Remarks
 
-This function only checks if a given index is greater than `0` and lower than
-`array.length`. It does *not* check whether the item behind the index is
-actually defined.
+Note that this function does **not** check whether there is actually an
+array element at the specified index, as in when an array is initialized
+with empty slots (e.g. using `Array`'s length constructor).
+Unless you have a good reason to use this function, you probably want to use
+[`Arrays.hasElementAt()`]({{ site.baseurl }}{% link _pages/Arrays/hasElementAt.md %})
+instead.
