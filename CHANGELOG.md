@@ -5,6 +5,149 @@ be breaking changes. Before 1.0.0, these changes will **not be announced** and
 will only be documented in this file, so please make sure to read it thoroughly
 if you wish to upgrade.
 
+## [0.5.0](https://github.com/cengels/potence/compare/0.4.0...0.5.0) - unreleased
+
+### Arrays
+
+- **Added**: new class
+  [`List<T>`](https://cengels.github.io/potence/Arrays/List)
+  that encapsulates all relevant functions in the
+  [`Arrays`](https://cengels.github.io/potence/Arrays)
+  module
+- **Added**: new function
+  [`Arrays.hasElementAt()`](https://cengels.github.io/potence/Arrays/hasElementAt)
+- **Added**: new function
+  [`Arrays.correlate()`](https://cengels.github.io/potence/Arrays/correlate)
+- **Added**: new function
+  [`Arrays.range()`](https://cengels.github.io/potence/Arrays/range)
+- **Added**: new function
+  [`Arrays.findIndices()`](https://cengels.github.io/potence/Arrays/findIndices)
+- **Renamed**: `Arrays.inBounds()` to
+  [`Arrays.isInBounds()`](https://cengels.github.io/potence/Arrays/isInBounds)
+- **Renamed**: `Arrays.empty()` to
+  [`Arrays.isEmpty()`](https://cengels.github.io/potence/Arrays/isEmpty)
+- **Renamed**: `Arrays.notEmpty()` to
+  [`Arrays.isNotEmpty()`](https://cengels.github.io/potence/Arrays/isNotEmpty)
+- **Changed**: changed most generics to refer to the array itself, not the
+  elements within, to allow the functions to return the same type that was
+  passed in (in the case of subtyped arrays)
+- **Changed**: use of
+  [`Arrays.isInBounds()`](https://cengels.github.io/potence/Arrays/isInBounds)
+  is now discouraged in favour of
+  [`Arrays.hasElementAt()`](https://cengels.github.io/potence/Arrays/hasElementAt)
+
+### Assert
+
+- **Added**: new function
+  [`Assert.equals()`](https://cengels.github.io/potence/Assert/equals)
+- **Added**: new function
+  [`Assert.notEquals()`](https://cengels.github.io/potence/Assert/notEquals)
+- **Added**: new function
+  [`Assert.type()`](https://cengels.github.io/potence/Assert/type)
+- **Added**: new function
+  [`Assert.instanceOf()`](https://cengels.github.io/potence/Assert/instanceOf)
+- **Changed**: allow
+  [`Assert.every()`](https://cengels.github.io/potence/Assert/every)
+  to return a `boolean` inside callback function
+
+### Flags
+
+- **Added**: all functions
+
+### Numbers
+
+- **Added**: new function
+  [`Numbers.convert()`](https://cengels.github.io/potence/Numbers/convert)
+- **Added**: new function
+  [`Numbers.roman()`](https://cengels.github.io/potence/Numbers/roman)
+- **Added**: new function
+  [`Numbers.closest()`](https://cengels.github.io/potence/Numbers/closest)
+- **Added**: new function
+  [`Numbers.exponent()`](https://cengels.github.io/potence/Numbers/exponent)
+- **Added**: new function
+  [`Numbers.isPower()`](https://cengels.github.io/potence/Numbers/isPower)
+- **Renamed**: `Numbers.even()` to
+  [`Numbers.isEven()`](https://cengels.github.io/potence/Numbers/isEven)
+- **Renamed**: `Numbers.odd()` to
+  [`Numbers.isOdd()`](https://cengels.github.io/potence/Numbers/isOdd)
+- **Renamed**: `Range.between()` to
+  [`Range.isBetween()`]([`Range`](https://cengels.github.io/potence/Numbers/Range))
+- **Changed**: all
+  [`Range`](https://cengels.github.io/potence/Numbers/Range)
+  fields now use
+  [private class fields](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/Private_class_fields)
+- **Changed**: 
+  [`Range.intersect()`](https://cengels.github.io/potence/Numbers/Range)
+  now returns
+  [`Number.NaN`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/NaN)
+  when no intersection was found
+
+### Objects
+
+- **Added**: new function
+  [`Objects.map()`](https://cengels.github.io/potence/Objects/map)
+- **Added**: new function
+  [`Objects.filter()`](https://cengels.github.io/potence/Objects/filter)
+- **Added**: new function
+  [`Objects.omit()`](https://cengels.github.io/potence/Objects/omit)
+- **Added**: new function
+  [`Objects.pick()`](https://cengels.github.io/potence/Objects/pick)
+- **Added**: new function
+  [`Objects.is()`](https://cengels.github.io/potence/Objects/is)
+- **Added**: new function
+  [`Objects.getPropertyDescriptor()`](https://cengels.github.io/potence/Objects/getPropertyDescriptor)
+- **Added**: new function
+  [`Objects.isWritable()`](https://cengels.github.io/potence/Objects/isWritable)
+- **Added**: new function
+  [`Objects.getConstructor()`](https://cengels.github.io/potence/Objects/getConstructor)
+- **Added**: new function
+  [`Objects.clone()`](https://cengels.github.io/potence/Objects/clone)
+
+### Strings
+
+- **Added**: new function
+  [`Strings.match()`](https://cengels.github.io/potence/Strings/match)
+- **Added**: new function
+  [`Strings.isEmpty()`](https://cengels.github.io/potence/Strings/isEmpty)
+- **Added**: new function
+  [`Strings.isWhitespace()`](https://cengels.github.io/potence/Strings/isWhitespace)
+- **Added**: new function
+  [`Strings.forEach()`](https://cengels.github.io/potence/Strings/forEach)
+- **Added**: new function
+  [`Strings.chars()`](https://cengels.github.io/potence/Strings/chars)
+- **Added**: new function
+  [`Strings.codePoints()`](https://cengels.github.io/potence/Strings/codePoints)
+- **Added**: new function
+  [`Strings.isNumber()`](https://cengels.github.io/potence/Strings/isNumber)
+- **Added**: new function
+  [`Strings.splitAt()`](https://cengels.github.io/potence/Strings/splitAt)
+- **Added**: new function
+  [`Strings.stripStart()`](https://cengels.github.io/potence/Strings/stripStart)
+- **Added**: new function
+  [`Strings.stripEnd()`](https://cengels.github.io/potence/Strings/stripEnd)
+- **Added**: new function
+  [`Strings.stripBefore()`](https://cengels.github.io/potence/Strings/stripBefore)
+- **Added**: new function
+  [`Strings.stripAfter()`](https://cengels.github.io/potence/Strings/stripAfter)
+- **Added**: new function
+  [`Strings.pascalCase()`](https://cengels.github.io/potence/Strings/pascalCase)
+- **Changed**: [`Strings.strip()`](https://cengels.github.io/potence/Strings/strip)
+  no longer strips all spaces by default (now just returns original string)
+
+### Types
+
+- **Added**: new type
+  [`Callback<T, U>`](https://cengels.github.io/potence/Types/Callback)
+- **Added**: new type
+  [`Predicate<T>`](https://cengels.github.io/potence/Types/Predicate)
+- **Added**: new type
+  [`HexChar`](https://cengels.github.io/potence/Types/HexChar)
+
+### Other
+
+- **Changed**: updated online documentation across the board
+- **Changed**: updated JsDocs across the board
+
 ## [0.4.0](https://github.com/cengels/potence/compare/0.3.0...0.4.0) - 2020-11-13
 
 ### Assert
