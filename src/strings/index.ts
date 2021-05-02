@@ -29,9 +29,24 @@ export function forEach(string: string, callback: (char: string, index: number, 
 export function chars(string: string): string[] {
     return Array.from(string);
 }
-/**
- * Removes all of the given characters from the string.
- * By default, removes all spaces from the string.
+
+/** 
+ * Gets an array of all the code points in the string.
+ * 
+ * Note that the resulting array will contain all *individual* code points.
+ * Surrogate pairs will be broken apart.
+ */
+export function codePoints(string: string): number[] {
+    const array: number[] = [];
+    let i: number = 0;
+    let codePoint = string.codePointAt(i);
+    
+    for (; codePoint != null; i++, codePoint = string.codePointAt(i)) {
+        array.push(codePoint);
+    }
+
+    return array;
+}
  */
 export function strip(from: string, ...what: string[]): string {
     let string = from;
