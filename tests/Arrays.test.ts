@@ -44,12 +44,12 @@ describe('Arrays.previous() should return', () => {
     it('undefined if index is lower than lower bound', () => expect(Arrays.previous([1, 3, 5], -1)).toBe(undefined));
 });
 
-describe('Arrays.empty() should return', () => {
+describe('Arrays.isEmpty() should return', () => {
     it('true if the array is empty', () => expect(Arrays.isEmpty([])).toBe(true));
     it('false if the array is not empty', () => expect(Arrays.isEmpty([1])).toBe(false));
 });
 
-describe('Arrays.notEmpty() should return', () => {
+describe('Arrays.isNotEmpty() should return', () => {
     it('true if the array is not empty', () => expect(Arrays.isNotEmpty([1])).toBe(true));
     it('false if the array is empty', () => expect(Arrays.isNotEmpty([])).toBe(false));
 });
