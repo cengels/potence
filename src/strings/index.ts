@@ -113,6 +113,21 @@ export function strip(from: string, ...what: string[]): string {
     return string;
 }
 
+/** Removes all of the given substrings from the end of the string. */
+export function stripEnd(from: string, ...what: string[]): string {
+    let string = from;
+
+    for (const substring of what) {
+        let index = string.lastIndexOf(substring);
+
+        while (index === string.length - what.length) {
+            string = string.slice(0, index);
+            index = string.lastIndexOf(substring);
+        }
+    }
+
+    return string;
+}
 function findTokensAndUppercaseNext(source: string, token: string): string {
     let result = source;
     let tokenIndex = result.indexOf(token);
