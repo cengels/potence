@@ -1,4 +1,4 @@
-export * from './match.js';
+export { match } from './match.js';
 
 /**
  * Removes all of the given characters from the string.
