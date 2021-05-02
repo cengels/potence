@@ -19,6 +19,16 @@ export function forEach(string: string, callback: (char: string, index: number, 
         i++;
     }
 }
+
+/** 
+ * Converts the string to a character array.
+ * 
+ * Note that the resulting array is unicode-conform, that is it will not break
+ * apart surrogate pairs.
+ */
+export function chars(string: string): string[] {
+    return Array.from(string);
+}
 /**
  * Removes all of the given characters from the string.
  * By default, removes all spaces from the string.
