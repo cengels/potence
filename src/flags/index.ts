@@ -9,25 +9,25 @@ function throwOnInvalidFlag(value: number): void | never {
  * This class also contains static methods that can be used without
  * constructing an instance.
  */
-export default class Flags<T extends number> {
+export default class Flags {
     private value: number;
 
-    public constructor(initialValue?: T) {
+    public constructor(initialValue?: number) {
         this.value = initialValue ?? 0;
     }
 
     /** Checks if the flags enum includes the given flag. */
-    public has(flag: T): boolean {
+    public has(flag: number): boolean {
         return Flags.has(this.value, flag);
     }
 
     /** Checks if the flags enum includes any of the given flags. */
-    public hasSome(...flags: T[]): boolean {
+    public hasSome(...flags: number[]): boolean {
         return Flags.hasSome(this.value, ...flags);
     }
 
     /** Checks if the flags enum includes all of the given flags. */
-    public hasEvery(...flags: T[]): boolean {
+    public hasEvery(...flags: number[]): boolean {
         return Flags.hasEvery(this.value, ...flags);
     }
 
