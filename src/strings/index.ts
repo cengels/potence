@@ -47,6 +47,11 @@ export function codePoints(string: string): number[] {
 
     return array;
 }
+
+/** Returns true if the string contains only whitespace. */
+export function isWhitespace(string: string): boolean {
+    return isEmpty(string.trim());
+}
  */
 export function strip(from: string, ...what: string[]): string {
     let string = from;
