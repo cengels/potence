@@ -120,7 +120,7 @@ export function equal(array1: readonly unknown[], array2: readonly unknown[]): b
 }
 
 /**
- * Removes the specified element(s) from the array and returns the original array.
+ * Removes the specified element(s) from the array and returns the array.
  *
  * If the array contains multiples of the specified element(s), all of them
  * are removed.
@@ -146,7 +146,7 @@ export function remove<T extends unknown[]>(array: T, ...elements: T): T {
 
 /**
  * Removes the element at the specified index from the array
- * and returns the original array.
+ * and returns the array.
  * 
  * @param index The zero-based index of the element to be removed.
  *              If negative, iterates backwards from the end of the array.
@@ -162,7 +162,7 @@ export function removeAt<T extends unknown[]>(array: T, index: number): T {
 }
 
 /**
- * Replaces the specified element with another and returns the original array.
+ * Replaces the specified element with another and returns the array.
  *
  * If the array contains multiples of the target element, it will only replace the first occurrence.
  */

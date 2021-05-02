@@ -2,9 +2,11 @@ import { TransformTo1DArray } from '.';
 import { Constructor } from '../types';
 import List from './List';
 
+/** A readonly variant of `List`. */
 export default interface ReadonlyList<T> extends ReadonlyArray<T> {
     /**
      * Gets the item at the specified index.
+     * 
      * Unlike bracket syntax (`this[index]`), this function throws an error
      * if there is no element at the given index, meaning that the return
      * value of this function can never be `undefined` (unless `undefined`
@@ -14,6 +16,7 @@ export default interface ReadonlyList<T> extends ReadonlyArray<T> {
 
     /** 
      * Returns a copy of this list.
+     * 
      * Note that only the list is copied, not the elements within.
      */
     clone(): List<T>;
