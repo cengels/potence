@@ -1,5 +1,9 @@
 export { match } from './match.js';
 
+/** Returns true if the string contains no characters. */
+export function isEmpty(string: string): boolean {
+    return string.length === 0;
+}
 /**
  * Removes all of the given characters from the string.
  * By default, removes all spaces from the string.
