@@ -142,15 +142,19 @@ export function stripEnd(from: string, ...what: string[]): string {
     return string;
 }
 
-/** Removes all of the given substrings from the start of the string. */
-export function stripStart(from: string, ...what: string[]): string {
-    let string = from;
+/** 
+ * Strips everything before the first or last occurrence of
+ * the specified substring from the string.
+ */
+export function stripBefore(from: string, what: string, searchBackwards: boolean = false): string {
+    const index = searchBackwards ? from.lastIndexOf(what) : from.indexOf(what);
 
-    for (const substring of what) {
-        while (string.startsWith(substring)) {
-            string = string.slice(substring.length);
-        }
+    if (index === -1) {
+        return from;
     }
+
+    return from.slice(index + what.length);
+}
 
     return string;
 }
