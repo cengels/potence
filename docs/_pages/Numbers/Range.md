@@ -138,7 +138,7 @@ public constructor(from: number, to: number);
     </tr>
     <tr>
         <td class="signature">
-            {% highlight ts %}between(value: number): boolean{% endhighlight %}
+            {% highlight ts %}isBetween(value: number): boolean{% endhighlight %}
         </td>
         <td class="description">
             <p>Checks if the number is in-between the end points of this range.</p>
