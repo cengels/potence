@@ -99,13 +99,9 @@ export function splitAt(string: string, ...indexes: number[]): string[] {
 export function strip(from: string, ...what: string[]): string {
     let string = from;
 
-    if (what.length === 0) {
-        what.push(' ');
-    }
-
     for (const substring of what) {
         // Previously this solution used string.replace(), but since you also had to
-        // check string.includes() on every iteration, it was only about half as fast.
+        // check string.includes() on every iteration, it wasn't as efficient.
         let index = string.indexOf(substring);
 
         while (index !== -1) {

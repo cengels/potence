@@ -3,12 +3,13 @@ layout:      page
 title:       Strings.strip()
 module:      Strings
 added:       0.0.1
+updated:     0.5.0
 description: Returns a new string with all the specified tokens removed.
 parameters:
   from: The string to strip.
   what:
     description: The tokens to remove from `from` if found. If not specified,
-                 the function will remove all spaces from the string.
+                 the function will return the original string.
     optional: yes
     rest: yes
 ---
