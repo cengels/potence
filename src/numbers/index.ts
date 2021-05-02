@@ -89,7 +89,7 @@ export function isEven(value: number): boolean {
 }
 
 /** Returns true if the number is an odd number. */
-export function odd(value: number): boolean {
+export function isOdd(value: number): boolean {
     return value % 2 === 1;
 }
 
