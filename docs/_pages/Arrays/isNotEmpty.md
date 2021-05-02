@@ -1,16 +1,17 @@
 ---
 layout:      page
-title:       Arrays.empty()
+title:       Arrays.isNotEmpty()
 module:      Arrays
 added:       0.0.1
-description: Checks whether an array is empty.
+updated:     0.5.0
+description: Checks whether an array is not empty.
 parameters:
   array: An array with any number of elements.
 ---
 ## Syntax
 
 ```ts
-function empty(array: readonly unknown[]): boolean
+function isNotEmpty(array: readonly unknown[]): boolean
 ```
 
 <div class="description">{% include linkify.html description=page.description %}</div>
@@ -21,11 +22,11 @@ function empty(array: readonly unknown[]): boolean
 ```ts
 import { Arrays } from 'potence';
 
-console.log(Arrays.empty([]));          // -> true
-console.log(Arrays.empty([1, 2, 3]));   // -> false
+console.log(Arrays.isNotEmpty([]));          // -> false
+console.log(Arrays.isNotEmpty([1, 2, 3]));   // -> true
 ```
 
 ## Remarks
 
 This function is analogous to
-[`Arrays.notEmpty()`]({{ site.baseurl }}{% link _pages/Arrays/notEmpty.md %}).
+[`Arrays.isEmpty()`]({{ site.baseurl }}{% link _pages/Arrays/isEmpty.md %}).
