@@ -64,6 +64,37 @@ export function isNumber(potentialNumber: string): boolean {
         && potentialNumber.length > 0
         && !Number.isNaN(Number(potentialNumber));
 }
+
+/**
+ * Splits the string at the given indexes, returning a new array with the
+ * newly formed substrings.
+ * 
+ * Note that the indexes must correspond to UTF-8 code points and must not
+ * result in a zero-length segment (i.e. no index of 0 or string.length,
+ * and no duplicate indexes).
+ * 
+ * @example
+ * Strings.splitAt('bananas', 3, 5);  // -> ['ban', 'an', 'as']
+ */
+export function splitAt(string: string, ...indexes: number[]): string[] {
+    let previousIndex: number = 0;
+
+    return indexes.sort((a, b) => a - b)
+        .map(index => {
+            const segment = string.slice(previousIndex, index);
+
+            if (isEmpty(segment)) {
+                throw new Error(`Can't split string at index ${index}. Resulting substring would be empty.`);
+            }
+
+            previousIndex = index;
+
+            return segment;
+    });
+}
+
+/**
+ * Removes all of the given substrings from the string.
  */
 export function strip(from: string, ...what: string[]): string {
     let string = from;
