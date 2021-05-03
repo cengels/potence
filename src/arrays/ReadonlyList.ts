@@ -1,6 +1,6 @@
-import { TransformTo1DArray } from '.';
-import { Constructor } from '../types';
-import List from './List';
+import { TransformTo1DArray } from './index.js';
+import { Constructor } from '../types.js';
+import List from './List.js';
 
 /** A readonly variant of `List`. */
 export default interface ReadonlyList<T> extends ReadonlyArray<T> {

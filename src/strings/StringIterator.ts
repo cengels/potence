@@ -1,4 +1,4 @@
-import { Strings } from '..';
+import { Strings } from '../index.js';
 
 /** An iterator that facilitates iterating over a string. */
 export class StringIterator {

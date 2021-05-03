@@ -1,4 +1,4 @@
-import { StringIterator } from './StringIterator';
+import { StringIterator } from './StringIterator.js';
 
 export type PlaceholderType = 'float' | 'int' | 'string' | '';
 

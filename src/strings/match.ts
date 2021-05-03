@@ -1,5 +1,5 @@
-import Placeholder from './Placeholder';
-import { StringIterator } from './StringIterator';
+import Placeholder from './Placeholder.js';
+import { StringIterator } from './StringIterator.js';
 
 export interface PatternMatchResult {
     /** 
