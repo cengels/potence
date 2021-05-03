@@ -37,12 +37,12 @@ describe('Numbers.isEven() should return', () => {
 });
 
 describe('Numbers.isOdd() should return', () => {
-    it('true for odd numbers', () => expect(Numbers.isEven(634611)).toBe(true));
-    it('false for even numbers', () => expect(Numbers.isEven(5234)).toBe(false));
-    it('false for decimals', () => expect(Numbers.isEven(634611.55)).toBe(false));
-    it('false for NaN', () => expect(Numbers.isEven(Number.NaN)).toBe(false));
-    it('false for Infinity', () => expect(Numbers.isEven(Infinity)).toBe(false));
-    it('false for -Infinity', () => expect(Numbers.isEven(-Infinity)).toBe(false));
+    it('true for odd numbers', () => expect(Numbers.isOdd(634611)).toBe(true));
+    it('false for even numbers', () => expect(Numbers.isOdd(5234)).toBe(false));
+    it('false for decimals', () => expect(Numbers.isOdd(634611.55)).toBe(false));
+    it('false for NaN', () => expect(Numbers.isOdd(Number.NaN)).toBe(false));
+    it('false for Infinity', () => expect(Numbers.isOdd(Infinity)).toBe(false));
+    it('false for -Infinity', () => expect(Numbers.isOdd(-Infinity)).toBe(false));
 });
 
 describe('Numbers.isFloat() should return', () => {
