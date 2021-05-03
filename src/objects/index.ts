@@ -231,19 +231,32 @@ type HasPropertyReturnType<T extends BaseType | Constructor> =
     : T extends Constructor<infer C> ? C
     : unknown;
 
-/** Checks if an object has a property with the specified name and optionally the specified `typeof` type. */
+/** 
+ * Checks if an object has a property with the specified name.
+ * Optionally checks if the property is the specified type.
+ */
 export function hasProperty<
     TKey extends string | number | symbol,
     T extends BaseType | Constructor
 >(source: unknown, propertyName: TKey, type?: T): source is HasProperty<TKey, HasPropertyReturnType<T>> {
-    return source != null
-        // The 'in' operator can't be used with primitive types, but
-        // we can get around that by explicitly converting them
-        // to objects first.
-        && propertyName in new Object(source)
-        && (type == null || (typeof type === 'string'
-            ? typeof (source as ObjectLiteral)[propertyName] === type
-            : (source as ObjectLiteral)[propertyName] instanceof (type as Constructor)));
+    if (source == null) {
+        return false;
+    }
+
+    // We use the 'in' operator to distinguish between properties whose
+    // value is undefined and properties that don't actually exist.
+    // However, the 'in' operator can only be used on objects,
+    // not primitives. But this is not a problem because primitives
+    // don't have any properties whose value could be undefined.
+
+    const object = source as ObjectLiteral;
+
+    if (isPrimitive(source) ? object[propertyName] === undefined : !(propertyName in object)) {
+        return false;
+    }
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return (type == null || is(object[propertyName], type as any));
 }
 
 type Func = (...args: unknown[]) => unknown;
