@@ -117,15 +117,13 @@ export function equals<T>(actual: unknown, expected: T, name?: string): asserts 
     throwIf(actual !== expected, actual, Objects.stringify(expected, stringifyOptions), name);
 }
 
-type NotEquals<T1, T2> = T1 extends T2 ? never : T1;
-
 /**
  * Throws an assertion error if the value equals the specified value.
  *
  * @param name If you're checking a named value (like a variable or property),
  *   you can enter its name here for a more expressive error message.
  */
-export function notEquals<T1, T2 extends T1>(actual: T1, unexpected: T2, name?: string): asserts actual is NotEquals<T1, T2> {
+export function notEquals(actual: unknown, unexpected: unknown, name?: string): void {
     if (actual === unexpected) {
         const stringifiedUnexpected = Objects.stringify(unexpected, stringifyOptions);
 
