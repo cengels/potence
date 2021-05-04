@@ -1,6 +1,6 @@
 function throwOnInvalidFlag(value: number): void | never {
-    if (value === 0) {
-        throw new Error(`Invalid flag value. Flags must not be 0.`);
+    if (value <= 0 || !Number.isInteger(value) || Number.isNaN(value) || !Number.isFinite(value)) {
+        throw new Error(`Invalid flag value. Flags must be non-zero positive integers.`);
     }
 }
 
@@ -13,20 +13,24 @@ export default class Flags {
     private value: number;
 
     public constructor(initialValue?: number) {
+        if (initialValue != null && initialValue !== 0) {
+            throwOnInvalidFlag(initialValue);
+        }
+        
         this.value = initialValue ?? 0;
     }
 
-    /** Checks if the flags enum includes the given flag. */
+    /** Checks if the number includes the given flag. */
     public has(flag: number): boolean {
         return Flags.has(this.value, flag);
     }
 
-    /** Checks if the flags enum includes any of the given flags. */
+    /** Checks if the number includes any of the given flags. */
     public hasSome(...flags: number[]): boolean {
         return Flags.hasSome(this.value, ...flags);
     }
 
-    /** Checks if the flags enum includes all of the given flags. */
+    /** Checks if the number includes all of the given flags. */
     public hasEvery(...flags: number[]): boolean {
         return Flags.hasEvery(this.value, ...flags);
     }
@@ -45,7 +49,14 @@ export default class Flags {
         return this;
     }
 
-    /** Checks if the flags enum includes the given flag. */
+    /** Clears all flags. */
+    public clear(): this {
+        this.value = 0;
+
+        return this;
+    }
+
+    /** Checks if the number includes the given flag. */
     public static has(flags: number, flag: number): boolean {
         throwOnInvalidFlag(flag);
 
@@ -56,12 +67,12 @@ export default class Flags {
         return flag === (flags & flag);
     }
 
-    /** Checks if the flags enum includes any of the given flags. */
+    /** Checks if the number includes any of the given flags. */
     public static hasSome(flags: number, ...someFlags: number[]): boolean {
-        return someFlags.some(flag => Flags.has(flags, flag));
+        return someFlags.some(flag => flag === 0 || Flags.has(flags, flag));
     }
 
-    /** Checks if the flags enum includes all of the given flags. */
+    /** Checks if the number includes all of the given flags. */
     public static hasEvery(flags: number, ...everyFlag: number[]): boolean {
         return everyFlag.every(flag => Flags.has(flags, flag));
     }
@@ -77,8 +88,8 @@ export default class Flags {
     }
 
     /** Returns a new number with the given flags unset on `flags`. */
-    public static unset(flags: number, ...flagsToSet: number[]): number {
-        for (const flag of flagsToSet) {
+    public static unset(flags: number, ...flagsToUnset: number[]): number {
+        for (const flag of flagsToUnset) {
             throwOnInvalidFlag(flag);
             flags = flags & ~flag;
         }
@@ -86,10 +97,17 @@ export default class Flags {
         return flags;
     }
 
+    /** Converts the flags to a number. */
+    public toNumber(): number {
+        return this.value;
+    }
+
+    /** Converts the flags to a number. */
     public toJSON(): number {
         return this.value;
     }
 
+    /** Converts the flags to a number string. */
     public toString(): string {
         return this.value.toString(10);
     }
