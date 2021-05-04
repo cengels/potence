@@ -17,4 +17,7 @@ description: |
   Note that all related functions are available both as instance members of
   Flags instances, as well as static members of the Flags type itself, allowing
   you to choose between using them with or without an instance.
+  Since instance methods operate on an instance flag field, they will have one
+  less parameter. Static mutator methods return a new flag number, whereas
+  instance mutator methods will return their own instance to allow chaining.
 ---
