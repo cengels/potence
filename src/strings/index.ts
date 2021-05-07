@@ -1,5 +1,3 @@
-export { match } from './match.js';
-
 /** Returns true if the string contains no characters. */
 export function isEmpty(string: string): boolean {
     return string.length === 0;
