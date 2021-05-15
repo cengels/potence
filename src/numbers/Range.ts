@@ -10,20 +10,22 @@ import ReadonlyRange from './ReadonlyRange.js';
  * values are modified.
  */
 export default class Range implements ReadonlyRange {
-    #from: number;
-    #to: number;
-    #min?: number;
-    #max?: number;
-    #center?: number;
-    #span?: number;
+    private _from: number;
+    private _to: number;
+    private _min?: number;
+    private _max?: number;
+    private _center?: number;
+    private _span?: number;
 
-    public constructor(from: number, to: number) {
-        this.#from = from;
-        this.#to = to;
+    public constructor();
+    public constructor(from: number, to: number);
+    public constructor(from?: number, to?: number) {
+        this._from = from ?? 0;
+        this._to = to ?? 0;
     }
 
-    public get from(): number { return this.#from; }
-    public get to(): number { return this.#to; }
+    public get from(): number { return this._from; }
+    public get to(): number { return this._to; }
 
     /**
      * Sets this range to the new values and returns itself.
@@ -32,8 +34,8 @@ export default class Range implements ReadonlyRange {
      * range can be helpful for, for instance, `Range.at()`.
      */
     public set(from: number, to: number): this {
-        this.#from = from;
-        this.#to = to;
+        this._from = from;
+        this._to = to;
         this.reset();
 
         return this;
@@ -45,46 +47,46 @@ export default class Range implements ReadonlyRange {
     }
 
     private reset(): void {
-        this.#min = undefined;
-        this.#max = undefined;
-        this.#center = undefined;
-        this.#span = undefined;
+        this._min = undefined;
+        this._max = undefined;
+        this._center = undefined;
+        this._span = undefined;
     }
 
     public min(): number {
-        if (this.#min == null) {
+        if (this._min == null) {
             // Using the ternary operator like this rather than Math.min()
             // is actually dramatically (about 5x) faster in tight loops.
-            this.#min = this.#from < this.#to ? this.#from : this.#to;
+            this._min = this._from < this._to ? this._from : this._to;
         }
 
-        return this.#min;
+        return this._min;
     }
 
     public max(): number {
-        if (this.#max == null) {
+        if (this._max == null) {
             // Using the ternary operator like this rather than Math.max()
             // is actually dramatically (about 5x) faster in tight loops.
-            this.#max = this.#from > this.#to ? this.#from : this.#to;
+            this._max = this._from > this._to ? this._from : this._to;
         }
 
-        return this.#max;
+        return this._max;
     }
 
     public center(): number {
-        if (this.#center == null) {
-            this.#center = (this.max() - this.min()) / 2 + this.min();
+        if (this._center == null) {
+            this._center = (this.max() - this.min()) / 2 + this.min();
         }
 
-        return this.#center;
+        return this._center;
     }
 
     public span(): number {
-        if (this.#span == null) {
-            this.#span = this.max() - this.min();
+        if (this._span == null) {
+            this._span = this.max() - this.min();
         }
 
-        return this.#span;
+        return this._span;
     }
 
     public clamp(value: number): number {
@@ -161,10 +163,10 @@ export default class Range implements ReadonlyRange {
     public equals(from: number, to: number): boolean;
     public equals(rangeOrFrom: ReadonlyRange | number, to?: number): boolean {
         if (typeof rangeOrFrom === 'number') {
-            return this.#from === rangeOrFrom && this.#to === to;
+            return this._from === rangeOrFrom && this._to === to;
         }
 
-        return this.#from === rangeOrFrom.from && this.#to === rangeOrFrom.to;
+        return this._from === rangeOrFrom.from && this._to === rangeOrFrom.to;
     }
 
     public clone(): Range {
