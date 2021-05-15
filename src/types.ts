@@ -168,3 +168,13 @@ export function isIterable(object: unknown): object is Iterable<unknown> {
 
 /** Represents a single character in the hexadecimal range (0-9, A-F/a-f). */
 export type HexChar = '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'a' | 'b' | 'c' | 'd' | 'e' | 'f';
+
+/** 
+ * Excludes from T the properties whose values are assignable to U.
+ * 
+ * This differs from Omit<T, U> in that Omit compares the properties'
+ * key type. This type compares the properties' value type.
+ *
+ * This type does not currently work well with union or inherited types.
+ */
+export type ExcludeProps<T, U> = Pick<T, { [K in keyof T]: T[K] extends U ? never : K }[keyof T]>
