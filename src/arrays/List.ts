@@ -243,6 +243,33 @@ export default class List<T> extends Array<T> implements ReadonlyList<T> {
         return Arrays.findIndices(this, objectOrPredicate as any);
     }
 
+    /** 
+     * Creates a new array with the elements from all the given arrays.
+     * This function differs from `Array.prototype.concat()` in how it handles
+     * duplicates: `concat()` will simply concatenate two arrays regardless of
+     * duplication. This function will only add an element if it was not already
+     * added by one of the other arrays.
+     */
+    public union(...arrays: readonly T[][]): T[] {
+        return Arrays.union(this, ...arrays);
+    }
+    
+    /** 
+     * Creates a new array with only the elements common to all the given arrays.
+     */
+     public intersection(...arrays: readonly T[][]): T[] {
+        return Arrays.intersection(this, ...arrays);
+    }
+
+    /** 
+     * Creates a new array with only the elements that are unique to one of the
+     * given arrays. In other words: the resulting array will contain all elements
+     * except those shared by multiple of the given arrays.
+     */
+     public difference(...arrays: readonly T[][]): T[] {
+        return Arrays.difference(this, ...arrays);
+    }
+
     /**
      * Creates an array from an iterable object.
      * @param iterable An iterable object to convert to an array.

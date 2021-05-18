@@ -177,4 +177,25 @@ export default interface ReadonlyList<T> extends ReadonlyArray<T> {
      * only returns the first matching index, this function returns all of them.
      */
     findIndices(object: T): number[];
+
+    /** 
+     * Creates a new array with the elements from all the given arrays.
+     * This function differs from `Array.prototype.concat()` in how it handles
+     * duplicates: `concat()` will simply concatenate two arrays regardless of
+     * duplication. This function will only add an element if it was not already
+     * added by one of the other arrays.
+     */
+    union(...arrays: readonly T[][]): T[];
+    
+    /** 
+     * Creates a new array with only the elements common to all the given arrays.
+     */
+    intersection(...arrays: readonly T[][]): T[];
+
+    /** 
+     * Creates a new array with only the elements that are unique to one of the
+     * given arrays. In other words: the resulting array will contain all elements
+     * except those shared by multiple of the given arrays.
+     */
+    difference(...arrays: readonly T[][]): T[];
 }

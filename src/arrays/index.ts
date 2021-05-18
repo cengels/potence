@@ -519,3 +519,84 @@ export function findIndices<T>(array: T[], objectOrPredicate: T | Predicate<T>):
         return acc;
     }, []);
 }
+
+/** 
+ * Creates a new array with the elements from all the given arrays.
+ * This function differs from `Array.prototype.concat()` in how it handles
+ * duplicates: `concat()` will simply concatenate two arrays regardless of
+ * duplication. This function will only add an element if it was not already
+ * added by one of the other arrays.
+ */
+export function union<T>(...arrays: readonly T[][]): T[] {
+    const result: T[] = arrays.length === 0 ? [] : arrays[0].slice();
+
+    for (let i: number = 1; i < arrays.length; i++) {
+        for (const element of arrays[i]) {
+            if (!result.includes(element)) {
+                result.push(element);
+            }
+        }
+    }
+
+    return result;
+}
+
+/** 
+ * Creates a new array with only the elements common to all the given arrays.
+ */
+export function intersection<T>(...arrays: readonly T[][]): T[] {
+    if (arrays.length === 1) {
+        return arrays[0].slice();
+    }
+
+    const result: T[] = [];
+
+    if (arrays.length === 0) {
+        return result;
+    }
+
+    for (const element of arrays[0]) {
+        let shouldAdd = true;
+
+        for (let i: number = 1; i < arrays.length; i++) {
+            if (!arrays[i].includes(element)) {
+                shouldAdd = false;
+                break;
+            }
+        }
+
+        if (shouldAdd) {
+            result.push(element);
+        }
+    }
+
+    return result;
+}
+
+/** 
+ * Creates a new array with only the elements that are unique to one of the
+ * given arrays. In other words: the resulting array will contain all elements
+ * except those shared by multiple of the given arrays.
+ */
+export function difference<T>(...arrays: readonly T[][]): T[] {
+    if (arrays.length === 1) {
+        return arrays[0].slice();
+    }
+
+    if (arrays.length === 0) {
+        return [];
+    }
+
+    return arrays.flat(1)
+        .filter(element => {
+            let count = 0;
+
+            for (const array of arrays) {
+                if (array.includes(element)) {
+                    count++;
+                }
+            }
+
+            return count === 1;
+        });
+}
