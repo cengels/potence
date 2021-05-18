@@ -1,4 +1,5 @@
 import { BaseToType, BaseType, Constructor, Equatable, Instantiable, isEquatable, isPrimitive, ObjectLiteral, Structure, StructureValue } from '../types.js';
+import { stringify } from './stringify.js';
 export * from './stringify.js';
 
 type DistributeStructureValue<T> = T extends StructureValue ? MappedStructureValue<T> : never;
@@ -109,7 +110,11 @@ function match(expected: Structure[''], actual: unknown): boolean {
         }
     }
 
-    return actual instanceof expected;
+    if (typeof expected === 'function') {
+        return actual instanceof expected;
+    }
+    
+    throw new Error(`Invalid type for 'expected': must be a string, an object, an array, or a function but was: ${stringify(expected)}`);
 }
 
 /**
