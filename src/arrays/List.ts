@@ -233,6 +233,10 @@ export default class List<T> extends Array<T> implements ReadonlyList<T> {
         return Arrays.hasDuplicates(this);
     }
 
+    public hasMultiple(value: T): boolean {
+        return Arrays.hasMultiple(this, value);
+    }
+
     public findIndices(predicate: (object: T) => boolean): number[];
     public findIndices(object: T): number[];
     public findIndices(objectOrPredicate: T | Predicate<T>): number[] {

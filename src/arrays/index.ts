@@ -457,6 +457,16 @@ export function hasDuplicates(array: readonly unknown[]): boolean {
     return new Set(array).size !== array.length;
 }
 
+/**
+ * Returns `true` if the array contains multiple of the specified value.
+ *
+ * Note that this function only compares values for value types,
+ * otherwise it compares references.
+ */
+export function hasMultiple<T>(array: readonly T[], value: T): boolean {
+    return array.indexOf(value) !== array.lastIndexOf(value);
+}
+
 /** 
  * Generates an array of numbers between the specified boundaries.
  * Note that both boundaries are inclusive, meaning they will be included

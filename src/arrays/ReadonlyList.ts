@@ -158,6 +158,14 @@ export default interface ReadonlyList<T> extends ReadonlyArray<T> {
     hasDuplicates(): boolean;
 
     /**
+     * Returns `true` if the list contains multiple of the specified value.
+     *
+     * Note that this function only compares values for value types,
+     * otherwise it compares references.
+     */
+    hasMultiple(value: T): boolean;
+
+    /**
      * Returns the indices for all objects that match the predicate in the array.
      * This function is parallel to `Array.prototype.findIndex()`, but whereas `findIndex()`
      * only returns the first matching index, this function returns all of them.
