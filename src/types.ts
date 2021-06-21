@@ -152,15 +152,6 @@ export function isEquatable(object: unknown): object is Equatable {
     return object != null && Objects.hasFunction(object, 'equals', 1);
 }
 
-/**
- * Represents a collection type that can be iterated over using `for ... of`.
- *
- * Examples include `Array`, `Set`, `Map`, `string` or `TypedArray`.
- */
-export interface Iterable<T> {
-    [Symbol.iterator](): IterableIterator<T>;
-}
-
 /** Checks if an object implements `Iterable`. */
 export function isIterable(object: unknown): object is Iterable<unknown> {
     return object != null && Objects.hasFunction(object, Symbol.iterator);
