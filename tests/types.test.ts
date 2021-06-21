@@ -78,3 +78,13 @@ describe('Falsy<T> should', () => {
     it('return never for non-matching literal unions', () => tester.expectType('Falsy<5 | 2 | "five">').toResolveTo('never'));
     it('keep -0', () => tester.expectType('Falsy<-0>').toResolveTo('0'));
 });
+
+describe('ExcludeProps<T, U> should', () => {
+    const tester = new TypeTester();
+
+    tester.import('ExcludeProps').from('./src/types');
+
+    const T = '{ num: number; str: string; nullable: number | undefined; }';
+
+    it('remove string properties', () => tester.expectType(`ExcludeProps<${T}, string>`).toResolveTo(`Pick<${T}, "num" | "nullable">`));
+});
