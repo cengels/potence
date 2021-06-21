@@ -295,7 +295,7 @@ export function roman(value: number): string {
  * If no target number is specified, returns `source`.
  */
 export function closest(source: number, ...targets: number[]): number {
-    return targets.sort((a, b) => Math.abs(source - a) - Math.abs(source - b))[0];
+    return targets.sort((a, b) => Math.abs(source - a) - Math.abs(source - b))[0] ?? source;
 }
 
 /**

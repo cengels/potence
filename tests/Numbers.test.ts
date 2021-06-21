@@ -186,3 +186,13 @@ describe('Numbers.roman() should', () => {
         [3999, 'MMMCMXCIX']
     ]).it('return the corresponding incremental numeral to %p: %s', (value, expected) => expect(Numbers.roman(value)).toBe(expected));
 });
+
+describe('Numbers.closest() should return', () => {
+    each([
+        [[5], 5],
+        [[5, 1], 1],
+        [[5, 8, 1], 8],
+        [[10, -5, 15, 200], 15],
+        [[8, 4, 12], 4]
+    ]).it('with integers %p: %d', (values: [number, ...number[]], expected) => expect(Numbers.closest(...values)).toBeCloseTo(expected));
+});
