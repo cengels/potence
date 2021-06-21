@@ -30,27 +30,6 @@ describe('isIterable() should return', () => {
     it('true for TypedArrays', () => expect(isIterable(new Uint8Array([1, 2, 3]))).toBe(true));
 });
 
-describe('Iterable should', () => {
-    const tester = new TypeTester();
-
-    tester.import('Iterable').from('./src/types');
-    tester.write(`
-        function sum(iterable: Iterable<number>): number {
-            let sum: number = 0;
-
-            for (const item of iterable) {
-                sum += item;
-            }
-
-            return sum;
-        }
-    `);
-
-    it('not throw error on array with correct type', () => tester.expect('sum([0, 1, 2])').toNotThrowError());
-    it('throw error on array with incorrect type', () => tester.expect('sum([0, "hello", 2])').toThrowError());
-    it('not throw error on set', () => tester.expect('sum(new Set([0, 1, 2]))').toNotThrowError());
-});
-
 describe('Truthy<T> should', () => {
     const tester = new TypeTester();
 
