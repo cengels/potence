@@ -11,7 +11,7 @@ export namespace Unit {
             export const Meter = 'm' as const;
             export const Decimeter = 'dm' as const;
             export const Centimeter = 'cm' as const;
-            export const Millimeter = 'μm' as const;
+            export const Millimeter = 'mm' as const;
             export const Micrometer = 'μm' as const;
             export const Nanometer = 'nm' as const;
         }
@@ -83,5 +83,5 @@ export function convert(source: number, from: Unit, to: Unit): number {
 
     Assert.that(factor != null, `Conversion failed. Unit ${to} is not a valid unit identifier.`);
 
-    return source / divisor * factor;
+    return source * divisor / factor;
 }
