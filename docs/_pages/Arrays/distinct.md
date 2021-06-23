@@ -3,15 +3,16 @@ layout:      page
 title:       Arrays.distinct()
 module:      Arrays
 added:       0.4.0
-description: Returns a new array of only the unique values of the original
-             array (without duplicates).
+updated:     0.5.0
+description: Returns a new array of only the unique values of the iterable
+             (without duplicates).
 parameters:
-  array: The array you want without duplicates.
+  iterable: The iterable you want without duplicates.
 ---
 ## Syntax
 
 ```ts
-function distinct<T>(array: readonly T[]): T[]
+function distinct<T>(iterable: Iterable<T>): T[]
 ```
 
 <div class="description">{% include linkify.html description=page.description %}</div>
@@ -37,5 +38,8 @@ This function uses
 internally to remove the duplicate values, so prefer to use Set directly
 if you are able to do so.
 
-This function does not modify the original array but returns a new array
+This function does not modify the original iterable but returns a new array
 instead.
+
+Compare
+[`Arrays.hasDuplicates()`]({{ site.baseurl }}{% link _pages/Arrays/hasDuplicates.md %}).

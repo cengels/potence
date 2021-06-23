@@ -4,14 +4,14 @@ title:       Arrays.isEmpty()
 module:      Arrays
 added:       0.0.1
 updated:     0.5.0
-description: Checks whether an array is empty.
+description: Checks whether an iterable is empty.
 parameters:
-  array: An array with any number of elements.
+  iterable: An iterable with any number of elements.
 ---
 ## Syntax
 
 ```ts
-function isEmpty(array: readonly unknown[]): boolean
+function isEmpty(iterable: Iterable<unknown> | HasLength | HasSize): boolean
 ```
 
 <div class="description">{% include linkify.html description=page.description %}</div>
@@ -22,11 +22,17 @@ function isEmpty(array: readonly unknown[]): boolean
 ```ts
 import { Arrays } from 'potence';
 
-console.log(Arrays.isEmpty([]));          // -> true
-console.log(Arrays.isEmpty([1, 2, 3]));   // -> false
+Arrays.isEmpty([]);         // -> true
+Arrays.isEmpty([1, 2, 3]);  // -> false
+Arrays.isEmpty(new Set());  // -> true
 ```
 
 ## Remarks
 
-This function is analogous to
+If the iterable has a `length` or `size` property, this function simply checks
+whether its value is `0`. If the iterable has neither, this function checks
+whether its iterator returns any elements. This means that the time complexity
+of this function is O(1) for both array-likes and other iterables.
+
+Compare
 [`Arrays.isNotEmpty()`]({{ site.baseurl }}{% link _pages/Arrays/isNotEmpty.md %}).

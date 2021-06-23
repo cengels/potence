@@ -3,14 +3,15 @@ layout:      page
 title:       Arrays.hasDuplicates()
 module:      Arrays
 added:       0.4.0
-description: Checks whether an array contains duplicate values or references.
+updated:     0.5.0
+description: Checks whether an iterable contains duplicate values or references.
 parameters:
-  array: The array you want to check.
+  array: The iterable you want to check.
 ---
 ## Syntax
 
 ```ts
-function hasDuplicates<T>(array: readonly T[]): T[]
+function hasDuplicates(iterable: Iterable<unknown>): boolean
 ```
 
 <div class="description">{% include linkify.html description=page.description %}</div>
@@ -34,3 +35,6 @@ This function uses
 [Set](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set)
 internally to check for duplicates, so prefer to use Set directly if you are
 able to do so.
+
+Compare
+[`Arrays.distinct()`]({{ site.baseurl }}{% link _pages/Arrays/distinct.md %}).

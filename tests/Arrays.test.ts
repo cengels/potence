@@ -12,30 +12,36 @@ describe('Arrays.clone() should', () => {
     });
 });
 
+function* iterable() {
+    yield 1;
+    yield 1;
+    yield 3;
+}
+
+function* emptyIterable() {
+}
+
 describe('Arrays.count() should work with', () => {
     it('arrays', () => expect(Arrays.count([1, 3, 5])).toBe(3));
     it('sets', () => expect(Arrays.count(new Set([1, 3, 5]))).toBe(3));
     it('maps', () => expect(Arrays.count(new Map([[1, 2], [2, 3]]))).toBe(2));
     it('array-likes', () => expect(Arrays.count({ length: 5 })).toBe(5));
     it('set-likes', () => expect(Arrays.count({ size: 5 })).toBe(5));
-    it('generators', () => {
-        function* makeIterable() {
-            yield 1;
-            yield 2;
-        }
-
-        expect(Arrays.count(makeIterable())).toBe(2);
-    });
+    it('generators', () => expect(Arrays.count(iterable())).toBe(3));
 });
 
 describe('Arrays.first() should return', () => {
     it('the first element in an array', () => expect(Arrays.first([1, 3, 5])).toBe(1));
     it('undefined in an empty array', () => expect(Arrays.first([])).toBe(undefined));
+    it('the first element in a set', () => expect(Arrays.first(new Set([2, 5, 2]))).toBe(2));
+    it('the first element in an iterable', () => expect(Arrays.first(iterable())).toBe(1));
 });
 
 describe('Arrays.last() should return', () => {
     it('the last element in an array', () => expect(Arrays.last([1, 3, 5])).toBe(5));
     it('undefined in an empty array', () => expect(Arrays.last([])).toBe(undefined));
+    it('the last element in a set', () => expect(Arrays.last(new Set([2, 5, 7]))).toBe(7));
+    it('the last element in an iterable', () => expect(Arrays.last(iterable())).toBe(3));
 });
 
 describe('Arrays.inBounds() should return', () => {
@@ -63,11 +69,19 @@ describe('Arrays.previous() should return', () => {
 describe('Arrays.isEmpty() should return', () => {
     it('true if the array is empty', () => expect(Arrays.isEmpty([])).toBe(true));
     it('false if the array is not empty', () => expect(Arrays.isEmpty([1])).toBe(false));
+    it('true if the set is empty', () => expect(Arrays.isEmpty(new Set())).toBe(true));
+    it('false if the set is not empty', () => expect(Arrays.isEmpty(new Set([1]))).toBe(false));
+    it('true if the iterable is empty', () => expect(Arrays.isEmpty(emptyIterable())).toBe(true));
+    it('false if the iterable is not empty', () => expect(Arrays.isEmpty(iterable())).toBe(false));
 });
 
 describe('Arrays.isNotEmpty() should return', () => {
     it('true if the array is not empty', () => expect(Arrays.isNotEmpty([1])).toBe(true));
     it('false if the array is empty', () => expect(Arrays.isNotEmpty([])).toBe(false));
+    it('true if the set is not empty', () => expect(Arrays.isNotEmpty(new Set([1]))).toBe(true));
+    it('false if the set is empty', () => expect(Arrays.isNotEmpty(new Set())).toBe(false));
+    it('true if the iterable is not empty', () => expect(Arrays.isNotEmpty(iterable())).toBe(true));
+    it('false if the iterable is empty', () => expect(Arrays.isNotEmpty(emptyIterable())).toBe(false));
 });
 
 describe('Arrays.equal() should', () => {
@@ -237,17 +251,19 @@ describe('Arrays.distinct() should', () => {
         const ref = {};
         return expect(Arrays.distinct([ref, ref, {}])).toEqual([{}, {}]);
     });
+    it('work with iterables', () => expect(Arrays.distinct(iterable())).toEqual([1, 3]));
 });
 
 describe('Arrays.hasDuplicates() should', () => {
-    it('return false for empty array', () => expect(Arrays.hasDuplicates([])).toEqual(false));
-    it('return false if all elements are unique', () => expect(Arrays.hasDuplicates([1, 2, 3])).toEqual(false));
-    it('return true if there are duplicates', () => expect(Arrays.hasDuplicates([1, 1, 1, 1, 1, 2])).toEqual(true));
-    it('ignore different references', () => expect(Arrays.hasDuplicates([{}, {}, [], []])).toEqual(false));
+    it('return false for empty array', () => expect(Arrays.hasDuplicates([])).toBe(false));
+    it('return false if all elements are unique', () => expect(Arrays.hasDuplicates([1, 2, 3])).toBe(false));
+    it('return true if there are duplicates', () => expect(Arrays.hasDuplicates([1, 1, 1, 1, 1, 2])).toBe(true));
+    it('ignore different references', () => expect(Arrays.hasDuplicates([{}, {}, [], []])).toBe(false));
     it('return true for same references', () => {
         const ref = {};
-        return expect(Arrays.hasDuplicates([ref, ref, {}])).toEqual(true);
+        return expect(Arrays.hasDuplicates([ref, ref, {}])).toBe(true);
     });
+    it('work with iterables', () => expect(Arrays.hasDuplicates(iterable())).toBe(true));
 });
 
 describe('Arrays.range() should', () => {

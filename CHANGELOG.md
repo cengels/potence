@@ -37,6 +37,13 @@ if you wish to upgrade.
   [`Arrays.isInBounds()`](https://cengels.github.io/potence/Arrays/isInBounds)
   is now discouraged in favour of
   [`Arrays.hasElementAt()`](https://cengels.github.io/potence/Arrays/hasElementAt)
+- **Changed**: [`Arrays.first()`](https://cengels.github.io/potence/Arrays/first),
+  [`Arrays.last()`](https://cengels.github.io/potence/Arrays/last),
+  [`Arrays.isEmpty()`](https://cengels.github.io/potence/Arrays/isEmpty),
+  [`Arrays.isNotEmpty()`](https://cengels.github.io/potence/Arrays/isNotEmpty),
+  [`Arrays.distinct()`](https://cengels.github.io/potence/Arrays/distinct), and
+  [`Arrays.hasDuplicates()`](https://cengels.github.io/potence/Arrays/hasDuplicates)
+  now accept a generic `Iterable<T>` instead of just arrays
 
 ### Assert
 

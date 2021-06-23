@@ -54,10 +54,37 @@ export function count(iterable: Iterable<unknown> | HasLength | HasSize): number
     return count;
 }
 
+/**
+ * Gets the first element in the iterable,
+ * or undefined if the iterable contains no elements.
+ */
+export function first<T>(iterable: Iterable<T>): T | undefined {
+    if (Array.isArray(iterable)) {
+        return iterable[0];
+    }
 
-/** Gets the last element in the array, or undefined if the array is empty. */
-export function last<T>(array: readonly T[]): T | undefined {
-    return array[array.length - 1];
+    for (const element of iterable) {
+        return element;
+    }
+
+    return undefined;
+}
+
+/** Gets the last element in the iterable,
+ * or undefined if the iterable contains no elements.
+ */
+export function last<T>(iterable: Iterable<T>): T | undefined {
+    if (Array.isArray(iterable)) {
+        return iterable[iterable.length - 1];
+    }
+
+    let last: T | undefined = undefined;
+
+    for (const element of iterable) {
+        last = element;
+    }
+
+    return last;
 }
 
 /**
@@ -122,13 +149,25 @@ export function previous<T>(array: readonly T[], fromIndex: number): T | undefin
 }
 
 /** Returns true if the given array is empty, otherwise false. */
-export function isEmpty(array: readonly unknown[]): boolean {
-    return array.length === 0;
+export function isEmpty(iterable: Iterable<unknown> | HasLength | HasSize): boolean {
+    if (Objects.hasProperty(iterable, 'length', 'number')) {
+        return iterable.length === 0;
+    }
+
+    if (Objects.hasProperty(iterable, 'size', 'number')) {
+        return iterable.size === 0;
+    }
+
+    for (const _ of iterable) {
+        return false;
+    }
+
+    return true;
 }
 
 /** Returns true if the given array is not empty, otherwise false. */
-export function isNotEmpty(array: readonly unknown[]): boolean {
-    return array.length > 0;
+export function isNotEmpty(iterable: Iterable<unknown> | HasLength | HasSize): boolean {
+    return !isEmpty(iterable);
 }
 
 /** 
@@ -473,8 +512,8 @@ export function groupBy<T>(array: readonly T[], property: (item: T) => unknown):
  * [Set](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set)
  * instead of this function to avoid unnecessary memory allocation.
  */
-export function distinct<T>(array: readonly T[]): T[] {
-    return Array.from(new Set(array));
+export function distinct<T>(iterable: Iterable<T>): T[] {
+    return Array.from(new Set(iterable));
 }
 
 /**
@@ -483,8 +522,8 @@ export function distinct<T>(array: readonly T[]): T[] {
  * Note that this function only compares values for value types,
  * otherwise it compares references.
  */
-export function hasDuplicates(array: readonly unknown[]): boolean {
-    return new Set(array).size !== array.length;
+export function hasDuplicates(iterable: Iterable<unknown>): boolean {
+    return new Set(iterable).size !== count(iterable);
 }
 
 /**
