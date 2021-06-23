@@ -30,6 +30,8 @@ if you wish to upgrade.
   [`Arrays.difference()`](https://cengels.github.io/potence/Arrays/difference)
 - **Added**: new function
   [`Arrays.intersection()`](https://cengels.github.io/potence/Arrays/intersection)
+- **Added**: new function
+  [`Arrays.union()`](https://cengels.github.io/potence/Arrays/union)
 - **Renamed**: `Arrays.inBounds()` to
   [`Arrays.isInBounds()`](https://cengels.github.io/potence/Arrays/isInBounds)
 - **Renamed**: `Arrays.empty()` to

@@ -304,3 +304,9 @@ describe('Arrays.intersection() should', () => {
     it('leave out non-common elements (3+ arrays)', () => expect(Arrays.intersection([0, 1, 2], [1, 2, 3], [1, 3])).toEqual([1]));
     it('be empty if arrays don\'t contain common elements', () => expect(Arrays.intersection([0, 1], [2, 3])).toEqual([]));
 });
+
+describe('Arrays.union() should', () => {
+    it('union all items', () => expect(Arrays.union([0, 1, 2], [3, 4, 5])).toEqual([0, 1, 2, 3, 4, 5]));
+    it('exclude duplicates', () => expect(Arrays.union([0, 1, 2], [2, 3, 4])).toEqual([0, 1, 2, 3, 4]));
+    it('work with 3+ arrays', () => expect(Arrays.union([0, 1, 2], [2, 3, 4], [0, 3, 2, 7])).toEqual([0, 1, 2, 3, 4, 7]));
+});

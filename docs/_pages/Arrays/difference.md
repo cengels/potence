@@ -6,8 +6,9 @@ added:       0.5.0
 description: Creates a new array with only the elements
              that are unique to one of the given arrays.
 parameters:
-  array: An array with any number of elements.
-  value: The value to check for multiples on array.
+  arrays:
+    description: The arrays to difference.
+    rest: true
 ---
 ## Syntax
 
@@ -31,4 +32,5 @@ Arrays.difference(array1, array2);  // -> [0, 1, 4, 5]
 
 ## Remarks
 
-The resulting array will contain all elements except those shared by multiple of the given arrays.
+The resulting array will contain all elements except
+those shared by multiple of the given arrays.
