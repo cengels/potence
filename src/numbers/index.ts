@@ -23,7 +23,8 @@ export function configure(configuration: Configuration): void {
     }
 }
 
-let defaultTolerance: number = 0.0000001;
+const DEFAULT_TOLERANCE = 0.0000001 as const;
+let defaultTolerance: number = DEFAULT_TOLERANCE;
 
 /**
  * Accurately compares two integral or floating point numbers with the given tolerance.
@@ -301,10 +302,17 @@ export function closest(source: number, ...targets: number[]): number {
 /**
  * Gets the exponent of a `base` raised to the given `power`.
  * 
- * In other words, gets `n` in a formula of the shape: `base ^ n = power`.
+ * In other words, gets `n` in a formula of the shape:
+ * `base raised to n = power`.
  */
-export function exponent(power: number, base: number): number {
-    return Math.log(power) / Math.log(base);
+export function exponent(base: number, power: number): number {
+    const result = Math.log(power) / Math.log(Math.abs(base));
+
+    if (!compare(Math.pow(base, result), power, DEFAULT_TOLERANCE)) {
+        return Number.NaN;
+    }
+
+    return result;
 }
 
 /**

@@ -196,3 +196,17 @@ describe('Numbers.closest() should return', () => {
         [[8, 4, 12], 4]
     ]).it('with integers %p: %d', (values: [number, ...number[]], expected) => expect(Numbers.closest(...values)).toBeCloseTo(expected));
 });
+
+describe('Numbers.exponent() should return', () => {
+    each([
+        [2, 1, 2],
+        [2, 2, 4],
+        [-2, 2, 4],
+        [5, 3, 125],
+        [100, 2, 10000],
+        [7.25, 4.1, 3368.106588751524]
+    ]).it('%d ^ n = %d where n is %d', (base, exponent, power) => expect(Numbers.exponent(base, power)).toBeCloseTo(exponent));
+    it('NaN if base or power are 0', () => expect(Numbers.exponent(0, 0)).toBeNaN());
+    it('NaN if no viable exponent exists (base negative)', () => expect(Numbers.exponent(-2, 8)).toBeNaN());
+    it('NaN if no viable exponent exists (power negative)', () => expect(Numbers.exponent(2, -8)).toBeNaN());
+});
