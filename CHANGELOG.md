@@ -106,8 +106,6 @@ if you wish to upgrade.
 ### Strings
 
 - **Added**: new function
-  [`Strings.match()`](https://cengels.github.io/potence/Strings/match)
-- **Added**: new function
   [`Strings.isEmpty()`](https://cengels.github.io/potence/Strings/isEmpty)
 - **Added**: new function
   [`Strings.isWhitespace()`](https://cengels.github.io/potence/Strings/isWhitespace)
