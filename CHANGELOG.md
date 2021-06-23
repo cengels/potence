@@ -57,8 +57,6 @@ if you wish to upgrade.
 ### Numbers
 
 - **Added**: new function
-  [`Numbers.convert()`](https://cengels.github.io/potence/Numbers/convert)
-- **Added**: new function
   [`Numbers.roman()`](https://cengels.github.io/potence/Numbers/roman)
 - **Added**: new function
   [`Numbers.closest()`](https://cengels.github.io/potence/Numbers/closest)
