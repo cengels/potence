@@ -26,7 +26,7 @@
  * }
  */
 
-import { Objects, Strings } from '../index.js';
+import { Arrays, Objects, Strings } from '../index.js';
 import { StringifyOptions } from '../objects/index.js';
 import { BaseToType, BaseType, Constructor, Falsy, Truthy } from '../types.js';
 
@@ -185,6 +185,36 @@ export function type<T extends BaseType>(value: unknown, type: T, name?: string)
  */
 export function instanceOf<T>(value: unknown, constructor: Constructor<T>, name?: string): asserts value is T {
     throwIf(!(value instanceof constructor), value, `instance of ${constructor.name}`, name);
+}
+
+/**
+ * Throws an assertion error if the iterable contains elements.
+ *
+ * @param name If you're checking a named value (like a variable or property),
+ *   you can enter its name here for a more expressive error message.
+ */
+export function empty(iterable: Iterable<unknown>, name?: string): void {
+    if (Arrays.isNotEmpty(iterable)) {
+        const count = Arrays.count(iterable);
+
+        throw assertionError(name != null
+            ? `Expected ${name} to be empty but had ${count} element${count !== 1 ? 's' : ''}`
+            : `Expected empty iterable but got iterable with ${count} element${count !== 1 ? 's' : ''}`);
+    }
+}
+
+/**
+ * Throws an assertion error if the iterable contains no elements.
+ *
+ * @param name If you're checking a named value (like a variable or property),
+ *   you can enter its name here for a more expressive error message.
+ */
+export function notEmpty(iterable: Iterable<unknown>, name?: string): void {
+    if (Arrays.isEmpty(iterable)) {
+        throw assertionError(name != null
+            ? `Expected ${name} not to be empty but had 0 elements`
+            : `Expected iterable not to be empty but had 0 elements`);
+    }
 }
 
 /**

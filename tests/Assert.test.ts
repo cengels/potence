@@ -102,6 +102,22 @@ describe('Assert.instanceOf() should', () => {
     });
 });
 
+describe('Assert.empty() should', () => {
+    it('throw if iterable is not empty', () => expect(() => Assert.empty(new Set([0, 1]))).toThrowError(Assert.AssertionError));
+    it('not throw otherwise', () => expect(() => Assert.empty(new Set())).not.toThrowError(Assert.AssertionError));
+});
+
+describe('Assert.notEmpty() should', () => {
+    it('throw if iterable is empty', () => expect(() => Assert.notEmpty(new Set())).toThrowError(Assert.AssertionError));
+    it('not throw otherwise', () => expect(() => Assert.notEmpty(new Set([0, 1]))).not.toThrowError(Assert.AssertionError));
+});
+
+describe('Assert.notNull() should', () => {
+    it('throw if value is null', () => expect(() => Assert.notNull(null)).toThrowError(Assert.AssertionError));
+    it('throw if value is undefined', () => expect(() => Assert.notNull(undefined)).toThrowError(Assert.AssertionError));
+    it('not throw otherwise', () => expect(() => Assert.notNull(0)).not.toThrowError());
+});
+
 describe('Assert.every() should', () => {
     it('throw if not all values match the predicate', () => expect(() => Assert.every([0, null, 1], value => Assert.notNull(value), 'testArray')).toThrowError('testArray failed assertion. Element at index 1 reported: "Assertion failed: expected non-null value but got null"'));
     it('throw if callback returns false', () => expect(() => Assert.every([0, null, 1], value => value != null, 'testArray')).toThrowError('testArray failed assertion. Element at index 1 reported: "Assertion failed: Callback returned false for null"'));

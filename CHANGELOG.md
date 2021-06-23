@@ -55,6 +55,10 @@ if you wish to upgrade.
   [`Assert.type()`](https://cengels.github.io/potence/Assert/type)
 - **Added**: new function
   [`Assert.instanceOf()`](https://cengels.github.io/potence/Assert/instanceOf)
+- **Added**: new function
+  [`Assert.empty()`](https://cengels.github.io/potence/Assert/empty)
+- **Added**: new function
+  [`Assert.notEmpty()`](https://cengels.github.io/potence/Assert/notEmpty)
 - **Changed**: allow
   [`Assert.every()`](https://cengels.github.io/potence/Assert/every)
   to return a `boolean` inside callback function
