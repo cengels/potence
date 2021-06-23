@@ -266,6 +266,12 @@ describe('Arrays.hasDuplicates() should', () => {
     it('work with iterables', () => expect(Arrays.hasDuplicates(iterable())).toBe(true));
 });
 
+describe('Arrays.hasMultiple() should return', () => {
+    it('true if array contains multiples of element', () => expect(Arrays.hasMultiple([1, 2, 2, 3], 2)).toBe(true));
+    it('false if array does not contain multiples of element', () => expect(Arrays.hasMultiple([1, 2, 2, 3], 1)).toBe(false));
+    it('false if array does not contain element', () => expect(Arrays.hasMultiple([1, 2, 2, 3], 77)).toBe(false));
+});
+
 describe('Arrays.range() should', () => {
     it('properly handle a sequential range', () => expect(Arrays.range(0, 5)).toEqual([0, 1, 2, 3, 4, 5]));
     it('properly handle an inverted range', () => expect(Arrays.range(5, 0)).toEqual([5, 4, 3, 2, 1, 0]));
