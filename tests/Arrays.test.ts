@@ -295,5 +295,12 @@ describe('Arrays.findIndices() should', () => {
 
 describe('Arrays.difference() should', () => {
     it('leave out common elements', () => expect(Arrays.difference([0, 1, 2], [1, 2, 3])).toEqual([0, 3]));
+    it('leave out common elements (3+ arrays)', () => expect(Arrays.difference([0, 1, 2], [1, 2, 3], [0, 1])).toEqual([3]));
     it('union arrays with no common elements', () => expect(Arrays.difference([0, 1], [2, 3])).toEqual([0, 1, 2, 3]));
+});
+
+describe('Arrays.intersection() should', () => {
+    it('leave out non-common elements', () => expect(Arrays.intersection([0, 1, 2], [1, 2, 3])).toEqual([1, 2]));
+    it('leave out non-common elements (3+ arrays)', () => expect(Arrays.intersection([0, 1, 2], [1, 2, 3], [1, 3])).toEqual([1]));
+    it('be empty if arrays don\'t contain common elements', () => expect(Arrays.intersection([0, 1], [2, 3])).toEqual([]));
 });
