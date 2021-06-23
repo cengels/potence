@@ -26,6 +26,8 @@ if you wish to upgrade.
   [`Arrays.findIndices()`](https://cengels.github.io/potence/Arrays/findIndices)
 - **Added**: new function
   [`Arrays.hasMultiple()`](https://cengels.github.io/potence/Arrays/hasMultiple)
+- **Added**: new function
+  [`Arrays.difference()`](https://cengels.github.io/potence/Arrays/difference)
 - **Renamed**: `Arrays.inBounds()` to
   [`Arrays.isInBounds()`](https://cengels.github.io/potence/Arrays/isInBounds)
 - **Renamed**: `Arrays.empty()` to

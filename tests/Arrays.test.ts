@@ -292,3 +292,8 @@ describe('Arrays.findIndices() should', () => {
     it('return an empty array if nothing is found', () => expect(Arrays.findIndices([0, 0, 5, 2, 0, 8], 9)).toEqual([]));
     it('find all predicate results', () => expect(Arrays.findIndices([0, 0, 5, 2, 0, 8], num => num > 4)).toEqual([2, 5]));
 });
+
+describe('Arrays.difference() should', () => {
+    it('leave out common elements', () => expect(Arrays.difference([0, 1, 2], [1, 2, 3])).toEqual([0, 3]));
+    it('union arrays with no common elements', () => expect(Arrays.difference([0, 1], [2, 3])).toEqual([0, 1, 2, 3]));
+});
