@@ -314,15 +314,3 @@ export function exponent(base: number, power: number): number {
 
     return result;
 }
-
-/**
- * Returns true if and only if `power` is one of the possible results
- * of `base` raised to a certain `power` with an `integral` exponent.
- * 
- * @example
- * isPower(8, 2)  // -> true (8 = 2 * 2 * 2)
- * isPower(6, 2)  // -> false (4 = 2 * 2 and 8 = 2 * 2 * 2)
- */
-export function isPower(power: number, base: number): boolean {
-    return Number.isInteger(exponent(power, base));
-}
