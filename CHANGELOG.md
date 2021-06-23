@@ -52,7 +52,7 @@ if you wish to upgrade.
 
 ### Flags
 
-- **Added**: all functions
+- **Added**: new module
 
 ### Numbers
 
