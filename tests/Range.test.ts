@@ -87,13 +87,13 @@ describe('Range.overlaps() should return', () => {
     it('false if the target range is adjacent to upper boundary', () => expect(new Range(-55, 22).overlaps(new Range(22, 55))).toBe(false));
 });
 
-describe('Range.intersect() should return', () => {
-    it('target lower bounds if completely inside and closer to upper bounds', () => expect(new Range(-55, 22).intersect(new Range(-1, 0))).toBe(-1));
-    it('target upper bounds if completely inside and closer to lower bounds', () => expect(new Range(-55, 22).intersect(new Range(-33, -32))).toBe(-32));
-    it('center if completely inside and enclosing center', () => expect(new Range(-55, 22).intersect(new Range(-33, 20))).toBe(-16.5));
-    it('upper bounds if range exceeds lower bounds', () => expect(new Range(-55, 22).intersect(new Range(-58, -50))).toBe(-50));
-    it('lower bounds if range exceeds upper bounds', () => expect(new Range(-55, 22).intersect(new Range(20, 25))).toBe(20));
-    it('NaN if ranges do not overlap', () => expect(new Range(-55, 22).intersect(new Range(-80, -60))).toBeNaN());
+describe('Range.intersectionPoint() should return', () => {
+    it('target lower bounds if completely inside and closer to upper bounds', () => expect(new Range(-55, 22).intersectionPoint(new Range(-1, 0))).toBe(-1));
+    it('target upper bounds if completely inside and closer to lower bounds', () => expect(new Range(-55, 22).intersectionPoint(new Range(-33, -32))).toBe(-32));
+    it('center if completely inside and enclosing center', () => expect(new Range(-55, 22).intersectionPoint(new Range(-33, 20))).toBe(-16.5));
+    it('upper bounds if range exceeds lower bounds', () => expect(new Range(-55, 22).intersectionPoint(new Range(-58, -50))).toBe(-50));
+    it('lower bounds if range exceeds upper bounds', () => expect(new Range(-55, 22).intersectionPoint(new Range(20, 25))).toBe(20));
+    it('NaN if ranges do not overlap', () => expect(new Range(-55, 22).intersectionPoint(new Range(-80, -60))).toBeNaN());
 });
 
 describe('Range.at() should return', () => {
