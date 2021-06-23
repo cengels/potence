@@ -12,6 +12,9 @@
             "types": {
                 "object": false
             }
+        }],
+        "no-unused-vars": ["warning", {
+            "varsIgnorePattern": "_"
         }]
     },
     "extends": [
