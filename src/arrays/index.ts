@@ -70,7 +70,8 @@ export function first<T>(iterable: Iterable<T>): T | undefined {
     return undefined;
 }
 
-/** Gets the last element in the iterable,
+/**
+ * Gets the last element in the iterable,
  * or undefined if the iterable contains no elements.
  */
 export function last<T>(iterable: Iterable<T>): T | undefined {
