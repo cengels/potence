@@ -15,6 +15,8 @@ if you wish to upgrade.
   [`Arrays`](https://cengels.github.io/potence/Arrays)
   module
 - **Added**: new function
+  [`Arrays.count()`](https://cengels.github.io/potence/Arrays/count)
+- **Added**: new function
   [`Arrays.hasElementAt()`](https://cengels.github.io/potence/Arrays/hasElementAt)
 - **Added**: new function
   [`Arrays.correlate()`](https://cengels.github.io/potence/Arrays/correlate)

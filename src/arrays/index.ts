@@ -20,10 +20,40 @@ export function clone<T>(array: readonly T[]): T[] {
     return array.slice();
 }
 
-/** Gets the first element in the array, or undefined if the array is empty. */
-export function first<T>(array: readonly T[]): T | undefined {
-    return array[0];
+interface HasLength {
+    length: number
 }
+
+interface HasSize {
+    size: number;
+}
+
+/**
+ * Returns the number of elements in the iterable or array-like.
+ * 
+ * If the iterable contains a `length` property (such as in {@link Array})
+ * or a `size` property (such as in {@link Set}), this function will use
+ * them to obtain the number of elements in the iterable. Otherwise it
+ * will count the number of elements by iterating over the iterable manually.
+ */
+export function count(iterable: Iterable<unknown> | HasLength | HasSize): number {
+    if (Objects.hasProperty(iterable, 'length', 'number')) {
+        return iterable.length;
+    }
+
+    if (Objects.hasProperty(iterable, 'size', 'number')) {
+        return iterable.size;
+    }
+
+    let count: number = 0;
+
+    for (const _ of iterable) {
+        count++;
+    }
+
+    return count;
+}
+
 
 /** Gets the last element in the array, or undefined if the array is empty. */
 export function last<T>(array: readonly T[]): T | undefined {

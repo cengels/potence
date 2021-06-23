@@ -12,6 +12,22 @@ describe('Arrays.clone() should', () => {
     });
 });
 
+describe('Arrays.count() should work with', () => {
+    it('arrays', () => expect(Arrays.count([1, 3, 5])).toBe(3));
+    it('sets', () => expect(Arrays.count(new Set([1, 3, 5]))).toBe(3));
+    it('maps', () => expect(Arrays.count(new Map([[1, 2], [2, 3]]))).toBe(2));
+    it('array-likes', () => expect(Arrays.count({ length: 5 })).toBe(5));
+    it('set-likes', () => expect(Arrays.count({ size: 5 })).toBe(5));
+    it('generators', () => {
+        function* makeIterable() {
+            yield 1;
+            yield 2;
+        }
+
+        expect(Arrays.count(makeIterable())).toBe(2);
+    });
+});
+
 describe('Arrays.first() should return', () => {
     it('the first element in an array', () => expect(Arrays.first([1, 3, 5])).toBe(1));
     it('undefined in an empty array', () => expect(Arrays.first([])).toBe(undefined));
