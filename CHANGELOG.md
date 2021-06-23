@@ -140,6 +140,8 @@ if you wish to upgrade.
   [`Predicate<T>`](https://cengels.github.io/potence/Types/Predicate)
 - **Added**: new type
   [`HexChar`](https://cengels.github.io/potence/Types/HexChar)
+- **Added**: new type
+  [`ExcludeProps`](https://cengels.github.io/potence/Types/ExcludeProps)
 
 ### Other
 
