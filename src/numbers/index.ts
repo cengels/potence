@@ -314,3 +314,25 @@ export function exponent(base: number, power: number): number {
 
     return result;
 }
+
+/** 
+ * Attempts to convert the value to a number and returns it if the conversion
+ * succeeded. If the conversion failed, returns `undefined`.
+ */
+export function from(potentialNumber: unknown): number | undefined {
+    // Can't use parseInt()/parseFloat() here as they will
+    // simply ignore all non-digits that follow other digits.
+    // The non-number string '5e' would be considered a number.
+
+    if (potentialNumber == null || (typeof potentialNumber === 'string' && potentialNumber.length === 0)) {
+        return undefined;
+    }
+
+    const number = Number(potentialNumber);
+
+    if (Number.isNaN(number)) {
+        return undefined;
+    }
+
+    return number;
+}

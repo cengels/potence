@@ -8,18 +8,6 @@ export function isWhitespace(string: string): boolean {
     return isEmpty(string.trim());
 }
 
-/** 
- * Tests whether a given string contains a number and nothing else.
- */
-export function isNumber(potentialNumber: string): boolean {
-    // Can't use parseInt()/parseFloat() here as they will
-    // simply ignore all non-digits that follow other digits.
-    // The non-number string '5e' would be considered a number.
-    return typeof potentialNumber === 'string'
-        && potentialNumber.length > 0
-        && !Number.isNaN(Number(potentialNumber));
-}
-
 /**
  * Splits the string at the given indexes, returning a new array with the
  * newly formed substrings.

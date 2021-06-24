@@ -210,3 +210,16 @@ describe('Numbers.exponent() should return', () => {
     it('NaN if no viable exponent exists (base negative)', () => expect(Numbers.exponent(-2, 8)).toBeNaN());
     it('NaN if no viable exponent exists (power negative)', () => expect(Numbers.exponent(2, -8)).toBeNaN());
 });
+
+describe('Numbers.from() should', () => {
+    it('convert ints', () => expect(Numbers.from('5')).toBe(5));
+    it('convert ints with whitespace', () => expect(Numbers.from('   5 ')).toBe(5));
+    it('convert floats', () => expect(Numbers.from('5.234')).toBeCloseTo(5.234));
+    it('convert decimals', () => expect(Numbers.from('.234')).toBeCloseTo(0.234));
+    it('convert from scientific notation', () => expect(Numbers.from('2.3E23')).toBeCloseTo(2.3E23));
+    it('convert Infinity', () => expect(Numbers.from(Infinity)).toBeCloseTo(Infinity));
+    it('fail to convert null', () => expect(Numbers.from(null)).toBeUndefined());
+    it('fail to convert empty string', () => expect(Numbers.from('')).toBeUndefined());
+    it('fail to convert chars + number', () => expect(Numbers.from('i23')).toBeUndefined());
+    it('fail to convert random string', () => expect(Numbers.from('banana bread')).toBeUndefined());
+});

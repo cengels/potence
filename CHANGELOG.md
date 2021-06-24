@@ -83,6 +83,8 @@ if you wish to upgrade.
   [`Numbers.closest()`](https://cengels.github.io/potence/Numbers/closest)
 - **Added**: new function
   [`Numbers.exponent()`](https://cengels.github.io/potence/Numbers/exponent)
+- **Added**: new function
+  [`Numbers.from()`](https://cengels.github.io/potence/Numbers/from)
 - **Renamed**: `Numbers.even()` to
   [`Numbers.isEven()`](https://cengels.github.io/potence/Numbers/isEven)
 - **Renamed**: `Numbers.odd()` to
@@ -132,8 +134,6 @@ if you wish to upgrade.
   [`Strings.chars()`](https://cengels.github.io/potence/Strings/chars)
 - **Added**: new function
   [`Strings.codePoints()`](https://cengels.github.io/potence/Strings/codePoints)
-- **Added**: new function
-  [`Strings.isNumber()`](https://cengels.github.io/potence/Strings/isNumber)
 - **Added**: new function
   [`Strings.splitAt()`](https://cengels.github.io/potence/Strings/splitAt)
 - **Added**: new function
