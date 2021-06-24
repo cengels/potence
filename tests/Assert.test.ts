@@ -103,12 +103,15 @@ describe('Assert.instanceOf() should', () => {
 });
 
 describe('Assert.empty() should', () => {
-    it('throw if iterable is not empty', () => expect(() => Assert.empty(new Set([0, 1]))).toThrowError(Assert.AssertionError));
+    it('throw if iterable is not empty', () => expect(() => Assert.empty(new Set([0, 1]))).toThrowError('Assertion failed: expected empty iterable but got iterable with 2 elements'));
+    it('throw if iterable is not empty (named)', () => expect(() => Assert.empty(new Set([0, 1]), 'set')).toThrowError('Assertion failed: expected set to be empty but had 2 elements'));
+    it('throw if iterable is not empty (one element)', () => expect(() => Assert.empty(new Set([0]))).toThrowError('Assertion failed: expected empty iterable but got iterable with 1 element'));
     it('not throw otherwise', () => expect(() => Assert.empty(new Set())).not.toThrowError(Assert.AssertionError));
 });
 
 describe('Assert.notEmpty() should', () => {
-    it('throw if iterable is empty', () => expect(() => Assert.notEmpty(new Set())).toThrowError(Assert.AssertionError));
+    it('throw if iterable is empty', () => expect(() => Assert.notEmpty(new Set())).toThrowError('Assertion failed: expected iterable not to be empty but had 0 elements'));
+    it('throw if iterable is empty (named)', () => expect(() => Assert.notEmpty(new Set(), 'set')).toThrowError('Assertion failed: expected set not to be empty but had 0 elements'));
     it('not throw otherwise', () => expect(() => Assert.notEmpty(new Set([0, 1]))).not.toThrowError(Assert.AssertionError));
 });
 

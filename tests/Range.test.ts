@@ -117,6 +117,7 @@ describe('Range.getOffset() should', () => {
     it('return positive offset (inverted)', () => expect(new Range(-2, 1).getOffset(new Range(0, 3))).toBe(-1));
     it('return 0 without intersection', () => expect(new Range(0, 3).getOffset(new Range(5, 6))).toBe(0));
     it('return negative offset if both possible offsets are the same', () => expect(new Range(0, 3).getOffset(new Range(1, 2))).toBe(-2));
+    it('return negative offset if minDifference > maxDifference', () => expect(new Range(1, 6).getOffset(new Range(2, 4))).toBe(3));
 });
 
 describe('Range.at() should return', () => {

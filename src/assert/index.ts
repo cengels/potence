@@ -196,10 +196,11 @@ export function instanceOf<T>(value: unknown, constructor: Constructor<T>, name?
 export function empty(iterable: Iterable<unknown>, name?: string): void {
     if (Arrays.isNotEmpty(iterable)) {
         const count = Arrays.count(iterable);
+        const suffix = count !== 1 ? 's' : '';
 
         throw assertionError(name != null
-            ? `Expected ${name} to be empty but had ${count} element${count !== 1 ? 's' : ''}`
-            : `Expected empty iterable but got iterable with ${count} element${count !== 1 ? 's' : ''}`);
+            ? `Expected ${name} to be empty but had ${count} element${suffix}`
+            : `Expected empty iterable but got iterable with ${count} element${suffix}`);
     }
 }
 

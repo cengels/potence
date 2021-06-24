@@ -445,13 +445,7 @@ export function clone<T>(object: T, mode: RecursionMode = 'shallow'): T {
 
         const clonedValue = mode === 'shallow' ? object[key] : clone(object[key], mode);
 
-        try {
-            newObject[key] = clonedValue;
-        } catch {
-            // We could use isWritable() here instead, but since it
-            // travels all the way up the prototype chain, simply
-            // suppressing any errors may be more performant.
-        }
+        newObject[key] = clonedValue;
     }
 
     return newObject as T;

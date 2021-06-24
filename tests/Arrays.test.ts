@@ -34,6 +34,7 @@ describe('Arrays.count() should work with', () => {
 describe('Arrays.first() should return', () => {
     it('the first element in an array', () => expect(Arrays.first([1, 3, 5])).toBe(1));
     it('undefined in an empty array', () => expect(Arrays.first([])).toBe(undefined));
+    it('undefined in an empty iterable', () => expect(Arrays.first(emptyIterable())).toBe(undefined));
     it('the first element in a set', () => expect(Arrays.first(new Set([2, 5, 2]))).toBe(2));
     it('the first element in an iterable', () => expect(Arrays.first(iterable())).toBe(1));
 });
@@ -41,6 +42,7 @@ describe('Arrays.first() should return', () => {
 describe('Arrays.last() should return', () => {
     it('the last element in an array', () => expect(Arrays.last([1, 3, 5])).toBe(5));
     it('undefined in an empty array', () => expect(Arrays.last([])).toBe(undefined));
+    it('undefined in an empty iterable', () => expect(Arrays.last(emptyIterable())).toBe(undefined));
     it('the last element in a set', () => expect(Arrays.last(new Set([2, 5, 7]))).toBe(7));
     it('the last element in an iterable', () => expect(Arrays.last(iterable())).toBe(3));
 });
@@ -295,18 +297,24 @@ describe('Arrays.findIndices() should', () => {
 });
 
 describe('Arrays.difference() should', () => {
+    it('return empty array with no arguments', () => expect(Arrays.difference()).toEqual([]));
+    it('return same array as was passed in', () => expect(Arrays.difference([1, 2, 3])).toEqual([1, 2, 3]));
     it('leave out common elements', () => expect(Arrays.difference([0, 1, 2], [1, 2, 3])).toEqual([0, 3]));
     it('leave out common elements (3+ arrays)', () => expect(Arrays.difference([0, 1, 2], [1, 2, 3], [0, 1])).toEqual([3]));
     it('union arrays with no common elements', () => expect(Arrays.difference([0, 1], [2, 3])).toEqual([0, 1, 2, 3]));
 });
 
 describe('Arrays.intersection() should', () => {
+    it('return empty array with no arguments', () => expect(Arrays.intersection()).toEqual([]));
+    it('return same array as was passed in', () => expect(Arrays.intersection([1, 2, 3])).toEqual([1, 2, 3]));
     it('leave out non-common elements', () => expect(Arrays.intersection([0, 1, 2], [1, 2, 3])).toEqual([1, 2]));
     it('leave out non-common elements (3+ arrays)', () => expect(Arrays.intersection([0, 1, 2], [1, 2, 3], [1, 3])).toEqual([1]));
     it('be empty if arrays don\'t contain common elements', () => expect(Arrays.intersection([0, 1], [2, 3])).toEqual([]));
 });
 
 describe('Arrays.union() should', () => {
+    it('return empty array with no arguments', () => expect(Arrays.union()).toEqual([]));
+    it('return same array as was passed in', () => expect(Arrays.union([1, 2, 3])).toEqual([1, 2, 3]));
     it('union all items', () => expect(Arrays.union([0, 1, 2], [3, 4, 5])).toEqual([0, 1, 2, 3, 4, 5]));
     it('exclude duplicates', () => expect(Arrays.union([0, 1, 2], [2, 3, 4])).toEqual([0, 1, 2, 3, 4]));
     it('work with 3+ arrays', () => expect(Arrays.union([0, 1, 2], [2, 3, 4], [0, 3, 2, 7])).toEqual([0, 1, 2, 3, 4, 7]));

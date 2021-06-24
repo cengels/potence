@@ -13,6 +13,7 @@ const instance = new Flags(flags);
 
 describe('Flags constructor should', () => {
     it('not throw on 0', () => expect(() => new Flags(0)).not.toThrowError());
+    it('not throw on nothing', () => expect(() => new Flags()).not.toThrowError());
     it('throw on negative number', () => expect(() => new Flags(-1)).toThrowError());
     it('throw on floating point number', () => expect(() => new Flags(0.5)).toThrowError());
 });
@@ -65,4 +66,12 @@ describe('Flags.unset() should', () => {
 
 describe('Flags.clear() should', () => {
     it('remove all flags', () => expect(new Flags(flags).clear().toNumber()).toBe(0));
+});
+
+describe('Flags.toJSON() should', () => {
+    it('return the value', () => expect(new Flags(flags).toJSON()).toBe(flags));
+});
+
+describe('Flags.toString() should', () => {
+    it('return the value as string', () => expect(new Flags(flags).toString()).toBe(`${flags}`));
 });

@@ -173,7 +173,7 @@ export default class Range implements ReadonlyRange {
                 return maxDifference + this.span();
             }
 
-            return -minDifference - this.span();
+            return (-minDifference) - this.span();
         }
 
         if (this.contains(range)) {

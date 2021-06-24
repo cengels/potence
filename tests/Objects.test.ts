@@ -60,6 +60,7 @@ describe('Objects.compare() should', () => {
 describe('Objects.structure() should', () => {
     it('return false if object isn\'t an object', () => expect(Objects.structure(5 as unknown as object, {})).toBe(false));
     it('throw an error if the structure isn\'t an object', () => expect(() => Objects.structure({}, 5 as unknown as Structure)).toThrowError());
+    it('throw an error if structure value isn\'t an object', () => expect(() => Objects.structure({}, { val: 5 as unknown as Structure[''] })).toThrowError());
     it('succeed in comparing an object against a simple structure', () => expect(Objects.structure({ a: 52, b: 'foo' },
                                                                                                    { a: 'number', b: 'string' })).toBe(true));
     it('fail to compare an object against a non-matching simple structure', () => expect(Objects.structure({ a: 52, b: 'foo' },
@@ -233,6 +234,7 @@ describe('Objects.hasProperty() should', () => {
     it('return true if the property has the right type', () => expect(Objects.hasProperty(object, 'value', 'number')).toBe(true));
     it('return true if the property has the right constructor', () => expect(Objects.hasProperty(object, 'value3', Date)).toBe(true));
     it('return true even if object is not an object', () => expect(Objects.hasProperty(5, 'constructor')).toBe(true));
+    it('return false if the object is null', () => expect(Objects.hasProperty(null, 'val')).toBe(false));
     it('return false if the property does not exist', () => expect(Objects.hasProperty(object, 'value5')).toBe(false));
     it('return false if the property has the wrong type', () => expect(Objects.hasProperty(object, 'value', 'string')).toBe(false));
     it('return false if the property does not exist and has no type', () => expect(Objects.hasProperty(object, 'value5', 'string')).toBe(false));
@@ -362,6 +364,7 @@ describe('Objects.getPropertyDescriptor() should', () => {
         expect(Object.getOwnPropertyDescriptor(inherited, 'value')).toBeUndefined();
     });
     it('return function descriptor', () => expect(typeof Objects.getPropertyDescriptor([], 'slice')?.value).toBe('function'));
+    it('return undefined', () => expect(Objects.getPropertyDescriptor(Object.create(null), 'slice')).toBeUndefined());
 });
 
 describe('Objects.isWritable() should return', () => {
