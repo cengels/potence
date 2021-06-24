@@ -349,6 +349,15 @@ describe('Objects.is() should', () => {
     it('fail an improper instanceof check', () => expect(Objects.is(new Date(), Number)).toBe(false));
 });
 
+describe('Objects.getConstructor() should', () => {
+    it('return nothing for strings', () => expect(Objects.getConstructor('foo')).toBe(undefined));
+    it('return nothing for numbers', () => expect(Objects.getConstructor(5)).toBe(undefined));
+    it('return nothing for big ints', () => expect(Objects.getConstructor(BigInt(5))).toBe(undefined));
+    it('return nothing for arrays', () => expect(Objects.getConstructor([])).toBe(undefined));
+    it('return nothing for object literals', () => expect(Objects.getConstructor({})).toBe(undefined));
+    it('return Date for dates', () => expect(Objects.getConstructor(new Date())).toBe(Date));
+});
+
 function expectSameStructure(object: any, recursive: boolean = false): void {
     const result = Objects.clone(object, recursive ? 'deep' : 'shallow');
 

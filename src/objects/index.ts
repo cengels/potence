@@ -1,4 +1,4 @@
-import { BaseToType, BaseType, Constructor, Equatable, Instantiable, isEquatable, isPrimitive, ObjectLiteral, Structure, StructureValue } from '../types.js';
+import { BaseToType, BaseType, Constructor, Equatable, isEquatable, isPrimitive, ObjectLiteral, Structure, StructureValue } from '../types.js';
 import { stringify } from './stringify.js';
 export * from './stringify.js';
 
@@ -377,12 +377,19 @@ export function isWritable<Key extends string | number | symbol>(object: unknown
 }
 
 /** 
- * Gets the constructor of `object` if `object` is an instantiable instance,
+ * Gets the constructor of `object` if `object` is a class instance,
  * otherwise returns `undefined`.
+ * 
+ * Note that primitives, object literals, and basic arrays will all
+ * return `undefined`.
  */
-export function getConstructor<T>(object: T): Instantiable<T> | undefined {
-    if (hasProperty(object, 'constructor')) {
-        return (object as unknown as { constructor: Instantiable<T> }).constructor;
+export function getConstructor<T>(object: T): Constructor<T> | undefined {
+    if (isObject(object)) {
+        const constructor = (object as unknown as { constructor: Constructor<T> }).constructor;
+
+        if (constructor !== (Array as Constructor) && constructor !== (Object as Constructor)) {
+            return constructor;
+        }
     }
 
     return undefined;
