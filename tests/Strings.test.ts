@@ -30,6 +30,18 @@ describe('Strings.strip() should', () => {
     it('strip all strings', () => expect(Strings.strip('foo bar foobar foo and bar', 'foo', 'bar', ' ')).toBe('and'));
 });
 
+describe('Strings.stripStart() should', () => {
+    it('do nothing by default', () => expect(Strings.stripStart('     k     t      ')).toBe('     k     t      '));
+    it('strip beginning spaces', () => expect(Strings.stripStart('     k     t      ', ' ')).toBe('k     t      '));
+    it('strip all specified occurrences at start', () => expect(Strings.stripStart('nanana apple bananana', 'na')).toBe(' apple bananana'));
+});
+
+describe('Strings.stripEnd() should', () => {
+    it('do nothing by default', () => expect(Strings.stripEnd('     k     t      ')).toBe('     k     t      '));
+    it('strip end spaces', () => expect(Strings.stripEnd('     k     t      ', ' ')).toBe('     k     t'));
+    it('strip all specified occurrences at end', () => expect(Strings.stripEnd('nanana apple bananana', 'na')).toBe('nanana apple ba'));
+});
+
 describe('Strings.camelCase() should', () => {
     it('convert snake_case', () => expect(Strings.camelCase('snake_case_is_here')).toBe('snakeCaseIsHere'));
     it('convert ALL_CAPS', () => expect(Strings.camelCase('ALL_CAPS_IS_HERE')).toBe('allCapsIsHere'));

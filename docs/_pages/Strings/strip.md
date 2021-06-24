@@ -10,7 +10,6 @@ parameters:
   what:
     description: The tokens to remove from `from` if found. If not specified,
                  the function will return the original string.
-    optional: yes
     rest: yes
 ---
 ## Syntax

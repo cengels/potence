@@ -86,7 +86,7 @@ export function stripEnd(from: string, ...what: string[]): string {
     for (const substring of what) {
         let index = string.lastIndexOf(substring);
 
-        while (index === string.length - what.length) {
+        while (index === string.length - substring.length) {
             string = string.slice(0, index);
             index = string.lastIndexOf(substring);
         }
