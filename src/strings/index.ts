@@ -128,7 +128,7 @@ function findTokensAndUppercaseNext(source: string, token: string): string {
 
 /** Converts a string to camelCase from either snake_case, ALL_CAPS, hyphenated-case, or spaced text. */
 export function camelCase(source: string): string {
-    if (source === '' || source == null) {
+    if (isEmpty(source) || source == null) {
         return '';
     }
 
@@ -141,33 +141,9 @@ export function camelCase(source: string): string {
     return result;
 }
 
-/** Converts a string to pascalCase from either snake_case, ALL_CAPS, or hyphenated-case. */
+/** Converts a string to pascalCase from either snake_case, ALL_CAPS, hyphenated-case, or spaced text. */
 export function pascalCase(source: string): string {
-    if (source === '' || source == null) {
-        return '';
-    }
-
-    let result = source.toLowerCase();
-
-    result = result[0].toLowerCase() + result.slice(1);
-
-    let tokenIndex = result.indexOf('_');
-
-    while (tokenIndex !== -1) {
-        result = result.slice(0, tokenIndex) + result[tokenIndex + 1].toUpperCase() + result.slice(tokenIndex + 2);
-
-        tokenIndex = result.indexOf('_');
-    }
-
-    tokenIndex = result.indexOf('-');
-
-    while (tokenIndex !== -1) {
-        result = result.slice(0, tokenIndex) + result[tokenIndex + 1].toUpperCase() + result.slice(tokenIndex + 2);
-
-        tokenIndex = result.indexOf('-');
-    }
-
-    return result;
+    return capitalize(camelCase(source));
 }
 
 /** Prefixes the string with the specified prefix only if the string is not already prefixed with it. */

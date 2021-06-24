@@ -30,6 +30,17 @@ describe('Strings.camelCase() should', () => {
     it('don\'t convert nothing', () => expect(Strings.camelCase('')).toBe(''));
 });
 
+describe('Strings.pascalCase() should', () => {
+    it('convert snake_case', () => expect(Strings.pascalCase('snake_case_is_here')).toBe('SnakeCaseIsHere'));
+    it('convert ALL_CAPS', () => expect(Strings.pascalCase('ALL_CAPS_IS_HERE')).toBe('AllCapsIsHere'));
+    it('convert MixEd_cASe', () => expect(Strings.pascalCase('MixEd_cASe_iS_HeRE')).toBe('MixedCaseIsHere'));
+    it('convert hyphenated-text', () => expect(Strings.pascalCase('hyphens-are-here')).toBe('HyphensAreHere'));
+    it('convert spaced text', () => expect(Strings.pascalCase('normal text is here')).toBe('NormalTextIsHere'));
+    it('convert wide-spaced text', () => expect(Strings.pascalCase('normal     text   is     here')).toBe('NormalTextIsHere'));
+    it('convert mixed text', () => expect(Strings.pascalCase('normal     text---is__here')).toBe('NormalTextIsHere'));
+    it('don\'t convert nothing', () => expect(Strings.pascalCase('')).toBe(''));
+});
+
 describe('Strings.prefix() should', () => {
     it('prefix a string if prefix does not exist', () => expect(Strings.prefix('banana', 'raw')).toBe('rawbanana'));
     it('not prefix a string if prefix exists', () => expect(Strings.prefix('rawbanana', 'raw')).toBe('rawbanana'));

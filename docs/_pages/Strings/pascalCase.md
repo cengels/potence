@@ -1,9 +1,9 @@
 ---
 layout:      page
-title:       Strings.camelCase()
+title:       Strings.pascalCase()
 module:      Strings
-added:       0.2.0
-description: Converts a string to camelCase.
+added:       0.5.0
+description: Converts a string to PascalCase.
 parameters:
   source: A string whose casing is either snake_case, ALL_CAPS,
           hyphenated-case, or spaced text. Other types of casing
@@ -12,7 +12,7 @@ parameters:
 ## Syntax
 
 ```ts
-function camelCase(source: string): string
+function pascalCase(source: string): string
 ```
 
 <div class="description">{% include linkify.html description=page.description %}</div>
@@ -23,11 +23,11 @@ function camelCase(source: string): string
 ```ts
 import { Strings } from 'potence';
 
-Strings.camelCase('some string');  // -> 'someString'
-Strings.camelCase('some-string');  // -> 'someString'
-Strings.camelCase('some_string');  // -> 'someString'
+Strings.pascalCase('some string');  // -> 'SomeString'
+Strings.pascalCase('some-string');  // -> 'SomeString'
+Strings.pascalCase('some_string');  // -> 'SomeString'
 ```
 
 ## Remarks
 
-Compare [`Strings.pascalCase()`]({{ site.baseurl }}{% link _pages/Strings/pascalCase.md %}).
+Compare [`Strings.camelCase()`]({{ site.baseurl }}{% link _pages/Strings/camelCase.md %}).
