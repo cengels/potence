@@ -35,7 +35,7 @@ export function isObjectLiteral(value: unknown): value is ObjectLiteral {
     return value != null && typeof value === 'object' && Object.getPrototypeOf(value) === Object.prototype;
 }
 
-type ComparisonMode = 'shallow' | 'deep';
+type RecursionMode = 'shallow' | 'deep';
 
 /**
  * Performs a shallow or deep comparison of the two objects and returns a value
@@ -51,7 +51,7 @@ type ComparisonMode = 'shallow' | 'deep';
  * keys and values, meaning it properly compares nested objects as well).
  * Default is 'shallow'.
  */
-export function compare(object1: unknown, object2: unknown, comparisonMode: ComparisonMode = 'shallow'): boolean {
+export function compare(object1: unknown, object2: unknown, comparisonMode: RecursionMode = 'shallow'): boolean {
     if (object1 == null || object2 == null || !isObject(object1) || !isObject(object2)) {
         return object1 === object2;
     }
@@ -392,43 +392,54 @@ export function getConstructor<T>(object: T): Instantiable<T> | undefined {
  * Clones the passed object. This algorithm will attempt, in order:
  *
  * 1. If `object` is a primitive or `null`, returns `object`.
- * 2. If `object` is an array, calls itself for each array item.
- * 3. If `object` has a `clone()` function, calls it and returns the result.
- * 4. If `object` has a callable constructor, calls it and assigns all
- *    properties of `object` to the result before returning it.
- * 5. Creates a new object literal and assigns all properties of `object`
- *    to it before returning it.
+ * 2. If `object` has a `clone()` function, calls it and returns the result.
+ * 3. If `object` is an array, clones the array. If `mode` is "deep", calls
+ *    `clone()` on each array item.
+ * 4. Creates a new object literal and assigns all properties of `object`
+ *    to it before returning it. If `mode` is "deep", calls `clone()` on
+ *    each property value first.
  * 
  * Note that this function can throw an error, for instance if `object`
- * has a callable constructor that requires arguments. In that case you probably
- * want to implement a `clone()` function on the type.
+ * or one of its properties is an instance of a class constructor.
+ * In that case you probably want to implement a `clone()` function
+ * on the type.
  */
-export function clone<T>(object: T): T {
+export function clone<T>(object: T, mode: RecursionMode = 'shallow'): T {
     if (object == null || isPrimitive(object)) {
         return object;
-    }
-
-    if (Array.isArray(object)) {
-        return (object as Array<unknown>).map(clone) as unknown as T;
     }
 
     if (hasFunction(object, 'clone')) {
         return object.clone() as T;
     }
 
-    const constructor = getConstructor(object);
+    if (Array.isArray(object)) {
+        if (mode === 'shallow') {
+            return object.slice() as unknown as T;
+        }
 
-    const newObject: Partial<T> = constructor != null
-        // This call can fail, for instance if constructor requires arguments.
-        // We don't want to catch this case as this function call is likely
-        // a mistake, so we propagate the error to the user instead.
-        ? new constructor()
-        : {};
+        return (object as Array<unknown>).map(item => clone(item, mode)) as unknown as T;
+    }
+
+    if (!isObjectLiteral(object)) {
+        const constructor = getConstructor(object);
+    
+        if (constructor != null) {
+            throw new Error(`Failed to clone(): found a constructed type (${constructor.name}). Implement a clone() function to describe how to clone this type.`);
+        }
+    }
+
+    const newObject: Partial<T> = {};
 
     // tslint:disable-next-line: forin
     for (const key in object) {
+        // We don't want to catch errors during the clone,
+        // only during the write afterwards.
+
+        const clonedValue = mode === 'shallow' ? object[key] : clone(object[key], mode);
+
         try {
-            newObject[key] = object[key];
+            newObject[key] = clonedValue;
         } catch {
             // We could use isWritable() here instead, but since it
             // travels all the way up the prototype chain, simply

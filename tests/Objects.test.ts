@@ -342,9 +342,58 @@ describe('Objects.pick() should', () => {
 });
 
 describe('Objects.is() should', () => {
-    it('suceed a proper typeof check', () => expect(Objects.is('foo', 'string')).toBe(true));
+    it('succeed a proper typeof check', () => expect(Objects.is('foo', 'string')).toBe(true));
     it('fail an improper typeof check', () => expect(Objects.is('foo', 'number')).toBe(false));
     it('succeed a proper instanceof check', () => expect(Objects.is(new Date(), Date)).toBe(true));
     it('succeed a proper inherited instanceof check', () => expect(Objects.is(new Date(), Object)).toBe(true));
     it('fail an improper instanceof check', () => expect(Objects.is(new Date(), Number)).toBe(false));
+});
+
+function expectSameStructure(object: any, recursive: boolean = false): void {
+    const result = Objects.clone(object, recursive ? 'deep' : 'shallow');
+
+    expect(result).not.toBe(object);
+    expect(result).toEqual(object);
+
+    if (Array.isArray(result)) {
+        if (recursive) {
+            result.forEach((o, i) => expect(o).not.toBe(object[i]));
+        } else {
+            result.forEach((o, i) => expect(o).toBe(object[i]));
+        }
+    } else if (Objects.isObject(result)) {
+        for (const key in result) {
+            if (recursive) {
+                expect(result[key]).not.toBe(object[key]);
+            } else {
+                expect(result[key]).toBe(object[key]);
+            }
+        }
+    }
+}
+
+describe('Objects.clone() should', () => {
+    it('return null', () => expect(Objects.clone(null)).toBe(null));
+    it('return undefined', () => expect(Objects.clone(undefined)).toBe(undefined));
+    it('return the same number', () => expect(Objects.clone(5)).toBe(5));
+    it('return the same string', () => expect(Objects.clone('5')).toBe('5'));
+    it('return the same array', () => expectSameStructure([0, 1, 2]));
+    it('return the same 2D-array', () => expectSameStructure([[1, 2, 3], [4, 5, 6]]));
+    it('return the same 2D-array (recursive)', () => expectSameStructure([[1, 2, 3], [4, 5, 6]], true));
+    it('use the clone function', () => {
+        const obj = {
+            value: 1,
+            clone() { return { value: 2 } }
+        }
+
+        expect(Objects.clone(obj)).toEqual({ value: 2});
+    });
+    it('clone an object literal (primitives)', () => expectSameStructure({ value: 2, value2: 4 }));
+    it('clone an object literal', () => expectSameStructure({ value: [0, 1], value2: [1, 2] }));
+    it('clone an object literal (recursive)', () => expectSameStructure({ value: [0, 1], value2: [1, 2] }, true));
+    it('throw if object was constructed', () => expect(() => Objects.clone(new Date())).toThrowError());
+    it('throw if object property was constructed', () => expect(() => Objects.clone({ date: new Date() }, 'deep')).toThrowError());
+    it('throw if array item was constructed', () => expect(() => Objects.clone([new Date()], 'deep')).toThrowError());
+    it('not throw if object property was constructed and mode is shallow', () => expectSameStructure({ date: new Date() }));
+    it('not throw if array item was constructed and mode is shallow', () => expectSameStructure([new Date()]));
 });
