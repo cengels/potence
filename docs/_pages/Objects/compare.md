@@ -17,7 +17,7 @@ parameters:
 ## Syntax
 
 ```ts
-function compare(object1: unknown, object2: unknown, comparisonMode: ComparisonMode = 'shallow'): boolean
+function compare(object1: unknown, object2: unknown, comparisonMode: RecursionMode = 'shallow'): boolean
 ```
 
 <div class="description">{% include linkify.html description=page.description %}</div>
