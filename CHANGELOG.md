@@ -5,7 +5,7 @@ be breaking changes. Before 1.0.0, these changes will **not be announced** and
 will only be documented in this file, so please make sure to read it thoroughly
 if you wish to upgrade.
 
-## [0.5.0](https://github.com/cengels/potence/compare/0.4.0...0.5.0) - unreleased
+## [0.5.0](https://github.com/cengels/potence/compare/0.4.0...0.5.0) - 2021-06-24
 
 ### Arrays
 
