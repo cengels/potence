@@ -24,11 +24,6 @@ public constructor(...items: T[]): T[];
     constructor.</p>
 </div>
 
-## Public Mutator Methods
-
-<table class="class-members">
-</table>
-
 ## Public Non-Mutator Methods
 
 <table class="class-members">
