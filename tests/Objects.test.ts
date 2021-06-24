@@ -363,6 +363,26 @@ describe('Objects.getPropertyDescriptor() should', () => {
     it('return function descriptor', () => expect(typeof Objects.getPropertyDescriptor([], 'slice')!.value).toBe('function'));
 });
 
+describe('Objects.isWritable() should return', () => {
+    it('true on ordinary property', () => expect(Objects.isWritable({ value: 1 }, 'value')).toBe(true));
+    it('false on getter property', () => expect(Objects.isWritable({ get value() { return 1 } }, 'value')).toBe(false));
+    it('true on getter/setter property', () => expect(Objects.isWritable({
+        get value() { return 1 },
+        set value(value: number) { /** not implemented */ }
+    }, 'value')).toBe(true));
+    it('false on frozen object', () => expect(Objects.isWritable(Object.freeze({ value: 1 }), 'value')).toBe(false));
+    it('false on readonly property', () => {
+        class Foo {}
+        Object.defineProperty(Foo.prototype, 'value', { value: 5, writable: false });
+
+        const instance = new Foo();
+
+        expect(() => (instance as { value: number }).value = 5).toThrowError();
+        expect((instance as { value: number }).value).toBe(5);
+        expect(Objects.isWritable(instance, 'value')).toBe(false);
+    });
+});
+
 describe('Objects.getConstructor() should', () => {
     it('return nothing for strings', () => expect(Objects.getConstructor('foo')).toBe(undefined));
     it('return nothing for numbers', () => expect(Objects.getConstructor(5)).toBe(undefined));
