@@ -101,6 +101,17 @@ if you wish to upgrade.
   [`Number.NaN`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/NaN)
   when no intersection was found
 
+### [Range](https://cengels.github.io/potence/Numbers/Range)
+
+- **Renamed**: `Range.intersect()` to `Range.intersectionPoint()`
+- **Changed**: `Range.intersectionPoint` now returns
+  [`Number.NaN`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/NaN)
+  if no intersection was found
+- **Added**: new function `Range.intersect()`
+- **Added**: new function `Range.union()`
+- **Added**: new function `Range.getOffset()`
+- **Added**: new function `Range.isEmpty()`
+
 ### Objects
 
 - **Added**: new function

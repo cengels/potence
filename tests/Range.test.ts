@@ -96,6 +96,29 @@ describe('Range.intersectionPoint() should return', () => {
     it('NaN if ranges do not overlap', () => expect(new Range(-55, 22).intersectionPoint(new Range(-80, -60))).toBeNaN());
 });
 
+describe('Range.intersect() should', () => {
+    it('return empty range if no intersection', () => expect(new Range(0, 3).intersect(new Range(5, 6)).isEmpty()).toBe(true));
+    it('return correct intersection', () => expect(new Range(0, 3).intersect(new Range(2, 5))).toStrictEqual(new Range(2, 3)));
+    it('return correct intersection (inverted)', () => expect(new Range(0, 3).intersect(new Range(-2, 2))).toStrictEqual(new Range(0, 2)));
+    it('return correct intersection (inside)', () => expect(new Range(0, 3).intersect(new Range(1, 2))).toStrictEqual(new Range(1, 2)));
+    it('return correct intersection (inside, inverted)', () => expect(new Range(1, 2).intersect(new Range(0, 3))).toStrictEqual(new Range(1, 2)));
+});
+
+describe('Range.union() should', () => {
+    it('bridge gap if no intersection', () => expect(new Range(0, 3).union(new Range(5, 6))).toStrictEqual(new Range(0, 6)));
+    it('return correct union', () => expect(new Range(0, 3).union(new Range(2, 5))).toStrictEqual(new Range(0, 5)));
+    it('return correct union (inverted)', () => expect(new Range(0, 3).union(new Range(-2, 5))).toStrictEqual(new Range(-2, 5)));
+});
+
+describe('Range.getOffset() should', () => {
+    it('return negative offset', () => expect(new Range(0, 3).getOffset(new Range(2, 4))).toBe(-1));
+    it('return positive offset', () => expect(new Range(0, 3).getOffset(new Range(-2, 1))).toBe(1));
+    it('return negative offset (inverted)', () => expect(new Range(2, 4).getOffset(new Range(0, 3))).toBe(1));
+    it('return positive offset (inverted)', () => expect(new Range(-2, 1).getOffset(new Range(0, 3))).toBe(-1));
+    it('return 0 without intersection', () => expect(new Range(0, 3).getOffset(new Range(5, 6))).toBe(0));
+    it('return negative offset if both possible offsets are the same', () => expect(new Range(0, 3).getOffset(new Range(1, 2))).toBe(-2));
+});
+
 describe('Range.at() should return', () => {
     each([
         [-0.5, -5],
@@ -140,6 +163,11 @@ describe('Range.wrap() should', () => {
     it('not wrap if it equals the range\'s start', () => expect(new Range(10, 50).wrap(10)).toBe(10));
     it('not wrap if it equals the range\'s end', () => expect(new Range(10, 50).wrap(50)).toBe(50));
     it('not wrap if value is contained in range', () => expect(new Range(10, 50).wrap(35)).toBe(35));
+});
+
+describe('Range.isEmpty() should return', () => {
+    it('true if span is 0', () => expect(new Range(4, 4).isEmpty()).toBe(true));
+    it('false if span is not 0', () => expect(new Range(4, 6).isEmpty()).toBe(false));
 });
 
 describe('Range.equals() should return', () => {

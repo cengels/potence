@@ -119,7 +119,7 @@ export default class Range implements ReadonlyRange {
         return this.isBetween(range.from) || this.isBetween(range.to);
     }
 
-    public intersect(range: ReadonlyRange): number {
+    public intersectionPoint(range: ReadonlyRange): number {
         if (!this.overlaps(range)) {
             return Number.NaN;
         }
@@ -131,6 +131,66 @@ export default class Range implements ReadonlyRange {
         }
 
         return range.clamp(center);
+    }
+
+    public intersect(range: ReadonlyRange): Range {
+        const isMinInside = this.isBetween(range.min());
+        const isMaxInside = this.isBetween(range.max());
+
+        if (!isMinInside && !isMaxInside) {
+            // Neither points of range are inside this range.
+            // Check if this range is completely enveloped by range.
+            // If so, clone this range. If not, return an empty range.
+            return range.contains(this) ? this.clone() : new Range();
+        }
+
+        if (isMinInside && isMaxInside) {
+            // Both points are inside this range. Just return range.
+            return range.clone();
+        }
+
+        // Only one point is inside this range.
+
+        if (isMinInside) {
+            return new Range(range.min(), this.max());
+        }
+
+        return new Range(this.min(), range.max());
+    }
+
+    public union(range: ReadonlyRange): Range {
+        const values = [this.from, this.to, range.from, range.to];
+
+        return new Range(Math.min(...values), Math.max(...values));
+    }
+
+    public getOffset(range: ReadonlyRange): number {
+        if (range.contains(this)) {
+            const maxDifference = range.max() - this.max();
+            const minDifference = this.min() - range.min();
+
+            if (maxDifference <= minDifference) {
+                return maxDifference + this.span();
+            }
+
+            return -minDifference - this.span();
+        }
+
+        if (this.contains(range)) {
+            return -range.getOffset(this);
+        }
+
+        // Only one or no points lie within this range.
+
+        if (this.isBetween(range.min())) {
+            return range.min() - this.max();
+        }
+
+        if (this.isBetween(range.max())) {
+            return range.max() - this.min();
+        }
+
+        return 0;
     }
 
     public at(value: number): number {
@@ -157,6 +217,10 @@ export default class Range implements ReadonlyRange {
         const difference = value - this.max();
 
         return this.min() + Math.abs(difference % (this.max() - this.min()));
+    }
+
+    public isEmpty(): boolean {
+        return this.from === this.to;
     }
 
     public equals(range: ReadonlyRange): boolean;

@@ -156,10 +156,43 @@ public constructor(from: number, to: number);
     </tr>
     <tr>
         <td class="signature">
-            {% highlight ts %}intersect(range: ReadonlyRange): number{% endhighlight %}
+            {% highlight ts %}intersectionPoint(range: ReadonlyRange): number{% endhighlight %}
         </td>
         <td class="description" markdown="span">
             Finds the intersection point closest to this range's center with the given range. If this range completely envelops the target range, returns this range's center. If there is no intersection, returns [NaN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/NaN).
+        </td>
+    </tr>
+    <tr>
+        <td class="signature">
+            {% highlight ts %}intersect(range: ReadonlyRange): Range{% endhighlight %}
+        </td>
+        <td class="description" markdown="span">
+            Gets the intersection between this range and range as a new Range. If there is no intersection, returns an empty Range.
+
+            For example, a `Range(0, 3)` intersecting with a `Range(2, 5)` will return a new `Range(2, 3)`.
+        </td>
+    </tr>
+    <tr>
+        <td class="signature">
+            {% highlight ts %}union(range: ReadonlyRange): Range{% endhighlight %}
+        </td>
+        <td class="description" markdown="span">
+            Gets the union between this range and range as a new Range. If there is no true union (that is, the two ranges do not intersect), the returned Range will "bridge the gap", so to speak, acting as if either of the ranges were large enough to meet the other.
+
+            For example, a `Range(0, 3)` unioning with a `Range(2, 5)` will return a new `Range(0, 5)`.
+
+            A `Range(0, 3)` unioning with a `Range(5, 6)` will return a new `Range(0, 6)`.
+        </td>
+    </tr>
+    <tr>
+        <td class="signature">
+            {% highlight ts %}getOffset(range: ReadonlyRange): number{% endhighlight %}
+        </td>
+        <td class="description" markdown="span">
+            If this range intersects with `range`, gets the total distance that this range should be moved so that it no longer intersects with `range`.
+            This function will always choose the shortest distance. The distance can be negative. If the ranges don't intersect, the return value will be 0.
+
+            For example, a `Range(0, 3)` and a `Range(2, 5)` will return an offset of `-1` ("move this range backwards by 1 to get `Range(-1, 2)`, thus no longer intersecting with the other range").
         </td>
     </tr>
     <tr>
@@ -185,6 +218,14 @@ public constructor(from: number, to: number);
         <td class="description">
             <p>Wraps the number into this range. That is, if the number exceeds this range, it will "wrap around" the range's start.</p>
             <p>For instance, in a range of -3 to 3, the value 4 would be wrapped to -2.</p>
+        </td>
+    </tr>
+    <tr>
+        <td class="signature">
+            {% highlight ts %}isEmpty(): boolean{% endhighlight %}
+        </td>
+        <td class="description" markdown="span">
+            Returns `true` if  the range is empty, that is its length is 0.
         </td>
     </tr>
     <tr>
