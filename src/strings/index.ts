@@ -93,7 +93,7 @@ export function stripEnd(from: string, ...what: string[]): string {
 
     while (didStartWithToken) {
         didStartWithToken = false;
-        
+
         for (const substring of what) {
             const index = string.lastIndexOf(substring);
     
@@ -109,30 +109,32 @@ export function stripEnd(from: string, ...what: string[]): string {
 
 /** 
  * Strips everything before the first or last occurrence of
- * the specified substring from the string.
+ * the specified substring from the string, including the
+ * substring itself.
  */
-export function stripBefore(from: string, what: string, searchBackwards: boolean = false): string {
-    const index = searchBackwards ? from.lastIndexOf(what) : from.indexOf(what);
+export function stripBefore(string: string, substring: string, searchBackwards: boolean = false): string {
+    const index = searchBackwards ? string.lastIndexOf(substring) : string.indexOf(substring);
 
     if (index === -1) {
-        return from;
+        return string;
     }
 
-    return from.slice(index + what.length);
+    return string.slice(index + substring.length);
 }
 
 /** 
  * Strips everything after the first or last occurrence of
- * the specified substring from the string.
+ * the specified substring from the string, including the
+ * substring itself.
  */
-export function stripAfter(from: string, what: string, searchBackwards: boolean = false): string {
-    const index = searchBackwards ? from.lastIndexOf(what) : from.indexOf(what);
+export function stripAfter(string: string, substring: string, searchBackwards: boolean = false): string {
+    const index = searchBackwards ? string.lastIndexOf(substring) : string.indexOf(substring);
 
     if (index === -1) {
-        return from;
+        return string;
     }
 
-    return from.slice(0, index);
+    return string.slice(0, index);
 }
 
 function findTokensAndUppercaseNext(source: string, token: string): string {

@@ -44,6 +44,18 @@ describe('Strings.stripEnd() should', () => {
     it('strip multiple tokens', () => expect(Strings.stripEnd('010110241001', '0', '1')).toBe('01011024'));
 });
 
+describe('Strings.stripAfter() should', () => {
+    it('do nothing if substring not found', () => expect(Strings.stripAfter('polypoly', 'al')).toBe('polypoly'));
+    it('strip rest if substring found', () => expect(Strings.stripAfter('polypoly', 'ol')).toBe('p'));
+    it('strip rest if substring found (backwards)', () => expect(Strings.stripAfter('polypoly', 'ol', true)).toBe('polyp'));
+});
+
+describe('Strings.stripBefore() should', () => {
+    it('do nothing if substring not found', () => expect(Strings.stripBefore('polypoly', 'al')).toBe('polypoly'));
+    it('strip rest if substring found', () => expect(Strings.stripBefore('polypoly', 'ol')).toBe('ypoly'));
+    it('strip rest if substring found (backwards)', () => expect(Strings.stripBefore('polypoly', 'ol', true)).toBe('y'));
+});
+
 describe('Strings.camelCase() should', () => {
     it('convert snake_case', () => expect(Strings.camelCase('snake_case_is_here')).toBe('snakeCaseIsHere'));
     it('convert ALL_CAPS', () => expect(Strings.camelCase('ALL_CAPS_IS_HERE')).toBe('allCapsIsHere'));
