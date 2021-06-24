@@ -3,21 +3,6 @@ export function isEmpty(string: string): boolean {
     return string.length === 0;
 }
 
-/** 
- * Calls the specified callback function on every character in the string.
- * 
- * Note that this function is unicode-conform, that is it will not break
- * apart surrogate pairs during iteration.
- */
-export function forEach(string: string, callback: (char: string, index: number, string: string) => void): void {
-    let i: number = 0;
-
-    for (const char of string) {
-        callback(char, i, string);
-        i++;
-    }
-}
-
 /** Returns true if the string contains only whitespace. */
 export function isWhitespace(string: string): boolean {
     return isEmpty(string.trim());
