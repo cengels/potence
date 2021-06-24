@@ -1,5 +1,5 @@
 import { SortFunction, SortOrder, TransformTo1DArray } from './index.js';
-import { Arrays, BaseType, Constructor, Predicate } from '../index.js';
+import { Arrays, ArrayType, BaseType, Constructor, Predicate } from '../index.js';
 import ReadonlyList from './ReadonlyList.js';
 
 /** 
@@ -98,7 +98,7 @@ export default class List<T> extends Array<T> implements ReadonlyList<T> {
      */
     public replace(element: T, replacement: T): this {
         // TypeScript bug
-        Arrays.replace(this, element as any, replacement as any);
+        Arrays.replace(this, element as ArrayType<this>, replacement as ArrayType<this>);
 
         return this;
     }
@@ -124,7 +124,9 @@ export default class List<T> extends Array<T> implements ReadonlyList<T> {
     public type(type: 'string'): this is List<string>;
     public type(type: 'string'): this is ReadonlyList<string>;
     public type(type: BaseType | Constructor): boolean {
-        return Arrays.type(this, type as any);
+        // Overloaded forwarding still hasn't been implemented
+        // in TypeScript, so we have to make do.
+        return Arrays.type(this, type as unknown as Constructor);
     }
 
     /**
@@ -163,7 +165,7 @@ export default class List<T> extends Array<T> implements ReadonlyList<T> {
     public sort(...sortFns: SortFunction<T>[]): this;
     public sort(orderOrSortFn: SortOrder | SortFunction<T> | undefined = 'ascending', ...sortFns: Array<SortFunction<T>>): this {
         try {
-            Arrays.sort(this, orderOrSortFn as any, ...sortFns);
+            Arrays.sort(this, orderOrSortFn as SortFunction, ...sortFns);
         } catch {
             // Original function fails if type isn't string, Date, or number.
             super.sort();
@@ -240,7 +242,7 @@ export default class List<T> extends Array<T> implements ReadonlyList<T> {
     public findIndices(predicate: (object: T) => boolean): number[];
     public findIndices(object: T): number[];
     public findIndices(objectOrPredicate: T | Predicate<T>): number[] {
-        return Arrays.findIndices(this, objectOrPredicate as any);
+        return Arrays.findIndices(this, objectOrPredicate);
     }
 
     /** 
@@ -276,8 +278,8 @@ export default class List<T> extends Array<T> implements ReadonlyList<T> {
      * @param mapfn A mapping function to call on every element of the array.
      * @param thisArg Value of 'this' used to invoke the mapfn.
      */
-    public static from<T, U = T>(iterable: Iterable<T> | ArrayLike<T>, mapfn?: (v: T, k: number) => U, thisArg?: any): List<U> {
-        return super.from(iterable, mapfn as any, thisArg) as unknown as List<U>;
+    public static from<T, U = T>(iterable: Iterable<T> | ArrayLike<T>, mapfn?: (v: T, k: number) => U, thisArg?: unknown): List<U> {
+        return super.from(iterable, mapfn as (v: T, k: number) => U, thisArg) as unknown as List<U>;
     }
 
     /**

@@ -1,5 +1,6 @@
+import { Assert } from '../src/index.js';
 import * as Objects from '../src/objects/index.js';
-import { Structure } from '../src/types.js';
+import { ObjectLiteral, Structure } from '../src/types.js';
 
 describe('Objects.isObject() should return', () => {
     describe('true for', () => {
@@ -350,17 +351,17 @@ describe('Objects.is() should', () => {
 });
 
 describe('Objects.getPropertyDescriptor() should', () => {
-    it('get direct property descriptor', () => expect(Objects.getPropertyDescriptor({ value: 1 }, 'value')!.value).toBe(1));
+    it('get direct property descriptor', () => expect(Objects.getPropertyDescriptor({ value: 1 }, 'value')?.value).toBe(1));
     it('get inherited property descriptor', () => {
         class Base { public value(): number { return 5; } }
         class Inherited extends Base { }
         const inherited = new Inherited();
 
         expect(inherited.value()).toBe(5);
-        expect(Objects.getPropertyDescriptor(inherited, 'value')!.value()).toBe(5);
+        expect(Objects.getPropertyDescriptor(inherited, 'value')?.value()).toBe(5);
         expect(Object.getOwnPropertyDescriptor(inherited, 'value')).toBeUndefined();
     });
-    it('return function descriptor', () => expect(typeof Objects.getPropertyDescriptor([], 'slice')!.value).toBe('function'));
+    it('return function descriptor', () => expect(typeof Objects.getPropertyDescriptor([], 'slice')?.value).toBe('function'));
 });
 
 describe('Objects.isWritable() should return', () => {
@@ -392,7 +393,7 @@ describe('Objects.getConstructor() should', () => {
     it('return Date for dates', () => expect(Objects.getConstructor(new Date())).toBe(Date));
 });
 
-function expectSameStructure(object: any, recursive: boolean = false): void {
+function expectSameStructure(object: ObjectLiteral | unknown[], recursive: boolean = false): void {
     const result = Objects.clone(object, recursive ? 'deep' : 'shallow');
 
     expect(result).not.toBe(object);
@@ -405,6 +406,8 @@ function expectSameStructure(object: any, recursive: boolean = false): void {
             result.forEach((o, i) => expect(o).toBe(object[i]));
         }
     } else if (Objects.isObject(result)) {
+        Assert.that(Objects.isObject(object));
+
         for (const key in result) {
             if (recursive) {
                 expect(result[key]).not.toBe(object[key]);

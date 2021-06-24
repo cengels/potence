@@ -19,6 +19,7 @@ function* iterable() {
 }
 
 function* emptyIterable() {
+    // iterable that contains no elements
 }
 
 describe('Arrays.count() should work with', () => {
