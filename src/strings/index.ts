@@ -3,7 +3,7 @@ export function isEmpty(string: string): boolean {
     return string.length === 0;
 }
 
-/** Returns true if the string contains only whitespace. */
+/** Returns true if the string is empty or contains only whitespace. */
 export function isWhitespace(string: string): boolean {
     return isEmpty(string.trim());
 }

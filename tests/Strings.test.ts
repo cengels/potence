@@ -1,6 +1,18 @@
 import * as Strings from '../src/strings/index.js';
 import { method } from './improved-syntax.js';
 
+describe('Strings.isEmpty() should return', () => {
+    it('true if string is empty', () => expect(Strings.isEmpty('')).toBe(true));
+    it('false if string has only whitespace', () => expect(Strings.isEmpty('    ')).toBe(false));
+    it('false if string is not empty', () => expect(Strings.isEmpty('foo')).toBe(false));
+});
+
+describe('Strings.isWhitespace() should return', () => {
+    it('true if string is empty', () => expect(Strings.isWhitespace('')).toBe(true));
+    it('true if string has only whitespace', () => expect(Strings.isWhitespace('    ')).toBe(true));
+    it('false if string is not empty', () => expect(Strings.isWhitespace('foo')).toBe(false));
+});
+
 describe('Strings.strip() should', () => {
     it('do nothing by default', () => expect(Strings.strip('     k     t      ')).toBe('     k     t      '));
     it('strip all spaces', () => expect(Strings.strip('     k     t      ', ' ')).toBe('kt'));
