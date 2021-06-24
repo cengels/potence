@@ -26,3 +26,7 @@ import { Strings } from 'potence';
 Strings.suffix('awesome-filename', '.md');     // -> 'awesome-filename.md'
 Strings.suffix('awesome-filename.md', '.md');  // -> 'awesome-filename.md'
 ```
+
+## Remarks
+
+Compare [`Strings.prefix()`]({{ site.baseurl }}{% link _pages/Strings/prefix.md %}).

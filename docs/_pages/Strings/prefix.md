@@ -26,3 +26,7 @@ import { Strings } from 'potence';
 Strings.prefix('www.google.com', 'https://');          // -> 'https://www.google.com'
 Strings.prefix('https://www.google.com', 'https://');  // -> 'https://www.google.com'
 ```
+
+## Remarks
+
+Compare [`Strings.suffix()`]({{ site.baseurl }}{% link _pages/Strings/suffix.md %}).
