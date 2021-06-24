@@ -12,9 +12,9 @@ export function isWhitespace(string: string): boolean {
  * Splits the string at the given indexes, returning a new array with the
  * newly formed substrings.
  * 
- * Note that the indexes must correspond to UTF-8 code points and must not
- * result in a zero-length segment (i.e. no index of 0 or string.length,
- * and no duplicate indexes).
+ * Note that surrogate pairs are not broken apart. Duplicate indexes
+ * will be ignored, ensuring that the resulting array never contains
+ * a zero-length segment.
  * 
  * @example
  * Strings.splitAt('bananas', 3, 5);  // -> ['ban', 'an', 'as']
@@ -22,18 +22,28 @@ export function isWhitespace(string: string): boolean {
 export function splitAt(string: string, ...indexes: number[]): string[] {
     let previousIndex: number = 0;
 
-    return indexes.sort((a, b) => a - b)
-        .map(index => {
+    const segments = indexes.sort((a, b) => a - b)
+        .reduce<string[]>((array, index) => {
+            if (index < 0) {
+                throw new Error('Strings.splitAt(): indexes must be positive.');
+            }
+
             const segment = string.slice(previousIndex, index);
 
             if (isEmpty(segment)) {
-                throw new Error(`Can't split string at index ${index}. Resulting substring would be empty.`);
+                return array;
             }
 
             previousIndex = index;
 
-            return segment;
-    });
+            return array.concat(segment);
+    }, []);
+
+    if (previousIndex < string.length) {
+        segments.push(string.slice(previousIndex));
+    }
+
+    return segments;
 }
 
 /**

@@ -13,6 +13,16 @@ describe('Strings.isWhitespace() should return', () => {
     it('false if string is not empty', () => expect(Strings.isWhitespace('foo')).toBe(false));
 });
 
+describe('Strings.splitAt() should', () => {
+    it('split simple string', () => expect(Strings.splitAt('banana', 2, 4)).toStrictEqual(['ba', 'na', 'na']));
+    it('split simple string (unsorted)', () => expect(Strings.splitAt('banana', 4, 2)).toStrictEqual(['ba', 'na', 'na']));
+    it('split surrogate pairs', () => expect(Strings.splitAt('bànànà', 2, 4)).toStrictEqual(['bà', 'nà', 'nà']));
+    it('do nothing if indices are outside of string', () => expect(Strings.splitAt('banana', 8)).toStrictEqual(['banana']));
+    it('do nothing if no indices are supplied', () => expect(Strings.splitAt('banana')).toStrictEqual(['banana']));
+    it('ignore duplicate indices', () => expect(Strings.splitAt('banana', 2, 2, 2)).toStrictEqual(['ba', 'nana']));
+    it('throw if indices are negative', () => expect(() => Strings.splitAt('banana', -1)).toThrowError());
+});
+
 describe('Strings.strip() should', () => {
     it('do nothing by default', () => expect(Strings.strip('     k     t      ')).toBe('     k     t      '));
     it('strip all spaces', () => expect(Strings.strip('     k     t      ', ' ')).toBe('kt'));
