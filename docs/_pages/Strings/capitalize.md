@@ -29,4 +29,4 @@ Strings.capitalize('hello');  // -> 'Hello'
 If the first character in the string is not a letter, or if it is an uppercase
 letter, this function will return the original string.
 
-Contrast [`Strings.uncapitalize()`]({ % link docs/Types/uncapitalize.md %}).
+Contrast [`Strings.uncapitalize()`]({{ site.baseurl }}{% link _pages/Strings/uncapitalize.md %}).
