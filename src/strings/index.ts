@@ -18,34 +18,6 @@ export function forEach(string: string, callback: (char: string, index: number, 
     }
 }
 
-/** 
- * Converts the string to a character array.
- * 
- * Note that the resulting array is unicode-conform, that is it will not break
- * apart surrogate pairs.
- */
-export function chars(string: string): string[] {
-    return Array.from(string);
-}
-
-/** 
- * Gets an array of all the code points in the string.
- * 
- * Note that the resulting array will contain all *individual* code points.
- * Surrogate pairs will be broken apart.
- */
-export function codePoints(string: string): number[] {
-    const array: number[] = [];
-    let i: number = 0;
-    let codePoint = string.codePointAt(i);
-    
-    for (; codePoint != null; i++, codePoint = string.codePointAt(i)) {
-        array.push(codePoint);
-    }
-
-    return array;
-}
-
 /** Returns true if the string contains only whitespace. */
 export function isWhitespace(string: string): boolean {
     return isEmpty(string.trim());
