@@ -69,10 +69,17 @@ export function strip(from: string, ...what: string[]): string {
 /** Removes all of the given substrings from the start of the string. */
 export function stripStart(from: string, ...what: string[]): string {
     let string = from;
+    let didStartWithToken: boolean = true;
 
-    for (const substring of what) {
-        while (string.startsWith(substring)) {
-            string = string.slice(substring.length);
+    while (didStartWithToken) {
+        didStartWithToken = false;
+
+        for (const substring of what) {
+            if (string.startsWith(substring)) {
+                string = string.slice(substring.length);
+                didStartWithToken = true;
+                break;
+            }
         }
     }
 
@@ -82,13 +89,18 @@ export function stripStart(from: string, ...what: string[]): string {
 /** Removes all of the given substrings from the end of the string. */
 export function stripEnd(from: string, ...what: string[]): string {
     let string = from;
+    let didStartWithToken: boolean = true;
 
-    for (const substring of what) {
-        let index = string.lastIndexOf(substring);
-
-        while (index === string.length - substring.length) {
-            string = string.slice(0, index);
-            index = string.lastIndexOf(substring);
+    while (didStartWithToken) {
+        didStartWithToken = false;
+        
+        for (const substring of what) {
+            const index = string.lastIndexOf(substring);
+    
+            if (index === string.length - substring.length) {
+                string = string.slice(0, index);
+                didStartWithToken = true;
+            }
         }
     }
 

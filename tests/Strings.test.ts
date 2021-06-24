@@ -34,12 +34,14 @@ describe('Strings.stripStart() should', () => {
     it('do nothing by default', () => expect(Strings.stripStart('     k     t      ')).toBe('     k     t      '));
     it('strip beginning spaces', () => expect(Strings.stripStart('     k     t      ', ' ')).toBe('k     t      '));
     it('strip all specified occurrences at start', () => expect(Strings.stripStart('nanana apple bananana', 'na')).toBe(' apple bananana'));
+    it('strip multiple tokens', () => expect(Strings.stripStart('010110241001', '0', '1')).toBe('241001'));
 });
 
 describe('Strings.stripEnd() should', () => {
     it('do nothing by default', () => expect(Strings.stripEnd('     k     t      ')).toBe('     k     t      '));
     it('strip end spaces', () => expect(Strings.stripEnd('     k     t      ', ' ')).toBe('     k     t'));
     it('strip all specified occurrences at end', () => expect(Strings.stripEnd('nanana apple bananana', 'na')).toBe('nanana apple ba'));
+    it('strip multiple tokens', () => expect(Strings.stripEnd('010110241001', '0', '1')).toBe('01011024'));
 });
 
 describe('Strings.camelCase() should', () => {
