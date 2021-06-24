@@ -89,20 +89,11 @@ if you wish to upgrade.
   [`Numbers.isEven()`](https://cengels.github.io/potence/Numbers/isEven)
 - **Renamed**: `Numbers.odd()` to
   [`Numbers.isOdd()`](https://cengels.github.io/potence/Numbers/isOdd)
-- **Renamed**: `Range.between()` to
-  [`Range.isBetween()`]([`Range`](https://cengels.github.io/potence/Numbers/Range))
-- **Changed**: all
-  [`Range`](https://cengels.github.io/potence/Numbers/Range)
-  fields now use
-  [private class fields](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/Private_class_fields)
-- **Changed**: 
-  [`Range.intersect()`](https://cengels.github.io/potence/Numbers/Range)
-  now returns
-  [`Number.NaN`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/NaN)
-  when no intersection was found
 
 ### [Range](https://cengels.github.io/potence/Numbers/Range)
 
+- **Renamed**: `Range.between()` to
+  [`Range.isBetween()`]([`Range`](https://cengels.github.io/potence/Numbers/Range))
 - **Renamed**: `Range.intersect()` to `Range.intersectionPoint()`
 - **Changed**: `Range.intersectionPoint` now returns
   [`Number.NaN`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/NaN)
