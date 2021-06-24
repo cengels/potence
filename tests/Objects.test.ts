@@ -349,6 +349,20 @@ describe('Objects.is() should', () => {
     it('fail an improper instanceof check', () => expect(Objects.is(new Date(), Number)).toBe(false));
 });
 
+describe('Objects.getPropertyDescriptor() should', () => {
+    it('get direct property descriptor', () => expect(Objects.getPropertyDescriptor({ value: 1 }, 'value')!.value).toBe(1));
+    it('get inherited property descriptor', () => {
+        class Base { public value(): number { return 5; } }
+        class Inherited extends Base { }
+        const inherited = new Inherited();
+
+        expect(inherited.value()).toBe(5);
+        expect(Objects.getPropertyDescriptor(inherited, 'value')!.value()).toBe(5);
+        expect(Object.getOwnPropertyDescriptor(inherited, 'value')).toBeUndefined();
+    });
+    it('return function descriptor', () => expect(typeof Objects.getPropertyDescriptor([], 'slice')!.value).toBe('function'));
+});
+
 describe('Objects.getConstructor() should', () => {
     it('return nothing for strings', () => expect(Objects.getConstructor('foo')).toBe(undefined));
     it('return nothing for numbers', () => expect(Objects.getConstructor(5)).toBe(undefined));
