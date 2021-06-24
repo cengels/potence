@@ -13,7 +13,7 @@
                 "object": false
             }
         }],
-        "no-unused-vars": ["warning", {
+        "no-unused-vars": ["warn", {
             "varsIgnorePattern": "_"
         }]
     },
