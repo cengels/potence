@@ -1,5 +1,6 @@
+import * as Arrays from '../arrays/index.js';
+import { ArrayType, BaseType, Constructor, Predicate } from '../types.js';
 import { SortFunction, SortOrder, TransformTo1DArray } from './index.js';
-import { Arrays, ArrayType, BaseType, Constructor, Predicate } from '../index.js';
 import ReadonlyList from './ReadonlyList.js';
 
 /** 

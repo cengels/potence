@@ -1,4 +1,4 @@
-import { Objects } from '../index.js';
+import * as Objects from '../objects/index.js';
 import { isPrimitive } from '../types.js';
 
 /** Options for `Strings.serialize()`. */

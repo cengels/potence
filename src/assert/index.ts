@@ -26,8 +26,10 @@
  * }
  */
 
-import { Arrays, Objects, Strings } from '../index.js';
+import * as Arrays from '../arrays/index.js';
+import * as Objects from '../objects/index.js';
 import { StringifyOptions } from '../objects/index.js';
+import * as Strings from '../strings/index.js';
 import { BaseToType, BaseType, Constructor, Falsy, Truthy } from '../types.js';
 
 export class AssertionError extends Error {
