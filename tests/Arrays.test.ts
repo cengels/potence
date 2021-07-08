@@ -1,4 +1,5 @@
 import * as Arrays from '../src/arrays/index.js';
+import List from '../src/arrays/List.js';
 import * as Numbers from '../src/numbers/index.js'
 import * as Objects from '../src/objects/index.js'
 
@@ -139,6 +140,17 @@ describe('Arrays.sort() should', () => {
     it('return the original array if no sort is possible', () => expect(Arrays.sort([])).toStrictEqual([]));
     it('throw an error if type is neither number[], string[] or Date[]', () => expect(() => Arrays.sort([{}, [5, 3]])).toThrowError());
     it('throw an error if type is mixed', () => expect(() => Arrays.sort([5, 'yes'])).toThrowError());
+    it('not result in infinite recursion on Lists', () => {
+        const list = new List([0], [0, 1, 2], [0, 1]);
+        const spy = jest.spyOn(list, 'sort');
+
+        list.sort((a, b) => a.length - b.length);
+
+        expect(list[0].length === 1).toBe(true);
+        expect(list[1].length === 2).toBe(true);
+        expect(list[2].length === 3).toBe(true);
+        expect(spy).toHaveBeenCalledTimes(1);
+    });
     describe('for numbers', () => {
         it('properly sort an array (ascending)', () => expect(Arrays.sort([5, 3, 8])).toEqual([3, 5, 8]));
         it('properly sort an array (descending)', () => expect(Arrays.sort([5, 3, 8], 'descending')).toEqual([8, 5, 3]));

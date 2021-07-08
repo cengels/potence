@@ -164,6 +164,13 @@ export default class List<T> extends Array<T> implements ReadonlyList<T> {
      */
     public sort(...sortFns: SortFunction<T>[]): this;
     public sort(orderOrSortFn: SortOrder | SortFunction<T> | undefined = 'ascending', ...sortFns: Array<SortFunction<T>>): this {
+        if (typeof orderOrSortFn === 'function' && sortFns.length === 0) {
+            // Without this branch we'll have infinite recursion on our hands
+            // as Arrays.sort() calls Array.prototype.sort(), which will call
+            // List.sort() on Lists, which would call Arrays.sort() again.
+            return super.sort();
+        }
+
         try {
             Arrays.sort(this, orderOrSortFn as SortFunction, ...sortFns);
         } catch {
