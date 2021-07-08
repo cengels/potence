@@ -1,4 +1,4 @@
-import { BaseToType, BaseType, Constructor, Equatable, isEquatable, isPrimitive, ObjectLiteral, Structure, StructureValue } from '../types.js';
+import type { BaseToType, BaseType, Constructor, Equatable, ObjectLiteral, Structure, StructureValue } from '../types.js';
 import { stringify } from './stringify.js';
 export * from './stringify.js';
 
@@ -170,7 +170,7 @@ export function swap<T extends object>(source: T, from: keyof T, to: keyof T): T
  * this function will use a simple referential equality check (or structural equality check in the case of value types).
  */
 export function equal(source: unknown, ...others: unknown[]): boolean {
-    if (isEquatable(source)) {
+    if (hasFunction(source, 'equals')) {
         return others.every(other => source.equals(other));
     }
 
@@ -194,7 +194,7 @@ export function equal(source: unknown, ...others: unknown[]): boolean {
  * @returns The original object cast with `Equatable` implemented.
  */
 export function equatable<T extends object>(source: T): Equatable & T {
-    if (isEquatable(source)) {
+    if (hasFunction(source, 'equals')) {
         return source as Equatable & T;
     }
 
@@ -256,7 +256,7 @@ export function hasProperty<
 
     const object = source as ObjectLiteral;
 
-    if (isPrimitive(source) ? object[propertyName] === undefined : !(propertyName in object)) {
+    if ((source !== null && typeof source !== 'object' && typeof source !== 'function') ? object[propertyName] === undefined : !(propertyName in object)) {
         return false;
     }
 
@@ -412,7 +412,7 @@ export function getConstructor<T>(object: T): Constructor<T> | undefined {
  * on the type.
  */
 export function clone<T>(object: T, mode: RecursionMode = 'shallow'): T {
-    if (object == null || isPrimitive(object)) {
+    if (object == null || (object !== null && typeof object !== 'object' && typeof object !== 'function')) {
         return object;
     }
 
