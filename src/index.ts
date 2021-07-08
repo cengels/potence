@@ -13,5 +13,7 @@ export { Range, ReadonlyRange, Flags, List, ReadonlyList, Stack, Queue, LinkedSt
 export * as Objects from './objects/index.js';
 export * as Strings from './strings/index.js';
 export * as Assert from './assert/index.js';
+export * as Time from './time/index.js';
+export * as Duration from './time/duration.js';
 // Not namespaced, because namespaced types look kind of silly.
 export * from './types.js';
