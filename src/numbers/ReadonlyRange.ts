@@ -1,4 +1,4 @@
-import Range from './Range';
+import type Range from './Range';
 
 /**
  * Represents a readonly range between two numbers with a variety of functions

@@ -1,5 +1,4 @@
-import * as Objects from '../objects/index.js';
-import { isPrimitive } from '../types.js';
+import { isPrimitive, ObjectLiteral } from '../types.js';
 
 /** Options for `Strings.serialize()`. */
 export interface StringifyOptions {
@@ -144,7 +143,10 @@ export function stringify(value: unknown, options: StringifyOptions = DEFAULT_OP
         return string.substring(0, openingBraceIndex) + '{ ... }';
     }
 
-    const constructorName = Objects.isObject(value) && value.constructor != null ? value.constructor.name : 'Object';
+    // Seems to be a TypeScript bug. We're testing for null above, yet
+    // TypeScript does not understand that the object can't be null here.
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    const constructorName = typeof value === 'object' && value!.constructor != null ? value!.constructor.name : 'Object';
 
     if (options.typesOnly) {
         return constructorName;
@@ -168,8 +170,8 @@ export function stringify(value: unknown, options: StringifyOptions = DEFAULT_OP
         return result.concat(`[${stringifiedElements.join(', ')}]`);
     }
 
-    if ((options.useToString ?? true) && Objects.hasFunction(value, 'toString')) {
-        const string = value.toString() as string;
+    if ((options.useToString ?? true) && value != null && typeof (value as ObjectLiteral)['toString'] === 'function') {
+        const string = (value as { toString(): string }).toString() as string;
 
         if (!(string.startsWith('[object') && string.endsWith(']'))) {
             if (result.length === 0) {

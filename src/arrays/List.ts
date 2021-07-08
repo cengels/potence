@@ -1,7 +1,7 @@
 import * as Arrays from '../arrays/index.js';
-import { ArrayType, BaseType, Constructor, Predicate } from '../types.js';
-import { SortFunction, SortOrder, TransformTo1DArray } from './index.js';
-import ReadonlyList from './ReadonlyList.js';
+import type { ArrayType, BaseType, Constructor, Predicate } from '../types.js';
+import type { SortFunction, SortOrder, TransformTo1DArray } from './index.js';
+import type ReadonlyList from './ReadonlyList.js';
 
 /** 
  * Extends the built-in Array object with additional convenience methods.

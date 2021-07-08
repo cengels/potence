@@ -254,7 +254,11 @@ describe('Arrays.correlate() should', () => {
         Arrays.correlate([1, 2], ['9', '8'], [-5, -2], ['ha', 'fa'], (a, b, c, d) => results.push(a + b + c + d));
         expect(results).toEqual(['19-5ha', '28-2fa']);
     });
-    it('throw if arrays are of different length', () => expect(() => Arrays.correlate([0], [1, 2], () => null)).toThrowError('All arguments except the last one must be arrays of the same length.'));
+    it('throw if arrays are of different length', () => expect(() => Arrays.correlate([0], [1, 2], () => null)).toThrowError('Arrays.correlate(): all arrays must be of the same length.'));
+    // @ts-expect-error
+    it('throw if last argument is not a callback', () => expect(() => Arrays.correlate([0], [1, 2])).toThrowError('Arrays.correlate(): last argument must be a callback function.'));
+    // @ts-expect-error
+    it('throw if only one array supplied', () => expect(() => Arrays.correlate([0], () => null)).toThrowError('Arrays.correlate(): must specify at least two arrays.'));
 });
 
 describe('Arrays.distinct() should', () => {

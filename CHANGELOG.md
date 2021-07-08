@@ -12,6 +12,10 @@ if you wish to upgrade.
 - **Fixed**: issue where calling `List.prototype.sort()` would result in infinite
   recursion
 
+### Other
+
+- **Fixed**: circular dependencies between modules
+
 ## [0.5.0](https://github.com/cengels/potence/compare/0.4.0...0.5.0) - 2021-06-24
 
 ### Arrays

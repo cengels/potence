@@ -8,7 +8,6 @@
  * the difference in performance makes up barely 30 ms.
  */
 
-import * as Assert from '../assert/index.js';
 import * as Objects from '../objects/index.js';
 import { ArrayType, BaseType, Constructor, Predicate } from '../types.js';
 
@@ -472,9 +471,18 @@ export function correlate<A, B>(source1: readonly A[], source2: readonly B[], ca
 export function correlate(...args: unknown[]): void {
     const callback = last(args);
     const arrays = args.slice(0, -1) as unknown[][];
-    Assert.that(typeof callback === 'function', 'Last argument must be a callback function.');
-    Assert.that(arrays.length > 1, 'Must specify at least two arrays.');
-    Assert.every(arrays, array => Array.isArray(array) && array.length === arrays[0].length, 'All arguments except the last one must be arrays of the same length.');
+
+    if (typeof callback !== 'function') {
+        throw new Error('Arrays.correlate(): last argument must be a callback function.');
+    }
+
+    if (arrays.length <= 1) {
+        throw new Error('Arrays.correlate(): must specify at least two arrays.');
+    }
+
+    if (!arrays.every(array => array.length === arrays[0].length)) {
+        throw new Error('Arrays.correlate(): all arrays must be of the same length.');
+    }
 
     for (let i: number = 0; i < arrays[0].length; i++) {
         const callbackArguments = arrays.map(array => array[i]);
@@ -549,7 +557,9 @@ export function hasMultiple<T>(array: readonly T[], value: T): boolean {
  * @param step The step between each number in the generated range. `1` by default.
  */
 export function range(from: number, to: number, step: number = 1): number[] {
-    Assert.notEquals(step, 0, 'step');
+    if (step === 0) {
+        throw new Error('Arrays.range(): step must not be 0.');
+    }
 
     const inverted = to < from;
     const normalizedStep = Math.abs(step);

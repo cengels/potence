@@ -1,4 +1,4 @@
-import ReadonlyRange from './ReadonlyRange.js';
+import type ReadonlyRange from './ReadonlyRange.js';
 
 /**
  * Represents a range between two numbers with a variety of functions
