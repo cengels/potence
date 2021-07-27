@@ -169,7 +169,7 @@ export default class List<T> extends Array<T> implements ReadonlyList<T> {
             // Without this branch we'll have infinite recursion on our hands
             // as Arrays.sort() calls Array.prototype.sort(), which will call
             // List.sort() on Lists, which would call Arrays.sort() again.
-            return super.sort();
+            return super.sort(orderOrSortFn);
         }
 
         try {
