@@ -5,6 +5,13 @@ be breaking changes. Before 1.0.0, these changes will **not be announced** and
 will only be documented in this file, so please make sure to read it thoroughly
 if you wish to upgrade.
 
+## [0.5.2](https://github.com/cengels/potence/compare/0.5.1...0.5.2) - 2021-07-08
+
+### List
+
+- **Fixed**: issue where calling `List.prototype.sort()` with a custom sort
+  function would not sort the list properly
+
 ## [0.5.1](https://github.com/cengels/potence/compare/0.5.0...0.5.1) - 2021-07-08
 
 ### List
