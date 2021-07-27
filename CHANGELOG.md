@@ -5,6 +5,13 @@ be breaking changes. Before 1.0.0, these changes will **not be announced** and
 will only be documented in this file, so please make sure to read it thoroughly
 if you wish to upgrade.
 
+## [0.5.3](https://github.com/cengels/potence/compare/0.5.2...0.5.3) - 2021-07-08
+
+### Arrays
+
+- **Fixed**: issue where `Arrays.sort()` would not properly order multiple
+  sort functions (the first would be pushed to the back)
+
 ## [0.5.2](https://github.com/cengels/potence/compare/0.5.1...0.5.2) - 2021-07-08
 
 ### List

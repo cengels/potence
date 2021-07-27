@@ -347,12 +347,12 @@ export function sort(array: unknown[], orderOrSortFn: SortOrder | SortFunction =
         throw new Error('Arrays.sort(): Can\'t use a default sort() on an array that is not composed of numbers, strings, or Dates. Please use Array.prototype.sort() for other data types or use Arrays.sort() with one or more sort functions.');
     }
 
-    sortFns.push(orderOrSortFn);
+    const sortFunctions = [orderOrSortFn, ...sortFns];
 
     return array.sort((a, b) => {
-        const results: number[] = sortFns.map(x => x(a, b));
+        for (const sortFunction of sortFunctions) {
+            const result = sortFunction(a, b);
 
-        for (const result of results) {
             if (result !== 0) {
                 return result;
             }

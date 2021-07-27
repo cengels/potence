@@ -187,7 +187,7 @@ describe('Arrays.sort() should', () => {
         it('properly sort an array (ascending) with 1 sort function', () => expect(Arrays.sort(['bananas', 'apples', 'pomegranate'], (a, b) => a.length - b.length)).toEqual(['apples', 'bananas', 'pomegranate']));
         it('properly sort an array (descending) with 1 sort function', () => expect(Arrays.sort(['bananas', 'apples', 'pomegranate'], (a, b) => b.length - a.length)).toEqual(['pomegranate', 'bananas', 'apples']));
         it('leave order unchanged if results are identical', () => expect(Arrays.sort(['pear', 'lime', 'pomegranate'], (a, b) => a.length - b.length)).toEqual(['pear', 'lime', 'pomegranate']));
-        it('fall back to second sort function', () => expect(Arrays.sort(['pear', 'lime', 'pomegranate'], (a, b) => a.length - b.length, (a, b) => a.charCodeAt(0) - b.charCodeAt(0))).toEqual(['lime', 'pear', 'pomegranate']));
+        it('fall back to second sort function', () => expect(Arrays.sort(['pear', 'lime', 'aresak'], (a, b) => a.length - b.length, (a, b) => a.localeCompare(b))).toEqual(['lime', 'pear', 'aresak']));
     });
 });
 
