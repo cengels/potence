@@ -151,6 +151,16 @@ describe('Arrays.sort() should', () => {
         expect(list[2].length === 3).toBe(true);
         expect(spy).toHaveBeenCalledTimes(1);
     });
+    it('properly sort lists with sort function', () => {
+        function vec(x: number, y: number, z: number) { return { x, y, z }; }
+        const list = new List(vec(2, 4, 1), vec(-3, 2, 6), vec(6, 2, 1));
+        
+        list.sort((a, b) => a.x - b.x);
+
+        const comparisonList = new List(vec(-3, 2, 6), vec(2, 4, 1), vec(6, 2, 1));
+
+        expect(list).toEqual(comparisonList);
+    });
     describe('for numbers', () => {
         it('properly sort an array (ascending)', () => expect(Arrays.sort([5, 3, 8])).toEqual([3, 5, 8]));
         it('properly sort an array (descending)', () => expect(Arrays.sort([5, 3, 8], 'descending')).toEqual([8, 5, 3]));
