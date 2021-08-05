@@ -98,8 +98,10 @@ export default class List<T> extends Array<T> implements ReadonlyList<T> {
      * it will only replace the first occurrence.
      */
     public replace(element: T, replacement: T): this {
-        // TypeScript bug
-        Arrays.replace(this, element as ArrayType<this>, replacement as ArrayType<this>);
+        Arrays.replace(this, element, replacement);
+
+        return this;
+    }
 
         return this;
     }

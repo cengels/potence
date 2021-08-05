@@ -235,7 +235,7 @@ export function removeAt<T extends unknown[]>(array: T, index: number): T {
  *
  * If the array contains multiples of the target element, it will only replace the first occurrence.
  */
-export function replace<T extends unknown[]>(array: T, element: ArrayType<T>, replacement: ArrayType<T>): T {
+export function replace<TArray extends T[], T>(array: TArray, element: T, replacement: T): TArray {
     const index = array.indexOf(element);
 
     if (index === -1) {
@@ -299,7 +299,7 @@ export type SortFunction<T = unknown> = (a: T, b: T) => number;
  * if you want an ascending sort (i.e. smallest element first) and `(a, b) => b - a`
  * if you want a descending sort (i.e. largest element first).
  */
-export function sort<T extends unknown[]>(array: T, ...sortFns: SortFunction<ArrayType<T>>[]): T;
+export function sort<TArray extends T[], T>(array: TArray, ...sortFns: SortFunction<T>[]): T;
 /**
  * Sorts the array in the standard way according to the data type contained within.
  * Unsupported data types (like object literals or arrays) will throw an error.
