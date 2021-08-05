@@ -248,6 +248,28 @@ export function replace<TArray extends T[], T>(array: TArray, element: T, replac
 }
 
 /**
+ * Replaces all elements in the array with all elements from another array.
+ */
+export function replaceAll<TArray extends T[], T>(array: TArray, replacement: Iterable<T>): TArray {
+    // Benchmarks show that array.splice(0, array.length, ...replacement)
+    // is about 80% slower than this method.
+    
+    array.length = 0;
+    array.push(...replacement);
+
+    return array;
+}
+
+/**
+ * Inserts an element at the given index.
+ */
+export function insert<T extends unknown[]>(array: T, index: number, ...elements: T): T {
+    array.splice(index, 0, ...elements);
+
+    return array;
+}
+
+/**
  * Checks if the array is composed of the given type and only of the given type.
  *
  * Since this is a type guard, TypeScript users can afterwards use the array

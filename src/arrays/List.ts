@@ -1,5 +1,5 @@
 import * as Arrays from '../arrays/index.js';
-import type { ArrayType, BaseType, Constructor, Predicate } from '../types.js';
+import type { BaseType, Constructor, Predicate } from '../types.js';
 import type { SortFunction, SortOrder, TransformTo1DArray } from './index.js';
 import type ReadonlyList from './ReadonlyList.js';
 
@@ -102,6 +102,21 @@ export default class List<T> extends Array<T> implements ReadonlyList<T> {
 
         return this;
     }
+
+    /**
+     * Replaces all elements in the list with those in the iterable.
+     */
+    public replaceAll(replacement: Iterable<T>): this {
+        Arrays.replaceAll(this, replacement);
+
+        return this;
+    }
+
+    /**
+     * Inserts an element at the given index.
+     */
+    public insert(index: number, ...elements: T[]): this {
+        Arrays.insert(this, index, ...elements);
 
         return this;
     }
