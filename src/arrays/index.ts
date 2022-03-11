@@ -251,9 +251,6 @@ export function replace<TArray extends T[], T>(array: TArray, element: T, replac
  * Replaces all elements in the array with all elements from another array.
  */
 export function replaceAll<TArray extends T[], T>(array: TArray, replacement: Iterable<T>): TArray {
-    // Benchmarks show that array.splice(0, array.length, ...replacement)
-    // is about 80% slower than this method.
-    
     array.length = 0;
     array.push(...replacement);
 
