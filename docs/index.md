@@ -4,15 +4,13 @@ layout: home
 
 # potence
 
-Welcome to the official *potence* documentation. *potence* is a tiny modularized
-JavaScript library containing a variety of convenience functions related to
-common data types like strings, numbers, objects, or arrays. Unfortunately,
-JavaScript lacks a comprehensive standard library, which is why implementing
-seemingly basic functionality can sometimes be quite a hassle. You often find
-yourself writing the same utility functions over and over in different projects.
+*potence* is a tiny modularized JavaScript library containing a variety of convenience functions related
+to common data types like strings, numbers, objects, or arrays. Unfortunately, JavaScript lacks a comprehensive
+standard library, which is why implementing seemingly basic functionality can sometimes be quite a hassle.
+You often find yourself writing the same utility functions over and over in different projects.
 
-*potence* takes that job out of your hands and provides you with all the
-functions that you'd expect any mature language to have intrinsically and more.
+*potence* takes that job out of your hands and provides you with all the functions that you'd expect any
+mature language to have intrinsically and more.
 
 ## Table of contents
 
@@ -30,35 +28,29 @@ functions that you'd expect any mature language to have intrinsically and more.
 
 ### *potence* is tiny and has no dependencies
 
-In the current NPM ecosystem, transitive dependencies are the bane of every web
-dev's existence. You *think* your module depends on only one other module, but
-that module depends on ten other modules that each depend on ten others and
-before you know it, your build size has increased by a factor of ten.
+All functionality in *potence* is completely implemented in native JavaScript. While *potence*
+does sport quite a few functions, its modular nature allows for tree-shaking, so **you only
+pay for what you actually use**, drastically reducing overall bundle size.
 
-*potence* has no dependencies at all. All functionality is completely
-implemented in native JavaScript. Additionally, *potence* is designed to be
-integrated by common build tools like webpack or rollup to minimize overall
-bundle size so that **only the functions you actually use are included in your
-resulting bundle.** In other words: if you implemented the necessary
-functionality yourself, the build would be the same size as if you used
-*potence* instead.
+### Full test coverage
+
+All available functions are supported by unit tests. Even the utility types offered to TypeScript
+users have full test coverage thanks to [`ts-morph`](https://github.com/dsherret/ts-morph).
 
 ### Open to contributions and improvements
 
-The modularity of modern JavaScript build systems allows us to add an infinite
-number of new functions and modules without impacting the final bundle size at
-all. As such, *potence* constantly strives to add more common functionality and
-eliminate potential bugs. For this it relies on user feedback, so don't be
-afraid to open an issue on github if you notice a bug or have an idea for an
-improvement! Be sure to read the contribution guidelines below if you have a
-feature request.
+The modularity of modern JavaScript build systems allows us to add an infinite number of
+new functions and modules without impacting the final bundle size at all. As such, *potence*
+constantly strives to add more common functionality and eliminate potential bugs. For this
+it relies on user feedback, so don't be afraid to open an issue on github if you notice a bug
+or have an idea for an improvement! Be sure to read the contribution guidelines below if you
+have a feature request.
 
 ### Full TypeScript integration
 
-*potence* is built entirely on TypeScript. You don't *have* to use TypeScript to
-use *potence*, of course, but if you do you'll be able to benefit from full type
-coverage. *potence* even offers some utility types to represent things like
-abstract constructors, instantiable constructors, or object literals.
+*potence* is built entirely on TypeScript. You don't *have* to use TypeScript to use *potence*, of course,
+but if you do you'll be able to benefit from full type coverage. *potence* even offers some utility
+types to represent things like abstract constructors, instantiable constructors, or object literals.
 
 ## Usage
 
