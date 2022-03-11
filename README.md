@@ -3,8 +3,9 @@
 <p align="center">
 <a href="https://codecov.io/gh/cengels/potence"><img src="https://img.shields.io/codecov/c/github/cengels/potence" alt="Code Coverage" /></a>
 <a href="https://snyk.io/test/github/cengels/potence"><img src="https://img.shields.io/snyk/vulnerabilities/github/cengels/potence" alt="Snyk Vulnerabilities for GitHub Repo" /></a>
-<a href="https://david-dm.org/cengels/potence"><img src="https://img.shields.io/david/cengels/potence" alt="Dependencies" /></a>
+<a href="https://libraries.io/npm/potence"><img src="https://img.shields.io/librariesio/release/npm/potence" alt="Dependencies" /></a>
 <a href="https://www.npmjs.com/package/potence"><img src="https://img.shields.io/npm/v/potence" alt="npm version" /></a>
+<a href="https://www.npmjs.com/package/potence"><img src="https://img.shields.io/npm/dt/potence" alt="npm version" /></a>
 <a href="https://choosealicense.com/licenses/mit/"><img src="https://img.shields.io/github/license/cengels/potence" alt="GitHub" /></a>
 </p>
 
