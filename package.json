@@ -19,7 +19,6 @@
   "types": "index.d.ts",
   "readme": "README.md",
   "repository": "https://github.com/cengels/potence",
-  "type": "module",
   "scripts": {
     "build": "tsc && cp README.md LICENSE package.json build",
     "lint": "npx eslint . --ext .js,.jsx,.ts,.tsx",

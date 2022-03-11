@@ -11,7 +11,7 @@
       "strict": true,
       "noUnusedLocals": true,
       "strictNullChecks": true,
-      "module": "es6",
+      "module": "commonjs",
       "moduleResolution": "node",
       "esModuleInterop": true,
       "target": "es6",
