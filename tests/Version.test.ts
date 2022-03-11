@@ -48,6 +48,7 @@ const comparisons: [string, Version, Version][] = [
     ['prerelease number against word', new Version('1.0.0-alpha.1'), new Version('1.0.0-alpha.beta')],
     ['prerelease word against word', new Version('1.0.0-alpha.beta'), new Version('1.0.0-beta')],
     ['prerelease lower number', new Version('1.0.0-beta.2'), new Version('1.0.0-beta.11')],
+    ['prerelease lower number (with preceding number)', new Version('1.0.0-1.2'), new Version('1.0.0-1.11')],
     ['prerelease lower rc', new Version('1.0.0-rc.9'), new Version('1.0.0-rc.10')]
 ];
 
