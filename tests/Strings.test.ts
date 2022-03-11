@@ -44,18 +44,6 @@ describe('Strings.stripEnd() should', () => {
     it('strip multiple tokens', () => expect(Strings.stripEnd('010110241001', '0', '1')).toBe('01011024'));
 });
 
-describe('Strings.stripAfter() should', () => {
-    it('do nothing if substring not found', () => expect(Strings.stripAfter('polypoly', 'al')).toBe('polypoly'));
-    it('strip rest if substring found', () => expect(Strings.stripAfter('polypoly', 'ol')).toBe('p'));
-    it('strip rest if substring found (backwards)', () => expect(Strings.stripAfter('polypoly', 'ol', true)).toBe('polyp'));
-});
-
-describe('Strings.stripBefore() should', () => {
-    it('do nothing if substring not found', () => expect(Strings.stripBefore('polypoly', 'al')).toBe('polypoly'));
-    it('strip rest if substring found', () => expect(Strings.stripBefore('polypoly', 'ol')).toBe('ypoly'));
-    it('strip rest if substring found (backwards)', () => expect(Strings.stripBefore('polypoly', 'ol', true)).toBe('y'));
-});
-
 describe('Strings.camelCase() should', () => {
     it('convert snake_case', () => expect(Strings.camelCase('snake_case_is_here')).toBe('snakeCaseIsHere'));
     it('convert ALL_CAPS', () => expect(Strings.camelCase('ALL_CAPS_IS_HERE')).toBe('allCapsIsHere'));
@@ -120,4 +108,76 @@ describe('Strings.uncapitalize() should', () => {
     it('uncapitalize capitalized strings', () => expect(Strings.uncapitalize('Abc')).toBe('abc'));
     it('not uncapitalize uncapitalized strings', () => expect(Strings.uncapitalize('abc')).toBe('abc'));
     it('ignore strings that do not start with a letter', () => expect(Strings.uncapitalize('5bc')).toBe('5bc'));
+});
+
+describe('Strings.take() should', () => {
+    it('take whole string if count == length', () => expect(Strings.take('magnesium', 9)).toBe('magnesium'));
+    it('take whole string if count > length', () => expect(Strings.take('magnesium', 100)).toBe('magnesium'));
+    it('take partial string if count < length', () => expect(Strings.take('magnesium', 5)).toBe('magne'));
+    it('take empty string if count == 0', () => expect(Strings.take('magnesium', 0)).toBe(''));
+    it('take from end if count < 0', () => expect(Strings.take('magnesium', -5)).toBe('esium'));
+});
+
+describe('Strings.takeLast() should', () => {
+    it('take whole string if count == length', () => expect(Strings.takeLast('magnesium', 9)).toBe('magnesium'));
+    it('take whole string if count > length', () => expect(Strings.takeLast('magnesium', 100)).toBe('magnesium'));
+    it('take partial string if count < length', () => expect(Strings.takeLast('magnesium', 5)).toBe('esium'));
+    it('take empty string if count == 0', () => expect(Strings.takeLast('magnesium', 0)).toBe(''));
+    it('take from start if count < 0', () => expect(Strings.takeLast('magnesium', -5)).toBe('magne'));
+});
+
+describe('Strings.takeUntil() should', () => {
+    it('do nothing if substring not found', () => expect(Strings.takeUntil('polypoly', 'al')).toBe('polypoly'));
+    it('take until substring if found', () => expect(Strings.takeUntil('polypoly', 'ol')).toBe('p'));
+});
+
+describe('Strings.takeUntilAfter() should', () => {
+    it('do nothing if substring not found', () => expect(Strings.takeUntilAfter('polypoly', 'al')).toBe('polypoly'));
+    it('take until substring (including substring) if found', () => expect(Strings.takeUntilAfter('polypoly', 'ol')).toBe('pol'));
+});
+
+describe('Strings.takeUntilLast() should', () => {
+    it('do nothing if substring not found', () => expect(Strings.takeUntilLast('polypoly', 'al')).toBe('polypoly'));
+    it('take until last substring if found', () => expect(Strings.takeUntilLast('polypoly', 'ol')).toBe('polyp'));
+});
+
+describe('Strings.takeUntilAfterLast() should', () => {
+    it('do nothing if substring not found', () => expect(Strings.takeUntilAfterLast('polypoly', 'al')).toBe('polypoly'));
+    it('take until last substring (including substring) if found', () => expect(Strings.takeUntilAfterLast('polypoly', 'ol')).toBe('polypol'));
+});
+
+describe('Strings.skip() should', () => {
+    it('skip whole string if count == length', () => expect(Strings.skip('magnesium', 9)).toBe(''));
+    it('skip whole string if count > length', () => expect(Strings.skip('magnesium', 100)).toBe(''));
+    it('skip partial string if count < length', () => expect(Strings.skip('magnesium', 5)).toBe('sium'));
+    it('skip nothing if count == 0', () => expect(Strings.skip('magnesium', 0)).toBe('magnesium'));
+    it('skip from end if count < 0', () => expect(Strings.skip('magnesium', -5)).toBe('magn'));
+});
+
+describe('Strings.skipLast() should', () => {
+    it('skip whole string if count == length', () => expect(Strings.skipLast('magnesium', 9)).toBe(''));
+    it('skip whole string if count > length', () => expect(Strings.skipLast('magnesium', 100)).toBe(''));
+    it('skip partial string if count < length', () => expect(Strings.skipLast('magnesium', 5)).toBe('magn'));
+    it('skip nothing if count == 0', () => expect(Strings.skipLast('magnesium', 0)).toBe('magnesium'));
+    it('skip from start if count < 0', () => expect(Strings.skipLast('magnesium', -5)).toBe('sium'));
+});
+
+describe('Strings.skipUntil() should', () => {
+    it('skip whole string if substring not found', () => expect(Strings.skipUntil('polypoly', 'al')).toBe(''));
+    it('skip until substring if found', () => expect(Strings.skipUntil('polypoly', 'ol')).toBe('olypoly'));
+});
+
+describe('Strings.skipUntilAfter() should', () => {
+    it('skip whole string if substring not found', () => expect(Strings.skipUntilAfter('polypoly', 'al')).toBe(''));
+    it('skip until substring (excluding substring) if found', () => expect(Strings.skipUntilAfter('polypoly', 'ol')).toBe('ypoly'));
+});
+
+describe('Strings.skipUntilLast() should', () => {
+    it('skip whole string if substring not found', () => expect(Strings.skipUntilLast('polypoly', 'al')).toBe(''));
+    it('skip until last substring if found', () => expect(Strings.skipUntilLast('polypoly', 'ol')).toBe('oly'));
+});
+
+describe('Strings.skipUntilAfterLast() should', () => {
+    it('skip whole string if substring not found', () => expect(Strings.skipUntilAfterLast('polypoly', 'al')).toBe(''));
+    it('skip until last substring (excluding substring) if found', () => expect(Strings.skipUntilAfterLast('polypoly', 'ol')).toBe('y'));
 });

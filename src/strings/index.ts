@@ -107,36 +107,6 @@ export function stripEnd(from: string, ...what: string[]): string {
     return string;
 }
 
-/** 
- * Strips everything before the first or last occurrence of
- * the specified substring from the string, including the
- * substring itself.
- */
-export function stripBefore(string: string, substring: string, searchBackwards: boolean = false): string {
-    const index = searchBackwards ? string.lastIndexOf(substring) : string.indexOf(substring);
-
-    if (index === -1) {
-        return string;
-    }
-
-    return string.slice(index + substring.length);
-}
-
-/** 
- * Strips everything after the first or last occurrence of
- * the specified substring from the string, including the
- * substring itself.
- */
-export function stripAfter(string: string, substring: string, searchBackwards: boolean = false): string {
-    const index = searchBackwards ? string.lastIndexOf(substring) : string.indexOf(substring);
-
-    if (index === -1) {
-        return string;
-    }
-
-    return string.slice(0, index);
-}
-
 function findTokensAndUppercaseNext(source: string, token: string): string {
     let result = source;
     let tokenIndex = result.indexOf(token);
@@ -201,4 +171,156 @@ export function capitalize(string: string): string {
  */
 export function uncapitalize(string: string): string {
     return string.charAt(0).toLowerCase() + string.slice(1);
+}
+
+/**
+ * Returns the first {@link count} characters in the string.
+ * If {@link string} is shorter than {@link count}, returns the entire string.
+ * If {@link count} is negative, takes from the end of the string instead.
+ */
+export function take(string: string, count: number): string {
+    return count >= 0 ? string.slice(0, count) : takeLast(string, -count);
+}
+
+/**
+ * Returns the last {@link count} characters in the string.
+ * If {@link string} is shorter than {@link count}, returns the entire string.
+ * If {@link count} is negative, takes from the start of the string instead.
+ */
+export function takeLast(string: string, count: number): string {
+    return count > 0 ? string.slice(-count) : take(string, -count);
+}
+
+/**
+ * Skips the first {@link count} characters in the string and returns the rest.
+ * If {@link string} is shorter than {@link count}, returns an empty string.
+ * If {@link count} is negative, skips from the end of the string instead.
+ */
+export function skip(string: string, count: number): string {
+    return count >= 0 ? string.slice(count) : skipLast(string, -count);
+}
+
+/**
+ * Skips the last {@link count} characters in the string and returns the rest.
+ * If {@link string} is shorter than {@link count}, returns an empty string.
+ * If {@link count} is negative, skips from the start of the string instead.
+ */
+export function skipLast(string: string, count: number): string {
+    return count > 0 ? string.slice(0, -count) : skip(string, -count);
+}
+
+/**
+ * Returns all characters in the string before the first occurrence of {@link substring}.
+ * If {@link substring} is not part of the string, returns the entire string.
+ */
+export function takeUntil(string: string, substring: string): string {
+    const index = string.indexOf(substring);
+
+    if (index === -1) {
+        return string;
+    }
+
+    return take(string, index);
+}
+
+/**
+ * Returns all characters in the string before the first occurrence of {@link substring},
+ * including {@link substring} itself.
+ * If {@link substring} is not part of the string, returns the entire string.
+ */
+export function takeUntilAfter(string: string, substring: string): string {
+    const index = string.indexOf(substring);
+
+    if (index === -1) {
+        return string;
+    }
+
+    return take(string, index + substring.length);
+}
+
+/**
+ * Returns all characters in the string before the last occurrence of {@link substring}.
+ * If {@link substring} is not part of the string, returns the entire string.
+ */
+export function takeUntilLast(string: string, substring: string): string {
+    const index = string.lastIndexOf(substring);
+
+    if (index === -1) {
+        return string;
+    }
+
+    return take(string, index);
+}
+
+/**
+ * Returns all characters in the string before the last occurrence of {@link substring},
+ * including {@link substring} itself.
+ * If {@link substring} is not part of the string, returns the entire string.
+ */
+export function takeUntilAfterLast(string: string, substring: string): string {
+    const index = string.lastIndexOf(substring);
+
+    if (index === -1) {
+        return string;
+    }
+
+    return take(string, index + substring.length);
+}
+
+/**
+ * Returns all characters in the string after the first occurrence of {@link substring},
+ * including {@link substring} itself.
+ * If {@link substring} is not part of the string, returns an empty string.
+ */
+export function skipUntil(string: string, substring: string): string {
+    const index = string.indexOf(substring);
+
+    if (index === -1) {
+        return '';
+    }
+
+    return skip(string, index);
+}
+
+/**
+ * Returns all characters in the string after the first occurrence of {@link substring}.
+ * If {@link substring} is not part of the string, returns an empty string.
+ */
+export function skipUntilAfter(string: string, substring: string): string {
+    const index = string.indexOf(substring);
+
+    if (index === -1) {
+        return '';
+    }
+
+    return skip(string, index + substring.length);
+}
+
+/**
+ * Returns all characters in the string after the last occurrence of {@link substring},
+ * including {@link substring} itself.
+ * If {@link substring} is not part of the string, returns an empty string.
+ */
+ export function skipUntilLast(string: string, substring: string): string {
+    const index = string.lastIndexOf(substring);
+
+    if (index === -1) {
+        return '';
+    }
+
+    return skip(string, index);
+}
+
+/**
+ * Returns all characters in the string after the last occurrence of {@link substring}.
+ * If {@link substring} is not part of the string, returns an empty string.
+ */
+ export function skipUntilAfterLast(string: string, substring: string): string {
+    const index = string.lastIndexOf(substring);
+
+    if (index === -1) {
+        return '';
+    }
+
+    return skip(string, index + substring.length);
 }
