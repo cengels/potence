@@ -3,7 +3,7 @@ layout:      page
 title:       Arrays.sort()
 module:      Arrays
 added:       0.0.1
-updated:     0.2.0
+updated:     0.5.3
 description: Sorts an array in a standard way depending on its contained
              data type, or use custom sort functions.
 overloads:
