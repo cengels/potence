@@ -5,12 +5,60 @@ be breaking changes. Before 1.0.0, these changes will **not be announced** and
 will only be documented in this file, so please make sure to read it thoroughly
 if you wish to upgrade.
 
+## [0.6.0](https://github.com/cengels/potence/compare/0.5.3...0.6.0) - 2022-03-10
+
+### Strings
+
+- **Removed**: `Strings.stripAfter()`
+- **Removed**: `Strings.stripBefore()`
+- **Added**: [`Strings.skip()`](https://cengels.github.io/potence/Strings/skip)
+- **Added**: [`Strings.skipLast()`](https://cengels.github.io/potence/Strings/skipLast)
+- **Added**: [`Strings.skipUntil()`](https://cengels.github.io/potence/Strings/skipUntil)
+- **Added**: [`Strings.skipUntilAfter()`](https://cengels.github.io/potence/Strings/skipUntilAfter)
+- **Added**: [`Strings.skipUntilLast()`](https://cengels.github.io/potence/Strings/skipUntilLast)
+- **Added**: [`Strings.skipUntilAfterLast()`](https://cengels.github.io/potence/Strings/skipUntilAfterLast)
+- **Added**: [`Strings.take()`](https://cengels.github.io/potence/Strings/take)
+- **Added**: [`Strings.takeLast()`](https://cengels.github.io/potence/Strings/takeLast)
+- **Added**: [`Strings.takeUntil()`](https://cengels.github.io/potence/Strings/takeUntil)
+- **Added**: [`Strings.takeUntilAfter()`](https://cengels.github.io/potence/Strings/takeUntilAfter)
+- **Added**: [`Strings.takeUntilLast()`](https://cengels.github.io/potence/Strings/takeUntilLast)
+- **Added**: [`Strings.takeUntilAfterLast()`](https://cengels.github.io/potence/Strings/takeUntilAfterLast)
+
+### Arrays
+
+- **Added**: new overload `mapGroup` to
+  [`Arrays.groupBy()`](https://cengels.github.io/potence/Arrays/groupBy)
+
+### Types
+
+- **Moved**: type guards (
+    [`isPrimitive`](https://cengels.github.io/potence/Objects/isPrimitive), 
+    [`isIterable`](https://cengels.github.io/potence/Objects/isIterable), 
+    [`isEquatable`](https://cengels.github.io/potence/Objects/isEquatable)
+  ) to the [`Objects`](https://cengels.github.io/potence/Objects) module
+  to minimize circular dependencies
+
+### Fluent
+
+- **Added**: Experimental module. API not finalized and may be subject to
+  drastic changes in future versions. Not accessible through the main module
+  entry and not contained within the current library docs. Use at your own risk.
+
+### Other
+
+- **Changed**: The npm package now contains compiled CommonJS files (previously
+  compiled ES modules). Due to continued poor ESM support, this should make it
+  easier to include in existing projects alongside other libraries.
+- **Fixed**: various circular dependencies
+
 ## [0.5.3](https://github.com/cengels/potence/compare/0.5.2...0.5.3) - 2021-07-08
 
 ### Arrays
 
-- **Fixed**: issue where `Arrays.sort()` would not properly order multiple
-  sort functions (the first would be pushed to the back)
+- **Fixed**: issue where
+  [`Arrays.sort()`](https://cengels.github.io/potence/Arrays/sort)
+  would not properly order multiple sort functions (the first would be pushed
+  to the back)
 
 ## [0.5.2](https://github.com/cengels/potence/compare/0.5.1...0.5.2) - 2021-07-08
 
