@@ -36,16 +36,14 @@ mature language to have intrinsically and more.
 
 ### *potence* is tiny and has no dependencies
 
-In the current NPM ecosystem, transitive dependencies are the bane of every web dev's existence.
-You *think* your module depends on only one other module, but that module depends on ten other
-modules that each depend on ten others and before you know it, your build size has increased
-by a factor of ten.
+All functionality in *potence* is completely implemented in native JavaScript. While *potence*
+does sport quite a few functions, its modular nature allows for tree-shaking, so **you only
+pay for what you actually use**, drastically reducing overall bundle size.
 
-*potence* has no dependencies at all. All functionality is completely implemented in native
-JavaScript. Additionally, *potence* is designed to be integrated by common build tools
-like webpack or rollup to minimize overall bundle size so that **only the functions you
-actually use are included in your resulting bundle.** In other words: if you implemented the
-necessary functionality yourself, the build would be the same size as if you used *potence* instead.
+### Full test coverage
+
+All available functions are supported by unit tests. Even the utility types offered to TypeScript
+users have full test coverage thanks to [`ts-morph`](https://github.com/dsherret/ts-morph).
 
 ### Open to contributions and improvements
 
@@ -71,10 +69,13 @@ Currently there are six modules contained in this library:
 | Module | Description |
 | --- | --- |
 | Arrays | Array comparisons and common functions like <ul><li>`Arrays.next([8, 1, -5], 2) => 8`</li><li>`Arrays.last([3, 6]) => 6`</li><li>`Arrays.replace([3, 6], 6, 9) => [3, 9]`</li></ul> |
+| List | A class that extends `Array` to get all the functions in the `Arrays` module on the type itself. <ul><li>`list.groupBy(x => x.type) => [[...]]`</li><li>`new List(1, 2, 3).intersection([3, 4, 5]) => [3]`</li></ul> |
 | Assert | Simple assertions with an optional configurable failure message. Examples: <ul><li>`Assert.notNull(variable)`</li><li>`Assert.that(number > 0, 'number was negative')`</li><li>`Assert.every(array, item => typeof item === 'string')`</li></ul> |
+| Flags | Utilities that make working with flag-type enums easier. Examples: <ul><li>`Flags.has(flags, Flag.MyFlag) => true`</li></ul> |
+| Fluent | WIP. Fluent API. Examples: <ul><li>`is(value).oneOf(Enum.One, Enum.Two, Enum.Four) => true`</li></ul> |
 | Numbers | Accurate floating point comparisons, ranges, integer/float checks, and various mathematical complements to [`Math`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math). Examples: <ul><li>`Numbers.compare(0, 0.00000001) => true`</li><li>`Numbers.range(0, 20).relative(5) => 0.25`</li><li>`Numbers.sum(2, 4, 8) => 14`</li></ul> |
 | Objects | Deep object comparisons, object schema checks, and much more. <ul><li>`Objects.compare({ a: 1 }, { a: 1 }) => true`</li><li>`Objects.isObjectLiteral(new Date()) => false`</li><li>`Objects.structure({ a: 1 }, { a: 'number' }) => true`</li></ul> |
-| Strings | String checks and manipulations such as URL checking like <ul><li>`Strings.strip('banana bear', 'na', ' ') => 'babear'`</li></ul> |
+| Strings | String checks and manipulations such as URL checking like <ul><li>`Strings.strip('banana bear', 'na', ' ') => 'babear'`</li><li>`Strings.takeUntil('myGroup:myValue', ':') => 'myGroup'`</li></ul> |
 | Types | Convenience types for TypeScript users. <ul><li>`Nullable<string> // string \| null \| undefined`</li><li>`Constructor<BaseClass> // denotes abstract constructor`</li><li>`Instantiable<BaseClass> // denotes "newable" constructor`</li></ul> |
 
 You may also wish to take a look at the
