@@ -517,20 +517,43 @@ export function correlate(...args: unknown[]): void {
  *
  * If the return value of the `property` callback implements `Equatable`, this
  * function will call `equals()` to group the objects.
+ * 
+ * Ordinarily the return value will be a grouped two-dimensional array. You can
+ * transform the return value by passing an additional callback argument that
+ * will be called once per group, for instance to return an object in the shape
+ * of `{ property, items }` per group.
+ * 
+ * Note that this callback is called during the **creation** of the group, so
+ * the `items` argument will only contain one item at that point. Do not apply
+ * any transformation functions like `.map()` or `.filter()` to `items`; use it
+ * only to store the grouped results in a specific place, for instance by returning
+ * a single-dimensional array of objects in the form of
+ * `Array<{ type: GroupedPropertyValue, items: T[] }>`
+ * instead of a 2-dimensional array.
  */
-export function groupBy<T>(array: readonly T[], property: (item: T) => unknown): T[][] {
-    return array.reduce<T[][]>((acc, item) => {
+export function groupBy<T>(array: readonly T[], property: (item: T) => unknown): T[][];
+export function groupBy<T, U, Result>(array: readonly T[], property: (item: T) => U, mapGroup: (property: U, items: readonly T[]) => Result): Result[];
+export function groupBy<T, U, Result>(array: readonly T[], property: (item: T) => U, mapGroup: (property: U, items: readonly T[]) => Result = (_, items) => items as unknown as Result): Result[] {
+    const properties: U[] = [];
+    const groups: Result[] = [];
+    const arrays: T[][] = [];
+
+    for (const item of array) {
         const result = property(item);
-        const found = acc.find(childArray => Objects.equal(result, property(childArray[0])));
+        const index = properties.findIndex(property => Objects.equal(result, property));
 
-        if (found != null) {
-            found.push(item);
+        if (index === -1) {
+            const array = [item];
+            const group = mapGroup(result, array);
+            properties.push(result);
+            groups.push(group);
+            arrays.push(array);
         } else {
-            acc.push([item]);
+            arrays[index].push(item);
         }
+    }
 
-        return acc;
-    }, []);
+    return groups;
 }
 
 /**

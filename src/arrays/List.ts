@@ -248,8 +248,10 @@ export default class List<T> extends Array<T> implements ReadonlyList<T> {
         return Arrays.correlate(this, ...args);
     }
 
-    public groupBy(property: (item: T) => unknown): T[][] {
-        return Arrays.groupBy(this, property);
+    public groupBy(property: (item: T) => unknown): T[][];
+    public groupBy<U, Result>(property: (item: T) => U, mapGroup: (property: U, items: readonly T[]) => Result): Result[];
+    public groupBy<U, Result>(property: (item: T) => U, mapGroup?: (property: U, items: readonly T[]) => Result): Result[] {
+        return Arrays.groupBy(this, property, mapGroup as unknown as (property: U, items: readonly T[]) => Result);
     }
 
     public distinct(): List<T> {

@@ -249,7 +249,24 @@ describe('Arrays.groupBy() should', () => {
         const one2 = t('one');
         const three = t('three');
 
-        return expect(Arrays.groupBy([one, one2, three], value => value)).toEqual([[one, one2], [three]]);
+        expect(Arrays.groupBy([one, one2, three], value => value)).toEqual([[one, one2], [three]]);
+    });
+    it('group into a mapped expression', () => {
+        const array = ['g1-v1', 'g1-v2', 'g2-v3', 'g1-v5', 'g2-v4'];
+        const expected = [
+            {
+                group: 'g1',
+                items: ['g1-v1', 'g1-v2', 'g1-v5']
+            },
+            {
+                group: 'g2',
+                items: ['g2-v3', 'g2-v4']
+            }
+        ];
+
+        const result = Arrays.groupBy(array, value => value.split('-')[0], (prop, items) => ({ group: prop, items }));
+
+        expect(result).toEqual(expected);
     });
 });
 

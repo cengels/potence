@@ -134,8 +134,23 @@ export default interface ReadonlyList<T> extends ReadonlyArray<T> {
      *
      * If the return value of the `property` callback implements `Equatable`, this
      * function will call `equals()` to group the objects.
+     * 
+     * Ordinarily the return value will be a grouped two-dimensional array. You can
+     * transform the return value by passing an additional callback argument that
+     * will be called once per group, for instance to return an object in the shape
+     * of `{ property, items }` per group.
+     * 
+     * Note that this callback is called during the **creation** of the group, so
+     * the `items` argument will only contain one item at that point. Do not apply
+     * any transformation functions like `.map()` or `.filter()` to `items`; use it
+     * only to store the grouped results in a specific place, for instance by returning
+     * a single-dimensional array of objects in the form of
+     * `Array<{ type: GroupedPropertyValue, items: T[] }>`
+     * instead of a 2-dimensional array.
      */
     groupBy(property: (item: T) => unknown): T[][];
+    groupBy<U, Result>(property: (item: T) => U, mapGroup: (property: U, items: readonly T[]) => Result): Result[];
+    groupBy<U, Result>(property: (item: T) => U, mapGroup?: (property: U, items: readonly T[]) => Result): Result[];
 
     /**
      * Returns a new list with all duplicate elements removed.
