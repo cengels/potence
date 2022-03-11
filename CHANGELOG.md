@@ -24,6 +24,13 @@ if you wish to upgrade.
 - **Added**: [`Strings.takeUntilLast()`](https://cengels.github.io/potence/Strings/takeUntilLast)
 - **Added**: [`Strings.takeUntilAfterLast()`](https://cengels.github.io/potence/Strings/takeUntilAfterLast)
 
+### Numbers
+
+- **Added**: new class 
+  [`Version`](https://cengels.github.io/potence/Numbers/Version)
+  to facilitate working with semantic versioning, especially
+  semantic version parsing and comparison
+
 ### Arrays
 
 - **Added**: new overload `mapGroup` to
