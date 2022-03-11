@@ -321,7 +321,7 @@ export type SortFunction<T = unknown> = (a: T, b: T) => number;
  * if you want an ascending sort (i.e. smallest element first) and `(a, b) => b - a`
  * if you want a descending sort (i.e. largest element first).
  */
-export function sort<TArray extends T[], T>(array: TArray, ...sortFns: SortFunction<T>[]): T;
+export function sort<T>(array: T[], ...sortFns: SortFunction<T>[]): T;
 /**
  * Sorts the array in the standard way according to the data type contained within.
  * Unsupported data types (like object literals or arrays) will throw an error.
