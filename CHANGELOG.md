@@ -35,6 +35,10 @@ if you wish to upgrade.
 
 - **Added**: new overload `mapGroup` to
   [`Arrays.groupBy()`](https://cengels.github.io/potence/Arrays/groupBy)
+- **Added**: new function
+  [`Arrays.insert()`](https://cengels.github.io/potence/Arrays/insert)
+- **Added**: new function
+  [`Arrays.replaceAll()`](https://cengels.github.io/potence/Arrays/replaceAll)
 
 ### Types
 
