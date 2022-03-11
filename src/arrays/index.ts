@@ -9,7 +9,7 @@
  */
 
 import * as Objects from '../objects/index.js';
-import { ArrayType, BaseType, Constructor, Predicate } from '../types.js';
+import { BaseType, Constructor, Predicate } from '../types.js';
 
 /** 
  * Returns a copy of the specified array.
