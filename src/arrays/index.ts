@@ -258,9 +258,15 @@ export function replaceAll<TArray extends T[], T>(array: TArray, replacement: It
 }
 
 /**
- * Inserts an element at the given index.
+ * Inserts one or multiple elements at the given index.
+ * 
+ * This function throws an error if the index is not in-bounds.
  */
 export function insert<T extends unknown[]>(array: T, index: number, ...elements: T): T {
+    if (!isInBounds(array, index)) {
+        throw new Error(`Index ${index} is not in-bounds of the array.`);
+    }
+
     array.splice(index, 0, ...elements);
 
     return array;
