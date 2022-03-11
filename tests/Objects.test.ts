@@ -231,3 +231,16 @@ describe('Objects.clone() should', () => {
     it('not throw if object property was constructed and mode is shallow', () => expectSameStructure({ date: new Date() }));
     it('not throw if array item was constructed and mode is shallow', () => expectSameStructure([new Date()]));
 });
+
+class Base {
+    public value(): number {
+        return 5;
+    }
+}
+class Inherited extends Base { }
+
+describe('Objects.getPropertyDescriptor() should', () => {
+    it('return descriptor for base class', () => expect(Objects.getPropertyDescriptor(new Base(), 'value')).toBeDefined());
+    it('return descriptor for inherited class', () => expect(Objects.getPropertyDescriptor(new Inherited(), 'value')).toBeDefined());
+    it('return nothing for missing property', () => expect(Objects.getPropertyDescriptor(new Base(), 'val')).toBeUndefined());
+});
