@@ -1,6 +1,6 @@
 {
   "name": "potence",
-  "version": "0.5.3",
+  "version": "0.6.0",
   "description": "A tiny modularized JavaScript library providing a variety of convenience functions.",
   "keywords": [
     "utility",
