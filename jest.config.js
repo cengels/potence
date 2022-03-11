@@ -5,9 +5,9 @@ module.exports = {
   testEnvironment: "jest-environment-node",
   roots: ["<rootDir>/src/", "<rootDir>/tests/"],
   resolver: "jest-ts-webcompat-resolver",
-  coverageProvider: "v8",
+  coverageProvider: "babel",
   collectCoverageFrom: [
-      "src/**/*.ts",
+      "src/{!(fluent),}/*.ts",
       "!src/arrays/List.ts",
       "!src/**/Readonly*.ts"
   ]
