@@ -364,7 +364,7 @@ if you wish to upgrade.
 - **Added**: new interface
   [`Iterable`](https://cengels.github.io/potence/Types/Iterable) and
   corresponding type guard
-  [`isIterable()`](https://cengels.github.io/potence/Types/isIterable)
+  [`isIterable()`](https://cengels.github.io/potence/Objects/isIterable)
 - **Fixed**:
   [`Instantiable`](https://cengels.github.io/potence/Types/Instantiable):
   leaving the second type parameter as its default now allows you specify any
@@ -451,8 +451,8 @@ if you wish to upgrade.
 
 - **Added**: new type [`ArrayType<T>`](https://cengels.github.io/potence/Types/ArrayType)
 - **Added**: new type [`Equatable`](https://cengels.github.io/potence/Types/Equatable)
-- **Added**: new function [`isPrimitive(target)`](https://cengels.github.io/potence/Types/isPrimitive)
-- **Added**: new function [`isEquatable(target)`](https://cengels.github.io/potence/Types/isEquatable)
+- **Added**: new function [`isPrimitive(target)`](https://cengels.github.io/potence/Objects/isPrimitive)
+- **Added**: new function [`isEquatable(target)`](https://cengels.github.io/potence/Objects/isEquatable)
 
 ## [0.1.1](https://github.com/cengels/potence/compare/0.1.0...0.1.1) - 2020-09-13
 

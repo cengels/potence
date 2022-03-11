@@ -45,7 +45,7 @@ whether a specific property exists on a type, prefer either
 [`Objects.structure()`]({{ site.baseurl }}{% link _pages/Objects/structure.md %}).
 
 Compare [`primitive`]({{ site.baseurl }}{% link _pages/Types/primitive.md %}) and
-[`isPrimitive()`]({{ site.baseurl }}{% link _pages/Types/isPrimitive.md %}).
+[`isPrimitive()`]({{ site.baseurl }}{% link _pages/Objects/isPrimitive.md %}).
 
 ## For TypeScript Users
 

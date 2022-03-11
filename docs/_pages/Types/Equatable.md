@@ -39,7 +39,7 @@ class CodeEditor implements Equatable {
 
 The reason that Equatable does not have a generic is because it is impossible to
 check for generics in type constraints (i.e.
-[`isEquatable()`]({{ site.baseurl }}{% link _pages/Types/isEquatable.md %})),
+[`isEquatable()`]({{ site.baseurl }}{% link _pages/Objects/isEquatable.md %})),
 which would cause potential uncaught runtime
 exceptions when calling `equals()` with an unexpected object type.
 
