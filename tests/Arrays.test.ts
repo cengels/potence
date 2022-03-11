@@ -126,6 +126,17 @@ describe('Arrays.replace() should', () => {
     it('throw an error if element is not found', () => expect(() => Arrays.replace([1, 3, 5], 4, 6)).toThrowError());
 });
 
+describe('Arrays.replaceAll() should', () => {
+    it('replace all array elements', () => expect(Arrays.replaceAll([1, 3, 5], [4, 3, 2, 1])).toEqual([4, 3, 2, 1]));
+});
+
+describe('Arrays.insert() should', () => {
+    it('insert an element at index', () => expect(Arrays.insert([1, 3, 5], 2, 0)).toEqual([1, 3, 0, 5]));
+    it('insert multiple elements at index', () => expect(Arrays.insert([1, 3, 5], 2, 0, 9, 9)).toEqual([1, 3, 0, 9, 9, 5]));
+    it('error when index is lower than bounds', () => expect(() => Arrays.insert([1, 3, 5], -1, 0)).toThrowError());
+    it('error when index is higher than bounds', () => expect(() => Arrays.insert([1, 3, 5], 4, 0)).toThrowError());
+});
+
 describe('Arrays.type() should return', () => {
     it('true if all elements are strings', () => expect(Arrays.type(['foo', 'bar'], 'string')).toBe(true));
     it('true if all elements are numbers', () => expect(Arrays.type([1, 4, 15, 120], 'number')).toBe(true));
