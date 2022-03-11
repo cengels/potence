@@ -1,4 +1,5 @@
-import { isPrimitive, ObjectLiteral } from '../types.js';
+import { ObjectLiteral } from '../types.js';
+import { isPrimitive } from './typechecking.js';
 
 /** Options for `Strings.serialize()`. */
 export interface StringifyOptions {

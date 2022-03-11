@@ -1,5 +1,3 @@
-import * as Objects from './objects/index.js';
-
 /** Represents a type that is nullable (i.e. may be null or undefined). */
 export type Nullable<T = unknown> = T | undefined | null;
 
@@ -16,11 +14,6 @@ export type BaseType = 'bigint' | 'boolean' | 'function' | 'number' | 'object' |
  * @see https://developer.mozilla.org/en-US/docs/Glossary/Primitive
  */
 export type primitive = string | number | bigint | boolean | undefined | symbol;
-
-/** Checks if a given object is a primitive, i.e. if it is not a function, object, array, or instance. */
-export function isPrimitive(object: unknown): object is primitive {
-    return object !== null && typeof object !== 'object' && typeof object !== 'function';
-}
 
 /** Converts the string typeof result into an actual type. */
 export type BaseToType<T extends BaseType> =
@@ -145,16 +138,6 @@ export interface Equatable {
      * check if the object has the correct type before comparing it.
      */
     equals(object: unknown): boolean;
-}
-
-/** Checks if an object implements `Equatable`. */
-export function isEquatable(object: unknown): object is Equatable {
-    return object != null && Objects.hasFunction(object, 'equals', 1);
-}
-
-/** Checks if an object implements `Iterable`. */
-export function isIterable(object: unknown): object is Iterable<unknown> {
-    return object != null && Objects.hasFunction(object, Symbol.iterator);
 }
 
 /** Represents a single character in the hexadecimal range (0-9, A-F/a-f). */

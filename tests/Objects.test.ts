@@ -1,44 +1,6 @@
 import { Assert } from '../src/index.js';
 import * as Objects from '../src/objects/index.js';
-import { ObjectLiteral, Structure } from '../src/types.js';
-
-describe('Objects.isObject() should return', () => {
-    describe('true for', () => {
-        it('object literals', () => expect(Objects.isObject({ a: 1, b: 3 })).toBe(true));
-        it('new Object()', () => expect(Objects.isObject(new Object())).toBe(true));
-        it('new Number()', () => expect(Objects.isObject(new Number())).toBe(true));
-        it('new String()', () => expect(Objects.isObject(new String())).toBe(true));
-        it('new Function()', () => expect(Objects.isObject(new Function())).toBe(true));
-        it('functions', () => expect(Objects.isObject(() => 0)).toBe(true));
-        it('arrays', () => expect(Objects.isObject([])).toBe(true));
-    });
-    describe('false for', () => {
-        it('Symbol()', () => expect(Objects.isObject(Symbol())).toBe(false));
-        it('numbers', () => expect(Objects.isObject(1)).toBe(false));
-        it('strings', () => expect(Objects.isObject('')).toBe(false));
-        it('null', () => expect(Objects.isObject(null)).toBe(false));
-        it('undefined', () => expect(Objects.isObject(undefined)).toBe(false));
-    });
-});
-
-describe('Objects.isObjectLiteral() should return', () => {
-    describe('true for', () => {
-        it('object literals', () => expect(Objects.isObjectLiteral({ a: 1, b: 3 })).toBe(true));
-        it('new Object()', () => expect(Objects.isObjectLiteral(new Object())).toBe(true));
-    });
-    describe('false for', () => {
-        it('new Number()', () => expect(Objects.isObjectLiteral(new Number())).toBe(false));
-        it('new String()', () => expect(Objects.isObjectLiteral(new String())).toBe(false));
-        it('new Function()', () => expect(Objects.isObjectLiteral(new Function())).toBe(false));
-        it('Symbol()', () => expect(Objects.isObjectLiteral(Symbol())).toBe(false));
-        it('functions', () => expect(Objects.isObjectLiteral(() => 0)).toBe(false));
-        it('arrays', () => expect(Objects.isObjectLiteral([])).toBe(false));
-        it('numbers', () => expect(Objects.isObjectLiteral(1)).toBe(false));
-        it('strings', () => expect(Objects.isObjectLiteral('')).toBe(false));
-        it('null', () => expect(Objects.isObjectLiteral(null)).toBe(false));
-        it('undefined', () => expect(Objects.isObjectLiteral(undefined)).toBe(false));
-    });
-});
+import { ObjectLiteral } from '../src/types.js';
 
 describe('Objects.compare() should', () => {
     it('return true if both objects are null', () => expect(Objects.compare(null, null)).toBe(true));
@@ -55,117 +17,6 @@ describe('Objects.compare() should', () => {
         it('succeed in comparing an equivalent nested object', () => expect(Objects.compare({ a: { b: 1 } }, { a: { b: 1 } }, 'deep')).toBe(true));
         it('fail to comparing a non-equivalent nested object', () => expect(Objects.compare({ a: { b: 1 } }, { a: { b: 2 } }, 'deep')).toBe(false));
     });
-});
-
-describe('Objects.structure() should', () => {
-    it('return false if object isn\'t an object', () => expect(Objects.structure(5 as unknown as object, {})).toBe(false));
-    it('throw an error if the structure isn\'t an object', () => expect(() => Objects.structure({}, 5 as unknown as Structure)).toThrowError());
-    it('throw an error if structure value isn\'t an object', () => expect(() => Objects.structure({}, { val: 5 as unknown as Structure[''] })).toThrowError());
-    it('succeed in comparing an object against a simple structure', () => expect(Objects.structure({ a: 52, b: 'foo' },
-                                                                                                   { a: 'number', b: 'string' })).toBe(true));
-    it('fail to compare an object against a non-matching simple structure', () => expect(Objects.structure({ a: 52, b: 'foo' },
-                                                                                                           { a: 'number', b: 'number' })).toBe(false));
-    it('succeed if object has extraneous property', () => expect(Objects.structure({ a: 52, b: 'foo' },
-                                                                                              { a: 'number' })).toBe(true));
-    it('fail if object has extraneous property with flag', () => expect(Objects.structure({ a: 52, b: 'foo' },
-                                                                                            { a: 'number' }, true)).toBe(false));
-    it('fail to compare an object against a missing property', () => expect(Objects.structure({ a: 52 },
-                                                                                              { a: 'number', b: 'number' })).toBe(false));
-    it('succeed if property is missing and expects undefined', () => expect(Objects.structure({ a: 52 },
-                                                                                              { a: 'number', b: ['number', 'undefined'] })).toBe(true));
-    it('succeed when a property value is null', () => expect(Objects.structure({ a: null },
-                                                                               { a: 'null' })).toBe(true));
-    it('fail when a property value is null but expects undefined', () => expect(Objects.structure({ a: null },
-                                                                                                  { a: 'undefined' })).toBe(false));
-    it('succeed when a property value is undefined', () => expect(Objects.structure({ a: undefined },
-                                                                                    { a: 'undefined' })).toBe(true));
-    it('fail when a property value is undefined but expects null', () => expect(Objects.structure({ a: undefined },
-                                                                                                  { a: 'null' })).toBe(false));
-    it('succeed when comparing against multiple matching types', () => expect(Objects.structure({ a: 'foo' },
-                                                                                                { a: ['string', 'number'] })).toBe(true));
-    it('fail when comparing against multiple non-matching types', () => expect(Objects.structure({ a: null },
-                                                                                                 { a: ['string', 'number'] })).toBe(false));
-    it('succeed when comparing against a nullable property', () => expect(Objects.structure({ a: null },
-                                                                                            { a: ['string', 'null'] })).toBe(true));
-    it('succeed when comparing against a matching single-element array', () => expect(Objects.structure({ a: [5, 3, 2] },
-                                                                                            { a: ['number'] })).toBe(true));
-    it('fail when comparing against a non-matching single-element array', () => expect(Objects.structure({ a: [5, 'foo', 2] },
-                                                                                            { a: ['number'] })).toBe(false));
-    it('succeed in comparing an object against a nested structure', () => expect(Objects.structure({
-            a: 52,
-            b: {
-                c: {
-                    d: 'foo'
-                }
-            }
-        },
-        {
-            a: 'number',
-            b: {
-                c: {
-                    d: 'string'
-                }
-            }
-        })).toBe(true));
-    it('fail in comparing an object against an incorrect nested structure', () => expect(Objects.structure({
-            a: 52,
-            b: {
-                c: {
-                    d: 'foo'
-                }
-            }
-        },
-        {
-            a: 'number',
-            b: {
-                c: {
-                    c: 'string'
-                }
-            }
-        })).toBe(false));
-    it('succeed in comparing an object against contained arrays', () => expect(Objects.structure({
-            a: ['foo']
-        },
-        {
-            a: 'array'
-        })).toBe(true));
-    it('fail in comparing an object against non-contained arrays', () => expect(Objects.structure({
-            a: { foo: 1 }
-        },
-        {
-            a: 'array'
-        })).toBe(false));
-    it('succeed in comparing an object against constructors', () => expect(Objects.structure({
-            a: new Date()
-        },
-        {
-            a: Date
-        })).toBe(true));
-    it('fail in comparing an object against incorrect constructors', () => expect(Objects.structure({
-            a: new Number()
-        },
-        {
-            a: Date
-        })).toBe(false));
-    it('fail if the expected structure uses an incorrect type', () => expect(Objects.structure({
-            a: [ 'foo' ]
-        },
-        {
-            // @ts-expect-error
-            a: [ 'foo' ]
-        })).toBe(false));
-    it('fail if structure property is an object and object property is not', () => expect(Objects.structure({
-            a: 5
-        },
-        {
-            a: { prop: 'number' }
-        })).toBe(false));
-    it('throw if structure has empty array', () => expect(() => Objects.structure({
-            a: 5
-        },
-        {
-            a: []
-        })).toThrowError());
 });
 
 describe('Objects.swap() should', () => {
@@ -219,49 +70,6 @@ describe('Objects.equatable() should', () => {
         equatable1.value2 = 'bar';
         expect(equatable1.equals(other)).toBe(false);
     });
-});
-
-describe('Objects.hasProperty() should', () => {
-    const object = {
-        value: 1,
-        value2: 'foo',
-        value3: new Date()
-    };
-
-    it('return true if the property exists', () => expect(Objects.hasProperty(object, 'value')).toBe(true));
-    it('return true if the property exists but is null', () => expect(Objects.hasProperty({ prop: null }, 'prop')).toBe(true));
-    it('return true if the property exists but is undefined', () => expect(Objects.hasProperty({ prop: undefined }, 'prop')).toBe(true));
-    it('return true if the property has the right type', () => expect(Objects.hasProperty(object, 'value', 'number')).toBe(true));
-    it('return true if the property has the right constructor', () => expect(Objects.hasProperty(object, 'value3', Date)).toBe(true));
-    it('return true even if object is not an object', () => expect(Objects.hasProperty(5, 'constructor')).toBe(true));
-    it('return false if the object is null', () => expect(Objects.hasProperty(null, 'val')).toBe(false));
-    it('return false if the property does not exist', () => expect(Objects.hasProperty(object, 'value5')).toBe(false));
-    it('return false if the property has the wrong type', () => expect(Objects.hasProperty(object, 'value', 'string')).toBe(false));
-    it('return false if the property does not exist and has no type', () => expect(Objects.hasProperty(object, 'value5', 'string')).toBe(false));
-    it('work on strings', () => expect(Objects.hasProperty('', 'indexOf')).toBe(true));
-    it('work on number', () => expect(Objects.hasProperty(5, 'toPrecision')).toBe(true));
-});
-
-describe('Objects.hasFunction() should', () => {
-    const object = {
-        value: 1,
-        func: () => { return 5; },
-        func2: (one: number) => { return one; },
-        func3: (one: number, two: string) => { return two + one; }
-    };
-
-    it('return true if the function exists', () => expect(Objects.hasFunction(object, 'func')).toBe(true));
-    it('return true if the function has the right number of arguments (0)', () => expect(Objects.hasFunction(object, 'func', 0)).toBe(true));
-    it('return true if the function has the right number of arguments (1)', () => expect(Objects.hasFunction(object, 'func2', 1)).toBe(true));
-    it('return true if the function has the right number of arguments (2)', () => expect(Objects.hasFunction(object, 'func3', 2)).toBe(true));
-    it('return true if the function exists on primitive type', () => expect(Objects.hasFunction(5, 'toString')).toBe(true));
-    it('return false if the property is not a function', () => expect(Objects.hasFunction(object, 'value')).toBe(false));
-    it('return false if the function does not exist', () => expect(Objects.hasFunction(object, 'func4')).toBe(false));
-    it('return false if the function has the wrong number of arguments (too few)', () => expect(Objects.hasFunction(object, 'func', 2)).toBe(false));
-    it('return false if the function has the wrong number of arguments (too many)', () => expect(Objects.hasFunction(object, 'func3', 0)).toBe(false));
-    it('return false if the object is not an object', () => expect(Objects.hasFunction(null, 'valueOf')).toBe(false));
-    it('work on strings', () => expect(Objects.hasFunction('', 'indexOf')).toBe(true));
-    it('work on number', () => expect(Objects.hasFunction(5, 'toPrecision')).toBe(true));
 });
 
 const colors = {
@@ -342,29 +150,6 @@ describe('Objects.pick() should', () => {
             purple: 0xff00ff
         });
     });
-});
-
-describe('Objects.is() should', () => {
-    it('succeed a proper typeof check', () => expect(Objects.is('foo', 'string')).toBe(true));
-    it('fail an improper typeof check', () => expect(Objects.is('foo', 'number')).toBe(false));
-    it('succeed a proper instanceof check', () => expect(Objects.is(new Date(), Date)).toBe(true));
-    it('succeed a proper inherited instanceof check', () => expect(Objects.is(new Date(), Object)).toBe(true));
-    it('fail an improper instanceof check', () => expect(Objects.is(new Date(), Number)).toBe(false));
-});
-
-describe('Objects.getPropertyDescriptor() should', () => {
-    it('get direct property descriptor', () => expect(Objects.getPropertyDescriptor({ value: 1 }, 'value')?.value).toBe(1));
-    it('get inherited property descriptor', () => {
-        class Base { public value(): number { return 5; } }
-        class Inherited extends Base { }
-        const inherited = new Inherited();
-
-        expect(inherited.value()).toBe(5);
-        expect(Objects.getPropertyDescriptor(inherited, 'value')?.value()).toBe(5);
-        expect(Object.getOwnPropertyDescriptor(inherited, 'value')).toBeUndefined();
-    });
-    it('return function descriptor', () => expect(typeof Objects.getPropertyDescriptor([], 'slice')?.value).toBe('function'));
-    it('return undefined', () => expect(Objects.getPropertyDescriptor(Object.create(null), 'slice')).toBeUndefined());
 });
 
 describe('Objects.isWritable() should return', () => {
