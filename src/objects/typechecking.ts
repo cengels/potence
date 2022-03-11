@@ -1,5 +1,4 @@
 import { ObjectLiteral, Structure, BaseType, Constructor, BaseToType, StructureValue, Equatable, primitive } from '../types';
-import { stringify } from './stringify';
 
 type DistributeStructureValue<T> = T extends StructureValue ? MappedStructureValue<T> : never;
 
@@ -91,7 +90,7 @@ function match(expected: Structure[''], actual: unknown): boolean {
         return actual instanceof expected;
     }
     
-    throw new Error(`Invalid type for 'expected': must be a string, an object, an array, or a function but was: ${stringify(expected)}`);
+    throw new Error(`Invalid type for 'expected': must be a string, an object, an array, or a function but was: ${expected}`);
 }
 
 /**
