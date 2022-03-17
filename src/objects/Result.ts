@@ -1,3 +1,5 @@
+import Option from './Option.js';
+
 /** 
  * Represents the result of an operation.
  * Possible values are `Success`, in which case the Result
@@ -34,6 +36,10 @@ export default class Result<T = void, TError extends Error | string = Error | st
             return this.value as T;
         }
 
+        if (typeof this.value === 'string') {
+            throw new Error(this.value);
+        }
+
         throw this.value;
     }
 
@@ -68,6 +74,11 @@ export default class Result<T = void, TError extends Error | string = Error | st
         }
 
         return new Result(this.value as TError, false);
+    }
+
+    /** Converts this {@link Result}\<T, TError> to an {@link Option}\<T>. */
+    public toOption(): Option<T> {
+        return this.success ? new Option<T>(this.value as T) : new Option<T>();
     }
 
     /** Creates a new successful Result from a value. */
