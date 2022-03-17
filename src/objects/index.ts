@@ -69,7 +69,7 @@ export function swap<T extends object>(source: T, from: keyof T, to: keyof T): T
  * this function will use a simple referential equality check (or structural equality check in the case of value types).
  */
 export function equal(source: unknown, ...others: unknown[]): boolean {
-    if (hasFunction(source, 'equals')) {
+    if (isEquatable(source)) {
         return others.every(other => source.equals(other));
     }
 
@@ -93,7 +93,7 @@ export function equal(source: unknown, ...others: unknown[]): boolean {
  * @returns The original object cast with `Equatable` implemented.
  */
 export function equatable<T extends object>(source: T): Equatable & T {
-    if (hasFunction(source, 'equals')) {
+    if (isEquatable(source)) {
         return source as Equatable & T;
     }
 
@@ -251,7 +251,7 @@ export function getConstructor<T>(object: T): Constructor<T> | undefined {
  * on the type.
  */
 export function clone<T>(object: T, mode: RecursionMode = 'shallow'): T {
-    if (object == null || (object !== null && typeof object !== 'object' && typeof object !== 'function')) {
+    if (object == null || isPrimitive(object)) {
         return object;
     }
 
