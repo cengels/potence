@@ -144,10 +144,7 @@ export function stringify(value: unknown, options: StringifyOptions = DEFAULT_OP
         return string.substring(0, openingBraceIndex) + '{ ... }';
     }
 
-    // Seems to be a TypeScript bug. We're testing for null above, yet
-    // TypeScript does not understand that the object can't be null here.
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    const constructorName = typeof value === 'object' && value!.constructor != null ? value!.constructor.name : 'Object';
+    const constructorName = typeof value === 'object' && value.constructor != null ? value.constructor.name : 'Object';
 
     if (options.typesOnly) {
         return constructorName;
