@@ -1,4 +1,5 @@
 import Option from './Option.js';
+import { stringify } from './stringify.js';
 
 /** 
  * Represents the result of an operation.
@@ -79,6 +80,14 @@ export default class Result<T = void, TError extends Error | string = Error | st
     /** Converts this {@link Result}\<T, TError> to an {@link Option}\<T>. */
     public toOption(): Option<T> {
         return this.success ? new Option<T>(this.value as T) : new Option<T>();
+    }
+
+    public toString(): string {
+        if (this.success) {
+            return `Success(${stringify(this.value)})`;
+        }
+
+        return `Failure(${typeof this.value === 'string' ? this.value : (this.value as Error).message})`;
     }
 
     /** Creates a new successful Result from a value. */

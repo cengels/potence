@@ -1,4 +1,5 @@
-import { Nullable } from '../types';
+import { Nullable } from '../types.js';
+import { stringify } from './stringify.js';
 
 /**
  * Represents a value that may or may not be defined.
@@ -56,5 +57,13 @@ export default class Option<T> {
         if (this.value != null) {
             callback(this.value);
         }
+    }
+
+    public toString(): string {
+        if (this.value != null) {
+            return `Option(${stringify(this.value)})`;
+        }
+
+        return 'Option()';
     }
 }
