@@ -4,7 +4,7 @@ import { Nullable } from '../types';
  * Represents a value that may or may not be defined.
  */
 export default class Option<T> {
-    private value: Nullable<T>;
+    private readonly value: Nullable<T>;
 
     public constructor(value?: Nullable<T>) {
         this.value = value;
