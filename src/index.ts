@@ -11,11 +11,11 @@ import LinkedStack from './data/LinkedStack.js';
 import LinkedQueue from './data/LinkedQueue.js';
 import Queue from './data/Queue.js';
 import Stack from './data/Stack.js';
-export { Range, ReadonlyRange, Flags, List, ReadonlyList, Stack, Queue, LinkedStack, LinkedQueue, Version, CompareResult };
+import Duration from './time/Duration.js';
+export { Range, ReadonlyRange, Flags, List, ReadonlyList, Stack, Queue, LinkedStack, LinkedQueue, Version, CompareResult, Duration };
 export * as Objects from './objects/index.js';
 export * as Strings from './strings/index.js';
 export * as Assert from './assert/index.js';
 export * as Time from './time/index.js';
-export * as Duration from './time/duration.js';
 // Not namespaced, because namespaced types look kind of silly.
 export * from './types.js';
