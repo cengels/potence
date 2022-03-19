@@ -196,30 +196,10 @@ export default class Version implements SemanticVersion {
             version = new Version(version);
         }
 
-        if (!this.valid && version.valid) {
-            return CompareResult.Less;
-        } else if (this.valid && !version.valid) {
-            return CompareResult.Greater;
-        } else if (!this.valid && !version.valid) {
-            return CompareResult.Equal;
-        }
+        const patchResult = this.comparePatch(version);
 
-        if (this.major < version.major) {
-            return CompareResult.Less;
-        } else if (this.major > version.major) {
-            return CompareResult.Greater;
-        }
-
-        if (this.minor < version.minor) {
-            return CompareResult.Less;
-        } else if (this.minor > version.minor) {
-            return CompareResult.Greater;
-        }
-
-        if (this.patch < version.patch) {
-            return CompareResult.Less;
-        } else if (this.patch > version.patch) {
-            return CompareResult.Greater;
+        if (patchResult !== CompareResult.Equal) {
+            return patchResult;
         }
 
         if (this.preRelease.length > 0 || version.preRelease.length > 0) {
@@ -265,6 +245,85 @@ export default class Version implements SemanticVersion {
         }
 
         return CompareResult.Equal;
+    }
+
+    /** Like {@link compare}, but only compares the major component. */
+    public compareMajor(version: Version | string): CompareResult {
+        if (typeof version === 'string') {
+            version = new Version(version);
+        }
+
+        const validityResult = this.compareValidity(version);
+
+        if (validityResult != null) {
+            return validityResult;
+        }
+
+        if (this.major < version.major) {
+            return CompareResult.Less;
+        } else if (this.major > version.major) {
+            return CompareResult.Greater;
+        }
+
+        return CompareResult.Equal;
+    }
+
+    /** Like {@link compare}, but only compares the major and minor components. */
+    public compareMinor(version: Version | string): CompareResult {
+        if (typeof version === 'string') {
+            version = new Version(version);
+        }
+
+        const majorResult = this.compareMajor(version);
+
+        if (majorResult !== CompareResult.Equal) {
+            return majorResult;
+        }
+
+        if (this.minor < version.minor) {
+            return CompareResult.Less;
+        } else if (this.minor > version.minor) {
+            return CompareResult.Greater;
+        }
+
+        return CompareResult.Equal;
+    }
+
+    /** Like {@link compare}, but only compares the major, minor, and patch components. */
+    public comparePatch(version: Version | string): CompareResult {
+        if (typeof version === 'string') {
+            version = new Version(version);
+        }
+
+        const minorResult = this.compareMinor(version);
+
+        if (minorResult !== CompareResult.Equal) {
+            return minorResult;
+        }
+
+        if (this.patch < version.patch) {
+            return CompareResult.Less;
+        } else if (this.patch > version.patch) {
+            return CompareResult.Greater;
+        }
+
+        return CompareResult.Equal;
+    }
+
+    private compareValidity(version: Version | string): CompareResult | null {
+        if (typeof version === 'string') {
+            version = new Version(version);
+        }
+
+        if (!this.valid && version.valid) {
+            return CompareResult.Less;
+        } else if (this.valid && !version.valid) {
+            return CompareResult.Greater;
+        } else if (!this.valid && !version.valid) {
+            return CompareResult.Equal;
+        }
+
+        return null;
     }
 
     /** 
