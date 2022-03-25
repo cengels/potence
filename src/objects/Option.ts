@@ -1,6 +1,8 @@
 import { Nullable } from '../types.js';
 import { stringify } from './stringify.js';
 
+const defaultUnwrapError = new Error('Option unwrapped null value!');
+
 /**
  * Represents a value that may or may not be defined.
  */
@@ -15,7 +17,7 @@ export default class Option<T> {
      * If this Option has a value, returns it,
      * otherwise throws an error.
      */
-    public unwrap(error: Error | string = new Error('Option unwrapped null value!')): T {
+    public unwrap(error: Error | string = defaultUnwrapError): T {
         if (this.value != null) {
             return this.value;
         }
