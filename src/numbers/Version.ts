@@ -54,6 +54,24 @@ function versionString(version: SemanticVersion): string {
     return string;
 }
 
+function compareValidity(v1: Version, v2: Version | string): CompareResult | null {
+    if (typeof v2 === 'string') {
+        v2 = new Version(v2);
+    }
+
+    if (v1.valid && v2.valid) {
+        return null;
+    } else if (!v1.valid && !v2.valid) {
+        return CompareResult.Equal;
+    }
+    
+    if (v2.valid) {
+        return CompareResult.Less;
+    } else {
+        return CompareResult.Greater;
+    }
+}
+
 /** 
  * Represents an immutable MAJOR.MINOR.PATCH version
  * following semantic versioning rules.
@@ -254,7 +272,7 @@ export default class Version implements SemanticVersion, Equatable {
             version = new Version(version);
         }
 
-        const validityResult = this.compareValidity(version);
+        const validityResult = compareValidity(this, version);
 
         if (validityResult != null) {
             return validityResult;
@@ -309,24 +327,6 @@ export default class Version implements SemanticVersion, Equatable {
         }
 
         return CompareResult.Equal;
-    }
-
-    private compareValidity(version: Version | string): CompareResult | null {
-        if (typeof version === 'string') {
-            version = new Version(version);
-        }
-
-        if (this.valid && version.valid) {
-            return null;
-        } else if (!this.valid && !version.valid) {
-            return CompareResult.Equal;
-        }
-        
-        if (version.valid) {
-            return CompareResult.Less;
-        } else {
-            return CompareResult.Greater;
-        }
     }
 
     /** 
