@@ -1,3 +1,4 @@
+import { Equatable } from '../types';
 import CompareResult from './CompareResult';
 
 /** Official JS RegExp. See https://semver.org/. */
@@ -57,7 +58,7 @@ function versionString(version: SemanticVersion): string {
  * Represents an immutable MAJOR.MINOR.PATCH version
  * following semantic versioning rules.
  */
-export default class Version implements SemanticVersion {
+export default class Version implements SemanticVersion, Equatable {
     public readonly major: number = 0;
     public readonly minor: number = 0;
     public readonly patch: number = 0;
@@ -331,9 +332,9 @@ export default class Version implements SemanticVersion {
      * 
      * Note that two invalid versions are always identical.
      */
-    public equals(version: Version | string): boolean {
-        if (typeof version !== 'string') {
-            version = version.toString()
+    public equals(version: unknown): boolean {
+        if (typeof version === 'object') {
+            version = version?.toString();
         }
 
         return this.toString() === version;
