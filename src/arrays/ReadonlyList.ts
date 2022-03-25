@@ -1,5 +1,5 @@
 import { TransformTo1DArray } from './index.js';
-import { Constructor } from '../types.js';
+import { Constructor, Nullable } from '../types.js';
 import type List from './List.js';
 
 /** A readonly variant of `List`. */
@@ -111,6 +111,7 @@ export default interface ReadonlyList<T> extends ReadonlyArray<T> {
      * array where the number of elements per level is equal
      * to the number of passed arrays.
      */
+    zip<Args extends Array<ReadonlyArray<unknown>>>(...arrays: Args): List<[T, ...TransformTo1DArray<Args>]>;
 
     /** 
      * Maps this list to a list of `U` by applying a callback to each
@@ -198,32 +199,32 @@ export default interface ReadonlyList<T> extends ReadonlyArray<T> {
      * This function is parallel to `Array.prototype.findIndex()`, but whereas `findIndex()`
      * only returns the first matching index, this function returns all of them.
      */
-    findIndices(predicate: (object: T) => boolean): number[];
+    findIndices(predicate: (object: T) => boolean): List<number>;
     /**
      * Returns all indices for the matching object in the array.
      * This function is parallel to `Array.prototype.indexOf()`, but whereas `indexOf()`
      * only returns the first matching index, this function returns all of them.
      */
-    findIndices(object: T): number[];
+    findIndices(object: T): List<number>;
 
     /** 
-     * Creates a new array with the elements from all the given arrays.
+     * Creates a new list with the elements from all the given arrays.
      * This function differs from `Array.prototype.concat()` in how it handles
      * duplicates: `concat()` will simply concatenate two arrays regardless of
      * duplication. This function will only add an element if it was not already
      * added by one of the other arrays.
      */
-    union(...arrays: readonly T[][]): T[];
+    union(...arrays: readonly T[][]): List<T>;
     
     /** 
      * Creates a new array with only the elements common to all the given arrays.
      */
-    intersection(...arrays: readonly T[][]): T[];
+    intersection(...arrays: readonly T[][]): List<T>;
 
     /** 
-     * Creates a new array with only the elements that are unique to one of the
-     * given arrays. In other words: the resulting array will contain all elements
+     * Creates a new list with only the elements that are unique to one of the
+     * given arrays. In other words: the resulting list will contain all elements
      * except those shared by multiple of the given arrays.
      */
-    difference(...arrays: readonly T[][]): T[];
+    difference(...arrays: readonly T[][]): List<T>;
 }

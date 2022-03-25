@@ -1,5 +1,5 @@
 import * as Arrays from '../arrays/index.js';
-import type { BaseType, Constructor, Predicate } from '../types.js';
+import type { BaseType, Constructor, Nullable, Predicate } from '../types.js';
 import type { SortFunction, SortOrder, TransformTo1DArray } from './index.js';
 import type ReadonlyList from './ReadonlyList.js';
 
@@ -230,6 +230,9 @@ export default class List<T> extends Array<T> implements ReadonlyList<T> {
     /**
      * @example new List(0, 1, 2).zip([4, 5, 6]) => [[0, 4], [1, 5], [2, 6]]
      */
+    public zip<Args extends Array<ReadonlyArray<unknown>>>(...arrays: Args): List<[T, ...TransformTo1DArray<Args>]> {
+        return List.from(Arrays.zip(this, ...arrays));
+    }
 
     public filterMap<U>(mapFn: (object: T) => Nullable<U>): List<U> {
         return List.from(Arrays.filterMap(this, mapFn));
@@ -267,10 +270,10 @@ export default class List<T> extends Array<T> implements ReadonlyList<T> {
         return Arrays.hasMultiple(this, value);
     }
 
-    public findIndices(predicate: (object: T) => boolean): number[];
-    public findIndices(object: T): number[];
-    public findIndices(objectOrPredicate: T | Predicate<T>): number[] {
-        return Arrays.findIndices(this, objectOrPredicate);
+    public findIndices(predicate: Predicate<T>): List<number>;
+    public findIndices(object: T): List<number>;
+    public findIndices(objectOrPredicate: T | Predicate<T>): List<number> {
+        return List.from(Arrays.findIndices(this, objectOrPredicate));
     }
 
     /** 
@@ -280,15 +283,15 @@ export default class List<T> extends Array<T> implements ReadonlyList<T> {
      * duplication. This function will only add an element if it was not already
      * added by one of the other arrays.
      */
-    public union(...arrays: readonly T[][]): T[] {
-        return Arrays.union(this, ...arrays);
+    public union(...arrays: readonly T[][]): List<T> {
+        return List.from(Arrays.union(this, ...arrays));
     }
     
     /** 
      * Creates a new array with only the elements common to all the given arrays.
      */
-     public intersection(...arrays: readonly T[][]): T[] {
-        return Arrays.intersection(this, ...arrays);
+     public intersection(...arrays: readonly T[][]): List<T> {
+        return List.from(Arrays.intersection(this, ...arrays));
     }
 
     /** 
@@ -296,8 +299,8 @@ export default class List<T> extends Array<T> implements ReadonlyList<T> {
      * given arrays. In other words: the resulting array will contain all elements
      * except those shared by multiple of the given arrays.
      */
-     public difference(...arrays: readonly T[][]): T[] {
-        return Arrays.difference(this, ...arrays);
+     public difference(...arrays: readonly T[][]): List<T> {
+        return List.from(Arrays.difference(this, ...arrays));
     }
 
     /**
