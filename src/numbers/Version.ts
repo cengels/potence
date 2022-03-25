@@ -316,15 +316,17 @@ export default class Version implements SemanticVersion, Equatable {
             version = new Version(version);
         }
 
-        if (!this.valid && version.valid) {
-            return CompareResult.Less;
-        } else if (this.valid && !version.valid) {
-            return CompareResult.Greater;
+        if (this.valid && version.valid) {
+            return null;
         } else if (!this.valid && !version.valid) {
             return CompareResult.Equal;
         }
-
-        return null;
+        
+        if (version.valid) {
+            return CompareResult.Less;
+        } else {
+            return CompareResult.Greater;
+        }
     }
 
     /** 
