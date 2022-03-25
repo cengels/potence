@@ -315,6 +315,48 @@ export function exponent(base: number, power: number): number {
     return result;
 }
 
+/**
+ * Increments a counter that starts at an index (default: 0) and returns the
+ * first integral number not found in the range.
+ * 
+ * @param from A range of integers.
+ * @param startIndex Optional. The index at which to start counting. Default: 0.
+ */
+export function firstUnique(from: Iterable<number>, startIndex?: number): number;
+/**
+ * Increments a counter that starts at an index (default: 0) and returns the
+ * first integral number not found in the range returned by the property
+ * callback.
+ * 
+ * @param from An iterable of any type of objects
+ * @param property A callback that is called once per element in the iterable
+ *                 and should return an integer. The function will then return
+ *                 the first positive integer not returned by this function.
+ * @param startIndex Optional. The index at which to start counting. Default: 0.
+ */
+export function firstUnique<T>(from: Iterable<T>, property: ((object: T) => number) | number, startIndex?: number): number;
+export function firstUnique<T>(from: Iterable<T>, propertyOrStartIndex?: ((object: T) => number) | number, optStartIndex: number = 0): number {
+    const numbers = new Set<number>();
+    const property = typeof propertyOrStartIndex === 'function' ? propertyOrStartIndex : undefined;
+    const startIndex = typeof propertyOrStartIndex === 'number' ? propertyOrStartIndex : optStartIndex;
+
+    for (const element of from) {
+        if (property != null) {
+            numbers.add(property(element));
+        } else if (typeof element === 'number') {
+            numbers.add(element);
+        } else {
+            throw new Error(`firstUnique(): Encountered non-number element ${element}! Did you mean to supply a property callback?`);
+        }
+    }
+    
+    for (let i: number = startIndex;; i++) {
+        if (!numbers.has(i)) {
+            return i;
+        }
+    }
+}
+
 /** 
  * Attempts to convert the value to a number and returns it if the conversion
  * succeeded. If the conversion failed, returns `undefined`.
