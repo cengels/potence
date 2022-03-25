@@ -9,7 +9,7 @@
  */
 
 import * as Objects from '../objects/index.js';
-import { BaseType, Constructor, Predicate } from '../types.js';
+import type { BaseType, Constructor, Nullable, Predicate } from '../types.js';
 
 /** 
  * Returns a copy of the specified array.
@@ -727,4 +727,30 @@ export function difference<T>(...arrays: readonly T[][]): T[] {
 
             return count === 1;
         });
+}
+
+/** 
+ * Maps an iterable of `T` to an array of `U` by
+ * applying a callback to each element in turn.
+ * 
+ * If the callback returns `null` or `undefined` for any element, the element
+ * is discarded.
+ * 
+ * Combines
+ * [`Array.prototype.filter`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter)
+ * and
+ * [`Array.prototype.map`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map).
+ */
+export function filterMap<T, U>(array: Iterable<T>, mapFn: (object: T) => Nullable<U>): U[] {
+    const newElements: U[] = [];
+
+    for (const element of array) {
+        const result = mapFn(element);
+
+        if (result != null) {
+            newElements.push(result);
+        }
+    }
+
+    return newElements;
 }

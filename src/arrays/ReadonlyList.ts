@@ -111,7 +111,20 @@ export default interface ReadonlyList<T> extends ReadonlyArray<T> {
      * array where the number of elements per level is equal
      * to the number of passed arrays.
      */
-    zip<Args extends Array<ReadonlyArray<unknown>>>(...arrays: Args): Array<[T, ...TransformTo1DArray<Args>]>;
+
+    /** 
+     * Maps this list to a list of `U` by applying a callback to each
+     * element in turn.
+     * 
+     * If the callback returns `null` or `undefined` for any element, the element
+     * is discarded.
+     * 
+     * Combines
+     * [`Array.prototype.filter`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter)
+     * and
+     * [`Array.prototype.map`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map).
+     */
+    filterMap<U>(mapFn: (object: T) => Nullable<U>): List<U>;
 
     /**
      * Loops through multiple arrays at once, calling the specified callback

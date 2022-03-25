@@ -230,8 +230,9 @@ export default class List<T> extends Array<T> implements ReadonlyList<T> {
     /**
      * @example new List(0, 1, 2).zip([4, 5, 6]) => [[0, 4], [1, 5], [2, 6]]
      */
-    public zip<Args extends Array<ReadonlyArray<unknown>>>(...arrays: Args): Array<[T, ...TransformTo1DArray<Args>]> {
-        return Arrays.zip(this, ...arrays);
+
+    public filterMap<U>(mapFn: (object: T) => Nullable<U>): List<U> {
+        return List.from(Arrays.filterMap(this, mapFn));
     }
 
     public correlate<B, C, D, E, F, G, H, I, J>(source2: readonly B[], source3: readonly C[], source4: readonly D[], source5: readonly E[], source6: readonly F[], source7: readonly G[], source8: readonly H[], source9: readonly I[], source10: readonly J[], callback: (a: T, b: B, c: C, d: D, e: E, f: F, g: G, h: H, i: I, j: J) => void): void;
