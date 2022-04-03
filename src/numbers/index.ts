@@ -101,7 +101,7 @@ export function isOdd(value: number): boolean {
  * To check whether a number is an integer, use
  * [`Number.isInteger()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/isInteger).
  */
-export function isFloat(value: number): boolean {
+export function isFloat(value: unknown): value is number {
     return !Number.isInteger(value)
         && !Number.isNaN(value)
         && Number.isFinite(value);

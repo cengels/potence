@@ -292,3 +292,4 @@ export function clone<T>(object: T, mode: RecursionMode = 'shallow'): T {
 
 export * from './stringify.js';
 export * from './typechecking.js';
+export * from './structure.js';

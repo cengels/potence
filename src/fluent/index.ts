@@ -1,4 +1,4 @@
-import { FluentIs, fluentIs, set as setIs } from './is.js';
+import { EagerFluentIs, fluentIs, fluentIsLazy, LazyFluentIs, set as setIs } from './is.js';
 
 /** 
  * Returns a fluent checker for the given object,
@@ -11,10 +11,16 @@ import { FluentIs, fluentIs, set as setIs } from './is.js';
  * but it means that you cannot store the object returned by this function
  * in a local variable.
  */
-export function is<T>(...objects: T[]): FluentIs<T> {
+export function is<T = unknown>(): LazyFluentIs<T>
+export function is<T>(...objects: T[]): EagerFluentIs<T>
+export function is<T>(...objects: T[]): EagerFluentIs<T> | LazyFluentIs<T> {
     setIs(objects);
 
-    return fluentIs as FluentIs<T>;
+    if (objects.length === 0) {
+        return fluentIsLazy as LazyFluentIs<T>;
+    }
+
+    return fluentIs as EagerFluentIs<T>;
 }
 
 /**

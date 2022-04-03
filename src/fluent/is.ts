@@ -1,12 +1,15 @@
-import { falsy, oneOf, truthy } from './matchers.js';
+import type { BaseType, Constructor, Predicate } from '../types.js';
+import { all, any, approximately, array, falsy, float, instanceOf, integer, keyOf, notNull, nullish, oneOf, truthy, type as isType, value as isValue, valueOf } from './matchers.js';
 
-export interface FluentIs<T> {
+type ReturnType<T> = boolean | ((...objects: T[]) => boolean);
+
+interface FluentIs<T, U extends ReturnType<T> = boolean> {
     /** 
      * By default, all objects passed into `is()` must meet the condition.
      * By using this method, the condition will instead return `true`
      * if any objects pass the check.
      */
-    any(): FluentIs<T>;
+    any(): FluentIs<T, U>;
     /**
      * If `any()` was previously called in this chain, resets the chain
      * back to its default behaviour of every object having to meet the
@@ -14,77 +17,147 @@ export interface FluentIs<T> {
      * If `any()` was not called, this function has no effect and can
      * be used solely for more expressive syntax.
      */
-    every(): FluentIs<T>;
+    every(): FluentIs<T, U>;
+    /** Inverts the condition of this `is()` expression. */
+    get not(): FluentIs<T, U>;
 
     /**
      * Returns `true` if and only if all passed matchers evaluate to `true`.
      */
-    and(...matchers: Array<(item: T) => boolean>): boolean;
+    matching(...matchers: Array<Predicate<T>>): U;
     /**
      * Returns `true` if any of the passed matchers evaluate to `true`.
      */
-    or(...matchers: Array<(item: T) => boolean>): boolean;
+    matchingSome(...matchers: Array<Predicate<T>>): U;
 
-    /** 
-     * Checks if the object or any/every of the objects are equal to
-     * any of `these`.
-     * 
-     * This function will use {@link Equatable} if implemented.
-     */
-    oneOf(...these: T[]): boolean;
-    /**
-     * Checks if the object or any/every of the objects are truthy.
-     */
-    truthy(): boolean;
-    /**
-     * Checks if the object or any/every of the objects are falsy.
-     */
-    falsy(): boolean;
+    /** @see {@link oneOf} */
+    oneOf(...these: T[]): U;
+    /** @see {@link truthy} */
+    truthy(): U;
+    /** @see {@link falsy} */
+    falsy(): U;
+    /** @see {@link valueOf} */
+    valueOf<T extends unknown>(object: readonly T[]): U;
+    valueOf<T extends object>(object: T): U;
+    /** @see {@link keyOf} */
+    keyOf<T extends object>(object: T): U;
+    /** @see {@link type} */
+    type<T extends BaseType>(type: T): U;
+    /** @see {@link instanceOf} */
+    instanceOf<T extends Constructor>(constructor: T): U;
+    /** @see {@link value} */
+    value<T>(value: T): U;
+    /** @see {@link notNull} */
+    notNull(): U;
+    /** @see {@link nullish} */
+    nullish(): U;
+    /** @see {@link integer} */
+    integer(): U;
+    /** @see {@link float} */
+    float(): U;
+    /** @see {@link approximately} */
+    approximately(comparedValue: number, tolerance?: number): U;
+    /** @see {@link array} */
+    array(): U;
 }
+
+export type EagerFluentIs<T> = FluentIs<T, boolean>;
+export type LazyFluentIs<T> = FluentIs<T, (...objects: T[]) => boolean>;
 
 /** Whether every object must meet the condition. */
 let every: boolean = true;
+let not: boolean = false;
 let objects: unknown[] = [];
 
-function evaluate(condition: (element: unknown) => boolean): boolean {
-    if (every) {
-        return objects.every(condition);
-    }
+function evaluate<T>(objects: T[], inverted: boolean, every: boolean, condition: Predicate<T>): boolean {
+    const result = every
+        ? objects.every(o => condition(o))
+        : objects.some(o => condition(o));
+        
+    return inverted ? !result : result;
+}
 
-    return objects.some(condition);
+function evaluateLazy<T>(inverted: boolean, every: boolean, condition: Predicate<T>): (...objects: T[]) => boolean {
+    return (...objects: T[]) => evaluate(objects, inverted, every, condition) as boolean;
+}
+
+function makeFluentIs<T, U extends ReturnType<T>>(evaluator: (matcher: Predicate<T>) => U): FluentIs<T, U> {
+    return {
+        any() {
+            every = false;
+    
+            return this;
+        },
+        every() {
+            every = true;
+    
+            return this;
+        },
+        get not() {
+            not = true;
+    
+            return this;
+        },
+        oneOf(...these) {
+            return evaluator(oneOf(...these));
+        },
+        truthy() {
+            return evaluator(truthy());
+        },
+        falsy() {
+            return evaluator(falsy());
+        },
+        matching(...matchers) {
+            return evaluator(all(...matchers));
+        },
+        matchingSome(...matchers) {
+            return evaluator(any(...matchers));
+        },
+        keyOf<T extends object>(object: T): U {
+            return evaluator(keyOf(object));
+        },
+        valueOf<T extends object>(object: T): U {
+            return evaluator(valueOf(object));
+        },
+        type<T extends BaseType>(type: T): U {
+            return evaluator(isType(type));
+        },
+        instanceOf<T extends Constructor<unknown, unknown[]>>(constructor: T): U {
+            return evaluator(instanceOf(constructor));
+        },
+        value<T>(value: T): U {
+            return evaluator(isValue(value));
+        },
+        notNull(): U {
+            return evaluator(notNull());
+        },
+        nullish(): U {
+            return evaluator(nullish());
+        },
+        integer(): U {
+            return evaluator(integer());
+        },
+        float(): U {
+            return evaluator(float());
+        },
+        approximately(comparedValue: number, tolerance?: number): U {
+            return evaluator(approximately(comparedValue, tolerance));
+        },
+        array(): U {
+            return evaluator(array());
+        }
+    }
 }
 
 /** @internal */
-export const fluentIs: FluentIs<unknown> = {
-    any() {
-        every = false;
+export const fluentIs: EagerFluentIs<unknown> = makeFluentIs(matcher => evaluate(objects, not, every, matcher));
 
-        return fluentIs;
-    },
-    every() {
-        every = true;
-
-        return fluentIs;
-    },
-    oneOf(...these) {
-        return evaluate(oneOf(these));
-    },
-    truthy() {
-        return evaluate(truthy());
-    },
-    falsy() {
-        return evaluate(falsy());
-    },
-    and(...matchers) {
-        return matchers.every(matcher => evaluate(matcher));
-    },
-    or(...matchers) {
-        return matchers.some(matcher => evaluate(matcher));
-    }
-}
+/** @internal */
+export const fluentIsLazy: LazyFluentIs<unknown> = makeFluentIs(matcher => evaluateLazy(not, every, matcher));
 
 /** @internal */
 export function set(objs: unknown[]): void {
     every = true;
+    not = false;
     objects = objs;
 }

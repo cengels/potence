@@ -76,9 +76,6 @@ export type Instantiable<T = unknown, Args extends ReadonlyArray<unknown> = unkn
  */
 export type ObjectLiteral<T = unknown> = Record<string | number | symbol, T>;
 
-/** One of the possible values of @see Structure. */
-export type StructureValue = Structure | Constructor | Exclude<BaseType, 'object'> | 'null' | 'array';
-
 /** Represents only truthy values that are assignable to `T`. */
 export type Truthy<T> = Exclude<T, false | 0 | 0n | '' | null | undefined>;
 
@@ -90,34 +87,14 @@ export type Falsy<T = unknown> =
     : T extends string ? ('' extends T ? '' : never)
     : T extends null | undefined ? Extract<T, null | undefined>
     : T extends object | primitive ? never
-    : false | 0 | 0n | '' | null | undefined;
+    : T extends false | 0 | 0n | '' | null | undefined ? T
+    : never;
 
 /** Represents a predicate with one argument of type `T`. */
 export type Predicate<T> = (value: T) => boolean;
 
 /** Represents a callback with one argument of type `T` and a return value of type `U`. */
 export type Callback<T, U = void> = (value: T) => U;
-
-/**
- * An object structure that can be used in `Objects.structure()`.
- * Each property must be the name of a property that should exist in the target
- * and each property value must be one of the following:
- *
- * * Another `Structure`: this will recursively check against the nested object
- * * A class (`Constructor`): matches if the target value contains
- *   anywhere the constructor in its prototype chain
- * * Any of the possible return values of the `typeof` operator *except*
- *   for `'object'` (to check against an object, use another `Structure`)
- * * `'null'` or `'undefined'`: matches against those two specific values
- * * `'array'`: matches if the value is any kind of array
- * * An array with a single element containing any of the above: matches
- *   an array where each element matches the element in the structure array
- * * An array with multiple elements containing any of the above: matches
- *   if any of the array elements match the value
- */
-export interface Structure {
-    [property: string]: StructureValue | readonly [StructureValue] | readonly StructureValue[];
-}
 
 /**
  * An interface representing an object that can be equated to another.

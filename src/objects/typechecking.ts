@@ -1,21 +1,4 @@
-import { ObjectLiteral, Structure, BaseType, Constructor, BaseToType, StructureValue, Equatable, primitive } from '../types';
-
-type DistributeStructureValue<T> = T extends StructureValue ? MappedStructureValue<T> : never;
-
-type MappedStructureValue<T extends StructureValue | readonly StructureValue[]> =
-    T extends Structure ? MappedStructure<T>
-    : T extends Constructor<infer C> ? C
-    : T extends readonly [infer ArrayType] ? DistributeStructureValue<ArrayType>[]
-    : T extends ReadonlyArray<infer OrType> ? DistributeStructureValue<OrType>
-    : T extends 'null' ? null
-    // This error is unavoidable because TypeScript doesn't understand
-    // that T cannot be anything other than BaseType here.
-    // @ts-expect-error
-    : BaseToType<T>;
-
-type MappedStructure<T extends Structure> = {
-    [P in keyof T]: MappedStructureValue<T[P]>
-}
+import { ObjectLiteral, BaseType, Constructor, BaseToType, Equatable, primitive } from '../types';
 
 /** 
  * Checks if the passed object is of the specified type.
@@ -58,73 +41,6 @@ export function isEquatable(object: unknown): object is Equatable {
 /** Checks if an object implements `Iterable`. */
 export function isIterable(object: unknown): object is Iterable<unknown> {
     return object != null && hasFunction(object, Symbol.iterator);
-}
-
-function match(expected: Structure[''], actual: unknown): boolean {
-    if (typeof expected === 'string') {
-        switch (expected) {
-            case 'array': return Array.isArray(actual);
-            case 'null': return actual === null;
-            case 'undefined': return actual === undefined;
-            default: return typeof actual === expected;
-        }
-    }
-
-    if (isObjectLiteral(expected)) {
-        if (!isObject(actual)) {
-            return false;
-        }
-
-        return structure(actual, expected as ObjectLiteral<Structure['']>);
-    }
-
-    if (Array.isArray(expected)) {
-        switch (expected.length) {
-            case 0: throw new Error('Objects.structure(): must pass an array with at least one element!');
-            case 1: return Array.isArray(actual) && actual.every(element => match(expected[0], element));
-            default: return expected.some(orType => match(orType, actual));
-        }
-    }
-
-    if (typeof expected === 'function') {
-        return actual instanceof expected;
-    }
-    
-    throw new Error(`Invalid type for 'expected': must be a string, an object, an array, or a function but was: ${expected}`);
-}
-
-/**
- * Checks if the passed object conforms to the given structure.
- *
- * @param exhaustive Whether this check should be exhaustive or not, that is
- *  whether it should fail if `object` contains more properties than `struct`.
- */
-export function structure<T extends Structure>(object: unknown, struct: T, exhaustive: boolean = false): object is MappedStructure<T> {
-    if (!isObject(object)) {
-        return false;
-    }
-
-    if (!isObject(struct)) {
-        throw new Error('Objects.structure(): must pass an object!');
-    }
-
-    if (exhaustive && Object.keys(object).length > Object.keys(struct).length) {
-        // If object has more props than struct, always fail.
-        // If struct has more props than object, fail only if that property is
-        // not defined as 'undefined' in struct (see match()).
-        return false;
-    }
-
-    for (const property in struct) {
-        const expected = struct[property];
-        const actual = object[property];
-
-        if (!match(expected, actual)) {
-            return false;
-        }
-    }
-
-    return true;
 }
 
 type HasProperty<TKey extends string | number | symbol, T> = { [key in TKey]: T };
