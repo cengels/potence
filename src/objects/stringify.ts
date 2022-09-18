@@ -1,3 +1,5 @@
+import { first } from '../arrays/index.js';
+import { Objects } from '../index.js';
 import { ObjectLiteral } from '../types.js';
 import { isPrimitive } from './typechecking.js';
 
@@ -91,13 +93,132 @@ function truncateAfter<T>(array: readonly T[], map: (item: T) => string, limit?:
     return strings;
 }
 
+/** 
+ * The symbol used to implement custom `Objects.stringify()` behaviour
+ * for objects. See the {@link Stringifiable} interface.
+ */
+export const Stringify = Symbol('stringify');
+
+/** 
+ * Represents an object that has a custom {@link stringify}() implementation.
+ * potence defines a default `stringify()` implementation for {@link Object},
+ * {@link Array}, and {@link Function}. You can override these implementations
+ * with your own by defining a new {@link Stringify} function on those types'
+ * prototypes, or give your own types a custom {@link stringify}()
+ * implementation by implementing this interface.
+ * 
+ * ### On `toString()`
+ * Note that `toString()` is a default function of many objects and is used
+ * to convert an object into a meaningful textual form that can be understood
+ * by a user.
+ * 
+ * In contrast, the {@link Stringify} method is solely called by
+ * {@link stringify}() and is primarily intended to convert types to debug
+ * output that can be interpreted by a developer.
+ */
+export interface Stringifiable {
+    [Stringify](options: StringifyOptions): string;
+}
+
+Object.defineProperty(Object.prototype, Stringify, { value: function(this: object, options: StringifyOptions) {
+    const constructorName = typeof this === 'object' && this.constructor != null ? this.constructor.name : 'Object';
+
+    if (options.typesOnly) {
+        return constructorName;
+    }
+
+    let result: string = '';
+
+    if (!options.hideClasses && constructorName !== 'Object' && constructorName !== 'Array') {
+        result += constructorName + ' ';
+    }
+
+    if ((options.useToString ?? true) && this != null && typeof (this as ObjectLiteral)['toString'] === 'function') {
+        const string = (this as { toString(): string }).toString() as string;
+
+        if (!(string.startsWith('[object') && string.endsWith(']'))) {
+            if (result.length === 0) {
+                return string;
+            }
+
+            return result.concat(`{ ${string} }`);
+        }
+    }
+
+    const entries = Object.entries(this as object);
+
+    if (entries.length === 0) {
+        return '{}';
+    }
+
+    if (options.truncateContents === true) {
+        return result.concat('{ ... }');
+    }
+
+    const stringifiedElements = truncateAfter(entries,
+        element => `${element[0]}: ${stringify(element[1], options)}`,
+        typeof options.truncateContents === 'number' ? options.truncateContents : undefined);
+
+    return result.concat(`{ ${stringifiedElements.join(', ')} }`);
+} });
+
+// eslint-disable-next-line @typescript-eslint/ban-types
+Object.defineProperty(Function.prototype, Stringify, { value: function(this: Function, options: StringifyOptions) {
+    if (options.typesOnly) {
+        return 'function';
+    }
+
+    const string = this.toString();
+
+    const openingBraceIndex = string.indexOf('{');
+    const closingBraceIndex = openingBraceIndex === -1 ? -1 : string.indexOf('}');
+
+    if (openingBraceIndex === -1 || closingBraceIndex === -1 || !string.includes('\n')) {
+        return string;
+    }
+
+    return string.substring(0, openingBraceIndex) + '{ ... }';
+} });
+
+Object.defineProperty(Array.prototype, Stringify, { value: function(this: unknown[], options: StringifyOptions) {
+    if (options.typesOnly) {
+        const types = new Set(this.map(x => stringify(x, options)));
+
+        if (types.size === 0) {
+            types.add('unknown');
+        }
+
+        if (types.size === 1) {
+            return `${first(types)}[]`;
+        }
+
+        return `(${[...types].join(' | ')})[]`;
+    }
+
+    const prefix = this.constructor !== Array && !options.hideClasses ? this.constructor.name : '';
+
+    if (options.truncateContents === true && this.length !== 0) {
+        return `${prefix}[...]`;
+    }
+
+    const stringifiedElements = truncateAfter(this,
+        element => stringify(element, options),
+        typeof options.truncateContents === 'number' ? options.truncateContents : undefined);
+
+    return `${prefix}[${stringifiedElements.join(', ')}]`;
+} });
+
 /**
  * Converts an arbitrary value to string. See `StringifyOptions` for
  * information on how to customize this function.
  *
- * This function was primarily developed for the purposes of readable
+ * This function was primarily designed for the purposes of readable
  * and expressive debug output (for instance, the `assert` module
  * heavily utilizes it), but it can be used for other purposes as well.
+ * 
+ * If a type implements {@link Stringifiable} (which utilizes the
+ * {@link Stringify} symbol), it will be used to convert that type
+ * to a string representation here.
  */
 export function stringify(value: unknown, options: StringifyOptions = DEFAULT_OPTIONS): string {
     const replacerResult = options.replacer?.(value);
@@ -123,76 +244,12 @@ export function stringify(value: unknown, options: StringifyOptions = DEFAULT_OP
             return options.omitQuotes ? value : `"${value}"`;
         }
 
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        return value!.toString();
+        return value.toString();
     }
 
-    if (typeof value === 'function') {
-        if (options.typesOnly) {
-            return 'function';
-        }
-
-        const string = value.toString();
-
-        const openingBraceIndex = string.indexOf('{');
-        const closingBraceIndex = openingBraceIndex === -1 ? -1 : string.indexOf('}');
-
-        if (openingBraceIndex === -1 || closingBraceIndex === -1 || !string.includes('\n')) {
-            return string;
-        }
-
-        return string.substring(0, openingBraceIndex) + '{ ... }';
+    if (Objects.hasFunction(value, Stringify)) {
+        return value[Stringify](options) as string;
     }
 
-    const constructorName = typeof value === 'object' && value.constructor != null ? value.constructor.name : 'Object';
-
-    if (options.typesOnly) {
-        return constructorName;
-    }
-
-    let result: string = '';
-
-    if (!options.hideClasses && constructorName !== 'Object' && constructorName !== 'Array') {
-        result += constructorName + ' ';
-    }
-
-    if (Array.isArray(value)) {
-        if (options.truncateContents === true && value.length !== 0) {
-            return result.concat('[...]');
-        }
-
-        const stringifiedElements = truncateAfter(value,
-            element => stringify(element, options),
-            typeof options.truncateContents === 'number' ? options.truncateContents : undefined);
-
-        return result.concat(`[${stringifiedElements.join(', ')}]`);
-    }
-
-    if ((options.useToString ?? true) && value != null && typeof (value as ObjectLiteral)['toString'] === 'function') {
-        const string = (value as { toString(): string }).toString() as string;
-
-        if (!(string.startsWith('[object') && string.endsWith(']'))) {
-            if (result.length === 0) {
-                return string;
-            }
-
-            return result.concat(`{ ${string} }`);
-        }
-    }
-
-    const entries = Object.entries(value as object);
-
-    if (entries.length === 0) {
-        return '{}';
-    }
-
-    if (options.truncateContents === true) {
-        return result.concat('{ ... }');
-    }
-
-    const stringifiedElements = truncateAfter(entries,
-        element => `${element[0]}: ${stringify(element[1], options)}`,
-        typeof options.truncateContents === 'number' ? options.truncateContents : undefined);
-
-    return result.concat(`{ ${stringifiedElements.join(', ')} }`);
+    return JSON.stringify(value);
 }

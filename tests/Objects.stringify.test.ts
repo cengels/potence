@@ -97,7 +97,11 @@ describe('Objects.stringify() should', () => {
         it('print strings without quotes',
             () => expect(stringify(['hello', 'hello2'], { omitQuotes: true })).toBe('[hello, hello2]'));
         it('print type with typesOnly',
-            () => expect(stringify(['hello', 'hello2'], { typesOnly: true })).toBe('Array'));
+            () => expect(stringify(['hello', 'hello2'], { typesOnly: true })).toBe('string[]'));
+        it('print multiple types with typesOnly',
+            () => expect(stringify(['hello', 5, new Date()], { typesOnly: true })).toBe('(string | number | Date)[]'));
+        it('print unknown with typesOnly',
+            () => expect(stringify([], { typesOnly: true })).toBe('unknown[]'));
         it('print types of contents with primitiveTypesOnly',
             () => expect(stringify(['hello', 'hello2'], { primitiveTypesOnly: true })).toBe('[string, string]'));
         it('print custom array with prefix',
@@ -105,7 +109,7 @@ describe('Objects.stringify() should', () => {
             const customArray = new (class CustomArray extends Array {})();
             customArray.push(5);
 
-            return expect(stringify(customArray)).toBe('CustomArray [5]');
+            return expect(stringify(customArray)).toBe('CustomArray[5]');
         });
         it('print custom array without prefix if hideClasses is true',
         () => {
