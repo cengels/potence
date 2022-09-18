@@ -278,11 +278,15 @@ export function clone<T>(object: T, mode: RecursionMode = 'shallow'): T {
     const newObject: Partial<T> = {};
 
     // tslint:disable-next-line: forin
-    for (const key in object) {
+    for (const _key in object) {
         // We don't want to catch errors during the clone,
         // only during the write afterwards.
 
-        const clonedValue = mode === 'shallow' ? object[key] : clone(object[key], mode);
+        // Weird TypeScript bug where the _key variable
+        // has an incorrect type.
+        const key: keyof T = _key as keyof T;
+        const value = object[key];
+        const clonedValue = mode === 'shallow' ? value : clone(value, mode);
 
         newObject[key] = clonedValue;
     }
