@@ -1,61 +1,33 @@
+import { func } from '../fluent/matchers.js';
 import Option from './Option.js';
 import { stringify } from './stringify.js';
+import { structure, Structure } from './structure.js';
 
 /** 
  * Represents the result of an operation.
  * Possible values are `Success`, in which case the Result
  * contains a value, or `Failure`, in which case the Result
  * contains an error object or string.
+ * 
+ * Loosely inspired by Rust's
+ * [https://doc.rust-lang.org/std/result/enum.Result.html](Result)
+ * type.
  */
-export default class Result<T = void, TError extends Error | string = Error | string> {
-    private readonly value: T | TError;
-    private readonly success: boolean;
-
-    private constructor(value: TError, isSuccess: false);
-    private constructor(value: T, isSuccess: true);
-    private constructor(value: T | TError, isSuccess: boolean) {
-        this.value = value;
-        this.success = isSuccess;
-    }
-
+interface Result<T = void> {
     /** Returns `true` if the Result contains a success. */
-    public ok(): boolean {
-        return this.success;
-    }
-
+    ok(): boolean;
     /** Returns `true` if the Result contains a failure. */
-    public nok(): boolean {
-        return !this.success;
-    }
-
+    nok(): boolean;
     /** 
      * Gets the contained value if this Result represents a success,
      * otherwise throws the contained error.
      */
-    public unwrap(): T {
-        if (this.success) {
-            return this.value as T;
-        }
-
-        if (typeof this.value === 'string') {
-            throw new Error(this.value);
-        }
-
-        throw this.value;
-    }
-
+    unwrap(): T;
     /**
      * Gets the contained value if this Result represents a success,
      * otherwise returns the passed fallback value.
      */
-    public or(fallback: T): T {
-        if (this.success) {
-            return this.value as T;
-        }
-
-        return fallback;
-    }
-
+    or(fallback: T): T;
     /**
      * Maps this `Result<T>` to a `Result<U>` by applying a transformer
      * function on a successful value.
@@ -63,43 +35,51 @@ export default class Result<T = void, TError extends Error | string = Error | st
      * The transformer function can either return the new value directly or
      * another `Result` which contains either the new value or an error.
      */
-    public map<U, UError extends Error | string = TError>(mapFn: (value: T) => U | Result<U, UError>): Result<U, TError | UError> {
-        if (this.success) {
-            const result = mapFn(this.value as T);
+    map<U>(mapFn: (value: T) => U | Result<U>): Result<U>;
+    /** Converts this {@link Result}\<T> to an {@link Option}\<T>. */
+    toOption(): Option<T>;
+    /** Converts this {@link Result}\<T> to a string. */
+    toString(): string;
+}
 
-            if (result instanceof Result) {
-                return new Result<U, UError>(result.value as UError, result.success as false)
-            }
+const struct: Structure = {
+    ok: func(),
+    nok: func(),
+    unwrap: func(),
+    or: func(),
+    map: func(),
+    toOption: func(),
+    toString: func()
+}
 
-            return new Result<U, UError>(result, true);
-        }
-
-        return new Result(this.value as TError, false);
-    }
-
-    /** Converts this {@link Result}\<T, TError> to an {@link Option}\<T>. */
-    public toOption(): Option<T> {
-        return this.success ? new Option<T>(this.value as T) : new Option<T>();
-    }
-
-    public toString(): string {
-        if (this.success) {
-            return `Success(${stringify(this.value)})`;
-        }
-
-        return `Failure(${typeof this.value === 'string' ? this.value : (this.value as Error).message})`;
-    }
-
+namespace Result {
     /** Creates a new successful Result from a value. */
-    public static ok<TError extends Error | string = Error | string>(): Result<void, TError>;
-    public static ok<TError extends Error | string = Error | string, T = void>(value: T): Result<T, TError>;
-    public static ok<TError extends Error | string = Error | string, T = void>(value?: T): Result<T, TError> {
-        return new Result<T, TError>(value as unknown as T, true);
+    export function ok(): OkResult;
+    export function ok<T = void>(value: T): OkResult<T>;
+    export function ok<T = void>(value?: T): OkResult<T> {
+        return new OkResult<T>(value as T);
     }
 
     /** Creates a new failed Result from an error. */
-    public static nok<T = void, TError extends Error | string = Error | string>(error: TError): Result<T, TError> {
-        return new Result<T, TError>(error, false);
+    export function nok<T = void>(error: Error | string): ErrorResult<T> {
+        return new ErrorResult(error);
+    }
+
+    /** 
+     * Attempts to execute a callback and wraps its result in a new `Result`.
+     * The `Result` will contain an error if the callback threw an error.
+     * 
+     * Note that, if the callback throws a non-error value, it will be coerced
+     * to a string and wrapped in a new `Error`.
+     */
+    export function from<T>(callback: () => T): Result<T> {
+        try {
+            return Result.ok(callback());
+        } catch (e) {
+            const error = e instanceof Error ? e : new Error(stringify(e));
+
+            return Result.nok<T>(error);
+        }
     }
 
     /**
@@ -109,15 +89,15 @@ export default class Result<T = void, TError extends Error | string = Error | st
      * If any of the given `Result`s are failures, returns a new failed `Result`
      * with the given error.
      */
-    public static all<TError extends Error | string>(...args: [...results: Result[], error: TError]): Result<void, TError> {
-        if (args.length < 3) {
-            throw new Error(`Not enough arguments supplied to Result.all(). Expected at least 3 arguments but got: ${args.length}`);
+    export function all<TError extends Error | string>(...args: [...results: Result[], error: TError]): Result<void> {
+        if (args.length < 2) {
+            throw new Error(`Not enough arguments supplied to Result.all(). Expected at least 2 arguments but got: ${args.length}`);
         }
 
         const results = args.slice(0, -1) as Result[];
 
         if (results.every(result => result.ok())) {
-            return Result.ok<TError>();
+            return Result.ok();
         }
 
         const error = args[args.length - 1] as TError;
@@ -132,19 +112,118 @@ export default class Result<T = void, TError extends Error | string = Error | st
      * If all of the given `Result`s are failures, returns a new failed `Result`
      * with the given error.
      */
-    public static any<TError extends Error | string>(...args: [...results: Result[], error: TError]): Result<void, TError> {
-        if (args.length < 3) {
-            throw new Error(`Not enough arguments supplied to Result.all(). Expected at least 3 arguments but got: ${args.length}`);
+    export function any<TError extends Error | string>(...args: [...results: Result[], error: TError]): Result<void> {
+        if (args.length < 2) {
+            throw new Error(`Not enough arguments supplied to Result.all(). Expected at least 2 arguments but got: ${args.length}`);
         }
 
         const results = args.slice(0, -1) as Result[];
 
         if (results.some(result => result.ok())) {
-            return Result.ok<TError>();
+            return Result.ok();
         }
 
         const error = args[args.length - 1] as TError;
 
         return Result.nok(error);
     }
+
+    /** Returns `true` if the passed value is a `Result`. */
+    export function is<T>(value: unknown): value is Result<T>;
+    export function is(value: unknown): value is Result;
+    export function is<T>(value: unknown): value is Result<T> {
+        return structure(value, struct);
+    }
 }
+
+class OkResult<T = void> implements Result<T> {
+    private readonly value: T;
+
+    public constructor(value: T) {
+        this.value = value
+    }
+
+    public ok(): boolean {
+        return true;
+    }
+
+    public nok(): boolean {
+        return false;
+    }
+
+    public unwrap(): T {
+        return this.value;
+    }
+
+    public or(): T {
+        return this.value;
+    }
+
+    public map<U>(mapFn: (value: T) => U | Result<U>): Result<U> {
+        const result = mapFn(this.value as T);
+
+        if (Result.is(result)) {
+            return result;
+        }
+
+        return new OkResult<U>(result);
+    }
+
+    public toOption(): Option<T> {
+        return new Option<T>(this.value);
+    }
+
+    public toString(): string {
+        return `Success(${stringify(this.value)})`;
+    }
+}
+
+class ErrorResult<T = void> implements Result<T> {
+    private readonly error: Error;
+
+    public constructor(value: Error | string) {
+        this.error = value instanceof Error ? value : new Error(value);
+    }
+
+    public ok(): boolean {
+        return false;
+    }
+
+    public nok(): boolean {
+        return true;
+    }
+
+    public unwrap(): T {
+        throw this.error;
+    }
+
+    /**
+     * Gets the contained value if this Result represents a success,
+     * otherwise returns the passed fallback value.
+     */
+    public or(fallback: T): T {
+        return fallback;
+    }
+
+    /**
+     * Maps this `Result<T>` to a `Result<U>` by applying a transformer
+     * function on a successful value.
+     * 
+     * The transformer function can either return the new value directly or
+     * another `Result` which contains either the new value or an error.
+     */
+    public map<U>(): Result<U> {
+        return this as unknown as Result<U>;
+    }
+
+    /** Converts this {@link Result}\<T, TError> to an {@link Option}\<T>. */
+    public toOption(): Option<T> {
+        return new Option<T>();
+    }
+
+    public toString(): string {
+        return `Failure(${this.error.message})`;
+    }
+}
+
+export default Result;
