@@ -1,5 +1,5 @@
 import type { BaseType, Constructor, Predicate } from '../types.js';
-import { all, any, approximately, array, falsy, float, instanceOf, integer, keyOf, notNull, nullish, oneOf, truthy, type as isType, value as isValue, valueOf } from './matchers.js';
+import { every, any, approximately, array, falsy, float, func, instanceOf, integer, keyOf, notNull, nullish, oneOf, truthy, type as isType, value as isValue, valueOf } from './matchers.js';
 
 type ReturnType<T> = boolean | ((...objects: T[]) => boolean);
 
@@ -59,13 +59,15 @@ interface FluentIs<T, U extends ReturnType<T> = boolean> {
     approximately(comparedValue: number, tolerance?: number): U;
     /** @see {@link array} */
     array(): U;
+    /** @see {@link func} */
+    func(argumentCount?: number): U;
 }
 
 export type EagerFluentIs<T> = FluentIs<T, boolean>;
 export type LazyFluentIs<T> = FluentIs<T, (...objects: T[]) => boolean>;
 
 /** Whether every object must meet the condition. */
-let every: boolean = true;
+let _every: boolean = true;
 let not: boolean = false;
 let objects: unknown[] = [];
 
@@ -84,12 +86,12 @@ function evaluateLazy<T>(inverted: boolean, every: boolean, condition: Predicate
 function makeFluentIs<T, U extends ReturnType<T>>(evaluator: (matcher: Predicate<T>) => U): FluentIs<T, U> {
     return {
         any() {
-            every = false;
+            _every = false;
     
             return this;
         },
         every() {
-            every = true;
+            _every = true;
     
             return this;
         },
@@ -108,7 +110,7 @@ function makeFluentIs<T, U extends ReturnType<T>>(evaluator: (matcher: Predicate
             return evaluator(falsy());
         },
         matching(...matchers) {
-            return evaluator(all(...matchers));
+            return evaluator(every(...matchers));
         },
         matchingSome(...matchers) {
             return evaluator(any(...matchers));
@@ -145,19 +147,22 @@ function makeFluentIs<T, U extends ReturnType<T>>(evaluator: (matcher: Predicate
         },
         array(): U {
             return evaluator(array());
+        },
+        func(argumentCount?: number): U {
+            return evaluator(func(argumentCount as number));
         }
     }
 }
 
 /** @internal */
-export const fluentIs: EagerFluentIs<unknown> = makeFluentIs(matcher => evaluate(objects, not, every, matcher));
+export const fluentIs: EagerFluentIs<unknown> = makeFluentIs(matcher => evaluate(objects, not, _every, matcher));
 
 /** @internal */
-export const fluentIsLazy: LazyFluentIs<unknown> = makeFluentIs(matcher => evaluateLazy(not, every, matcher));
+export const fluentIsLazy: LazyFluentIs<unknown> = makeFluentIs(matcher => evaluateLazy(not, _every, matcher));
 
 /** @internal */
 export function set(objs: unknown[]): void {
-    every = true;
+    _every = true;
     not = false;
     objects = objs;
 }
