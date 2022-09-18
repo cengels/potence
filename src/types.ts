@@ -135,3 +135,8 @@ export type ExcludeProps<T, U> = Pick<T, { [K in keyof T]: T[K] extends U ? neve
  */
 export type Tuple<T, N extends number> = _TupleOf<T, N, []>;
 type _TupleOf<T, N extends number, R extends unknown[]> = R['length'] extends N ? R : _TupleOf<T, N, [T, ...R]>;
+
+/** 
+ * Represents a generic function with `N` parameters.
+ */
+export type Func<N extends number | unknown = unknown> = N extends number ? (...args: Tuple<unknown, N>) => unknown : (...args: unknown[]) => unknown;
