@@ -1,4 +1,5 @@
 import { Constructor, Equatable } from '../types.js';
+import Lazy from './Lazy.js';
 import { hasFunction, hasProperty, isEquatable, isObject, isObjectLiteral, isPrimitive } from './typechecking.js';
 
 type RecursionMode = 'shallow' | 'deep';
@@ -292,6 +293,20 @@ export function clone<T>(object: T, mode: RecursionMode = 'shallow'): T {
     }
 
     return newObject as T;
+}
+
+/** 
+ * Returns a new lazily evaluated value.
+ * 
+ * Internally, this function simply calls the {@link Lazy} constructor.
+ * If you'd prefer to use a `new` expression like `new Lazy(...)`,
+ * you can use the {@link Lazy} class directly.
+ * 
+ * @param valueCallback A callback that is executed to retrieve a value
+ * when it is requested for the first time.
+ */
+export function lazy<T>(valueCallback: () => T): Lazy<T> {
+    return new Lazy(valueCallback);
 }
 
 export * from './stringify.js';

@@ -3,11 +3,11 @@
  * when it is first retrieved.
  */
 export default class Lazy<T> {
-    private value?: T;
-    private readonly callback: () => T;
+    private value: T | (() => T);
+    private evaluated: boolean = false;
 
     public constructor(callback: () => T) {
-        this.callback = callback;
+        this.value = callback;
     }
 
     /** 
@@ -15,10 +15,11 @@ export default class Lazy<T> {
      * If it has not yet been evaluated, this function will evaluate it.
      */
     public get(): T {
-        if (this.value == null) {
-            this.value = this.callback();
+        if (!this.evaluated) {
+            this.value = (this.value as () => T)();
+            this.evaluated = true;
         }
 
-        return this.value;
+        return this.value as T
     }
 }
