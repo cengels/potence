@@ -129,3 +129,9 @@ export type HexChar = '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' 
  * This type does not currently work well with union or inherited types.
  */
 export type ExcludeProps<T, U> = Pick<T, { [K in keyof T]: T[K] extends U ? never : K }[keyof T]>
+
+/** 
+ * Represents a tuple with exactly `N` elements.
+ */
+export type Tuple<T, N extends number> = _TupleOf<T, N, []>;
+type _TupleOf<T, N extends number, R extends unknown[]> = R['length'] extends N ? R : _TupleOf<T, N, [T, ...R]>;
