@@ -77,13 +77,18 @@ export function hasProperty<
     return (type == null || is(object[propertyName], type as any));
 }
 
-type Func = (...args: unknown[]) => unknown;
-
 /**
- * Checks if an object has a function with the specified name and optionally the specified number of arguments.
+ * Checks if an object has a function with the specified name
+ * and optionally the specified number of arguments.
+ * 
+ * Note that `argumentCount` corresponds to the function's *formal parameters*,
+ * i.e. the exact number of parameters defined in the function signature,
+ * excluding any rest parameters. This also includes *optional* parameters.
  */
 // eslint-disable-next-line @typescript-eslint/ban-types
-export function hasFunction<T extends string | number | symbol>(source: unknown, functionName: T, argumentCount?: number): source is HasProperty<T, Func> {
+export function hasFunction<T extends string | number | symbol>(source: unknown, functionName: T): source is HasProperty<T, Func>;
+export function hasFunction<T extends string | number | symbol, N extends number>(source: unknown, functionName: T, argumentCount: N): source is HasProperty<T, Func<N>>;
+export function hasFunction<T extends string | number | symbol, N extends number>(source: unknown, functionName: T, argumentCount?: N): source is HasProperty<T, Func<N>> {
     return source != null
         && typeof (source as ObjectLiteral)[functionName] === 'function'
         && (argumentCount == null
