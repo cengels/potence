@@ -1,4 +1,4 @@
-import { ObjectLiteral, BaseType, Constructor, BaseToType, Equatable, primitive } from '../types';
+import { ObjectLiteral, BaseType, Constructor, BaseToType, Equatable, primitive, Func } from '../types';
 
 /** 
  * Checks if the passed object is of the specified type.
@@ -94,4 +94,34 @@ export function hasFunction<T extends string | number | symbol, N extends number
         && (argumentCount == null
             // eslint-disable-next-line @typescript-eslint/ban-types
             || ((source as ObjectLiteral)[functionName] as Function).length === argumentCount);
+}
+
+/** 
+ * Attempts to cast the object to the specified type. If the object is assignable
+ * to the type, returns the object, otherwise returns `undefined`.
+ */
+export function cast<T>(object: unknown, type: Constructor<T>): T | undefined;
+export function cast<TTypeOf extends BaseType>(object: unknown, type: TTypeOf): BaseToType<TTypeOf> | undefined;
+export function cast(object: unknown, type: BaseType | Constructor): unknown | undefined {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    if (is(object, type as any)) {
+        return object;
+    }
+
+    return undefined;
+}
+
+/** 
+ * Attempts to cast the object to the specified type. If the object is assignable
+ * to the type, returns the object, otherwise throws an error.
+ */
+export function hardCast<T>(object: unknown, type: Constructor<T>): T;
+export function hardCast<TTypeOf extends BaseType>(object: unknown, type: TTypeOf): BaseToType<TTypeOf>;
+export function hardCast(object: unknown, type: BaseType | Constructor): unknown {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    if (is(object, type as any)) {
+        return object;
+    }
+
+    throw new Error(`Cast failed. ${object} is not assignable to type ${type}.`);
 }
