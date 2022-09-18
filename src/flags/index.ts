@@ -1,6 +1,6 @@
 function throwOnInvalidFlag(value: number): void | never {
-    if (value <= 0 || !Number.isInteger(value) || Number.isNaN(value) || !Number.isFinite(value)) {
-        throw new Error(`Invalid flag value. Flags must be non-zero positive integers.`);
+    if (value < 0 || !Number.isInteger(value) || Number.isNaN(value) || !Number.isFinite(value)) {
+        throw new Error(`Invalid flag value. Flags must be positive integers.`);
     }
 }
 
