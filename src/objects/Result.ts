@@ -197,26 +197,14 @@ class ErrorResult<T = void> implements Result<T> {
         throw this.error;
     }
 
-    /**
-     * Gets the contained value if this Result represents a success,
-     * otherwise returns the passed fallback value.
-     */
     public or(fallback: T): T {
         return fallback;
     }
 
-    /**
-     * Maps this `Result<T>` to a `Result<U>` by applying a transformer
-     * function on a successful value.
-     * 
-     * The transformer function can either return the new value directly or
-     * another `Result` which contains either the new value or an error.
-     */
     public map<U>(): Result<U> {
         return this as unknown as Result<U>;
     }
 
-    /** Converts this {@link Result}\<T, TError> to an {@link Option}\<T>. */
     public toOption(): Option<T> {
         return new Option<T>();
     }
