@@ -30,6 +30,10 @@ export default class List<T> extends Array<T> implements ReadonlyList<T> {
         return Arrays.last(this);
     }
 
+    public lastIndex(): number {
+        return Arrays.lastIndex(this);
+    }
+
     public isInBounds(index: number): boolean {
         return Arrays.isInBounds(this, index);
     }
@@ -44,8 +48,16 @@ export default class List<T> extends Array<T> implements ReadonlyList<T> {
         return Arrays.hasElementAt(this, index);
     }
 
+    public nextIndex(fromIndex: number): number {
+        return Arrays.nextIndex(this, fromIndex);
+    }
+
     public next(fromIndex: number): T | undefined {
         return Arrays.next(this, fromIndex);
+    }
+
+    public previousIndex(fromIndex: number): number {
+        return Arrays.previousIndex(this, fromIndex);
     }
 
     public previous(fromIndex: number): T | undefined {

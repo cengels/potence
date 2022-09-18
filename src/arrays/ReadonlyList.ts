@@ -24,6 +24,12 @@ export default interface ReadonlyList<T> extends ReadonlyArray<T> {
     /** Gets the first element in the list, or undefined if the list is empty. */
     first(): T | undefined;
 
+    /**
+     * Gets the index of the last element in the list,
+     * or `-1` if the list contains no elements.
+     */
+    lastIndex(): number;
+
     /** Gets the last element in the list, or undefined if the list is empty. */
     last(): T | undefined;
 
@@ -45,16 +51,30 @@ export default interface ReadonlyList<T> extends ReadonlyArray<T> {
     hasElementAt(index: number): boolean;
 
     /**
+     * Gets the index of the next element in the list, starting at the given index.
+     * If the index belongs to the last element in the list, returns the index of
+     * the first element. Returns `-1` if the given index is out of bounds.
+     */
+    nextIndex(fromIndex: number): number;
+
+    /**
      * Gets the next element in the list, starting at the given index. If the index belongs to the
      * last element in the list, returns the first element. Returns undefined if the given index
-     * is out of bounds or if there is only one element in the list.
+     * is out of bounds.
      */
     next(fromIndex: number): T | undefined;
 
     /**
+     * Gets the index of the previous element in the list, starting at the given
+     * index. If the index belongs to the first element in the list, returns the
+     * index of the last element. Returns `-1` if the given index is out of bounds.
+     */
+    previousIndex(fromIndex: number): number;
+
+    /**
      * Gets the previous element in the list, starting at the given index. If the index belongs to the
      * first element in the list, returns the last element. Returns undefined if the given index
-     * is out of bounds or if there is only one element in the array.
+     * is out of bounds.
      */
     previous(fromIndex: number): T | undefined;
 

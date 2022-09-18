@@ -70,6 +70,24 @@ export function first<T>(iterable: Iterable<T>): T | undefined {
 }
 
 /**
+ * Gets the index of the last element in the iterable,
+ * or `-1` if the iterable contains no elements.
+ */
+export function lastIndex<T>(iterable: Iterable<T>): number {
+    if (Array.isArray(iterable)) {
+        return iterable.length - 1;
+    }
+
+    let i: number = -1;
+
+    for (const _ of iterable) {
+        i++;
+    }
+
+    return i;
+}
+
+/**
  * Gets the last element in the iterable,
  * or undefined if the iterable contains no elements.
  */
@@ -115,37 +133,55 @@ export function hasElementAt(array: readonly unknown[], index: number): boolean 
 }
 
 /**
+ * Gets the index of the next element in the array, starting at the given index.
+ * If the index belongs to the last element in the array, returns the index of
+ * the first element. Returns `-1` if the given index is out of bounds.
+ */
+export function nextIndex(array: readonly unknown[], fromIndex: number): number {
+    if (!isInBounds(array, fromIndex)) {
+        return -1;
+    }
+
+    if (fromIndex === array.length - 1) {
+        return 0;
+    }
+
+    return fromIndex + 1;
+}
+
+/**
  * Gets the next element in the array, starting at the given index. If the index belongs to the
  * last element in the array, returns the first element. Returns undefined if the given index
- * is out of bounds or if there is only one element in the array.
+ * is out of bounds.
  */
 export function next<T>(array: readonly T[], fromIndex: number): T | undefined {
+    return array[nextIndex(array, fromIndex)];
+}
+
+/**
+ * Gets the index of the previous element in the array, starting at the given
+ * index. If the index belongs to the first element in the array, returns the
+ * index of the last element. Returns `-1` if the given index is out of bounds.
+ */
+export function previousIndex(array: readonly unknown[], fromIndex: number): number {
     if (!isInBounds(array, fromIndex)) {
-        return undefined;
+        return -1;
     }
 
-    if (!isInBounds(array, fromIndex + 1) && fromIndex !== 0) {
-        return array[0];
+    if (fromIndex === 0) {
+        return array.length - 1;
     }
 
-    return array[fromIndex + 1];
+    return fromIndex - 1;
 }
 
 /**
  * Gets the previous element in the array, starting at the given index. If the index belongs to the
  * first element in the array, returns the last element. Returns undefined if the given index
- * is out of bounds or if there is only one element in the array.
+ * is out of bounds.
  */
 export function previous<T>(array: readonly T[], fromIndex: number): T | undefined {
-    if (!isInBounds(array, fromIndex)) {
-        return undefined;
-    }
-
-    if (!isInBounds(array, fromIndex - 1) && fromIndex !== array.length - 1) {
-        return array[array.length - 1];
-    }
-
-    return array[fromIndex - 1];
+    return array[previousIndex(array, fromIndex)];
 }
 
 /** Returns true if the given array is empty, otherwise false. */
