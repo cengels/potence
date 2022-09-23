@@ -39,6 +39,11 @@ export default class Stack<T> {
         return last;
     }
 
+    /** Gets the number of elements in the Stack. */
+    public get size(): number {
+        return this.array.length;
+    }
+
     /**
      * Returns the topmost element without removing it from the Stack.
      * If the Stack is empty, returns `undefined`.

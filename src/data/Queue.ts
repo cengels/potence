@@ -14,7 +14,7 @@ const QUEUE_BUFFER_SIZE = 24 as const;
  * This type is implemented using a
  * [circular buffer](https://en.wikipedia.org/wiki/Circular_buffer).
  * This makes the performance on most operations O(1). The only exception
- * is when a new element is to be added, but the internal buffer is already
+ * is when a new element is to be added while the internal buffer is already
  * at capacity, in which case the buffer must first be resized.
  * Resizing does carry some performance penalty with it but is generally fast
  * enough not to be a concern for most code. If it is, however, you may use
@@ -25,9 +25,15 @@ export default class Queue<T> {
     private readonly array: (T | typeof Empty)[];
     private start: number = 0;
     private end: number;
+    #size: number = 0;
 
     /** 
      * Constructs a new Queue.
+     * 
+     * The initial size of the Queue will always be larger than the number
+     * of elements added here during construction. If no elements are added,
+     * the initial size of the Queue will be `24`. To instantiate a Queue
+     * with a bigger base size, use {@link Queue.withCapacity}().
      * 
      * @param elements Initial elements to add to the Queue.
      */
@@ -42,6 +48,7 @@ export default class Queue<T> {
         }
 
         this.array = elements;
+        this.#size = elements.length;
         this.end = elements.length - 1;
 
         this.#expand();
@@ -57,6 +64,70 @@ export default class Queue<T> {
         queue.#expand(capacity);
 
         return queue;
+    }
+
+    /**
+     * Adds an element to the back of the Queue. This is an O(1) operation,
+     * unless the queue is at capacity, in which case it has to be resized
+     * first.
+     */
+    public enqueue(element: T): this {
+        const previousEnd = previousIndex(this.array, this.end);
+
+        if (this.start === previousEnd) {
+            this.#expand();
+        }
+
+        this.start = previousIndex(this.array, this.start);
+
+        this.array[this.start] = element;
+
+        this.#size++;
+
+        return this;
+    }
+
+    /**
+     * Removes the frontmost element from the Queue and returns it.
+     * 
+     * This function will throw an error if the Queue is empty.
+     */
+    public dequeue(): T {
+        if (this.isEmpty()) {
+            throw new Error('Can\'t dequeue(): Queue is empty.');
+        }
+
+        const previousEnd = previousIndex(this.array, this.end);
+
+        const head = this.array[this.end];
+        this.array[this.end] = Empty;
+        this.end = previousEnd;
+
+        this.#size--;
+
+        return head as T;
+    }
+
+    /**
+     * Returns the frontmost element without removing it from the Queue.
+     * If the Queue is empty, returns `undefined`.
+     */
+    public peek(): T | undefined {
+        if (this.isEmpty()) {
+            return undefined;
+        }
+
+        return this.array[this.end] as T;
+    }
+
+    /** Gets the number of elements in this Queue. */
+    public get size(): number {
+        return this.#size;
+    }
+
+    /** Returns `true` if the Queue is empty, otherwise `false`. */
+    public isEmpty(): boolean {
+        return this.start === this.end;
     }
 
     /** 
@@ -87,60 +158,5 @@ export default class Queue<T> {
 
             this.start += lengthDifference;
         }
-    }
-
-    /**
-     * Adds an element to the back of the Queue. This is an O(1) operation,
-     * unless the queue is at capacity, in which case it has to be resized
-     * first.
-     */
-    public enqueue(element: T): this {
-        const previousEnd = previousIndex(this.array, this.end);
-
-        if (this.start === previousEnd) {
-            this.#expand();
-        }
-
-        this.start = previousIndex(this.array, this.start);
-
-        this.array[this.start] = element;
-
-        return this;
-    }
-
-    /**
-     * Removes the frontmost element from the Queue and returns it.
-     * 
-     * This function will throw an error if the Queue is empty.
-     */
-    public dequeue(): T {
-        if (this.isEmpty()) {
-            throw new Error('Can\'t dequeue(): Queue is empty.');
-        }
-
-        const previousEnd = previousIndex(this.array, this.end);
-
-        const head = this.array[this.end];
-        this.array[this.end] = Empty;
-        this.end = previousEnd;
-
-        return head as T;
-    }
-
-    /**
-     * Returns the frontmost element without removing it from the Queue.
-     * If the Queue is empty, returns `undefined`.
-     */
-    public peek(): T | undefined {
-        if (this.start === this.end) {
-            return undefined;
-        }
-
-        return this.array[this.end] as T;
-    }
-
-    /** Returns true if the Queue is empty. */
-    public isEmpty(): boolean {
-        return this.start === this.end;
     }
 }
