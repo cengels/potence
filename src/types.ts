@@ -140,3 +140,36 @@ type _TupleOf<T, N extends number, R extends unknown[]> = R['length'] extends N 
  * Represents a generic function with `N` parameters.
  */
 export type Func<N extends number | unknown = unknown> = N extends number ? (...args: Tuple<unknown, N>) => unknown : (...args: unknown[]) => unknown;
+
+/**
+ * Represents the approximate JSON type of `T`.
+ * 
+ * This type can be used to convert any type into the type it will be converted
+ * to when calling `JSON.parse(JSON.stringify(object))`.
+ * 
+ * Note that this type considers any non-function public properties enumerable
+ * and includes them in the output. Private properties are missing, even if
+ * they will also be serialized by `JSON.stringify()`. By the same token, any
+ * properties that are marked as non-enumerable during runtime will still be
+ * contained in the output type.
+ * 
+ * To remedy this, you can add an explicit `toJSON()` function to your type,
+ * whose return value will then be used to find its corresponding JSON
+ * property type.
+ * 
+ * @example
+ * type JsonString = Json<string>    // -> string
+ * type JsonDate = Json<Date>        // -> string
+ * type JsonList = Json<List<Date>>  // -> string[]
+ * 
+ * const o = { num: 5, func() {}, d: new Date() };
+ * function toJSON<T>(obj: T): Json<T> {
+ *    throw new Error('Not implemented.');
+ * }
+ * toJSON(o);  // -> { num: number, obj: string }
+ */
+export type Json<T> = T extends { toJSON(): infer U } ? Json<U>
+    : T extends primitive ? T
+    : T extends [...(infer U)[]] ? { [K in keyof T]: Json<U> }
+    : T extends () => void ? never
+    : { [K in keyof ExcludeProps<T, () => void>]: Json<T[K]> };
