@@ -1,4 +1,5 @@
 import * as Arrays from '../arrays/index.js';
+import { swap } from '../objects/index.js';
 import type { BaseType, Constructor, Nullable, Predicate } from '../types.js';
 import type { SortFunction, SortOrder, TransformTo1DArray } from './index.js';
 import type ReadonlyList from './ReadonlyList.js';
@@ -221,6 +222,13 @@ export default class List<T> extends Array<T> implements ReadonlyList<T> {
     /** Removes all null or undefined elements from the list and returns it. */
     public clearNull(): this {
         Arrays.clearNull(this);
+
+        return this;
+    }
+
+    /** Swaps the elements at the specified indices. */
+    public swap(index1: number, index2: number): this {
+        swap(this, index1, index2);
 
         return this;
     }
