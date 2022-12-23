@@ -26,7 +26,7 @@ export function compare(a: Date | number, b: Date | number): CompareResult {
  * returns a new {@link Date} representing the result.
  */
 export function add(a: Date, b: Duration): Date {
-    return new Date(a.getTime() + b.totalMilliseconds);
+    return new Date(a.getTime() + b.totalMilliseconds());
 }
 
 /** 
@@ -34,7 +34,7 @@ export function add(a: Date, b: Duration): Date {
  * returns a new {@link Date} representing the result.
  */
 export function sub(a: Date, b: Duration): Date {
-    return new Date(a.getTime() - b.totalMilliseconds);
+    return new Date(a.getTime() - b.totalMilliseconds());
 }
 
 export { Duration };
