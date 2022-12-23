@@ -1,19 +1,85 @@
+import { splice } from '../strings';
+import { Equatable } from '../types';
+
 const NUM_MILLISECONDS = 1000 as const;
 const NUM_SECONDS = 60 as const;     // 60 * 1000
 const NUM_MINUTES = 60 as const;     // 60 * 1000
 const NUM_HOURS = 24 as const;    // 60 * 60 * 1000
-const NUM_DAYS = 7 as const;    // 24 * 60 * 60 * 1000
 const FACTOR_SECONDS = 1000 as const;
 const FACTOR_MINUTES = 60_000 as const;     // 60 * 1000
 const FACTOR_HOURS = 3_600_000 as const;    // 60 * 60 * 1000
 const FACTOR_DAYS = 86_400_000 as const;    // 24 * 60 * 60 * 1000
-const FACTOR_WEEKS = 604_800_000 as const;  // 7 * 24 * 60 * 60 * 1000
+const FACTORS = [1, 1, FACTOR_DAYS, FACTOR_HOURS, FACTOR_MINUTES, FACTOR_SECONDS, 1] as const;
+const DURATION_REGEX = /^((?:(\d*):)?(?:(\d*):)?(\d*):(\d{1,2})(?:\.(\d{3}))?)$/;
+const FORMAT_REGEX = /[dD]+|[hH]+|[mM]+|[sS]+|0+/g;
 
-/** Represents a span of time. */
-export default class Duration {
+export interface UnitsStringOptions {
+    /** The amount of whitespace after each unit specifier. Default is `0`. */
+    spaces: number;
+    /** 
+     * Whether to include the number of milliseconds in the output or not, if
+     * there are more than 0 ms remaining. Default is `true`.
+     */
+    includeMilliseconds: boolean;
+}
+
+const DEFAULT_UNITS_STRING_OPTIONS: UnitsStringOptions = {
+    spaces: 0,
+    includeMilliseconds: true
+}
+
+function parseDurationString(string: string): number {
+    const result = DURATION_REGEX.exec(string);
+
+    if (result == null) {
+        throw new Error('Malformed duration string: ' + string);
+    }
+
+    let ms = 0;
+    
+    for (let i: number = result.length - 1; i > 1; i--) {
+        const componentText = result[i];
+
+        if (componentText != null) {
+            const component = Number(componentText);
+            
+            if (Number.isNaN(component)) {
+                throw new Error('Malformed duration string: ' + string);
+            }
+
+            const factor = FACTORS[i];
+            ms += component * factor;
+        }
+    }
+
+    return ms;
+}
+
+/** 
+ * Represents a span of time.
+ * 
+ * The smallest unit of time that may be represented by this class is
+ * milliseconds.
+ */
+export default class Duration implements Equatable {
     private readonly value: number;
 
-    private constructor(ms: number = 0) {
+    /** 
+     * Parses a Duration from a duration string in the format of
+     * `ww:dd:hh:mm:ss.ms`. Note that the only required components are `mm:ss`,
+     * the other components are optional.
+     */
+    public constructor(ms: string);
+    /**
+     * Creates a new Duration instance from the given number of milliseconds.
+     * This function is identical to {@link Duration.fromMilliseconds}();
+     */
+    public constructor(ms: number);
+    public constructor(ms: number | string) {
+        if (typeof ms === 'string') {
+            ms = parseDurationString(ms);
+        }
+
         if (ms < 0) {
             throw new Error(`Negative durations are not supported (ms: ${ms}).`);
         }
@@ -21,82 +87,69 @@ export default class Duration {
         this.value = ms;
     }
 
-    /** Gets the number of milliseconds in this {@link Duration}. */
-    public get milliseconds(): number {
+    /** Gets the total fractional number of milliseconds in this {@link Duration}. */
+    public totalMilliseconds(): number {
         return this.value;
     }
 
-    /** Gets the number of seconds in this {@link Duration}. */
-    public get seconds(): number {
+    /** Gets the total fractional number of seconds in this {@link Duration}. */
+    public totalSeconds(): number {
         return this.value / FACTOR_SECONDS;
     }
     
-    /** Gets the number of minutes in this {@link Duration}. */
-    public get minutes(): number {
+    /** Gets the total fractional number of minutes in this {@link Duration}. */
+    public totalMinutes(): number {
         return this.value / FACTOR_MINUTES;
     }
     
-    /** Gets the number of hours in this {@link Duration}. */
-    public get hours(): number {
+    /** Gets the total fractional number of hours in this {@link Duration}. */
+    public totalHours(): number {
         return this.value / FACTOR_HOURS;
     }
     
-    /** Gets the number of days in this {@link Duration}. */
-    public get days(): number {
+    /** Gets the total fractional number of days in this {@link Duration}. */
+    public totalDays(): number {
         return this.value / FACTOR_DAYS;
     }
-    
-    /** Gets the number of weeks in this {@link Duration}. */
-    public get weeks(): number {
-        return this.value / FACTOR_WEEKS;
+
+    /** 
+     * Gets the milliseconds component of this {@link Duration} as an integral
+     * number between `0` and `999`.
+     */
+    public milliseconds(): number {
+        return Math.floor(this.totalMilliseconds() % NUM_MILLISECONDS);
     }
 
     /** 
-     * Gets the remaining number of milliseconds in this {@link Duration}
-     * after all larger units have been subtracted.
+     * Gets the seconds component of this {@link Duration} as an integral
+     * number between `0` and `59`.
      */
-    public remainingMilliseconds(): number {
-        return this.milliseconds % NUM_MILLISECONDS;
-    }
-
-    /** 
-     * Gets the remaining number of seconds in this {@link Duration}
-     * after all larger units have been subtracted.
-     */
-    public remainingSeconds(): number {
-        return this.seconds % NUM_SECONDS;
+    public seconds(): number {
+        return Math.floor(this.totalSeconds() % NUM_SECONDS);
     }
     
     /** 
-     * Gets the remaining number of minutes in this {@link Duration}
-     * after all larger units have been subtracted.
+     * Gets the minutes component of this {@link Duration} as an integral
+     * number between `0` and `999`.
      */
-    public remainingMinutes(): number {
-        return this.minutes % NUM_MINUTES;
+    public minutes(): number {
+        return Math.floor(this.totalMinutes() % NUM_MINUTES);
     }
     
     /** 
-     * Gets the remaining number of hours in this {@link Duration}
-     * after all larger units have been subtracted.
+     * Gets the hours component of this {@link Duration} as an integral
+     * number between `0` and `23`.
      */
-    public remainingHours(): number {
-        return this.hours % NUM_HOURS;
+    public hours(): number {
+        return Math.floor(this.totalHours() % NUM_HOURS);
     }
     
     /** 
-     * Gets the remaining number of days in this {@link Duration}
-     * after all larger units have been subtracted.
+     * Gets the days component of this {@link Duration} as an integral
+     * number.
      */
-    public remainingDays(): number {
-        return this.days % NUM_DAYS;
-    }
-    
-    /** 
-     * Gets the remaining number of weeks in this {@link Duration}
-     * after all larger units have been subtracted.
-     */
-    public remainingWeeks(): number {
-        return this.weeks;
+    public days(): number {
+        return Math.floor(this.totalDays());
     }
 
     /** Adds the given {@link Duration} to a copy of this duration. */
@@ -109,44 +162,93 @@ export default class Duration {
         return new Duration(this.value - duration.value);
     }
 
+    /** Multiplies this {@link Duration} by the given factor. */
+    public multiply(by: number): Duration {
+        return new Duration(this.value * by);
+    }
+
+    /** Divides this {@link Duration} by the given factor. */
+    public divide(by: number): Duration {
+        return new Duration(this.value / by);
+    }
+
+    public equals(duration: unknown): boolean {
+        return duration instanceof Duration
+            && duration.value === this.value;
+    }
+
     /**
-     * Returns a string representation of this {@link Duration}.
-     * Use separator `"unit"` to get a string in the format of
-     * `"4m53s"` or `"unit "` for `"4m 53s"`.
+     * Returns a string representation of this {@link Duration}, for example
+     * `03:20:15.000`.
+     * 
+     * See {@link toUnitsString}() for a format like `2h54s`.
+     * 
+     * @param format The format to use. Is `dd:hh:mm:ss.000` by default
+     * where `000` stands for the number of milliseconds. The number of repeated
+     * characters indicates the number of leading zeroes.
+     * Placeholders that evaluate to `0` are automatically omitted at the front
+     * of the string.
      */
-    public toString(separator: string = ':'): string {
-        const weeks = Math.floor(this.remainingWeeks());
-        const days = Math.floor(this.remainingDays());
-        const hours = Math.floor(this.remainingHours());
-        const minutes = Math.floor(this.remainingMinutes());
-        const seconds = Math.floor(this.remainingSeconds());
-        const isUnit = separator.includes('unit');
+    public toString(format: string = 'dd:hh:mm:ss.000'): string {
+        let result = format;
+        let offset = 0;
+        let isFirst = true;
 
-        function sep(unit: 'w' | 'd' | 'h' | 'm' | 's' | 'ms'): string {
-            if (isUnit) {
-                return separator.replace('unit', unit);
+        for (const match of format.matchAll(FORMAT_REGEX)) {
+            const letter = match[0][0].toLowerCase();
+            const length = match[0].length;
+            let value: number;
+
+            switch (letter) {
+                case 'd': value = isFirst ? this.totalDays() : this.days(); break;
+                case 'h': value = isFirst ? this.totalHours() : this.hours(); break;
+                case 'm': value = isFirst ? this.totalMinutes() : this.minutes(); break;
+                case 's': value = isFirst ? this.totalSeconds() : this.seconds(); break;
+                case '0': value = isFirst ? this.totalMilliseconds() : this.milliseconds(); break;
+                default: throw new Error('Invalid format.');
             }
-            
-            if (unit === 's' || unit === 'ms') {
-                return '';
+
+            if (isFirst) {
+                isFirst = false;
+                value = Math.floor(value);
             }
 
-            return separator;
-        }
+            if (match.index == null) {
+                throw new Error('Unknown error.');
+            }
 
-        if (weeks > 0) {
-            return `${weeks}${sep('w')}${days}${sep('d')}${hours}${sep('h')}${minutes}${sep('m')}${seconds}${sep('s')}`;
+            const replacement = value.toFixed(0).padStart(length, '0');
+            result = splice(result, match.index + offset, length, replacement);
+            offset += replacement.length - length;
         }
+        
+        return result;
+    }
 
-        if (days > 0) {
-            return `${days}${sep('d')}${hours}${sep('h')}${minutes}${sep('m')}${seconds}${sep('s')}`;
-        }
+    /** 
+     * Returns a string representation of this {@link Duration}
+     * in the format of `1w2d3h4m5s6ms` where empty components are
+     * omitted.
+     * 
+     * @param spaces Sets the amount of whitespace after each unit
+     * identifier. Default is `0`.
+     */
+    public toUnitsString(options: UnitsStringOptions = DEFAULT_UNITS_STRING_OPTIONS): string {
+        const spacesString = ''.padEnd(options.spaces, '0');
 
-        if (hours > 0) {
-            return `${hours}${sep('h')}${minutes}${sep('m')}${seconds}${sep('s')}`;
-        }
+        return [
+            { unit: 'd', value: Math.floor(this.days()) },
+            { unit: 'h', value: Math.floor(this.hours()) },
+            { unit: 'm', value: Math.floor(this.minutes()) },
+            { unit: 's', value: Math.floor(this.seconds()) },
+            { unit: 'ms', value: options.includeMilliseconds ? Math.floor(this.milliseconds()) : 0 }
+        ].reduce((string, component) => {
+            if (component.value > 0) {
+                return string + component.value + component.unit + spacesString;
+            }
 
-        return `${minutes}${sep('m')}${seconds}${sep('s')}`;
+            return string;
+         }, '');
     }
 
     /** 
@@ -182,37 +284,6 @@ export default class Duration {
      */
     public static fromDays(value: number): Duration {
         return new Duration(value * FACTOR_DAYS);
-    }
-
-    /** 
-     * Creates a new {@link Duration} from a number of weeks.
-     */
-    public static fromWeeks(value: number): Duration {
-        return new Duration(value * FACTOR_WEEKS);
-    }
-
-    /** Adds a duration to a {@link Date}. */
-    public static add(a: Date, b: Duration): Date;
-    /** Adds a duration to a duration. */
-    public static add(a: Duration, b: Duration): Duration;
-    public static add(a: Date | Duration, b: Duration): Date | Duration {
-        if (a instanceof Date) {
-            return new Date(a.getTime() + b.value);
-        }
-
-        return a.add(b);
-    }
-
-    /** Subtracts a duration from a {@link Date}. */
-    public static sub(a: Date, b: Duration): Date;
-    /** Subtracts a duration from a duration. */
-    public static sub(a: Duration, b: Duration): Duration;
-    public static sub(a: Date | Duration, b: Duration): Date | Duration {
-        if (a instanceof Date) {
-            return new Date(a.getTime() - b.value);
-        }
-
-        return a.sub(b);
     }
 
     /** 
