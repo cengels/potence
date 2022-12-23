@@ -47,6 +47,15 @@ export function splitAt(string: string, ...indexes: number[]): string[] {
 }
 
 /**
+ * Replaces a segment of the string by cutting out a segment of the string
+ * defined by `index` and `length`, and inserting `replaceWith` in its place
+ * (if specified).
+ */
+export function splice(string: string, index: number, length: number, replaceWith: string = ''): string {
+    return string.slice(0, index) + replaceWith + string.slice(index + length);
+}
+
+/**
  * Removes all of the given substrings from the string.
  */
 export function strip(from: string, ...what: string[]): string {
