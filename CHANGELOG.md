@@ -5,6 +5,38 @@ be breaking changes. Before 1.0.0, these changes will **not be announced** and
 will only be documented in this file, so please make sure to read it thoroughly
 if you wish to upgrade.
 
+## [0.7.0](https://github.com/cengels/potence/compare/0.6.0...0.7.0) - Unreleased
+
+### Arrays and Iterables
+
+- **Added**: [`Stack`](https://cengels.github.io/potence/arrays/Stack)
+- **Added**: [`Queue`](https://cengels.github.io/potence/arrays/Queue)
+- **Added**: [`PotentIterator`](https://cengels.github.io/potence/arrays/PotentIterator)
+- **Added**: [`ReversePotentIterator`](https://cengels.github.io/potence/arrays/ReversePotentIterator)
+
+### Time
+
+- **Added**: module [`Time`](https://cengels.github.io/potence/time)
+- **Added**: [`Duration`](https://cengels.github.io/potence/time/Duration)
+
+### Types
+
+- **Added**: [`TupleType<T>`](https://cengels.github.io/potence/types/TupleType)
+
+## [0.6.1](https://github.com/cengels/potence/compare/0.6.0...0.7.0) - 2024-02-08
+
+### Breaking Changes
+
+- **Changed**: `potence` is no longer a CommonJS package, and all files are now ES modules
+- **Renamed**: `BaseType` -> [`TypeofResult`](https://cengels.github.io/potence/types/TypeofResult)
+- **Renamed**: `BaseToType<T>` -> [`Typeof<T>`](https://cengels.github.io/potence/types/Typeof)
+- **Changed**: [`Objects.structure()`](https://cengels.github.io/potence/Objects/structure) now uses a matchers-based API
+
+### Other
+
+- **Added**: [`Version.toJSON()`](https://cengels.github.io/potence/numbers/Version)
+- **Added**: A number of new functions and types. Be aware that these are untested and unfinalized, and so may be subject to change or even removal in a future version. This applies to any type or function that does not appear in the official documentation.
+
 ## [0.6.0](https://github.com/cengels/potence/compare/0.5.3...0.6.0) - 2022-03-10
 
 ### Strings
