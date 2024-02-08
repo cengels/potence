@@ -133,13 +133,16 @@ export type HexChar = '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' 
 export type ExcludeProps<T, U> = Pick<T, { [K in keyof T]: T[K] extends U ? never : K }[keyof T]>
 
 /** 
- * Represents a tuple with exactly `N` elements.
+ * Represents a tuple with exactly `N` elements all of the same type.
  */
 export type Tuple<T, N extends number> = _TupleOf<T, N, []>;
 type _TupleOf<T, N extends number, R extends unknown[]> = R['length'] extends N ? R : _TupleOf<T, N, [T, ...R]>;
 
+/** Extracts the types of a tuple's values. */
+export type TupleType<T extends readonly unknown[]> = T[number];
+
 /** 
- * Represents a generic function with `N` parameters.
+ * Represents a generic function with `N` parameters of type `unknown`.
  */
 export type Func<N extends number | unknown = unknown> = N extends number ? (...args: Tuple<unknown, N>) => unknown : (...args: unknown[]) => unknown;
 
@@ -149,11 +152,13 @@ export type Func<N extends number | unknown = unknown> = N extends number ? (...
  * This type can be used to convert any type into the type it will be converted
  * to when calling `JSON.parse(JSON.stringify(object))`.
  * 
- * Note that this type considers any non-function public properties enumerable
- * and includes them in the output. Private properties are missing, even if
- * they will also be serialized by `JSON.stringify()`. By the same token, any
+ * Note that there is no way for types to know which properties are enumerable.
+ * As a result, any non-function public properties will be included in the
+ * resulting type, but private properties will not be included, even if
+ * `JSON.serialize()` would also serialize them. By the same token, any
  * properties that are marked as non-enumerable during runtime will still be
- * contained in the output type.
+ * contained in the output type, even if `JSON.stringify()` does *not*
+ * serialize them.
  * 
  * To remedy this, you can add an explicit `toJSON()` function to your type,
  * whose return value will then be used to find its corresponding JSON
@@ -166,12 +171,48 @@ export type Func<N extends number | unknown = unknown> = N extends number ? (...
  * 
  * const o = { num: 5, func() {}, d: new Date() };
  * function toJSON<T>(obj: T): Json<T> {
- *    throw new Error('Not implemented.');
+ *    return JSON.parse(JSON.stringify(obj));
  * }
- * toJSON(o);  // -> { num: number, obj: string }
+ * toJSON(o);  // -> { num: number, d: string }
  */
 export type Json<T> = T extends { toJSON(): infer U } ? Json<U>
     : T extends primitive ? T
     : T extends [...(infer U)[]] ? { [K in keyof T]: Json<U> }
     : T extends () => void ? never
     : { [K in keyof ExcludeProps<T, () => void>]: Json<T[K]> };
+
+declare const Brand: unique symbol;
+/** 
+ * Represents a *branded* type.
+ * A branded type is a type (generally a primitive) that is tagged with
+ * a certain expression. This prevents users from simply using an
+ * arbitrary unrelated value and using it in places where a branded
+ * value is expected. Use {@link branded}() to create a branded value.
+ * 
+ * Note that a branded type has no runtime impact.
+ * 
+ * For instance:
+ * 
+ * ```ts
+ * function createMyId(id: number): Branded<number, 'my-id-brand'> {
+ *     return branded(id, 'my-id-brand');
+ * }
+ * 
+ * function searchById(id: Branded<number, 'my-id-brand'>) {
+ *     // ...
+ * }
+ * 
+ * searchById(5);  // Error: `5` is not assignable to [...]
+ * searchById(myId);  // works
+ * ```
+ */
+export type Branded<T, Brand> = T & { [Brand]: Brand };
+
+/** 
+ * Creates a branded type (see {@link Branded}). Note that this function
+ * has no runtime impact; its only purpose is modifying the type to return
+ * a branded value.
+ */
+export function branded<T, Brand>(value: T, _brand: Brand): Branded<T, Brand> {
+    return value as Branded<T, Brand>;
+}
