@@ -142,6 +142,6 @@ describe('Version construction', () => {
         it('return Invalid Version', () => expect(new Version('').toString()).toBe('Invalid Version'));
 
         it.each(validVersions)('string constructor: %s should return itself', v => expect(new Version(v).toString()).toBe(v));
-        it.each(validVersions)('components constructor: %s should return itself', (v, major, minor, patch, prerelease, build) => expect(new Version(major, minor, patch, prerelease, build).toString()).toBe(v));
+        it.each(validVersions)('components constructor: %s should return itself', (v, major, minor, patch, prerelease, build) => expect(new Version(major, minor, patch, prerelease, build).toJSON()).toBe(v));
     });
 });

@@ -153,6 +153,14 @@ new Version()
     </tr>
     <tr>
         <td class="signature">
+            {% highlight ts %}toJSON(): string{% endhighlight %}
+        </td>
+        <td class="description">
+            <p>Same output as `toString()`.</p>
+        </td>
+    </tr>
+    <tr>
+        <td class="signature">
             {% highlight ts %}compare(version: Version | string): CompareResult{% endhighlight %}
         </td>
         <td class="description">

@@ -348,6 +348,16 @@ export default class Version implements SemanticVersion, Equatable {
      * 
      * Note that invalid versions return "Invalid Version".
      */
+    public toJSON(): string {
+        return this.toString();
+    }
+
+    /** 
+     * Returns the proper semantic string representation
+     * of this semantic version.
+     * 
+     * Note that invalid versions return "Invalid Version".
+     */
     public toString(): string {
         if (!this.valid) {
             return 'Invalid Version';
