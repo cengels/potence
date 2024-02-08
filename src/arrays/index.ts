@@ -514,22 +514,17 @@ export function zip<T, Args extends Array<ReadonlyArray<unknown>>>(source: reado
     return source.map((x, i) => [x, ...arrays.map(array => array[i])]) as Array<[T, ...TransformTo1DArray<Args>]>;
 }
 
+type NonArray<T extends unknown[]> = {
+    [K in keyof T]: ArrayType<T[K]>;
+}
+
 /**
  * Loops through multiple arrays at once, calling the specified callback
  * function with the corresponding element at that index for each array.
  * 
  * Note that all arrays must have the same size or the function fill throw.
  */
-export function correlate<A, B, C, D, E, F, G, H, I, J>(source1: readonly A[], source2: readonly B[], source3: readonly C[], source4: readonly D[], source5: readonly E[], source6: readonly F[], source7: readonly G[], source8: readonly H[], source9: readonly I[], source10: readonly J[], callback: (a: A, b: B, c: C, d: D, e: E, f: F, g: G, h: H, i: I, j: J) => void): void;
-export function correlate<A, B, C, D, E, F, G, H, I>(source1: readonly A[], source2: readonly B[], source3: readonly C[], source4: readonly D[], source5: readonly E[], source6: readonly F[], source7: readonly G[], source8: readonly H[], source9: readonly I[], callback: (a: A, b: B, c: C, d: D, e: E, f: F, g: G, h: H, i: I) => void): void;
-export function correlate<A, B, C, D, E, F, G, H>(source1: readonly A[], source2: readonly B[], source3: readonly C[], source4: readonly D[], source5: readonly E[], source6: readonly F[], source7: readonly G[], source8: readonly H[], callback: (a: A, b: B, c: C, d: D, e: E, f: F, g: G, h: H) => void): void;
-export function correlate<A, B, C, D, E, F, G>(source1: readonly A[], source2: readonly B[], source3: readonly C[], source4: readonly D[], source5: readonly E[], source6: readonly F[], source7: readonly G[], callback: (a: A, b: B, c: C, d: D, e: E, f: F, g: G) => void): void;
-export function correlate<A, B, C, D, E, F>(source1: readonly A[], source2: readonly B[], source3: readonly C[], source4: readonly D[], source5: readonly E[], source6: readonly F[], callback: (a: A, b: B, c: C, d: D, e: E, f: F) => void): void;
-export function correlate<A, B, C, D, E>(source1: readonly A[], source2: readonly B[], source3: readonly C[], source4: readonly D[], source5: readonly E[], callback: (a: A, b: B, c: C, d: D, e: E) => void): void;
-export function correlate<A, B, C, D>(source1: readonly A[], source2: readonly B[], source3: readonly C[], source4: readonly D[], callback: (a: A, b: B, c: C, d: D) => void): void;
-export function correlate<A, B, C>(source1: readonly A[], source2: readonly B[], source3: readonly C[], callback: (a: A, b: B, c: C) => void): void;
-export function correlate<A, B>(source1: readonly A[], source2: readonly B[], callback: (a: A, b: B) => void): void;
-export function correlate(...args: unknown[]): void {
+export function correlate<T extends unknown[][]>(...args: [...sources: T, callback: (...sources: NonArray<T>) => void]): void {
     const callback = last(args);
     const arrays = args.slice(0, -1) as unknown[][];
 
@@ -546,7 +541,7 @@ export function correlate(...args: unknown[]): void {
     }
 
     for (let i: number = 0; i < arrays[0].length; i++) {
-        const callbackArguments = arrays.map(array => array[i]);
+        const callbackArguments = arrays.map(array => array[i]) as NonArray<T>;
         callback(...callbackArguments);
     }
 }
