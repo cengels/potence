@@ -307,6 +307,9 @@ export default class List<T> extends Array<T> implements ReadonlyList<T> {
      public difference(...arrays: readonly T[][]): List<T> {
         return List.from(Arrays.difference(this, ...arrays));
     }
+    public toJSON(): T[] {
+        return [...this];
+    }
 
     /**
      * Creates an array from an iterable object.
