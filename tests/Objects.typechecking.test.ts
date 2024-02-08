@@ -1,6 +1,7 @@
 import * as Objects from '../src/objects/index.js';
-import { Structure } from '../src/types.js';
 import { isEquatable, isIterable, isPrimitive } from '../src/objects/typechecking.js';
+import { Structure } from '../src/objects/index.js';
+import { array, arrayOf, instanceOf, nullish, number, oneOf, string } from '../src/fluent/matchers.js';
 
 describe('isPrimitive() should return', () => {
     it('true on strings', () => expect(isPrimitive('string')).toBe(true));
@@ -74,35 +75,35 @@ describe('Objects.structure() should', () => {
     it('throw an error if the structure isn\'t an object', () => expect(() => Objects.structure({}, 5 as unknown as Structure)).toThrowError());
     it('throw an error if structure value isn\'t an object', () => expect(() => Objects.structure({}, { val: 5 as unknown as Structure[''] })).toThrowError());
     it('succeed in comparing an object against a simple structure', () => expect(Objects.structure({ a: 52, b: 'foo' },
-                                                                                                   { a: 'number', b: 'string' })).toBe(true));
+                                                                                                   { a: number(), b: string() })).toBe(true));
     it('fail to compare an object against a non-matching simple structure', () => expect(Objects.structure({ a: 52, b: 'foo' },
-                                                                                                           { a: 'number', b: 'number' })).toBe(false));
+                                                                                                           { a: number(), b: number() })).toBe(false));
     it('succeed if object has extraneous property', () => expect(Objects.structure({ a: 52, b: 'foo' },
-                                                                                              { a: 'number' })).toBe(true));
+                                                                                              { a: number() })).toBe(true));
     it('fail if object has extraneous property with flag', () => expect(Objects.structure({ a: 52, b: 'foo' },
-                                                                                            { a: 'number' }, true)).toBe(false));
+                                                                                            { a: number() }, true)).toBe(false));
     it('fail to compare an object against a missing property', () => expect(Objects.structure({ a: 52 },
-                                                                                              { a: 'number', b: 'number' })).toBe(false));
+                                                                                              { a: number(), b: number() })).toBe(false));
     it('succeed if property is missing and expects undefined', () => expect(Objects.structure({ a: 52 },
-                                                                                              { a: 'number', b: ['number', 'undefined'] })).toBe(true));
+                                                                                              { a: number(), b: oneOf(number(), nullish()) })).toBe(true));
     it('succeed when a property value is null', () => expect(Objects.structure({ a: null },
-                                                                               { a: 'null' })).toBe(true));
+                                                                               { a: nullish() })).toBe(true));
     it('fail when a property value is null but expects undefined', () => expect(Objects.structure({ a: null },
-                                                                                                  { a: 'undefined' })).toBe(false));
+                                                                                                  { a: value => value === undefined })).toBe(false));
     it('succeed when a property value is undefined', () => expect(Objects.structure({ a: undefined },
-                                                                                    { a: 'undefined' })).toBe(true));
+                                                                                    { a: nullish() })).toBe(true));
     it('fail when a property value is undefined but expects null', () => expect(Objects.structure({ a: undefined },
-                                                                                                  { a: 'null' })).toBe(false));
+                                                                                                  { a: value => value === null })).toBe(false));
     it('succeed when comparing against multiple matching types', () => expect(Objects.structure({ a: 'foo' },
-                                                                                                { a: ['string', 'number'] })).toBe(true));
+                                                                                                { a: oneOf(string(), number()) })).toBe(true));
     it('fail when comparing against multiple non-matching types', () => expect(Objects.structure({ a: null },
-                                                                                                 { a: ['string', 'number'] })).toBe(false));
+                                                                                                 { a: oneOf(string(), number()) })).toBe(false));
     it('succeed when comparing against a nullable property', () => expect(Objects.structure({ a: null },
-                                                                                            { a: ['string', 'null'] })).toBe(true));
+                                                                                            { a: oneOf(string(), nullish()) })).toBe(true));
     it('succeed when comparing against a matching single-element array', () => expect(Objects.structure({ a: [5, 3, 2] },
-                                                                                            { a: ['number'] })).toBe(true));
+                                                                                            { a: arrayOf(number()) })).toBe(true));
     it('fail when comparing against a non-matching single-element array', () => expect(Objects.structure({ a: [5, 'foo', 2] },
-                                                                                            { a: ['number'] })).toBe(false));
+                                                                                            { a: arrayOf(number()) })).toBe(false));
     it('succeed in comparing an object against a nested structure', () => expect(Objects.structure({
             a: 52,
             b: {
@@ -112,10 +113,10 @@ describe('Objects.structure() should', () => {
             }
         },
         {
-            a: 'number',
+            a: number(),
             b: {
                 c: {
-                    d: 'string'
+                    d: string()
                 }
             }
         })).toBe(true));
@@ -128,10 +129,10 @@ describe('Objects.structure() should', () => {
             }
         },
         {
-            a: 'number',
+            a: number(),
             b: {
                 c: {
-                    c: 'string'
+                    c: string()
                 }
             }
         })).toBe(false));
@@ -139,45 +140,32 @@ describe('Objects.structure() should', () => {
             a: ['foo']
         },
         {
-            a: 'array'
+            a: array()
         })).toBe(true));
     it('fail in comparing an object against non-contained arrays', () => expect(Objects.structure({
             a: { foo: 1 }
         },
         {
-            a: 'array'
+            a: array()
         })).toBe(false));
     it('succeed in comparing an object against constructors', () => expect(Objects.structure({
             a: new Date()
         },
         {
-            a: Date
+            a: instanceOf(Date)
         })).toBe(true));
     it('fail in comparing an object against incorrect constructors', () => expect(Objects.structure({
             a: new Number()
         },
         {
-            a: Date
-        })).toBe(false));
-    it('fail if the expected structure uses an incorrect type', () => expect(Objects.structure({
-            a: [ 'foo' ]
-        },
-        {
-            // @ts-expect-error
-            a: [ 'foo' ]
+            a: instanceOf(Date)
         })).toBe(false));
     it('fail if structure property is an object and object property is not', () => expect(Objects.structure({
             a: 5
         },
         {
-            a: { prop: 'number' }
+            a: { prop: number() }
         })).toBe(false));
-    it('throw if structure has empty array', () => expect(() => Objects.structure({
-            a: 5
-        },
-        {
-            a: []
-        })).toThrowError());
 });
 
 describe('Objects.hasProperty() should', () => {

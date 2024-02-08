@@ -1,5 +1,4 @@
 import { compare, isFloat } from '../numbers';
-import { equal } from '../objects';
 import { ArrayType, Typeof, TypeofResult, Constructor, Falsy, Func, Predicate, Truthy } from '../types.js';
 
 /** Matches a truthy value. */
@@ -12,18 +11,9 @@ export function falsy<T>(): (item: T) => item is Falsy<T> {
     return (item): item is Falsy<T> => !item;
 }
 
-/** Matches a value that equals one of the passed values. */
-export function oneOf<T extends unknown[]>(...these: T): (item: unknown) => item is ArrayType<T> {
-    return (item): item is ArrayType<T> => these.some(that => equal(item, that));
-}
-
-/** Matches if the passed array or object contains the value. */
-export function valueOf<T extends unknown>(object: readonly T[]): (item: unknown) => item is T;
-export function valueOf<T extends object>(object: T): (item: unknown) => item is T[keyof T];
-export function valueOf<T extends object>(object: T): (item: unknown) => item is T[keyof T] {
-    return (item): item is T[keyof T] => Array.isArray(object)
-        ? object.includes(item)
-        : Object.values(object).includes(item);
+/** Matches if any of the matchers match. */
+export function oneOf<T extends Array<(item: unknown) => boolean>>(...matchers: T): (item: unknown) => item is ArrayType<T> {
+    return (item): item is ArrayType<T> => matchers.some(matcher => matcher(item));
 }
 
 /** Matches if the passed object contains the value as a key. */
@@ -56,6 +46,16 @@ export function nullish(): (item: unknown) => item is null | undefined {
     return (item): item is null | undefined => item == null;
 }
 
+/** Matches a string. */
+export function string(): (item: unknown) => item is string {
+    return (item): item is string => typeof item === 'string';
+}
+
+/** Matches a number. */
+export function number(): (item: unknown) => item is number {
+    return (item): item is number => typeof item === 'number';
+}
+
 /** Matches an integral number. */
 export function integer(): (item: unknown) => item is number {
     return (item): item is number => Number.isInteger(item);
@@ -74,6 +74,11 @@ export function approximately(comparedValue: number, tolerance: number = 0.00000
 /** Matches an array. */
 export function array(): (item: unknown) => item is unknown[] {
     return (item): item is unknown[] => Array.isArray(item);
+}
+
+/** Matches an array where each element matches the given matcher. */
+export function arrayOf<T>(matcher: (item: unknown) => item is T): (item: unknown) => item is T[] {
+    return (item): item is T[] => Array.isArray(item) && item.every(matcher);
 }
 
 /** Matches a function. */

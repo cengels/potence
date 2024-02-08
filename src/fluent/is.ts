@@ -1,5 +1,5 @@
 import type { TypeofResult, Constructor, Predicate } from '../types.js';
-import { every, any, approximately, array, falsy, float, func, instanceOf, integer, keyOf, notNull, nullish, oneOf, truthy, type as isType, value as isValue, valueOf } from './matchers.js';
+import { every, any, approximately, array, falsy, float, func, instanceOf, integer, keyOf, notNull, nullish, oneOf, truthy, type as isType, value as isValue, arrayOf, value } from './matchers.js';
 
 type ReturnType<T> = boolean | ((...objects: T[]) => boolean);
 
@@ -36,11 +36,10 @@ interface FluentIs<T, U extends ReturnType<T> = boolean> {
     truthy(): U;
     /** @see {@link falsy} */
     falsy(): U;
-    /** @see {@link valueOf} */
-    valueOf<T extends unknown>(object: readonly T[]): U;
-    valueOf<T extends object>(object: T): U;
     /** @see {@link keyOf} */
     keyOf<T extends object>(object: T): U;
+    /** @see {@link arrayOf} */
+    arrayOf<T>(object: T): U;
     /** @see {@link type} */
     type<T extends TypeofResult>(type: T): U;
     /** @see {@link instanceOf} */
@@ -101,7 +100,7 @@ function makeFluentIs<T, U extends ReturnType<T>>(evaluator: (matcher: Predicate
             return this;
         },
         oneOf(...these) {
-            return evaluator(oneOf(...these));
+            return evaluator(oneOf(...these.map(x => value(x))));
         },
         truthy() {
             return evaluator(truthy());
@@ -118,8 +117,8 @@ function makeFluentIs<T, U extends ReturnType<T>>(evaluator: (matcher: Predicate
         keyOf<T extends object>(object: T): U {
             return evaluator(keyOf(object));
         },
-        valueOf<T extends object>(object: T): U {
-            return evaluator(valueOf(object));
+        arrayOf<T>(object: T): U {
+            return evaluator(arrayOf(value(object)));
         },
         type<T extends TypeofResult>(type: T): U {
             return evaluator(isType(type));

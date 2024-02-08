@@ -3,7 +3,7 @@ layout:      page
 title:       Objects.structure()
 module:      Objects
 added:       0.0.1
-updated:     0.4.0
+updated:     0.6.1
 description: Type guard that checks if an object
              conforms to the given shape.
 parameters:
@@ -35,6 +35,7 @@ function structure<T extends Structure>(object: object, struct: T): object is Ma
 
 ```ts
 import { Objects, Structure } from 'potence';
+import { oneOf, string, number, nullish, instanceOf } from 'potence/fluent/matchers';
 import { fetchJson } from 'api.ts';
 
 // Assume you have a function that fetches some JSON from a web API.
@@ -50,10 +51,10 @@ const obj: object = fetchJson();
 // (rather than defining them inline).
 const shape: Structure = {
     results: [{
-        mandatoryProp: 'string',
-        optionalProp: ['number', 'undefined']
+        mandatoryProp: string(),
+        optionalProp: oneOf(number(), nullish())
     }],
-    offset: 'number'
+    offset: number()
 };
 
 // Check whether obj conforms to shape.
@@ -83,9 +84,9 @@ interface Animal {
 
 function isAnimal(obj: unknown): obj is Animal {
     return isObject(obj) && Objects.structure(obj, {
-        name: 'string',
-        owner: [Owner, 'undefined'],  // multiple elements matches either an Owner or undefined
-        pastOwners: [Owner]  // single element matches an array containing elements of type Owner
+        name: number(),
+        owner: oneOf(instanceOf(Owner), nullish()),
+        pastOwners: arrayOf(instanceOf(Owner))
     });
 }
 ```

@@ -64,7 +64,7 @@ function match(expected: Structure[''], actual: unknown): boolean {
         return structure(actual, expected as ObjectLiteral<Structure['']>);
     }
     
-    throw new Error(`Invalid type for 'expected': must be a string, an object, an array, or a function but was: ${expected}`);
+    throw new Error(`Invalid type for 'expected': must be a predicate or a nested Structure but was: ${expected}`);
 }
 
 /**
