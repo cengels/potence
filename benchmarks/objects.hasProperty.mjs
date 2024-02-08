@@ -46,12 +46,6 @@ export default [
         benny.add('without primitive check (object)', () => hasProperty(testObject, 'date', Date)),
         benny.cycle(),
         benny.complete()
-    ),
-    benny.suite('typeof check',
-        benny.add('dot notation', () => typeof testString.length === 'number'),
-        benny.add('bracket syntax', () => typeof testString['length'] === 'number'),
-        benny.cycle(),
-        benny.complete()
     )
 ];
 
