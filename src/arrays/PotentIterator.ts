@@ -1,8 +1,8 @@
 // TODO:
 /* v8 ignore start */
 
-import { ArrayType, Objects, TupleType } from '..';
-import { isIterable } from '../objects';
+import * as Objects from '../objects';
+import type { ArrayType, TupleType } from '../types';
 
 const addKeys = ['push', 'add', 'enqueue', 'attach'] as const;
 
@@ -78,7 +78,7 @@ export default class PotentIterator<T> implements IterableIterator<T> {
      * the process.
      */
     public constructor(iterator: Iterator<T> | Iterable<T>) {
-        if (isIterable(iterator)) {
+        if (Objects.isIterable(iterator)) {
             iterator = iterator[Symbol.iterator]();
         }
 
@@ -397,7 +397,7 @@ export default class PotentIterator<T> implements IterableIterator<T> {
      * // -5
      */
     public chain(iterator: Iterator<T> | Iterable<T>): PotentIterator<T> {
-        const other = isIterable(iterator) ? iterator[Symbol.iterator]() : iterator;
+        const other = Objects.isIterable(iterator) ? iterator[Symbol.iterator]() : iterator;
 
         return create(arg => {
             const result = this.next(arg);
@@ -425,7 +425,7 @@ export default class PotentIterator<T> implements IterableIterator<T> {
      * // [1, 'two']
      */
     public zip<U>(iterator: Iterator<U> | Iterable<U>): PotentIterator<[T, U]> {
-        const other = isIterable(iterator) ? iterator[Symbol.iterator]() : iterator;
+        const other = Objects.isIterable(iterator) ? iterator[Symbol.iterator]() : iterator;
 
         return create(arg => {
             const result1 = this.next(arg);
@@ -497,7 +497,7 @@ export default class PotentIterator<T> implements IterableIterator<T> {
                 if (childResult == null || childResult.done) {
                     const result = this.next(arg);
         
-                    if (result.done === true || !isIterable(result.value)) {
+                    if (result.done === true || !Objects.isIterable(result.value)) {
                         childIterator = undefined;
                         return result as IteratorResult<ArrayType<T>>;
                     }

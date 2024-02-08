@@ -1,7 +1,5 @@
-import { first } from '../arrays/index.js';
-import { Objects } from '../index.js';
 import { ObjectLiteral } from '../types.js';
-import { isPrimitive } from './typechecking.js';
+import { hasFunction, isPrimitive } from './typechecking.js';
 
 /** Options for `Strings.serialize()`. */
 export interface StringifyOptions {
@@ -189,7 +187,7 @@ Object.defineProperty(Array.prototype, Stringify, { value: function(this: unknow
         }
 
         if (types.size === 1) {
-            return `${first(types)}[]`;
+            return `${[...types][0]}[]`;
         }
 
         return `(${[...types].join(' | ')})[]`;
@@ -247,7 +245,7 @@ export function stringify(value: unknown, options: StringifyOptions = DEFAULT_OP
         return value.toString();
     }
 
-    if (Objects.hasFunction(value, Stringify)) {
+    if (hasFunction(value, Stringify)) {
         return value[Stringify](options) as string;
     }
 
