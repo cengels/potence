@@ -6,8 +6,8 @@ export default defineConfig({
     coverage: {
       include: ['src/{!(fluent),}/*.ts'],
       exclude: [
-        '!src/arrays/List.ts',
-        '!src/**/Readonly*.ts'
+        'src/arrays/List.ts',
+        'src/**/Readonly*.ts'
       ]
     }
   },

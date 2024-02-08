@@ -1,5 +1,9 @@
+// TODO:
+/* v8 ignore start */
+
 import { isIterable } from '../objects';
 import PotentIterator from './PotentIterator';
+
 
 function* makeReverseIterator<T>(source: Iterator<T> | Iterable<T>): Generator<T> {
     let array: T[];

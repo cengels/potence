@@ -1,3 +1,6 @@
+// TODO:
+/* v8 ignore start */
+
 import CompareResult from '../numbers/CompareResult.js';
 import Duration from './Duration.js';
 

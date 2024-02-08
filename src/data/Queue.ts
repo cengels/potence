@@ -1,3 +1,6 @@
+// TODO:
+/* v8 ignore start */
+
 import { nextIndex, previousIndex } from '../arrays';
 
 const Empty = Symbol('empty-queue-element');

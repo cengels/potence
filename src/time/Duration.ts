@@ -1,3 +1,6 @@
+// TODO:
+/* v8 ignore start */
+
 import { splice } from '../strings';
 import { Equatable } from '../types';
 

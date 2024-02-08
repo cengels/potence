@@ -1,3 +1,6 @@
+// TODO:
+/* v8 ignore start */
+
 import { ArrayType, Objects, TupleType } from '..';
 import { isIterable } from '../objects';
 

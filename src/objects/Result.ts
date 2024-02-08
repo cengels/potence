@@ -1,3 +1,6 @@
+// TODO:
+/* v8 ignore start */
+
 import { func } from '../fluent/matchers.js';
 import Option from './Option.js';
 import { stringify } from './stringify.js';

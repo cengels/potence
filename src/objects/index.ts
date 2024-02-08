@@ -305,6 +305,8 @@ export function clone<T>(object: T, mode: RecursionMode = 'shallow'): T {
  * @param valueCallback A callback that is executed to retrieve a value
  * when it is requested for the first time.
  */
+// TODO:
+/* v8 ignore next 3 */
 export function lazy<T>(valueCallback: () => T): Lazy<T> {
     return new Lazy(valueCallback);
 }

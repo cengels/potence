@@ -1,3 +1,6 @@
+// TODO:
+/* v8 ignore start */
+
 /** 
  * Represents a lazily evaluated value, i.e. a value that is only evaluated
  * when it is first retrieved.

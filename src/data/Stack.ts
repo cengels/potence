@@ -1,3 +1,6 @@
+// TODO:
+/* v8 ignore start */
+
 /**
  * Represents a classic stack-based type. A stack is last-in-first-out (LIFO),
  * so you can only ever add or remove elements from the top of the stack

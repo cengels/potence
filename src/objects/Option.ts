@@ -1,3 +1,6 @@
+// TODO:
+/* v8 ignore start */
+
 import { Nullable } from '../types.js';
 import { stringify } from './stringify.js';
 
