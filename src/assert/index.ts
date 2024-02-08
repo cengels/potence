@@ -153,7 +153,6 @@ export function truthy<T>(value: T, name?: string): asserts value is Truthy<T> {
  * @param name If you're checking a named value (like a variable or property),
  *   you can enter its name here for a more expressive error message.
  */
-// @ts-expect-error See https://github.com/microsoft/TypeScript/issues/39036
 export function falsy<T>(value: T, name?: string): asserts value is Falsy<T> {
     throwIf(Boolean(value), value, 'falsy value', name);
 }
