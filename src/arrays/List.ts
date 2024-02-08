@@ -2,6 +2,7 @@ import * as Arrays from '../arrays/index.js';
 import { swap } from '../objects/index.js';
 import type { TypeofResult, Constructor, Nullable, Predicate } from '../types.js';
 import type { SortFunction, SortOrder, TransformTo1DArray } from './index.js';
+import PotentIterator from './PotentIterator.js';
 import type ReadonlyList from './ReadonlyList.js';
 
 /** 
@@ -307,6 +308,11 @@ export default class List<T> extends Array<T> implements ReadonlyList<T> {
      public difference(...arrays: readonly T[][]): List<T> {
         return List.from(Arrays.difference(this, ...arrays));
     }
+
+    public iterator(): PotentIterator<T> {
+        return new PotentIterator(this);
+    }
+
     public toJSON(): T[] {
         return [...this];
     }

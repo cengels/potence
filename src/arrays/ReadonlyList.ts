@@ -1,6 +1,7 @@
 import { TransformTo1DArray } from './index.js';
 import { Constructor, Nullable } from '../types.js';
 import type List from './List.js';
+import PotentIterator from './PotentIterator.js';
 
 /** A readonly variant of `List`. */
 export default interface ReadonlyList<T> extends ReadonlyArray<T> {
@@ -247,4 +248,12 @@ export default interface ReadonlyList<T> extends ReadonlyArray<T> {
      * except those shared by multiple of the given arrays.
      */
     difference(...arrays: readonly T[][]): List<T>;
+
+    /** 
+     * Gets a `PotentIterator` for this list.
+     */
+    iterator(): PotentIterator<T>;
+
+    /** Returns this list as a standard JavaScript array. */
+    toJSON(): T[];
 }

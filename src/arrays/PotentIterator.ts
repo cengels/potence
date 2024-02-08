@@ -1,4 +1,4 @@
-import { Objects, TupleType } from '..';
+import { ArrayType, Objects, TupleType } from '..';
 import { isIterable } from '../objects';
 
 const addKeys = ['push', 'add', 'enqueue', 'attach'] as const;
@@ -56,6 +56,12 @@ function create<T>(next: (arg?: undefined) => IteratorResult<T | undefined>): Po
  * `strings.filter(x => x.startsWith('/')).map(x => x.slice(1))`
  * would iterate over the entire array twice. Using PotentIterator, the
  * same function calls will only iterate over the array once.
+ * 
+ * Note that similar methods as encapsulated by this class are currently
+ * a [TC39 candidate](https://github.com/tc39/proposal-iterator-helpers).
+ * If the native built-in iterator object is extended by these functions,
+ * this class will be marked as deprecated and removed or simplified
+ * in a future release of *potence*.
  */
 export default class PotentIterator<T> implements IterableIterator<T> {
     public next: (...args: [] | [undefined]) => IteratorResult<T, undefined>;
@@ -73,16 +79,16 @@ export default class PotentIterator<T> implements IterableIterator<T> {
             iterator = iterator[Symbol.iterator]();
         }
 
-        this.next = iterator.next;
-        this.return = iterator.return;
-        this.throw = iterator.throw;
+        this.next = iterator.next.bind(iterator);
+        this.return = iterator.return?.bind(iterator);
+        this.throw = iterator.throw?.bind(iterator);
     }
 
     [Symbol.iterator](): PotentIterator<T> {
         return this;
     }
 
-    //#region consumer methods
+    //#region Consumer methods
 
     /** 
      * Consumes the first element of the iterator and returns it,
@@ -115,6 +121,10 @@ export default class PotentIterator<T> implements IterableIterator<T> {
      * This function is zero-indexed.
      */
     public nth(n: number): T | undefined {
+        if (n < 0) {
+            return undefined;
+        }
+
         return this.skip(n).first();
     }
 
@@ -125,7 +135,7 @@ export default class PotentIterator<T> implements IterableIterator<T> {
      * Note that this method will consume the entire iterator only if no
      * matching element is found.
      */
-    public find(predicate: (value: T) => boolean): T | undefined {
+    public find(predicate: (value: T, index: number) => boolean): T | undefined {
         return this.filter(predicate).first();
     }
 
@@ -135,7 +145,7 @@ export default class PotentIterator<T> implements IterableIterator<T> {
      * 
      * This method will always consume the entire iterator.
      */
-    public findLast(predicate: (value: T) => boolean): T | undefined {
+    public findLast(predicate: (value: T, index: number) => boolean): T | undefined {
         return this.filter(predicate).last();
     }
 
@@ -148,8 +158,8 @@ export default class PotentIterator<T> implements IterableIterator<T> {
      * 
      * If no element is found that matches the predicate, returns `-1`.
      */
-    public findIndex(predicate: (value: T) => boolean): number {
-        return this.indexed().filter(x => predicate(x[0])).first()?.[1] ?? -1;
+    public findIndex(predicate: (value: T, index: number) => boolean): number {
+        return this.indexed().filter(x => predicate(...x)).first()?.[1] ?? -1;
     }
 
     /** 
@@ -160,8 +170,8 @@ export default class PotentIterator<T> implements IterableIterator<T> {
      * 
      * If no element is found that matches the predicate, returns `-1`.
      */
-    public findLastIndex(predicate: (value: T) => boolean): number {
-        return this.indexed().filter(x => predicate(x[0])).last()?.[1] ?? -1;
+    public findLastIndex(predicate: (value: T, index: number) => boolean): number {
+        return this.indexed().filter(x => predicate(...x)).last()?.[1] ?? -1;
     }
 
     /**
@@ -327,6 +337,10 @@ export default class PotentIterator<T> implements IterableIterator<T> {
      * // 3
      */
     public skip(n: number): PotentIterator<T> {
+        if (n < 0) {
+            throw new Error(`PotentIterator.skip(): argument must not be negative (was: ${n}).`);
+        }
+
         let i: number = 0;
 
         return create(arg => {
@@ -449,6 +463,47 @@ export default class PotentIterator<T> implements IterableIterator<T> {
                 done: false,
                 value: callback(result1.value, index++)
             }
+        });
+    }
+
+    /** 
+     * Creates a new flattened iterator, that is: any iterable child elements
+     * will be extracted and returned from the new iterator as if they were
+     * ordinary iterator elements, and not wrapped in an array. This naturally
+     * expands the number of elements this iterator contains.
+     * 
+     * This method only flattens one level of iterables. If you have multiple
+     * levels to flatten, you can chain function calls of this method.
+     * 
+     * @example
+     * new PotentIterator(['1.23.45']).map(x => x.split('.')).flatten().log();
+     * // Output:
+     * // 1
+     * // 23
+     * // 45
+     */
+    public flatten(): PotentIterator<ArrayType<T>> {
+        let childIterator: Iterator<ArrayType<T>> | undefined;
+
+        return create(arg => {
+            let childResult: IteratorResult<ArrayType<T>, unknown> | undefined;
+
+            do {
+                childResult = childIterator?.next(arg);
+    
+                if (childResult == null || childResult.done) {
+                    const result = this.next(arg);
+        
+                    if (result.done === true || !isIterable(result.value)) {
+                        childIterator = undefined;
+                        return result as IteratorResult<ArrayType<T>>;
+                    }
+        
+                    childIterator = result.value[Symbol.iterator]() as Iterator<ArrayType<T>>;
+                }
+            } while (childResult == null || childResult.done);
+            
+            return childResult;
         });
     }
 
