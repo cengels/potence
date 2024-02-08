@@ -9,7 +9,7 @@
  */
 
 import * as Objects from '../objects/index.js';
-import type { BaseType, Constructor, Nullable, Predicate } from '../types.js';
+import type { ArrayType, TypeofResult, Constructor, Nullable, Predicate } from '../types.js';
 
 /** 
  * Returns a copy of the specified array.
@@ -334,7 +334,7 @@ export function type(array: unknown[], type: 'number'): array is number[];
 export function type(array: readonly unknown[], type: 'number'): array is readonly number[];
 export function type(array: unknown[], type: 'string'): array is string[];
 export function type(array: readonly unknown[], type: 'string'): array is readonly string[];
-export function type(array: readonly unknown[], type: BaseType | Constructor): boolean {
+export function type(array: readonly unknown[], type: TypeofResult | Constructor): boolean {
     if (typeof type === 'string') {
         return array.every(item => typeof item === type);
     }

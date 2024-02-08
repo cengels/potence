@@ -5,7 +5,7 @@ export type Nullable<T = unknown> = T | undefined | null;
 export type ArrayType<T> = T extends (infer U)[] ? U : T;
 
 /** Represents the result of the `typeof` keyword. */
-export type BaseType = 'bigint' | 'boolean' | 'function' | 'number' | 'object' | 'string' | 'symbol' | 'undefined';
+export type TypeofResult = 'bigint' | 'boolean' | 'function' | 'number' | 'object' | 'string' | 'symbol' | 'undefined';
 
 /**
  * A primitive (primitive value, primitive data type) is data that is not an object and has no methods.
@@ -15,17 +15,19 @@ export type BaseType = 'bigint' | 'boolean' | 'function' | 'number' | 'object' |
  */
 export type primitive = string | number | bigint | boolean | undefined | symbol;
 
-/** Converts the string typeof result into an actual type. */
-export type BaseToType<T extends BaseType> =
-    T extends 'bigint' ? bigint
-    : T extends 'boolean' ? boolean
-    // eslint-disable-next-line @typescript-eslint/ban-types
-    : T extends 'function' ? Function
-    : T extends 'number' ? number
-    : T extends 'object' ? Record<string | number | symbol, unknown>
-    : T extends 'string' ? string
-    : T extends 'symbol' ? symbol
-    : undefined;
+interface TypeofTable {
+    'bigint': bigint;
+    'boolean': boolean;
+    'function': (...args: unknown[]) => unknown;
+    'number': number;
+    'object': Record<string | number | symbol, unknown> | null;
+    'string': string;
+    'symbol': symbol;
+    'undefined': undefined;
+}
+
+/** Converts a `typeof` result into its corresponding type. */
+export type Typeof<T extends TypeofResult> = TypeofTable[T];
 
 /**
  * Represents a class or constructor. Note that this type includes abstract constructors

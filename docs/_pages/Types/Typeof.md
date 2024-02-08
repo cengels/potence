@@ -1,15 +1,15 @@
 ---
 layout:      page
-title:       BaseToType
+title:       Typeof
 module:      Types
 added:       0.0.1
-description: Utility type that transforms a <code>BaseType</code> into the type
+description: Utility type that transforms a <code>TypeofResult</code> into the type
              it represents.
 ---
 ## Syntax
 
 ```ts
-type BaseToType<T>
+type Typeof<T>
 ```
 
 <div class="description">{% include linkify.html description=page.description %}</div>
@@ -17,9 +17,9 @@ type BaseToType<T>
 ## Example
 
 ```ts
-import { BaseType, BaseToType } from 'potence';
+import { TypeofResult, Typeof } from 'potence';
 
-function checkType<T extends BaseType>(object: unknown, type: T): object is BaseToType<T> {
+function checkType<T extends TypeofResult>(object: unknown, type: T): object is Typeof<T> {
     return typeof object === type;
 }
 
@@ -34,4 +34,4 @@ if (checkType(object, 'string')) {
 
 ## Remarks
 
-See [`BaseType`]({{ site.baseurl }}{% link _pages/Types/BaseType.md %}).
+See [`TypeofResult`]({{ site.baseurl }}{% link _pages/Types/TypeofResult.md %}).
