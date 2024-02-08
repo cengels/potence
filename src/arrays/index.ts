@@ -777,8 +777,9 @@ export function difference<T>(...arrays: readonly T[][]): T[] {
  * and
  * [`Array.prototype.map`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map).
  */
-export function filterMap<T, U>(array: Iterable<T>, mapFn: (object: T) => Nullable<U>): U[] {
-    const newElements: U[] = [];
+export function filterMap<T, U, C extends Iterable<T>>(array: C, mapFn: (object: T) => Nullable<U>): C extends T[] ? C : T[] {
+    // @ts-expect-error TypeScript bug, requires new() but TS doesn't like it
+    const newElements: any[] = Array.isArray(array) ? new array.constructor() : [];
 
     for (const element of array) {
         const result = mapFn(element);
@@ -788,5 +789,5 @@ export function filterMap<T, U>(array: Iterable<T>, mapFn: (object: T) => Nullab
         }
     }
 
-    return newElements;
+    return newElements as any;
 }
