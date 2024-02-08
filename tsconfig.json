@@ -11,8 +11,9 @@
       "strict": true,
       "noUnusedLocals": true,
       "strictNullChecks": true,
-      "module": "commonjs",
+      "module": "ES6",
       "moduleResolution": "node",
+      "isolatedModules": true,
       "esModuleInterop": true,
       "target": "es6",
       "allowJs": false,
@@ -25,7 +26,8 @@
       "declaration": true,
       "lib": [
         "DOM",
-        "ES2020"
+        "DOM.Iterable",
+        "ES2016"
       ],
       "plugins": [ ]
     },
