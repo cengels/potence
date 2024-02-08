@@ -255,7 +255,7 @@ export default class List<T> extends Array<T> implements ReadonlyList<T> {
     }
 
     public filterMap<U>(mapFn: (object: T) => Nullable<U>): List<U> {
-        return List.from(Arrays.filterMap(this, mapFn));
+        return Arrays.filterMap(this, mapFn) as any;
     }
 
     public correlate<B, C, D, E, F, G, H, I, J>(source2: readonly B[], source3: readonly C[], source4: readonly D[], source5: readonly E[], source6: readonly F[], source7: readonly G[], source8: readonly H[], source9: readonly I[], source10: readonly J[], callback: (a: T, b: B, c: C, d: D, e: E, f: F, g: G, h: H, i: I, j: J) => void): void;
