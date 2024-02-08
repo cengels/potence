@@ -5,7 +5,7 @@ be breaking changes. Before 1.0.0, these changes will **not be announced** and
 will only be documented in this file, so please make sure to read it thoroughly
 if you wish to upgrade.
 
-## [0.7.0](https://github.com/cengels/potence/compare/0.6.0...0.7.0) - Unreleased
+## [0.7.0](https://github.com/cengels/potence/compare/0.6.1...0.7.0) - Unreleased
 
 ### Arrays and Iterables
 
@@ -23,7 +23,7 @@ if you wish to upgrade.
 
 - **Added**: [`TupleType<T>`](https://cengels.github.io/potence/types/TupleType)
 
-## [0.6.1](https://github.com/cengels/potence/compare/0.6.0...0.7.0) - 2024-02-08
+## [0.6.1](https://github.com/cengels/potence/compare/0.6.0...0.6.1) - 2024-02-08
 
 ### Breaking Changes
 
