@@ -15,9 +15,9 @@ import { structure, Structure } from './structure.js';
  */
 interface Result<T = void> {
     /** Returns `true` if the Result contains a success. */
-    ok(): boolean;
+    ok(): this is OkResult<T>;
     /** Returns `true` if the Result contains a failure. */
-    nok(): boolean;
+    nok(): this is ErrorResult<T>;
     /** 
      * Gets the contained value if this Result represents a success,
      * otherwise throws the contained error.
@@ -193,7 +193,7 @@ class ErrorResult<T = void> implements Result<T> {
         return true;
     }
 
-    public unwrap(): T {
+    public unwrap(): never {
         throw this.error;
     }
 
