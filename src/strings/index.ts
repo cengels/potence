@@ -120,14 +120,8 @@ function findTokensAndUppercaseNext(source: string, token: string): string {
     let result = source;
     let tokenIndex = result.indexOf(token);
 
-    while (tokenIndex !== -1) {
-        result = result.slice(0, tokenIndex);
-
-        if (result[tokenIndex + 1] != null) {
-            result += result[tokenIndex + 1].toUpperCase();
-        }
-
-        result += result.slice(tokenIndex + 2);
+    while (tokenIndex !== -1 && tokenIndex !== result.length - 1) {
+        result = result.slice(0, tokenIndex) + result[tokenIndex + 1].toUpperCase() + result.slice(tokenIndex + 2);
 
         tokenIndex = result.indexOf(token);
     }
