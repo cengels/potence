@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { List } from '../src';
+import { List } from '../src/index.js';
 
 describe('static functions', () => {
     it('List.from()', () => expect(List.from([]) instanceof List).toBe(true));

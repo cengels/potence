@@ -1,7 +1,7 @@
 // TODO:
 /* v8 ignore start */
 
-import { nextIndex, previousIndex } from '../arrays';
+import { nextIndex, previousIndex } from '../arrays/index.js';
 
 const Empty = Symbol('empty-queue-element');
 const QUEUE_BUFFER_SIZE = 24 as const;

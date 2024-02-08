@@ -1,4 +1,4 @@
-import { compare, isFloat } from '../numbers';
+import { compare, isFloat } from '../numbers/index.js';
 import { ArrayType, Typeof, TypeofResult, Constructor, Falsy, Func, Predicate, Truthy } from '../types.js';
 
 /** Matches a truthy value. */

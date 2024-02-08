@@ -1,5 +1,5 @@
-import { Equatable } from '../types';
-import CompareResult from './CompareResult';
+import { Equatable } from '../types.js';
+import CompareResult from './CompareResult.js';
 
 /** Official JS RegExp. See https://semver.org/. */
 const regExp = /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$/;

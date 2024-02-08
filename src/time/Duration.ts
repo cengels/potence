@@ -1,8 +1,8 @@
 // TODO:
 /* v8 ignore start */
 
-import { splice } from '../strings';
-import { Equatable } from '../types';
+import { splice } from '../strings/index.js';
+import { Equatable } from '../types.js';
 
 const NUM_MILLISECONDS = 1000 as const;
 const NUM_SECONDS = 60 as const;     // 60 * 1000

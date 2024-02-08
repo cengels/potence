@@ -23,6 +23,10 @@ if you wish to upgrade.
 
 - **Added**: [`TupleType<T>`](https://cengels.github.io/potence/types/TupleType)
 
+## [0.6.2](https://github.com/cengels/potence/compare/0.6.1...0.6.2) - 2024-02-08
+
+- **Fixed**: builds breaking in certain build systems due to unenforced import file extensions
+
 ## [0.6.1](https://github.com/cengels/potence/compare/0.6.0...0.6.1) - 2024-02-08
 
 ### Breaking Changes
@@ -31,6 +35,7 @@ if you wish to upgrade.
 - **Renamed**: `BaseType` -> [`TypeofResult`](https://cengels.github.io/potence/types/TypeofResult)
 - **Renamed**: `BaseToType<T>` -> [`Typeof<T>`](https://cengels.github.io/potence/types/Typeof)
 - **Changed**: [`Objects.structure()`](https://cengels.github.io/potence/Objects/structure) now uses a matchers-based API
+- **Changed**: [`Structure`](https://cengels.github.io/potence/Types/Structure) can now be found under `'potence/objects/structure'`;
 
 ### Other
 

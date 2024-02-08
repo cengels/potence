@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/ban-types */
-import { Truthy, Falsy, ExcludeProps, branded } from '../src/types';
-import { describe, it, expectTypeOf, assertType } from 'vitest';
+import { describe, expectTypeOf, it } from 'vitest';
+import { ExcludeProps, Falsy, Truthy } from '../src/types.js';
 
 describe('Truthy<T> should', () => {
     it('properly infer the type of Truthy<boolean>', () => expectTypeOf<Truthy<boolean>>().toMatchTypeOf<true>());

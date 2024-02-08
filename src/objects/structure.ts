@@ -1,4 +1,4 @@
-import type { is } from '../fluent';
+import type { is } from '../fluent/index.js';
 import type { ObjectLiteral, Predicate } from '../types.js';
 import { isObject, isObjectLiteral } from './typechecking.js';
 

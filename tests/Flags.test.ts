@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { Flags } from '../src';
+import { Flags } from '../src/index.js';
 
 enum TestOptions {
     None = 0,

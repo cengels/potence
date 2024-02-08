@@ -1,8 +1,8 @@
 // TODO:
 /* v8 ignore start */
 
-import * as Objects from '../objects';
-import type { ArrayType, TupleType } from '../types';
+import * as Objects from '../objects/index.js';
+import type { ArrayType, TupleType } from '../types.js';
 
 const addKeys = ['push', 'add', 'enqueue', 'attach'] as const;
 

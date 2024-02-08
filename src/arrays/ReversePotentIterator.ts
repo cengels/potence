@@ -1,8 +1,8 @@
 // TODO:
 /* v8 ignore start */
 
-import { isIterable } from '../objects';
-import PotentIterator from './PotentIterator';
+import { isIterable } from '../objects/index.js';
+import PotentIterator from './PotentIterator.js';
 
 
 function* makeReverseIterator<T>(source: Iterator<T> | Iterable<T>): Generator<T> {

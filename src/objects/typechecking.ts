@@ -1,4 +1,4 @@
-import { ObjectLiteral, TypeofResult, Constructor, Typeof, Equatable, primitive, Func } from '../types';
+import { ObjectLiteral, TypeofResult, Constructor, Typeof, Equatable, primitive, Func } from '../types.js';
 
 /** 
  * Checks if the passed object is of the specified type.
