@@ -9,7 +9,7 @@
  */
 
 import * as Objects from '../objects/index.js';
-import type { ArrayType, TypeofResult, Constructor, Nullable, Predicate } from '../types.js';
+import type { ArrayType, TypeofResult, Constructor, Nullable, Predicate, Instantiable } from '../types.js';
 
 /** 
  * Returns a copy of the specified array.
@@ -772,9 +772,8 @@ export function difference<T>(...arrays: readonly T[][]): T[] {
  * and
  * [`Array.prototype.map`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map).
  */
-export function filterMap<T, U, C extends Iterable<T>>(array: C, mapFn: (object: T) => Nullable<U>): C extends T[] ? C : T[] {
-    // @ts-expect-error TypeScript bug, requires new() but TS doesn't like it
-    const newElements: any[] = Array.isArray(array) ? new array.constructor() : [];
+export function filterMap<T, U, C extends Iterable<T>>(array: C, mapFn: (object: T) => Nullable<U>): U[] {
+    const newElements: U[] = Array.isArray(array) ? new (array.constructor as Instantiable<Array<U>>)() : [];
 
     for (const element of array) {
         const result = mapFn(element);
@@ -784,5 +783,5 @@ export function filterMap<T, U, C extends Iterable<T>>(array: C, mapFn: (object:
         }
     }
 
-    return newElements as any;
+    return newElements;
 }
