@@ -77,6 +77,7 @@ Currently there are nine modules contained in this library:
 | Numbers | Accurate floating point comparisons, versioning, ranges, integer/float checks, and various mathematical complements to [`Math`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math). Examples: <ul><li>`Numbers.compare(0, 0.00000001) => true`</li><li>`Numbers.range(0, 20).relative(5) => 0.25`</li><li>`Numbers.sum(2, 4, 8) => 14`</li></ul> |
 | Objects | Deep object comparisons, object schema checks, and much more. <ul><li>`Objects.compare({ a: 1 }, { a: 1 }) => true`</li><li>`Objects.isObjectLiteral(new Date()) => false`</li><li>`Objects.structure({ a: 1 }, { a: 'number' }) => true`</li></ul> |
 | Strings | String checks and manipulations such as URL checking like <ul><li>`Strings.strip('banana bear', 'na', ' ') => 'babear'`</li><li>`Strings.takeUntil('myGroup:myValue', ':') => 'myGroup'`</li></ul> |
+| Time | Helper functions to work with `Date`s and durations. <ul><li>`Date.add(new Date(), Duration.fromHours(2))`</li></ul> |
 | Types | Convenience types for TypeScript users. <ul><li>`Nullable<string> // string \| null \| undefined`</li><li>`Constructor<BaseClass> // denotes abstract constructor`</li><li>`Instantiable<BaseClass> // denotes "newable" constructor`</li></ul> |
 
 You may also wish to take a look at the
