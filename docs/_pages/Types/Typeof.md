@@ -3,6 +3,7 @@ layout:      page
 title:       Typeof
 module:      Types
 added:       0.0.1
+updated:     0.6.1
 description: Utility type that transforms a <code>TypeofResult</code> into the type
              it represents.
 ---

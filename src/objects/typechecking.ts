@@ -1,4 +1,4 @@
-import { ObjectLiteral, BaseType, Constructor, BaseToType, Equatable, primitive, Func } from '../types';
+import { ObjectLiteral, TypeofResult, Constructor, Typeof, Equatable, primitive, Func } from '../types';
 
 /** 
  * Checks if the passed object is of the specified type.
@@ -7,8 +7,8 @@ import { ObjectLiteral, BaseType, Constructor, BaseToType, Equatable, primitive,
  * will either call `typeof` or `instanceof`.
  */
 export function is<T>(object: unknown, type: Constructor<T>): object is T;
-export function is<TTypeOf extends BaseType>(object: unknown, type: TTypeOf): object is TTypeOf;
-export function is(object: unknown, type: BaseType | Constructor): boolean {
+export function is<TTypeOf extends TypeofResult>(object: unknown, type: TTypeOf): object is TTypeOf;
+export function is(object: unknown, type: TypeofResult | Constructor): boolean {
     return typeof type === 'string' ? typeof object === type : object instanceof type;
 }
 
@@ -44,8 +44,8 @@ export function isIterable(object: unknown): object is Iterable<unknown> {
 }
 
 type HasProperty<TKey extends string | number | symbol, T> = { [key in TKey]: T };
-type HasPropertyReturnType<T extends BaseType | Constructor> =
-      T extends BaseType ? BaseToType<T>
+type HasPropertyReturnType<T extends TypeofResult | Constructor> =
+      T extends TypeofResult ? Typeof<T>
     : T extends Constructor<infer C> ? C
     : unknown;
 
@@ -55,7 +55,7 @@ type HasPropertyReturnType<T extends BaseType | Constructor> =
  */
 export function hasProperty<
     TKey extends string | number | symbol,
-    T extends BaseType | Constructor
+    T extends TypeofResult | Constructor
 >(source: unknown, propertyName: TKey, type?: T): source is HasProperty<TKey, HasPropertyReturnType<T>> {
     if (source == null) {
         return false;
@@ -101,8 +101,8 @@ export function hasFunction<T extends string | number | symbol, N extends number
  * to the type, returns the object, otherwise returns `undefined`.
  */
 export function cast<T>(object: unknown, type: Constructor<T>): T | undefined;
-export function cast<TTypeOf extends BaseType>(object: unknown, type: TTypeOf): BaseToType<TTypeOf> | undefined;
-export function cast(object: unknown, type: BaseType | Constructor): unknown | undefined {
+export function cast<TTypeOf extends TypeofResult>(object: unknown, type: TTypeOf): Typeof<TTypeOf> | undefined;
+export function cast(object: unknown, type: TypeofResult | Constructor): unknown | undefined {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     if (is(object, type as any)) {
         return object;
@@ -116,8 +116,8 @@ export function cast(object: unknown, type: BaseType | Constructor): unknown | u
  * to the type, returns the object, otherwise throws an error.
  */
 export function hardCast<T>(object: unknown, type: Constructor<T>): T;
-export function hardCast<TTypeOf extends BaseType>(object: unknown, type: TTypeOf): BaseToType<TTypeOf>;
-export function hardCast(object: unknown, type: BaseType | Constructor): unknown {
+export function hardCast<TTypeOf extends TypeofResult>(object: unknown, type: TTypeOf): Typeof<TTypeOf>;
+export function hardCast(object: unknown, type: TypeofResult | Constructor): unknown {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     if (is(object, type as any)) {
         return object;

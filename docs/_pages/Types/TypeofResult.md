@@ -3,7 +3,7 @@ layout:      page
 title:       TypeofResult
 module:      Types
 added:       0.0.1
-updated:     0.7.0
+updated:     0.6.1
 description: Represents the result of the <code>typeof</code> keyword.
 ---
 ## Syntax
@@ -31,5 +31,5 @@ console.log(checkType('foo', 'string'));   // true
 The type expands into `'bigint' | 'boolean' | 'function' | 'number' | 'object' |
 'string' | 'symbol' | 'undefined'`. Note that these are the `string`s that may
 be returned by the `typeof` keyword, not their respective actual types. To get
-the actual type from a BaseType, use
+the actual type from a `TypeofResult`, use
 [`Typeof<T>`]({{ site.baseurl }}{% link _pages/Types/Typeof.md %}).

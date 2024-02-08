@@ -1,6 +1,6 @@
 import * as Arrays from '../arrays/index.js';
 import { swap } from '../objects/index.js';
-import type { BaseType, Constructor, Nullable, Predicate } from '../types.js';
+import type { TypeofResult, Constructor, Nullable, Predicate } from '../types.js';
 import type { SortFunction, SortOrder, TransformTo1DArray } from './index.js';
 import type ReadonlyList from './ReadonlyList.js';
 
@@ -154,7 +154,7 @@ export default class List<T> extends Array<T> implements ReadonlyList<T> {
     public type(type: 'number'): this is ReadonlyList<number>;
     public type(type: 'string'): this is List<string>;
     public type(type: 'string'): this is ReadonlyList<string>;
-    public type(type: BaseType | Constructor): boolean {
+    public type(type: TypeofResult | Constructor): boolean {
         // Overloaded forwarding still hasn't been implemented
         // in TypeScript, so we have to make do.
         return Arrays.type(this, type as unknown as Constructor);

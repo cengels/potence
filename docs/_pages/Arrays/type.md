@@ -3,8 +3,9 @@ layout:      page
 title:       Arrays.type()
 module:      Arrays
 added:       0.0.1
+updated:     0.6.1
 description: Checks if the array contains only elements of the given type.
-        If the passed type is a `BaseType`, the function will use the `typeof`
+        If the passed type is a `TypeofResult`, the function will use the `typeof`
         keyword to compare the expected type with the actual type.
         If the type is a constructor, this function will
         use the `instanceof` keyword to compare types. As a result, this
@@ -19,7 +20,7 @@ parameters:
 ## Syntax
 
 ```ts
-function type(array: readonly unknown[], type: BaseType | Constructor): boolean
+function type(array: readonly unknown[], type: TypeofResult | Constructor): boolean
 ```
 
 <div class="description">{% include linkify.html description=page.description %}</div>
@@ -65,7 +66,7 @@ reasons.
 
 1. You can't have two return types for a function without tuple (which would be
    anything but clean), so to allow a user to check against both a
-   [`BaseType`]({{ site.baseurl }}{% link _pages/Types/BaseType.md %}) and a
+   [`TypeofResult`]({{ site.baseurl }}{% link _pages/Types/TypeofResult.md %}) and a
    [`Constructor`]({{ site.baseurl }}{% link _pages/Types/Constructor.md %})
    would require two functions.
 2. An array can be *variant*, that is it can contain more than one type. To make

@@ -1,6 +1,6 @@
 import { compare, isFloat } from '../numbers';
 import { equal } from '../objects';
-import { ArrayType, BaseToType, BaseType, Constructor, Falsy, Func, Predicate, Truthy } from '../types.js';
+import { ArrayType, Typeof, TypeofResult, Constructor, Falsy, Func, Predicate, Truthy } from '../types.js';
 
 /** Matches a truthy value. */
 export function truthy<T>(): (item: T) => item is Truthy<T> {
@@ -32,8 +32,8 @@ export function keyOf<T extends object>(object: T): (item: unknown) => item is k
 }
 
 /** Matches a value of the specified type. */
-export function type<T extends BaseType>(type: T): (item: unknown) => item is BaseToType<T> {
-    return (item): item is BaseToType<T> => typeof item === type;
+export function type<T extends TypeofResult>(type: T): (item: unknown) => item is Typeof<T> {
+    return (item): item is Typeof<T> => typeof item === type;
 }
 
 /** Matches a value of the specified instance type or any inherited types. */

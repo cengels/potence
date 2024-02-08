@@ -30,7 +30,7 @@ import * as Arrays from '../arrays/index.js';
 import * as Objects from '../objects/index.js';
 import { StringifyOptions } from '../objects/index.js';
 import * as Strings from '../strings/index.js';
-import { BaseToType, BaseType, Constructor, Falsy, Truthy } from '../types.js';
+import { TypeofResult, Typeof, Constructor, Falsy, Truthy } from '../types.js';
 
 export class AssertionError extends Error {
     public constructor(message?: string) {
@@ -111,6 +111,7 @@ export function that(condition: boolean, failureMessage?: string): asserts condi
 
 /**
  * Throws an assertion error if the value does not equal the specified value.
+ * This function compares by referential equality.
  *
  * @param name If you're checking a named value (like a variable or property),
  *   you can enter its name here for a more expressive error message.
@@ -174,7 +175,7 @@ export function notNull<T>(value: T, name?: string): asserts value is NonNullabl
  * @param name If you're checking a named value (like a variable or property),
  *   you can enter its name here for a more expressive error message.
  */
-export function type<T extends BaseType>(value: unknown, type: T, name?: string): asserts value is BaseToType<T> {
+export function type<T extends TypeofResult>(value: unknown, type: T, name?: string): asserts value is Typeof<T> {
     throwIf(typeof value !== type, value, `value of type ${type}`, name);
 }
 

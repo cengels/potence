@@ -3,7 +3,7 @@ layout:      page
 title:       Objects.hasProperty()
 module:      Objects
 added:       0.2.0
-updated:     0.4.0
+updated:     0.6.1
 description: Checks if an object contains a property by the
              specified name and optionally type.
 parameters:
@@ -18,7 +18,7 @@ parameters:
 ## Syntax
 
 ```ts
-function hasProperty(source: unknown, propertyName: string | number | symbol, type?: BaseType | Constructor): boolean
+function hasProperty(source: unknown, propertyName: string | number | symbol, type?: TypeofResult | Constructor): boolean
 ```
 
 <div class="description">{% include linkify.html description=page.description %}</div>

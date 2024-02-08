@@ -3,6 +3,7 @@ layout:      page
 title:       Objects.is()
 module:      Objects
 added:       0.5.0
+updated:     0.6.1
 description: Checks if an object is of the given type.
 parameters:
   object: An arbitrary value. Can be an object or primitive.
@@ -13,7 +14,7 @@ parameters:
 
 ```ts
 function is<T>(object: unknown, type: Constructor<T>): object is T;
-function is<TTypeOf extends BaseType>(object: unknown, type: TTypeOf): object is TTypeOf;
+function is<TTypeOf extends TypeofResult>(object: unknown, type: TTypeOf): object is TTypeOf;
 ```
 
 <div class="description">{% include linkify.html description=page.description %}</div>
@@ -42,4 +43,4 @@ check (`!Objects.is(something, somethingElse)` may be more readable
 than `!(something instanceof somethingElse)`).
 
 See
-[`BaseType`]({{ site.baseurl }}{% link _pages/Types/BaseType.md %}).
+[`TypeofResult`]({{ site.baseurl }}{% link _pages/Types/TypeofResult.md %}).

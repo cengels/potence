@@ -3,6 +3,7 @@ layout:      page
 title:       Assert.type()
 module:      Assert
 added:       0.5.0
+updated:     0.6.1
 description: Asserts that a value has a certain type.
 parameters:
   value: The value to check.
@@ -17,7 +18,7 @@ parameters:
 ## Syntax
 
 ```ts
-function type(value: unknown, type: BaseType, name?: string): void
+function type(value: unknown, type: TypeofResult, name?: string): void
 ```
 
 <div class="description">{% include linkify.html description=page.description %}</div>
