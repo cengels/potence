@@ -2,6 +2,7 @@ import * as Arrays from '../src/arrays/index.js';
 import List from '../src/arrays/List.js';
 import * as Numbers from '../src/numbers/index.js'
 import * as Objects from '../src/objects/index.js'
+import { describe, it, expect, vi } from 'vitest';
 
 describe('Arrays.clone() should', () => {
     it('create an equivalent array', () => {
@@ -153,7 +154,7 @@ describe('Arrays.sort() should', () => {
     it('throw an error if type is mixed', () => expect(() => Arrays.sort([5, 'yes'])).toThrowError());
     it('not result in infinite recursion on Lists', () => {
         const list = new List([0], [0, 1, 2], [0, 1]);
-        const spy = jest.spyOn(list, 'sort');
+        const spy = vi.spyOn(list, 'sort');
 
         list.sort((a, b) => a.length - b.length);
 
@@ -295,7 +296,6 @@ describe('Arrays.correlate() should', () => {
     it('throw if arrays are of different length', () => expect(() => Arrays.correlate([0], [1, 2], () => null)).toThrowError('Arrays.correlate(): all arrays must be of the same length.'));
     // @ts-expect-error
     it('throw if last argument is not a callback', () => expect(() => Arrays.correlate([0], [1, 2])).toThrowError('Arrays.correlate(): last argument must be a callback function.'));
-    // @ts-expect-error
     it('throw if only one array supplied', () => expect(() => Arrays.correlate([0], () => null)).toThrowError('Arrays.correlate(): must specify at least two arrays.'));
 });
 

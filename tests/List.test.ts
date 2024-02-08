@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'vitest';
 import { List } from '../src';
 
 describe('static functions', () => {

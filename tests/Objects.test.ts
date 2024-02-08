@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'vitest';
 import { Assert } from '../src/index.js';
 import * as Objects from '../src/objects/index.js';
 import { ObjectLiteral } from '../src/types.js';

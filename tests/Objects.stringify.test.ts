@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'vitest';
 import { stringify, StringifyOptions } from '../src/objects/index.js';
 
 describe('Objects.stringify() should', () => {
@@ -61,12 +62,12 @@ describe('Objects.stringify() should', () => {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         it('print a long arrow function', () => expect(stringify((arg1: number, arg2: string) => 5)).toBe('(arg1, arg2) => 5'));
         it('print a non-arrow function',
-            () => expect(stringify(function() { return 5; })).toBe('function () { return 5; }'));
+            () => expect(stringify(function() { return 5; })).toBe('function() { ... }'));
         it('print a long non-arrow function',
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            () => expect(stringify(function(var1: object, var2: undefined) { return 5; })).toBe('function (var1, var2) { return 5; }'));
+            () => expect(stringify(function(var1: object, var2: undefined) { return 5; })).toBe('function(var1, var2) { ... }'));
         it('print a named non-arrow function',
-            () => expect(stringify(function foo() { return 5; })).toBe('function foo() { return 5; }'));
+            () => expect(stringify(function foo() { return 5; })).toBe('function foo() { ... }'));
         it('truncate a multi-line function body', () => expect(stringify(() => {
             return 5;
         })).toBe('() => { ... }'));

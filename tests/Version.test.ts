@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'vitest';
 import CompareResult from '../src/numbers/CompareResult.js';
 import Version from '../src/numbers/Version.js';
 

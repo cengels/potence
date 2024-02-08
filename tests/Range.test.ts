@@ -1,4 +1,4 @@
-import each from 'jest-each';
+import { describe, expect, it } from 'vitest';
 import Range from '../src/numbers/Range.js';
 
 it('Range.invert() should invert range', () => {
@@ -121,7 +121,7 @@ describe('Range.getOffset() should', () => {
 });
 
 describe('Range.at() should return', () => {
-    each([
+    it.each([
         [-0.5, -5],
         [0, 5],
         [0.1, 7],
@@ -130,11 +130,11 @@ describe('Range.at() should return', () => {
         [0.75, 20],
         [1, 25],
         [1.2, 29],
-    ]).it('at(%d): %d', (value, expected) => expect(new Range(5, 25).at(value)).toBe(expected));
+    ])('at(%d): %d', (value, expected) => expect(new Range(5, 25).at(value)).toBe(expected));
 });
 
 describe('Range.relative() should return', () => {
-    each([
+    it.each([
         [-5, -0.5],
         [5, 0],
         [7, 0.1],
@@ -143,8 +143,8 @@ describe('Range.relative() should return', () => {
         [20, 0.75],
         [25, 1],
         [29, 1.2],
-    ]).it('relative(%d): %d', (value, expected) => expect(new Range(5, 25).relative(value)).toBe(expected));
-    each([
+    ])('relative(%d): %d', (value, expected) => expect(new Range(5, 25).relative(value)).toBe(expected));
+    it.each([
         [-5, 1.5],
         [5, 1.0],
         [7, 0.9],
@@ -153,7 +153,7 @@ describe('Range.relative() should return', () => {
         [20, 0.25],
         [25, 0.0],
         [29, -0.2],
-    ]).it('inverted relative(%d): %d', (value, expected) => expect(new Range(25, 5).relative(value)).toBeCloseTo(expected));
+    ])('inverted relative(%d): %d', (value, expected) => expect(new Range(25, 5).relative(value)).toBeCloseTo(expected));
 });
 
 describe('Range.wrap() should', () => {

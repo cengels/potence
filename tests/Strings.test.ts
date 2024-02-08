@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'vitest';
 import * as Strings from '../src/strings/index.js';
 import { method } from './improved-syntax.js';
 

@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'vitest';
 import Version from '../src/numbers/Version.js';
 
 function components(version: Version): [number, number, number, string, string] {

@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'vitest';
 import * as Objects from '../src/objects/index.js';
 import { isEquatable, isIterable, isPrimitive } from '../src/objects/typechecking.js';
 import { Structure } from '../src/objects/index.js';

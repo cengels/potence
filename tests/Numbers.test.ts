@@ -1,4 +1,4 @@
-import each from 'jest-each';
+import { describe, expect, it } from 'vitest';
 import * as Numbers from '../src/numbers/index.js';
 
 describe('Numbers.configure() should', () => {
@@ -102,33 +102,33 @@ describe('Numbers.gcd() should return', () => {
     it('0 with no numbers passed', () => expect(Numbers.gcd()).toBe(0));
     it('0 with 1 number passed', () => expect(Numbers.gcd(5)).toBe(0));
     it('0 with a floating point number passed', () => expect(Numbers.gcd(3.2, 6.4)).toBe(0));
-    each([
+    it.each([
         [3, 6, 3],
         [7, 14, 7],
         [522, 322, 2],
         [1230, 1111, 1],
         [605, 363, 121]
-    ]).it('with positive integers %d, %d: %d', (a, b, expected) => expect(Numbers.gcd(a, b)).toBe(expected));
-    each([
+    ])('with positive integers %d, %d: %d', (a, b, expected) => expect(Numbers.gcd(a, b)).toBe(expected));
+    it.each([
         [505, 202, 303, 101]
-    ]).it('with positive integers %d, %d, %d: %d', (a, b, c, expected) => expect(Numbers.gcd(a, b, c)).toBe(expected));
+    ])('with positive integers %d, %d, %d: %d', (a, b, c, expected) => expect(Numbers.gcd(a, b, c)).toBe(expected));
 });
 
 describe('Numbers.lcm() should return', () => {
     it('0 with no numbers passed', () => expect(Numbers.lcm()).toBe(0));
     it('0 with 1 number passed', () => expect(Numbers.lcm(5)).toBe(0));
     it('0 with a floating point number passed', () => expect(Numbers.lcm(3.2, 6.4)).toBe(0));
-    each([
+    it.each([
         [3, 6, 6],
         [7, 14, 14],
         [16, 18, 144],
         [255, 599, 152745]
-    ]).it('with integers %d, %d: %d', (a, b, expected) => expect(Numbers.lcm(a, b)).toBe(expected));
-    each([
+    ])('with integers %d, %d: %d', (a, b, expected) => expect(Numbers.lcm(a, b)).toBe(expected));
+    it.each([
         [3, 4, 5, 60],
         [12, 52, 1212, 15756],
         [9, 99, 999, 10989]
-    ]).it('with integers %d, %d, %d: %d', (a, b, c, expected) => expect(Numbers.lcm(a, b, c)).toBe(expected));
+    ])('with integers %d, %d, %d: %d', (a, b, c, expected) => expect(Numbers.lcm(a, b, c)).toBe(expected));
 });
 
 describe('Numbers.median() should return', () => {
@@ -139,27 +139,27 @@ describe('Numbers.median() should return', () => {
 });
 
 describe('Numbers.sum() should return', () => {
-    each([
+    it.each([
         [[], 0],
         [[1], 1],
         [[55, 22], 77],
         [[623, 365452, 412, -5321], 361166]
-    ]).it('with integers %p: %d', (values, expected) => expect(Numbers.sum(...values)).toBe(expected));
+    ])('with integers %p: %d', (values, expected) => expect(Numbers.sum(...values)).toBe(expected));
 });
 
 describe('Numbers.mean() should return', () => {
-    each([
+    it.each([
         [[], 0],
         [[1], 1],
         [[55, 22], 38.5],
         [[623, 365452, 412, -5321], 90291.5]
-    ]).it('with integers %p: %d', (values, expected) => expect(Numbers.mean(...values)).toBeCloseTo(expected));
+    ])('with integers %p: %d', (values, expected) => expect(Numbers.mean(...values)).toBeCloseTo(expected));
 });
 
 describe('Numbers.roman() should', () => {
     it('throw an error if argument is 0', () => expect(() => Numbers.roman(0)).toThrowError());
     it('throw an error if argument is below 0', () => expect(() => Numbers.roman(-5)).toThrowError());
-    each([
+    it.each([
         [1000, 'M'],
         [500, 'D'],
         [100, 'C'],
@@ -167,8 +167,8 @@ describe('Numbers.roman() should', () => {
         [10, 'X'],
         [5, 'V'],
         [1, 'I']
-    ]).it('return the corresponding base numeral to %p: %s', (value, expected) => expect(Numbers.roman(value)).toBe(expected));
-    each([
+    ])('return the corresponding base numeral to %p: %s', (value, expected) => expect(Numbers.roman(value)).toBe(expected));
+    it.each([
         [2, 'II'],
         [4, 'IV'],
         [6, 'VI'],
@@ -184,28 +184,28 @@ describe('Numbers.roman() should', () => {
         [2021, 'MMXXI'],
         [2421, 'MMCDXXI'],
         [3999, 'MMMCMXCIX']
-    ]).it('return the corresponding incremental numeral to %p: %s', (value, expected) => expect(Numbers.roman(value)).toBe(expected));
+    ])('return the corresponding incremental numeral to %p: %s', (value, expected) => expect(Numbers.roman(value)).toBe(expected));
 });
 
 describe('Numbers.closest() should return', () => {
-    each([
+    it.each([
         [[5], 5],
         [[5, 1], 1],
         [[5, 8, 1], 8],
         [[10, -5, 15, 200], 15],
         [[8, 4, 12], 4]
-    ]).it('with integers %p: %d', (values: [number, ...number[]], expected) => expect(Numbers.closest(...values)).toBeCloseTo(expected));
+    ])('with integers %p: %d', (values: number[], expected) => expect(Numbers.closest(...values as [number, ...number[]])).toBeCloseTo(expected));
 });
 
 describe('Numbers.exponent() should return', () => {
-    each([
+    it.each([
         [2, 1, 2],
         [2, 2, 4],
         [-2, 2, 4],
         [5, 3, 125],
         [100, 2, 10000],
         [7.25, 4.1, 3368.106588751524]
-    ]).it('%d ^ n = %d where n is %d', (base, exponent, power) => expect(Numbers.exponent(base, power)).toBeCloseTo(exponent));
+    ])('%d ^ n = %d where n is %d', (base, exponent, power) => expect(Numbers.exponent(base, power)).toBeCloseTo(exponent));
     it('NaN if base or power are 0', () => expect(Numbers.exponent(0, 0)).toBeNaN());
     it('NaN if no viable exponent exists (base negative)', () => expect(Numbers.exponent(-2, 8)).toBeNaN());
     it('NaN if no viable exponent exists (power negative)', () => expect(Numbers.exponent(2, -8)).toBeNaN());

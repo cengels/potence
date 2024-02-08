@@ -1,4 +1,5 @@
 import * as Assert from '../src/assert/index.js';
+import { describe, it, expect, beforeAll, afterAll } from 'vitest';
 
 describe('Assert.that() should', () => {
     describe('in general', () => {

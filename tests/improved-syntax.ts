@@ -1,3 +1,5 @@
+import { describe, expect, it } from 'vitest';
+
 type OnFunction<TArgs extends unknown[]> = (...args: TArgs) => void;
 type ReturnsFunction<T, TArgs extends unknown[]> = (value: T, onFunc: (on: OnFunction<TArgs>) => void) => void;
 
