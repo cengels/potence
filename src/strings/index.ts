@@ -184,7 +184,9 @@ export function uncapitalize(string: string): string {
 
 /**
  * Returns the first {@link count} characters in the string.
+ *
  * If {@link string} is shorter than {@link count}, returns the entire string.
+ *
  * If {@link count} is negative, takes from the end of the string instead.
  */
 export function take(string: string, count: number): string {
@@ -193,7 +195,9 @@ export function take(string: string, count: number): string {
 
 /**
  * Returns the last {@link count} characters in the string.
+ *
  * If {@link string} is shorter than {@link count}, returns the entire string.
+ *
  * If {@link count} is negative, takes from the start of the string instead.
  */
 export function takeLast(string: string, count: number): string {
@@ -202,7 +206,9 @@ export function takeLast(string: string, count: number): string {
 
 /**
  * Skips the first {@link count} characters in the string and returns the rest.
+ *
  * If {@link string} is shorter than {@link count}, returns an empty string.
+ *
  * If {@link count} is negative, skips from the end of the string instead.
  */
 export function skip(string: string, count: number): string {
@@ -211,7 +217,9 @@ export function skip(string: string, count: number): string {
 
 /**
  * Skips the last {@link count} characters in the string and returns the rest.
+ *
  * If {@link string} is shorter than {@link count}, returns an empty string.
+ *
  * If {@link count} is negative, skips from the start of the string instead.
  */
 export function skipLast(string: string, count: number): string {
@@ -220,6 +228,7 @@ export function skipLast(string: string, count: number): string {
 
 /**
  * Returns all characters in the string before the first occurrence of {@link substring}.
+ *
  * If {@link substring} is not part of the string, returns the entire string.
  */
 export function takeUntil(string: string, substring: string): string {
@@ -235,6 +244,7 @@ export function takeUntil(string: string, substring: string): string {
 /**
  * Returns all characters in the string before the first occurrence of {@link substring},
  * including {@link substring} itself.
+ *
  * If {@link substring} is not part of the string, returns the entire string.
  */
 export function takeUntilAfter(string: string, substring: string): string {
@@ -249,6 +259,7 @@ export function takeUntilAfter(string: string, substring: string): string {
 
 /**
  * Returns all characters in the string before the last occurrence of {@link substring}.
+ *
  * If {@link substring} is not part of the string, returns the entire string.
  */
 export function takeUntilLast(string: string, substring: string): string {
@@ -264,6 +275,7 @@ export function takeUntilLast(string: string, substring: string): string {
 /**
  * Returns all characters in the string before the last occurrence of {@link substring},
  * including {@link substring} itself.
+ *
  * If {@link substring} is not part of the string, returns the entire string.
  */
 export function takeUntilAfterLast(string: string, substring: string): string {
@@ -279,6 +291,7 @@ export function takeUntilAfterLast(string: string, substring: string): string {
 /**
  * Returns all characters in the string after the first occurrence of {@link substring},
  * including {@link substring} itself.
+ *
  * If {@link substring} is not part of the string, returns an empty string.
  */
 export function skipUntil(string: string, substring: string): string {
@@ -293,6 +306,7 @@ export function skipUntil(string: string, substring: string): string {
 
 /**
  * Returns all characters in the string after the first occurrence of {@link substring}.
+ *
  * If {@link substring} is not part of the string, returns an empty string.
  */
 export function skipUntilAfter(string: string, substring: string): string {
@@ -308,9 +322,10 @@ export function skipUntilAfter(string: string, substring: string): string {
 /**
  * Returns all characters in the string after the last occurrence of {@link substring},
  * including {@link substring} itself.
+ *
  * If {@link substring} is not part of the string, returns an empty string.
  */
- export function skipUntilLast(string: string, substring: string): string {
+export function skipUntilLast(string: string, substring: string): string {
     const index = string.lastIndexOf(substring);
 
     if (index === -1) {
@@ -322,9 +337,10 @@ export function skipUntilAfter(string: string, substring: string): string {
 
 /**
  * Returns all characters in the string after the last occurrence of {@link substring}.
+ *
  * If {@link substring} is not part of the string, returns an empty string.
  */
- export function skipUntilAfterLast(string: string, substring: string): string {
+export function skipUntilAfterLast(string: string, substring: string): string {
     const index = string.lastIndexOf(substring);
 
     if (index === -1) {
