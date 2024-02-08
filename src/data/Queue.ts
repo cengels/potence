@@ -1,4 +1,4 @@
-import { previousIndex } from '../arrays';
+import { nextIndex, previousIndex } from '../arrays';
 
 const Empty = Symbol('empty-queue-element');
 const QUEUE_BUFFER_SIZE = 24 as const;
@@ -12,7 +12,8 @@ const QUEUE_BUFFER_SIZE = 24 as const;
  * ## Internals and performance
  * 
  * This type is implemented using a
- * [circular buffer](https://en.wikipedia.org/wiki/Circular_buffer).
+ * [circular buffer](https://en.wikipedia.org/wiki/Circular_buffer)
+ * backed by an array.
  * This makes the performance on most operations O(1). The only exception
  * is when a new element is to be added while the internal buffer is already
  * at capacity, in which case the buffer must first be resized.
@@ -21,7 +22,7 @@ const QUEUE_BUFFER_SIZE = 24 as const;
  * {@link Queue.withCapacity}() to construct a Queue with a specified base
  * capacity, eliminating the need for resizing.
  */
-export default class Queue<T> {
+export default class Queue<T> implements Iterable<T> {
     private readonly array: (T | typeof Empty)[];
     private start: number = 0;
     private end: number;
@@ -52,6 +53,12 @@ export default class Queue<T> {
         this.end = elements.length - 1;
 
         this.#expand();
+    }
+
+    *[Symbol.iterator](): Iterator<T> {
+        for (let i: number = this.start; i < this.end; i = nextIndex(this.array, i)) {
+            yield this.array[i] as T;
+        }
     }
 
     /** 
@@ -128,6 +135,11 @@ export default class Queue<T> {
     /** Returns `true` if the Queue is empty, otherwise `false`. */
     public isEmpty(): boolean {
         return this.start === this.end;
+    }
+
+    /** Returns an array representation of this Queue. */
+    public toJSON(): T[] {
+        return [...this];
     }
 
     /** 

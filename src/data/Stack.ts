@@ -1,9 +1,12 @@
 /**
- * An implementation of a stack in JavaScript using an array.
- * A stack is last-in-first-out (LIFO), so you can only ever add or remove
- * elements from the top of the stack (the "last" element).
+ * Represents a classic stack-based type. A stack is last-in-first-out (LIFO),
+ * so you can only ever add or remove elements from the top of the stack
+ * (the most recently added element).
+ *
+ * To ensure the stack uses contiguous memory, this data type uses an
+ * array internally.
  */
-export default class Stack<T> {
+export default class Stack<T> implements Iterable<T> {
     private readonly array: T[];
 
     /** 
@@ -15,6 +18,10 @@ export default class Stack<T> {
      */
     public constructor(...elements: T[]) {
         this.array = elements;
+    }
+
+    [Symbol.iterator](): Iterator<T> {
+        return this.array[Symbol.iterator]();
     }
 
     /**
@@ -55,5 +62,10 @@ export default class Stack<T> {
     /** Returns true if the Stack is empty. */
     public isEmpty(): boolean {
         return this.array.length === 0;
+    }
+
+    /** Returns an array representation of this Stack. */
+    public toJSON(): T[] {
+        return [...this];
     }
 }
