@@ -36,5 +36,3 @@ export function add(a: Date, b: Duration): Date {
 export function sub(a: Date, b: Duration): Date {
     return new Date(a.getTime() - b.totalMilliseconds());
 }
-
-export { Duration };
