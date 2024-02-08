@@ -4,12 +4,14 @@ helpcommand="checklist [-v] [-t] [-l] [-c] [-r] [-d]
 
 Prompts the user to confirm that all the following steps are done before committing to a new release:
 
-  1. Bumped version number? (-v)
-  2. Ran linter? (-l)
-  3. Tested and uploaded new code coverage? (-c)
-  4. Updated release notes? (-r)
-  5. Added documentation? (-d)
-  6. Added a new tag for the release commit? (-t)
+  1. Bumped version number in package.json? (-v)
+  2. Bumped version number in docs/_config.yml? (-v)
+  3. Added the version under versions.yml? (-v)
+  4. Ran linter? (-l)
+  5. Tested and uploaded new code coverage? (-c)
+  6. Updated release notes? (-r)
+  7. Added documentation? (-d)
+  8. Added a new tag for the release commit? (-t)
 
 If no arguments are specified, goes through all checks. Otherwise only goes through the specified checks.
 "
@@ -63,7 +65,15 @@ function ask {
 }
 
 if [[ $version = true ]]; then
-    ask "Did you bump the version number?"
+    ask "Did you bump the version number in package.json?"
+fi
+
+if [[ $version = true ]]; then
+    ask "Did you bump the version number in docs/_config.yml?"
+fi
+
+if [[ $version = true ]]; then
+    ask "Did you add the version under versions.yml?"
 fi
 
 if [[ $linter = true ]]; then
